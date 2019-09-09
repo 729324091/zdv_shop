@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.OtProductobjvalueMapper">
+
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ot_productobjvalue(uobjvalueid, uobjvalue, uobjnameid) values
+		<foreach collection="list" item="item" separator=",">
+			(#{uobjvalueid}, #{uobjvalue}, #{uobjnameid})
+		</foreach>
+	</insert>
+	
+	<select id="selectPage" resultType="map">
+		select n.uobjnameid, n.uobjname, v.uobjvalue, concat(v.uobjvalueid, '') 'uobjvalueid' from ot_productobjname n
+		inner join ot_productobjvalue v on n.uobjnameid = v.uobjnameid
+		<where>
+			<if test="uobjnameid != null and '' != uobjnameid">n.uobjnameid = #{uobjnameid}</if>
+			<if test="uobjvalue != null and '' != uobjvalue">and v.uobjvalue like concat('%', #{uobjvalue}, '%')</if>
+		</where>
+	</select>
+</mapper>

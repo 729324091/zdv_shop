@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.CtCompMapper">
+<resultMap id="BaseResultMap" type="com.zdv.shop.model.CtComp">
+    <id column="ucompid" jdbcType="VARCHAR" property="ucompid" />
+    <result column="ucompno" jdbcType="VARCHAR" property="ucompno" />
+    <result column="ushortname" jdbcType="VARCHAR" property="ushortname" />
+    <result column="ucompname" jdbcType="VARCHAR" property="ucompname" />
+    <result column="utype" jdbcType="BIGINT" property="utype" />
+    <result column="uaddress" jdbcType="VARCHAR" property="uaddress" />
+    <result column="ucontact" jdbcType="VARCHAR" property="ucontact" />
+    <result column="ucustomerid" jdbcType="VARCHAR" property="ucustomerid" />
+    <result column="umobile" jdbcType="VARCHAR" property="umobile" />
+    <result column="uemail" jdbcType="VARCHAR" property="uemail" />
+    <result column="upostcode" jdbcType="VARCHAR" property="upostcode" />
+    <result column="uremark" jdbcType="VARCHAR" property="uremark" />
+    <result column="Ucreatedate" jdbcType="BIGINT" property="ucreatedate" />
+  </resultMap>
+	<select id="queryCompanyByDistributorid" resultType="map">
+		select c.ucompid, c.ucompname, c.utype, c.ulogo,c.ucustomerid, c.ucontact, c.utel, c.ucreatedate, count(1) 'quantityIn'
+		from dt_distributor_to_comp dtc, ct_comp c
+		left join ot_comp_qrcode ocq on c.ucompid = ocq.ucompid
+		where dtc.ucompid = c.ucompid and dtc.udistributorid = #{distributorid}
+		<if test="keywords != null and '' != keywords">
+			and (
+				c.ucompname like concat('%', #{keywords}, '%')
+				or c.ucontact like concat('%', #{keywords}, '%')
+			)
+		</if>
+		<if test="areaid != null">and c.uareaid = #{areaid}</if>
+		group by c.ucompid
+	</select>
+	
+	<select id="queryPossessAreaByDistributorid" resultType="com.zdv.shop.model.PtArea">
+		select a.uareaid, a.uareaname from dt_distributor_to_comp dtc, ct_comp c, pt_area a 
+		where dtc.udistributorid = #{distributorid}
+		and dtc.ucompid = c.ucompid
+		and a.uareaid = c.uareaid
+		group by a.uareaid
+	</select>
+	<sql id="Base_Column_List">
+    c.ucompid,
+    c.ucompname,
+    c.utype,
+    c.ulogo,
+    c.uaddress,
+    c.ucustomerid,
+    c.uareaid,
+    c.ulatitude,
+    c.ulongitude,
+    c.ucontact,
+    c.utel,
+    c.uparentid,
+    c.udesc,
+    c.ucreatedate
+  </sql>
+
+
+  <sql id="companylist">
+    c.ucompid,
+    c.ucompname,
+    c.utype,
+    c.ulogo,
+    c.uaddress,
+    c.ucustomerid,
+    c.uareaid,
+    c.ulatitude,
+    c.ulongitude,
+    c.ucontact,
+    c.utel,
+    c.uparentid,
+    c.udesc,
+    FROM_UNIXTIME(LEFT(c.ucreatedate,10),'%Y-%m-%d %H:%i:%S') ucreatedate
+  </sql>
+  <select id="queryCompanyById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <include refid="Base_Column_List" ></include>
+    from ct_comp c
+    where c.ucompid = #{ucompid}
+  </select>
+  
+  <select id="queryCtComps" resultMap="BaseResultMap">
+		select
+		ucompid,ucompname,utype,ulogo,uaddress,uareaid,ucustomerid,ulatitude,ulongitude,ucontact,utel,uparentid,udesc,FROM_UNIXTIME(LEFT(ucreatedate,10),'%Y-%m-%d %H:%i:%S') ucreatedate
+		from ct_comp
+		 <where>
+             <if test="clcompany.ucompid != null and ''!= clcompany.ucompid">
+                 AND   ucompid=#{clcompany.ucompid}
+             </if>
+             <if test="clcompany.ucompname != null and ''!= clcompany.ucompname">
+                 AND  ucompname=#{clcompany.ucompname}
+             </if>
+             <if test="clcompany.utype != null and ''!= clcompany.utype">
+                 AND  utype=#{clcompany.utype}
+             </if>
+             <if test="clcompany.ulogo != null and ''!= clcompany.ulogo">
+                 AND  ulogo=#{clcompany.ulogo}
+             </if>
+             <if test="clcompany.uaddress != null and ''!= clcompany.uaddress">
+                 AND  uaddress=#{clcompany.uaddress}
+             </if>
+             <if test="clcompany.uareaid != null and ''!= clcompany.uareaid">
+                 AND  uareaid=#{clcompany.uareaid}
+             </if>
+             <if test="clcompany.ulatitude != null and ''!= clcompany.ulatitude">
+                 AND   ulatitude=#{clcompany.ulatitude}
+             </if>
+             <if test="clcompany.ulongitude != null and ''!= clcompany.ulongitude">
+                 AND   ulongitude=#{clcompany.ulongitude}
+             </if>
+             <if test="clcompany.ucontact != null and ''!= clcompany.ucontact">
+                 AND   ucontact=#{clcompany.ucontact}
+             </if>
+             <if test="clcompany.utel != null and ''!= clcompany.utel">
+                 AND   utel=#{clcompany.utel}
+             </if>
+             <if test="clcompany.uparentid != null and ''!= clcompany.uparentid">
+                 AND   uparentid=#{clcompany.uparentid}
+             </if>
+             <if test="clcompany.udesc != null and ''!= clcompany.udesc">
+                 AND	udesc=#{clcompany.udesc}
+             </if>
+         </where>
+		 order by ucreatedate desc
+	</select>
+	
+	<select id="ContainuNameOradrs" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from ct_comp c
+		<where>
+			<if test="clcompany.ufullname !=null and clcompany.ufullname !='' and clcompany.uaddress !=null and clcompany.uaddress !=''">
+			ufullname = #{clcompany.ufullname} and uaddress = #{clcompany.uaddress}</if>
+		</where>
+	</select>
+  
+  
+  <!-- 按条件查询公共代码信息 -->
+  <select id="queryList" parameterType="com.zdv.shop.model.CtComp" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"></include>
+    FROM	ct_comp c
+    WHERE 1=1
+    <if test="ucompid != null and ''!= ucompid">
+      AND   c.ucompid=#{ucompid}
+    </if>
+    <if test="ucompno != null and ''!= ucompno">
+      AND  c.ucompno=#{ucompno}
+    </if>
+    <if test="ucompname != null and ''!= ucompname">
+      AND  c.ucompname=#{ucompname}
+    </if>
+    <if test="ufullname != null and ''!= ufullname">
+      AND  c.ufullname=#{ufullname}
+    </if>
+    <if test="utype != null and ''!= utype">
+      AND  c.utype=#{utype}
+    </if>
+    <if test="uaddress != null and ''!= uaddress">
+      AND  c.uaddress=#{uaddress}
+    </if>
+    <if test="ucontact != null and ''!= ucontact">
+      AND   c.ucontact=#{ucontact}
+    </if>
+    <if test="umobile != null and ''!= umobile">
+      AND   c.umobile=#{umobile}
+    </if>
+    <if test="uemail != null and ''!= uemail">
+      AND   c.uemail=#{uemail}
+    </if>
+    <if test="upostcode != null and ''!= upostcode">
+      AND   c.upostcode=#{upostcode}
+    </if>
+    <if test="udesc != null and ''!= udesc">
+      AND   c.udesc=#{udesc}
+    </if>
+    <if test="utel != null and ''!= utel">
+      AND	c.utel=#{utel}
+    </if>
+  </select>
+
+
+  <delete id="deleteByPrimaryKeys" parameterType="java.lang.Long">
+    delete from ct_comp
+    where ucompid = #{ucompid}
+  </delete>
+  
+  <insert id="insertSelectives" parameterType="com.zdv.shop.model.CtComp">
+    insert into ct_comp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ucompid != null">
+        ucompid,
+      </if>
+      <if test="ucompno != null">
+        ucompno,
+      </if>
+      <if test="ucompname != null">
+        ucompname,
+      </if>
+      <if test="ufullname != null">
+        ufullname,
+      </if>
+      <if test="utype != null">
+        utype,
+      </if>
+      <if test="ucustomerid != null">
+        ucustomerid,
+      </if>
+      <if test="uaddress != null">
+        uaddress,
+      </if>
+      <if test="ucontact != null">
+        ucontact,
+      </if>
+      <if test="umobile != null">
+        umobile,
+      </if>
+      <if test="uemail != null">
+        uemail,
+      </if>
+      <if test="upostcode != null">
+        upostcode,
+      </if>
+      <if test="uremark != null">
+        uremark,
+      </if>
+      <if test="ucreatedate != null">
+        Ucreatedate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ucompid != null">
+        #{ucompid},
+      </if>
+      <if test="ucompno != null">
+        #{ucompno},
+      </if>
+      <if test="ucompname != null">
+        #{ucompname},
+      </if>
+      <if test="ufullname != null">
+        #{ufullname},
+      </if>
+      <if test="utype != null">
+        #{utype},
+      </if>
+      <if test="ucustomerid != null">
+        #{ucustomerid},
+      </if>
+      <if test="uaddress != null">
+        #{uaddress},
+      </if>
+      <if test="ucontact != null">
+        #{ucontact},
+      </if>
+      <if test="umobile != null">
+        #{umobile},
+      </if>
+      <if test="uemail != null">
+        #{uemail},
+      </if>
+      <if test="upostcode != null">
+        #{upostcode},
+      </if>
+      <if test="uremark != null">
+        #{uremark},
+      </if>
+      <if test="ucreatedate != null">
+        #{ucreatedate},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateCompanyByIds" parameterType="com.zdv.shop.model.CtComp">
+    update ct_comp
+    <set>
+      <if test="ucompname != null and ''!=ucompname">
+        ucompname = #{ucompname},
+      </if>
+      <if test="utype != null and ''!=utype ">
+        utype = #{utype},
+      </if>
+      <if test="ulogo != null and ''!=ulogo">
+        ulogo = #{ulogo},
+      </if>
+      <if test="uaddress != null and ''!=uaddress">
+        uaddress = #{uaddress},
+      </if>
+      <if test="uareaid != null and '' != uareaid">
+        uareaid = #{uareaid},
+      </if>
+      <if test="ulatitude != null and ''!= ulatitude">
+        ulatitude = #{ulatitude},
+      </if>
+      <if test="ulongitude != null and '' != ulongitude">
+        ulongitude = #{ulongitude},
+      </if>
+      <if test="ucontact != null and '' != ucontact">
+        ucontact = #{ucontact},
+      </if>
+      <if test="utel != null and '' != utel">
+        utel = #{utel},
+      </if>
+      <if test="uparentid != null and '' != uparentid">
+        uparentid = #{uparentid},
+      </if>
+      <if test="udesc != null and '' != udesc">
+        udesc = #{udesc},
+      </if>
+    </set>
+    where ucompid = #{ucompid}
+  </update>
+
+  <select id="queryCompanyListByUopuserid" resultType="com.zdv.shop.model.CtComp">
+    select
+    <include refid="Base_Column_List"/>
+    from ct_comp c
+    LEFT join ct_opuser_to_comp utc on utc.ucompid = c.ucompid
+    where utc.uopuserid = #{uopuserid}
+  </select>
+
+
+  <select id="querypageByUTC" resultType="com.zdv.shop.model.CtComp">
+    select
+    <include refid="Base_Column_List"/>
+    from ct_comp c
+    LEFT join ct_opuser_to_comp utc on utc.ucompid = c.ucompid
+    where utc.uopuserid = #{uopuserid}
+  </select>
+
+
+
+  <select id="queryChildrenIdList" resultType="com.zdv.shop.model.CtComp" >
+		SELECT c.ucompid
+		from ct_comp c
+		where c.uparentid = #{ucompid}
+	</select>
+
+  <!--获得销售商及其子经销商的id字符串-->
+  <select id="getChildFromCompany" resultType="java.lang.String">
+		<![CDATA[
+			call getChildFromCompany(#{ucompid})
+			]]>
+	</select>
+  <select id="childrenList" resultType="com.zdv.shop.model.CtComp">
+    select
+    ucompid,ucompname,utype,ulogo,uaddress,uareaid,ulatitude,ulongitude,ucontact,utel,uparentid,udesc,FROM_UNIXTIME(LEFT(ucreatedate,10),'%Y-%m-%d %H:%i:%S') ucreatedate
+    from ct_comp
+    <where>
+      <if test="clcompany.ucompid != null and ''!= clcompany.ucompid">
+        AND  FIND_IN_SET(uparentid,#{clcompany.ucompid})
+      </if>
+      <if test="clcompany.ucompname != null and ''!= clcompany.ucompname">
+        AND  ucompname=#{clcompany.ucompname}
+      </if>
+      <if test="clcompany.utype != null and ''!= clcompany.utype">
+        AND  utype=#{clcompany.utype}
+      </if>
+      <if test="clcompany.ulogo != null and ''!= clcompany.ulogo">
+        AND  ulogo=#{clcompany.ulogo}
+      </if>
+      <if test="clcompany.uaddress != null and ''!= clcompany.uaddress">
+        AND  uaddress=#{clcompany.uaddress}
+      </if>
+      <if test="clcompany.uareaid != null and ''!= clcompany.uareaid">
+        AND  uareaid=#{clcompany.uareaid}
+      </if>
+      <if test="clcompany.ucustomerid != null and ''!= clcompany.ucustomerid">
+        AND  ucustomerid=#{clcompany.ucustomerid}
+      </if>
+      <if test="clcompany.ulatitude != null and ''!= clcompany.ulatitude">
+        AND   ulatitude=#{clcompany.ulatitude}
+      </if>
+      <if test="clcompany.ulongitude != null and ''!= clcompany.ulongitude">
+        AND   ulongitude=#{clcompany.ulongitude}
+      </if>
+      <if test="clcompany.ucontact != null and ''!= clcompany.ucontact">
+        AND   ucontact=#{clcompany.ucontact}
+      </if>
+      <if test="clcompany.utel != null and ''!= clcompany.utel">
+        AND   utel=#{clcompany.utel}
+      </if>
+      <if test="clcompany.uparentid != null and ''!= clcompany.uparentid">
+        AND   uparentid=#{clcompany.uparentid}
+      </if>
+      <if test="clcompany.udesc != null and ''!= clcompany.udesc">
+        AND	udesc=#{clcompany.udesc}
+      </if>
+    </where>
+    order by ucreatedate desc
+  </select>
+
+
+  <delete id="delAllById">
+		delete c from ct_comp c
+		left join op_opuser_m_comp omc on c.ucompid = omc.ucompid
+		left join DT_distributor_t_company dtc on c.ucompid = dtc.ucompid
+		left join dt_comp_role cr on c.ucompid = cr.ucompid
+		left join ct_opuser_to_comp utd on c.ucompid = utd.ucompid
+		where c.ucompid = #{ucompid}
+	</delete>
+
+  <select id="queryDistributor2CompList" resultType="com.zdv.shop.model.CtComp">
+    select
+    <include refid="companylist"/>
+      from ct_comp c
+    left join dt_distributor_to_comp dtc on dtc.ucompid = c.ucompid
+    <where>
+
+      <if test="clcompany.ucompname != null and ''!= clcompany.ucompname">
+        AND  c.ucompname=#{clcompany.ucompname}
+      </if>
+      <if test="clcompany.utype != null and ''!= clcompany.utype">
+        AND  c.utype=#{clcompany.utype}
+      </if>
+      <if test="clcompany.ulogo != null and ''!= clcompany.ulogo">
+        AND  c.ulogo=#{clcompany.ulogo}
+      </if>
+      <if test="clcompany.uaddress != null and ''!= clcompany.uaddress">
+        AND  c.uaddress=#{clcompany.uaddress}
+      </if>
+      <if test="clcompany.uareaid != null and ''!= clcompany.uareaid">
+        AND  c.uareaid=#{clcompany.uareaid}
+      </if>
+      <if test="clcompany.ulatitude != null and ''!= clcompany.ulatitude">
+        AND   c.ulatitude=#{clcompany.ulatitude}
+      </if>
+      <if test="clcompany.ulongitude != null and ''!= clcompany.ulongitude">
+        AND   c.ulongitude=#{clcompany.ulongitude}
+      </if>
+      <if test="clcompany.ucontact != null and ''!= clcompany.ucontact">
+        AND   c.ucontact=#{clcompany.ucontact}
+      </if>
+      <if test="clcompany.utel != null and ''!= clcompany.utel">
+        AND   c.utel=#{clcompany.utel}
+      </if>
+      <if test="clcompany.uparentid != null and ''!= clcompany.uparentid">
+        AND   c.uparentid=#{clcompany.uparentid}
+      </if>
+      <if test="ids != null and ''!=ids">
+        AND	FIND_IN_SET(dtc.udistributorid,#{ids})
+      </if>
+    </where>
+    order by ucreatedate desc
+  </select>
+
+  <select id="selectByUcompname" resultType="com.zdv.shop.model.CtComp">
+    select
+    <include refid="companylist"/>
+    from ct_comp c
+    where c.ucompname = #{ucompname}
+  </select>
+  <select id="getComp" resultType="com.zdv.shop.model.CtComp">
+  	select cc.ucompid,cc.ulogo, date_format(uudc.ucreatedate,'%Y-%m-%d
+        %H:%i:%s') as ucreatedate,cc.ucompname
+  	from ut_user_develop_comp uudc inner join ct_comp cc on uudc.ucompid = cc.ucompid
+  	where uudc.uuserid = #{uUserId}
+  </select>
+  <!-- 获得商户号 -->
+   <select id="getSysSN" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select GET_SN(#{flag})
+    </select>
+
+
+  <update id="updateBalanceByUcompid">
+    update ct_comp
+    set ubalance = #{ubalance} where ucompid = #{ucompid}
+  </update>
+</mapper>

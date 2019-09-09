@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="uTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.OtCompProductTypeMapper">
+
+    <sql id="selResult">
+		p1.uproducttypeid,p1.uname,p1.uparentid,p1.uhomepic
+	</sql>
+
+    <select id="selectFirstComProductTypeList" resultType="com.zdv.shop.model.OtProducttype">
+        select <include refid="selResult" />
+        from ot_comp_producttype p1
+        where p1.uparentid is null
+        <if test="ucustomerid != null and ''!=ucustomerid">
+            and p1.ucustomerid = #{ucustomerid}
+        </if>
+    </select>
+
+    <select id="selectChildComProductTypeList" resultType="com.zdv.shop.model.OtProducttype">
+        select <include refid="selResult" />
+        from ot_comp_producttype p1
+        where p1.uparentid = #{uproducttypeid}
+        <if test="ucustomerid != null and ''!=ucustomerid">
+            and p1.ucustomerid = #{ucustomerid}
+        </if>
+    </select>
+<!--
+    <select id="get_SN" parameterType="java.lang.Integer" resultType="java.lang.Integer" useCache="false"
+            statementType="CALLABLE">
+        <![CDATA[
+        call get_SN(#{flag,mode=IN,jdbcType=INTEGER});
+        ]]>
+    </select>-->
+</mapper>

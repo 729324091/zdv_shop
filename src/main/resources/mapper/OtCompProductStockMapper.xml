@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.OtCompProductStockMapper">
+
+	
+	
+	<select id="selectObjNameList" resultType="map">
+		select cpso.uproductstockid, cpso.uobjnameid, cpso.uobjname from ot_comp_product_stock cps 
+		inner join ot_comp_product_stock_objname cpso on cps.uproductstockid = cpso.uproductstockid
+		where cps.ucomproductid = #{ucomproductid}
+		group by cpso.uobjnameid 
+	</select>
+	<select id="selectProductStockByUcomproductid" resultType="map">
+		select cps.uproductstockid, cps.uprice,cps.umarketprice,cps.uvipprice
+		 	from ot_comp_product_stock cps
+		where cps.ucomproductid = #{ucomproductid}
+	</select>
+	
+	<select id="selectObjValList" resultType="map">
+		select uobjvalueid, uobjvalue from ot_comp_product_stock_objname where uproductstockid = #{uproductstockid} and uobjnameid = #{uobjnameid}
+	</select>
+
+
+	<select id="queryByObjnamevalue" resultType="map">
+		select cps.uproductstockid,cps.ustock,cps.ucostprice,cps.umarketprice,cps.uprice,cps.uvipprice,cps.usalesprice,cps.uproductpic
+		from ot_comp_product_stock cps
+		inner join ot_comp_product_stock_objname cpso on cps.uproductstockid = cpso.uproductstockid
+		where cps.ucomproductid = #{ucomproductid}
+		and cpso.uobjname = #{uobjname} and cpso.uobjvalue = #{uobjvalue}
+	</select>
+	<select id="queryByObjnamevalues" resultType="map">
+		select cps.uproductstockid,cps.ustock,cps.ucostprice,cps.umarketprice,cps.uprice,cps.uvipprice,cps.usalesprice,cps.uproductpic
+		from ot_comp_product_stock cps
+		inner join ot_comp_product_stock_objname cpso on cps.uproductstockid = cpso.uproductstockid
+		inner join ot_comp_product_stock_objname cpso1 on cpso.uproductstockid = cpso1.uproductstockid
+		where cps.ucomproductid = #{ucomproductid}
+		and cpso.uobjname = #{uobjname} and cpso.uobjvalue = #{uobjvalue}
+		and cpso1.uobjname = #{uobjname1} and cpso1.uobjvalue = #{uobjvalue1}
+
+	</select>
+	
+</mapper>

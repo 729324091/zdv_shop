@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.DtRoleOperationMapper">
+  <resultMap id="BaseResultMap" type="com.zdv.shop.model.DtRoleOperation">
+    <id column="Uroleid" jdbcType="BIGINT" property="uroleid" />
+    <id column="Uopid" jdbcType="BIGINT" property="uopid" />
+  </resultMap>
+
+
+  <insert id="batchInsert">
+    insert into DT_role_operation(uroleid, uopid) values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.uroleid}, #{item.uopid})
+    </foreach>
+  </insert>
+
+  <delete id="delRoleOpers">
+    delete from DT_role_operation where
+    <foreach collection="list" item="item" index="index" open="(" separator="or" close=")">
+      uroleid = #{item.uroleid} and uopid = #{item.uopid}
+    </foreach>
+  </delete>
+
+  <select id="queryOperations" resultMap="BaseResultMap">
+    select
+    uroleid, uopid
+    from DT_role_operation
+    where uroleid = #{uroleid}
+  </select>
+  <!--<delete id="deleteByPrimary" parameterType="com.zdv.shop.model.CtRoleOperation">
+    delete from ct_role_operation
+    where Uroleid = #{uroleid,jdbcType=BIGINT}
+      and Uopid = #{uopid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zdv.shop.model.CtRoleOperationKey">
+    insert into ct_role_operation (Uroleid, Uopid)
+    values (#{uroleid,jdbcType=BIGINT}, #{uopid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdv.shop.model.CtRoleOperationKey">
+    insert into ct_role_operation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uroleid != null">
+        Uroleid,
+      </if>
+      <if test="uopid != null">
+        Uopid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uroleid != null">
+        #{uroleid,jdbcType=BIGINT},
+      </if>
+      <if test="uopid != null">
+        #{uopid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>-->
+</mapper>

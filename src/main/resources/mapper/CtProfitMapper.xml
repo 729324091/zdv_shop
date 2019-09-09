@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.CtProfitMapper">
+	<resultMap id="BaseResultMap" type="com.zdv.shop.model.CtProfit">
+		<id column="uprofitid" jdbcType="VARCHAR" property="uprofitid" />
+		<result column="ucompid" jdbcType="VARCHAR" property="ucompid" />
+		<result column="ucustomerid" jdbcType="VARCHAR" property="ucustomerid" />
+		<result column="ureferee" jdbcType="DOUBLE" property="ureferee" />
+		<result column="uplatform" jdbcType="DOUBLE" property="uplatform" />
+		<result column="umerchant" jdbcType="DOUBLE" property="umerchant" />
+		<result column="uarea" jdbcType="DOUBLE" property="uarea" />
+		<result column="ushopkeeper" jdbcType="DOUBLE" property="ushopkeeper" />
+		<result column="ubranch" jdbcType="DOUBLE" property="ubranch" />
+		<result column="uservicefee" jdbcType="DOUBLE" property="uservicefee" />
+		<result column="uvip" jdbcType="DOUBLE" property="uvip" />
+		<result column="uintegral" jdbcType="INTEGER" property="uintegral" />
+		<result column="useable" property="useable" />
+		<result column="ucreatdate" jdbcType="BIGINT" property="ucreatdate" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		uprofitid, ucompid, ucustomerid, ureferee, uplatform,
+		umerchant, uarea,uintegral,
+		ushopkeeper, ubranch, uvip,useable,ucashpool,uproducts,uservicefee,ureturncash,uinmerchant,ucreatdate
+	</sql>
+	<select id="queryAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from ct_profit
+	</select>
+	<select id="queryByCtProfit" parameterType="com.zdv.shop.model.CtProfit"
+			resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from ct_profit
+		<where>
+			<if test="uprofitid != null and uprofitid !=''">
+				and uprofitid=#{uprofitid}
+			</if>
+			<if test="ucompid != null and ucompid !=''">
+				and ucompid=#{ucompid}
+			</if>
+			<if test="ucustomerid != null and ucustomerid !=''">
+				and ucustomerid=#{ucustomerid}
+			</if>
+			<if test="ureferee != null and ureferee !=''">
+				and ureferee=#{ureferee}
+			</if>
+			<if test="uplatform != null and uplatform !=''">
+				and uplatform=#{uplatform}
+			</if>
+			<if test="umerchant != null and umerchant !=''">
+				and umerchant=#{umerchant}
+			</if>
+			<if test="uarea != null and uarea !=''">
+				and uarea=#{uarea}
+			</if>
+			<if test="ushopkeeper != null and ushopkeeper !=''">
+				and ushopkeeper=#{ushopkeeper}
+			</if>
+			<if test="ubranch != null and ubranch !=''">
+				and ubranch=#{ubranch}
+			</if>
+			<if test="uvip != null and uvip !='' ">
+				and uvip=#{uvip}
+			</if>
+			<if test="ucreatdate != null and ucreatdate !=''">
+				and ucreatdate=#{ucreatdate}
+			</if>
+		</where>
+	</select>
+	<select id="queryProfitByCompId" resultType="com.zdv.shop.model.CtProfit">
+		select
+		<include refid="Base_Column_List" />
+		from ct_profit
+		<where>
+			<if test="ucompid != null and ucompid !=''">
+				and ucompid=#{ucompid}
+			</if>
+			<if test="ucustomerid != null and ucustomerid !=''">
+				and ucustomerid=#{ucustomerid}
+			</if>
+		</where>
+	</select>
+	<insert id="inserts" parameterType="com.zdv.shop.model.CtProfit">
+		insert into ct_profit
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uprofitid != null and uprofitid !=''">
+				uprofitid,
+			</if>
+			<if test="ucompid != null and ucompid !=''">
+				ucompid,
+			</if>
+			<if test="ucustomerid != null and ucustomerid !=''">
+				ucustomerid,
+			</if>
+			<if test="ureferee != null and ureferee !=''">
+				ureferee,
+			</if>
+			<if test="uplatform != null and uplatform !=''">
+				uplatform,
+			</if>
+			<if test="umerchant != null and umerchant !=''">
+				umerchant,
+			</if>
+			<if test="uarea != null and uarea !=''">
+				uarea,
+			</if>
+			<if test="ushopkeeper != null and ushopkeeper !=''">
+				ushopkeeper,
+			</if>
+			<if test="ubranch != null and ubranch !=''">
+				ubranch,
+			</if>
+			<if test="uvip != null and uvip !='' ">
+				uvip,
+			</if>
+			<if test="uproducts != null and uproducts !='' ">
+				uproducts,
+			</if>
+			<if test="ureturncash != null and ureturncash !='' ">
+				ureturncash,
+			</if>
+			<if test="uinmerchant != null and uinmerchant !='' ">
+				uinmerchant,
+			</if>
+			<if test="ucreatdate != null and ucreatdate !=''">
+				ucreatdate,
+			</if>
+			useable,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uprofitid != null and uprofitid !=''">
+				#{uprofitid},
+			</if>
+			<if test="ucompid != null and ucompid !=''">
+				#{ucompid},
+			</if>
+			<if test="ucustomerid != null and ucustomerid !=''">
+				#{ucustomerid},
+			</if>
+			<if test="ureferee != null and ureferee !=''">
+				#{ureferee},
+			</if>
+			<if test="uplatform != null and uplatform !=''">
+				#{uplatform},
+			</if>
+			<if test="umerchant != null and umerchant !=''">
+				#{umerchant},
+			</if>
+			<if test="uarea != null and uarea !=''">
+				#{uarea},
+			</if>
+			<if test="ushopkeeper != null and ushopkeeper !=''">
+				#{ushopkeeper},
+			</if>
+			<if test="ubranch != null and ubranch !=''">
+				#{ubranch},
+			</if>
+			<if test="uvip != null and uvip !=''">
+				#{uvip},
+			</if>
+			<if test="uproducts != null and uproducts !='' ">
+				#{uproducts},
+			</if>
+			<if test="ureturncash != null and ureturncash !='' ">
+				#{ureturncash},
+			</if>
+			<if test="uinmerchant != null and uinmerchant !='' ">
+				#{uinmerchant},
+			</if>
+			<if test="ucreatdate != null and ucreatdate !=''">
+				#{ucreatdate},
+			</if>
+			1,
+		</trim>
+	</insert>
+
+	<update id="updateByCustomer" parameterType="com.zdv.shop.model.CtProfit">
+		update ct_profit
+		<set>
+			<if test="ureferee != null and ureferee !=''">
+				ureferee = #{ureferee},
+			</if>
+			<if test="uplatform != null and uplatform !=''">
+				uplatform = #{uplatform},
+			</if>
+			<if test="umerchant != null and umerchant !=''">
+				umerchant = #{umerchant},
+			</if>
+			<if test="uarea != null and uarea !=''">
+				uarea = #{uarea},
+			</if>
+			<if test="useable != null and useable !=''">
+				useable = #{useable},
+			</if>
+			<if test="ushopkeeper != null and ushopkeeper !=''">
+				ushopkeeper = #{ushopkeeper},
+			</if>
+			<if test="ubranch != null and ubranch !=''">
+				ubranch = #{ubranch},
+			</if>
+			<if test="uvip != null and uvip !=''">
+				uvip = #{uvip},
+			</if>
+			<if test="uproducts != null and uproducts !='' ">
+				uproducts=#{uproducts},
+			</if>
+			<if test="ureturncash != null and ureturncash !='' ">
+				ureturncash=#{ureturncash},
+			</if>
+			<if test="uinmerchant != null and uinmerchant !='' ">
+				uinmerchant=#{uinmerchant},
+			</if>
+			<if test="ucreatdate != null and ucreatdate !=''">
+				ucreatdate = #{ucreatdate},
+			</if>
+		</set>
+		<where>
+			<if test="ucompid != null and ucompid !=''">
+				and ucompid = #{ucompid}
+			</if>
+			<if test="ucustomerid != null and ucustomerid !=''">
+				and ucustomerid = #{ucustomerid}
+			</if>
+		</where>
+	</update>
+	<delete id="deleteByCustomer" parameterType="com.zdv.shop.model.CtProfit">
+		delete from ct_profit
+		<where>
+			<if test="ucompid != null and ucompid !=''">
+				and ucompid = #{ucompid},
+			</if>
+			<if test="ucustomerid != null and ucustomerid !=''">
+				and ucustomerid = #{ucustomerid},
+			</if>
+		</where>
+	</delete>
+</mapper>

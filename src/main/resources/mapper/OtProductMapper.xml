@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.OtProductMapper">
+
+	<sql id="allColumns">
+		p.uproductid, p.uproducttypeid, p.uproductname, p.usource, p.uopuserid, p.uqrcode, p.umainqrcode, p.uunit, p.uprice, p.uareaid, p.uareaname, p.ufactoryname, p.uhomepic, p.uflag, p.udesc, p.ubrowsepoint, p.ucreatedate, p.udistributorid
+	</sql>
+
+	<select id="selectList" parameterType="com.zdv.shop.model.OtProduct" resultType="com.zdv.shop.model.OtProduct">
+		select <include refid="allColumns" />, d.udname from ot_product p
+		inner join dt_distributor d on p.udistributorid = d.udistributorid
+		<where>
+			<if test="uproducttypeid != null and '' != uproducttypeid">p.uproducttypeid = #{uproducttypeid}</if>
+			<if test="uproductname != null and '' != uproductname">and p.uproductname like concat('%', #{uproductname},'%')</if>
+		</where>
+	</select>
+	<select id="queryProductList" resultType="map">
+		select <include refid="allColumns" />
+		from ot_product p
+		where uproducttypeid = #{uproducttypeid}
+
+	</select>
+
+</mapper>

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="uTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.OaBulletinMapper">
+		
+		
+		<resultMap id="BaseResultMap" type="com.zdv.shop.model.OaBulletin">
+				<id column="ublid" jdbcType="BIGINT" property="ublid" /> 
+				<result column="ubltype" jdbcType="VARCHAR" property="ubltype"/>
+				<result column="ucorpid" jdbcType="VARCHAR" property="ucorpid"/>
+				<result column="udeptno" jdbcType="VARCHAR" property="udeptno"/>  
+				<result column="usender" jdbcType="VARCHAR" property="usender"/>  
+				<result column="usddatetime" jdbcType="DATE" property="usddatetime"/>
+				<result column="ucorpids" jdbcType="VARCHAR" property="ucorpids"/>
+				<result column="ucorpnames" jdbcType="VARCHAR" property="ucorpnames"/>
+				<result column="udeptnos" jdbcType="VARCHAR" property="udeptnos"/>
+				<result column="udeptnames" jdbcType="VARCHAR" property="udeptnames"/>
+				<result column="uroleids" jdbcType="VARCHAR" property="uroleids"/>
+				<result column="urolenames" jdbcType="VARCHAR" property="urolenames"/>
+				<result column="ustaffids" jdbcType="VARCHAR" property="ustaffids"/>
+				<result column="ustaffnames" jdbcType="VARCHAR" property="ustaffnames"/>  
+				<result column="utitle" jdbcType="VARCHAR" property="utitle"/>  
+				<result column="udatestart" jdbcType="DATE" property="udatestart"/>
+				<result column="udateend" jdbcType="DATE" property="udateend"/>
+				<result column="uattachname" jdbcType="VARCHAR" property="uattachname"/>
+				<result column="uattachpath" jdbcType="VARCHAR" property="uattachpath"/>
+				<result column="usms" jdbcType="BIT" property="usms"/>
+				<result column="utopflag" jdbcType="BIT" property="utopflag"/>
+				<result column="ucontent" jdbcType="VARCHAR" property="ucontent"/>
+				<result column="uflid" jdbcType="VARCHAR" property="uflid"/>
+				<result column="umtstate" jdbcType="VARCHAR" property="umtstate"/>  
+				<result column="ustepname" jdbcType="VARCHAR" property="ustepname"/>  
+				<result column="ueflag" jdbcType="VARCHAR" property="ueflag"/>
+		</resultMap>	
+
+		<sql id="columns">
+			a.ublid,
+			a.ubltype,
+			a.ucorpid,
+			a.udeptno,
+			a.usender,
+			a.usddatetime,
+			a.ucorpids,
+			a.ucorpnames,
+			a.udeptnos,
+			a.udeptnames,
+			a.uroleids,
+			a.urolenames,
+			a.ustaffids,
+			a.ustaffnames,
+			a.utitle,
+			a.udatestart,
+			a.udateend,
+			a.uattachname,
+			a.uattachpath,
+			a.usms,
+			a.utopflag,
+			a.ucontent,
+			a.uflid,
+			a.umtstate,
+			a.ustepname,
+			a.ueflag
+		</sql>
+
+		<!-- 按条件查询流程处理信息 -->
+	     <select id="queryList" parameterType="com.zdv.shop.model.OaBulletin" resultMap="BaseResultMap">
+	      	     SELECT 
+	      	     		<include refid="columns"></include>
+	      	     FROM	OA_Bulletin a
+	      	     WHERE 1=1      	    
+	  	     		 <if test="ublid != null and ''!= ublid">
+	  	     		     AND   a.ublid=#{ublid}
+	  	     		 </if>
+	  	     		 <if test="ubltype != null and ''!= ubltype">
+	  	     		     AND  a.ubltype=#{ubltype}
+	  	     		 </if>
+	  	     		  <if test="ucorpid != null and ''!= ucorpid">
+	  	     		     AND   a.ucorpid=#{ucorpid}
+	  	     		 </if>
+	  	     		 <if test="udeptno != null and ''!= udeptno">
+	  	     		     AND  a.udeptno=#{udeptno}
+	  	     		 </if>
+	  	     		  <if test="usender != null and ''!= usender">
+	  	     		     AND   a.usender=#{usender}
+	  	     		 </if>
+	  	     		 <if test="usddatetime != null and ''!= usddatetime">
+	  	     		     AND  a.usddatetime=#{usddatetime}
+	  	     		 </if>
+	  	     		  <if test="ucorpids != null and ''!= ucorpids">
+	  	     		     AND   a.ucorpids=#{ucorpids}
+	  	     		 </if>
+	  	     		  <if test="ucorpnames != null and ''!= ucorpnames">
+	  	     		     AND   a.ucorpnames=#{ucorpnames}
+	  	     		 </if>
+	  	     		 <if test="udeptnos != null and ''!= udeptnos">
+	  	     		     AND   a.udeptnos=#{udeptnos}
+	  	     		 </if>
+	  	     		 <if test="udeptnames != null and ''!= udeptnames">
+	  	     		     AND   a.udeptnames=#{udeptnames}
+	  	     		 </if>
+	  	     		 <if test="uroleids != null and ''!= uroleids">
+	  	     		     AND   a.uroleids=#{uroleids}
+	  	     		 </if>
+	  	     		  <if test="urolenames != null and ''!= urolenames">
+	  	     		     AND   a.urolenames=#{urolenames}
+	  	     		 </if>
+	  	     		 <if test="ustaffids != null and ''!= ustaffids">
+	  	     		     AND  a.ustaffids=#{ustaffids}
+	  	     		 </if>
+	  	     		  <if test="ustaffnames != null and ''!= ustaffnames">
+	  	     		     AND   a.ustaffnames=#{ustaffnames}
+	  	     		 </if>
+	  	     		 <if test="utitle != null and ''!= utitle">
+	  	     		     AND  a.utitle=#{utitle}
+	  	     		 </if>
+	  	     		  <if test="udatestart != null and ''!= udatestart">
+	  	     		     AND   a.udatestart=#{udatestart}
+	  	     		 </if>
+	  	     		 <if test="udateend != null and ''!= udateend">
+	  	     		     AND  a.udateend=#{udateend}
+	  	     		 </if>
+	  	     		  <if test="uattachname != null and ''!= uattachname">
+	  	     		     AND   a.uattachname=#{uattachname}
+	  	     		 </if>
+	  	     		  <if test="uattachpath != null and ''!= uattachpath">
+	  	     		     AND   a.uattachpath=#{uattachpath}
+	  	     		 </if>
+	  	     		 <if test="usms != null and ''!= usms">
+	  	     		     AND   a.usms=#{usms}
+	  	     		 </if>
+	  	     		 <if test="utopflag != null and ''!= utopflag">
+	  	     		     AND   a.utopflag=#{utopflag}
+	  	     		 </if>
+	  	     		 <if test="ucontent != null and ''!= ucontent">
+	  	     		     AND   a.ucontent=#{ucontent}
+	  	     		 </if>
+	  	     		  <if test="uflid != null and ''!= uflid">
+	  	     		     AND   a.uflid=#{uflid}
+	  	     		 </if>
+	  	     		 <if test="umtstate != null and ''!= umtstate">
+	  	     		     AND  a.umtstate=#{umtstate}
+	  	     		 </if>
+	  	     		  <if test="ustepname != null and ''!= ustepname">
+	  	     		     AND   a.ustepname=#{ustepname}
+	  	     		 </if>
+	  	     		 <if test="ueflag != null and ''!= ueflag">
+	  	     		     AND  a.ueflag=#{ueflag}
+	  	     		 </if>
+	     </select>
+		
+		<!-- 按条件删除公告管理信息 -->	
+		 <delete id="deleteById" parameterType="java.lang.Integer">
+	 			DELETE FROM OA_Bulletin  
+	 			WHERE 1=1
+		 			 <if test="ublid != null and ''!= ublid">
+		 				AND	ublid = #{ublid}
+		 			 </if>
+		 			  <if test="ubltype != null and ''!= ubltype">
+		 				AND	ubltype = #{ubltype}
+		 			 </if>
+	 	 </delete>
+			
+		
+		<!-- 添加公告管理信息-->		
+		 <insert id="insertOaBulletin" parameterType="com.zdv.shop.model.OaBulletin">
+			    INSERT INTO OA_Bulletin
+		    <trim prefix="(" suffix=")" suffixOverrides=",">
+			    <if test="ublid != null and ''!= ublid">ublid,</if>
+			    <if test="ubltype != null and ''!= ubltype">ubltype,</if>
+			    <if test="ucorpid != null and ''!= ucorpid">ucorpid,</if>
+			    <if test="udeptno != null and ''!= udeptno">udeptno,</if>
+			    <if test="usender != null and ''!= usender">usender,</if>
+			    <if test="usddatetime != null and ''!= usddatetime">usddatetime,</if>
+			    <if test="ucorpids != null and ''!= ucorpids">ucorpids,</if>
+			    <if test="ucorpnames != null and ''!= ucorpnames">ucorpnames,</if>
+			    <if test="udeptnos != null and ''!= udeptnos">udeptnos,</if>
+			    <if test="udeptnames != null and ''!= udeptnames">udeptnames,</if>
+			    <if test="uroleids != null and ''!= uroleids">uroleids,</if>
+			    <if test="urolenames != null and ''!= urolenames">urolenames,</if>
+			    <if test="ustaffids != null and ''!= ustaffids">ustaffids,</if>
+			    <if test="ustaffnames != null and ''!= ustaffnames">ustaffnames,</if>
+			    <if test="utitle != null and ''!= utitle">utitle,</if>
+			    <if test="udatestart != null and ''!= udatestart">udatestart,</if>
+			    <if test="udateend != null and ''!= udateend">udateend,</if>
+			    <if test="uattachname != null and ''!= uattachname">uattachname,</if>
+			    <if test="uattachpath != null and ''!= uattachpath">uattachpath,</if>
+			    <if test="usms != null and ''!= usms">usms,</if>
+			    <if test="utopflag != null and ''!= utopflag">utopflag,</if>
+			    <if test="ucontent != null and ''!= ucontent">ucontent,</if>
+			    <if test="uflid != null and ''!= uflid">uflid,</if>
+			    <if test="umtstate != null and ''!= umtstate">umtstate,</if>
+			    <if test="ustepname != null and ''!= ustepname">ustepname,</if>
+			    <if test="ueflag != null and ''!= ueflag">ueflag,</if>
+		    </trim>
+				VALUES
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+			    <if test="ublid != null and ''!= ublid">#{ublid},</if>
+			    <if test="ubltype != null and ''!= ubltype">#{ubltype},</if>
+			    <if test="ucorpid != null and ''!= ucorpid">#{ucorpid},</if>
+			    <if test="udeptno != null and ''!= udeptno">#{udeptno},</if>
+			    <if test="usender != null and ''!= usender">#{usender},</if>
+			    <if test="usddatetime != null and ''!= usddatetime">#{usddatetime},</if>
+			    <if test="ucorpids != null and ''!= ucorpids">#{ucorpids},</if>
+			    <if test="ucorpnames != null and ''!= ucorpnames">#{ucorpnames},</if>
+			    <if test="udeptnos != null and ''!= udeptnos">#{udeptnos},</if>
+			    <if test="udeptnames != null and ''!= udeptnames">#{udeptnames},</if>
+			    <if test="uroleids != null and ''!= uroleids">#{uroleids},</if>
+			    <if test="urolenames != null and ''!= urolenames">#{urolenames},</if>
+			    <if test="ustaffids != null and ''!= ustaffids">#{ustaffids},</if>
+			    <if test="ustaffnames != null and ''!= ustaffnames">#{ustaffnames},</if>
+			    <if test="utitle != null and ''!= utitle">#{utitle},</if>
+			    <if test="udatestart != null and ''!= udatestart">#{udatestart},</if>
+			    <if test="udateend != null and ''!= udateend">#{udateend},</if>
+			    <if test="uattachname != null and ''!= uattachname">#{uattachname},</if>
+			    <if test="uattachpath != null and ''!= uattachpath">#{uattachpath},</if>
+			    <if test="usms != null and ''!= usms">#{usms},</if>
+			    <if test="utopflag != null and ''!= utopflag">#{utopflag},</if>
+			    <if test="ucontent != null and ''!= ucontent">#{ucontent},</if>
+			    <if test="uflid != null and ''!= uflid">#{uflid},</if>
+			    <if test="umtstate != null and ''!= umtstate">#{umtstate},</if>
+			    <if test="ustepname != null and ''!= ustepname">#{ustepname},</if>
+			    <if test="ueflag != null and ''!= ueflag">#{ueflag},</if>
+		    </trim>
+		 </insert>
+
+		  <!--按条件进行修改  -->
+		  <update id="updateByIds">
+				UPDATE OA_Bulletin
+					<set>						
+						<if test="null != ublid and ''!= ublid"> uid = #{ublid},</if>
+						<if test="null != ubltype and ''!= ubltype"> ubltype = #{ubltype},</if>
+						<if test="null != ucorpid and ''!= ucorpid"> ucorpid = #{ucorpid},</if>
+						<if test="null != udeptno and ''!= udeptno"> udeptno = #{udeptno},</if>		
+						<if test="null != usender and ''!= usender"> usender = #{usender},</if>
+						<if test="null != usddatetime and ''!= usddatetime"> usddatetime = #{usddatetime},</if>
+						<if test="null != ucorpids and ''!= ucorpids"> ucorpids = #{ucorpids},</if>
+						<if test="null != ucorpnames and ''!= ucorpnames"> ucorpnames = #{ucorpnames},</if>
+						<if test="null != udeptnos and ''!= udeptnos"> udeptnos = #{udeptnos},</if>
+						<if test="null != udeptnames and ''!= udeptnames"> udeptnames = #{udeptnames},</if>
+						<if test="null != uroleids and ''!= uroleids"> uroleids = #{uroleids},</if>
+						<if test="null != urolenames and ''!= urolenames"> urolenames = #{urolenames},</if>
+						<if test="null != ustaffids and ''!= ustaffids"> ustaffids = #{ustaffids},</if>
+						<if test="null != ustaffnames and ''!= ustaffnames"> ustaffnames = #{ustaffnames},</if>
+						<if test="null != utitle and ''!= utitle"> utitle = #{utitle},</if>		
+						<if test="null != udatestart and ''!= udatestart"> udatestart = #{udatestart},</if>
+						<if test="null != udateend and ''!= udateend"> udateend = #{udateend},</if>
+						<if test="null != uattachname and ''!= uattachname"> uattachname = #{uattachname},</if>
+						<if test="null != uattachpath and ''!= uattachpath"> uattachpath = #{uattachpath},</if>
+						<if test="null != usms and ''!= usms"> usms = #{usms},</if>
+						<if test="null != utopflag and ''!= utopflag"> utopflag = #{utopflag},</if>
+						<if test="null != ucontent and ''!= ucontent"> ucontent = #{ucontent},</if>					
+						<if test="null != uflid and ''!= uflid"> uflid = #{uflid},</if>
+						<if test="null != umtstate and ''!= umtstate"> umtstate = #{umtstate},</if>
+						<if test="null != ustepname and ''!= ustepname"> ustepname = #{ustepname},</if>
+						<if test="null != ueflag and ''!= ueflag"> ueflag = #{ueflag},</if>															
+					</set>
+				WHERE 1=1
+					 <if test="ublid != null and ''!= ublid">
+		 				AND	ublid = #{ublid}
+		 			 </if>
+		 			  <if test="ubltype != null and ''!= ubltype">
+		 				AND	ubltype = #{ubltype}
+		 			 </if>
+		  </update>
+		
+
+</mapper>

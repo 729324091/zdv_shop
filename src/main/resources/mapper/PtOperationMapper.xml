@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.PtOperationMapper">
+  <resultMap id="BaseResultMap" type="com.zdv.shop.model.PtOperation">
+    <id column="uopid" jdbcType="INTEGER" property="uopid" />
+    <result column="uopname" jdbcType="VARCHAR" property="uopname" />
+    <result column="uoptype" jdbcType="CHAR" property="uoptype" />
+    <result column="uopcode" jdbcType="VARCHAR" property="uopcode" />
+    <result column="uismenu" jdbcType="CHAR" property="uismenu" />
+    <result column="uophref" jdbcType="VARCHAR" property="uophref" />
+    <result column="uopseq" jdbcType="INTEGER" property="uopseq" />
+    <result column="uifoper" jdbcType="CHAR" property="uifoper" />
+  </resultMap>
+  <sql id="Base_List">
+    uopid,uopname, uoptype, uopcode, uismenu, uophref, uopseq,uifoper
+  </sql>
+  <select id="queryAllOpers" resultMap="BaseResultMap">
+      SELECT uopid,uopname, uoptype, uopcode, uismenu, uophref, uopseq,uifoper
+     FROM pt_operation
+  </select>
+
+
+  <select id="queryOperation" resultMap="BaseResultMap">
+    SELECT uopid,uopname, uoptype, uopcode, uismenu, uophref, uopseq,uifoper
+    FROM pt_operation AS op where uopcode = #{uopcode}
+    <if test="uophref != null and ''!= uophref">
+      and uophref = #{uophref}
+    </if>
+  </select>
+
+  <insert id="batchSaveOper">
+    insert into pt_operation(uopcode, uopname, uophref, uopseq, uifoper, uismenu, uoptype) values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.uopcode}, #{item.uopname}, #{item.uophref}, #{item.uopseq},#{item.uifoper},#{item.uismenu},#{item.uoptype})
+    </foreach>
+  </insert>
+
+  <update id="batchUpdateOper">
+		update pt_operation set uopname = #{uopname}, uophref = #{uophref}, uopseq = #{uopseq},uifoper=#{uifoper},uismenu=#{uismenu},uoptype=#{uoptype} where uopcode = #{uopcode} and uophref = #{uophref}
+	</update>
+
+  <delete id="batchDelOper">
+    delete from pt_operation where uopid in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
+
+  <insert id="addOrUpdateOper" statementType="CALLABLE">
+		{call addOrUpdateOPOper(#{uopcode}, #{uophref}, #{uopname}, #{uopseq},#{uflag},#{uismenu},#{uoptype})}
+	</insert>
+
+  <select id="selectOperationById" resultMap="BaseResultMap">
+    SELECT
+     uopid,uopname, uoptype, uopcode, uismenu, uophref, uopseq,uifoper
+    FROM pt_operation
+    where
+    uopid = #{uopid}
+  </select>
+  <select id="queryOpers" resultMap="BaseResultMap">
+    SELECT
+     uopid,uopname, uoptype, uopcode, uismenu, uophref, uopseq,uifoper
+    FROM pt_operation
+    where uoptype = #{uoptype}
+  </select>
+  <select id="queryOperationByCodeAndType" resultMap="BaseResultMap">
+    SELECT
+    uopid,uopname, uoptype, uopcode, uismenu, uophref, uopseq,uifoper
+    FROM pt_operation
+    where 1 = 1
+     <if test="uopcode !=null and ''!=uopcode">
+       and uopcode = #{uopcode}
+     </if>
+    <if test="uoptype !=null and ''!=uopcode">
+      and uoptype = #{uoptype}
+    </if>
+
+  </select>
+  <select id="queryByDTUroleid" resultMap="BaseResultMap">
+    SELECT
+    o.uopid,o.uopname,o.uoptype,o.uopcode,o.uismenu,o.uophref,o.uopseq,o.uifoper
+    FROM pt_operation o
+    LEFT JOIN dt_role_operation dro on dro.uopid = o.uopid
+    where dro.uroleid = #{uroleid}
+  </select>
+  <select id="queryByCTUroleid" resultMap="BaseResultMap">
+    SELECT
+    o.uopid,o.uopname,o.uoptype,o.uopcode,o.uismenu,o.uophref,o.uopseq,o.uifoper
+    FROM pt_operation o
+    LEFT JOIN ct_role_operation cro on cro.uopid = o.uopid
+    where cro.uroleid = #{uroleid}
+  </select>
+  <select id="queryByUTD" resultMap="BaseResultMap">
+    SELECT
+    o.uopid,o.uopname,o.uoptype,o.uopcode,o.uismenu,o.uophref,o.uopseq,o.uifoper
+    FROM pt_operation o
+    LEFT JOIN dt_role_operation dro on dro.uopid = o.uopid
+    LEFT JOIN dt_opuser_to_distributor utd on utd.uroleid = dro.uroleid
+    <where>
+      <if test="udistributorid != null and '' != udistributorid">
+        and utd.udistributorid = #{udistributorid}
+      </if>
+      <if test="uroleid != null and '' != uroleid">
+        and utd.uroleid = #{uroleid}
+      </if>
+      <if test="uopuserid != null and '' != uopuserid">
+        and utd.uopuserid = #{uopuserid}
+      </if>
+    </where>
+  </select>
+  <select id="queryByUTC" resultMap="BaseResultMap">
+    SELECT
+    o.uopid,o.uopname,o.uoptype,o.uopcode,o.uismenu,o.uophref,o.uopseq,o.uifoper
+    FROM pt_operation o
+    LEFT JOIN ct_role_operation cro on cro.uopid = o.uopid
+    left join ct_opuser_to_comp utc on utc.uroleid = cro.uroleid
+    <where>
+      <if test="ucompid != null and '' != ucompid">
+        and utc.ucompid = #{ucompid}
+      </if>
+      <if test="uroleid != null and '' != uroleid">
+        and utc.uroleid = #{uroleid}
+      </if>
+      <if test="uopuserid != null and '' != uopuserid">
+      and utc.uopuserid = #{uopuserid}
+      </if>
+    </where>
+  </select>
+  <!--<select id="queryOperList" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_List" />
+    FROM pt_operation
+    where 1=1
+    <if test="uopname != null and ''!= uopname">
+      AND   uopname=#{uopname}
+    </if>
+    <if test="uoptype != null and ''!= uoptype">
+      AND   uoptype=#{uoptype}
+    </if>
+    <if test="uopcode != null and ''!= uopcode">
+      AND   uopcode=#{uopcode}
+    </if>
+    <if test="uismenu != null and ''!= uismenu">
+      AND   uismenu=#{uismenu}
+    </if>
+    <if test="uophref != null and ''!= uophref">
+      AND   uophref=#{uophref}
+    </if>
+    <if test="uopseq != null and ''!= uopseq">
+      AND   uopseq=#{uopseq}
+    </if>
+    <if test="uifoper != null and ''!= uifoper">
+      AND   uifoper=#{uifoper}
+    </if>
+    <if test="uopid != null and ''!= uexamcenterid">
+      AND   uopid=#{uexamcenterid}
+    </if>
+  </select>-->
+
+  <!--<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pt_operation
+    where Uopid = #{uopid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pt_operation
+    where Uopid = #{uopid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zdv.shop.model.PtOperation">
+    insert into pt_operation (Uopid, Uopcode, Uopname, 
+      Uophref, Uopseq, Uifoper, 
+      uismenu, Uoptype)
+    values (#{uopid,jdbcType=INTEGER}, #{uopcode,jdbcType=VARCHAR}, #{uopname,jdbcType=VARCHAR}, 
+      #{uophref,jdbcType=VARCHAR}, #{uopseq,jdbcType=INTEGER}, #{uifoper,jdbcType=CHAR}, 
+      #{uismenu,jdbcType=CHAR}, #{uoptype,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdv.shop.model.PtOperation">
+    insert into pt_operation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uopid != null">
+        Uopid,
+      </if>
+      <if test="uopcode != null">
+        Uopcode,
+      </if>
+      <if test="uopname != null">
+        Uopname,
+      </if>
+      <if test="uophref != null">
+        Uophref,
+      </if>
+      <if test="uopseq != null">
+        Uopseq,
+      </if>
+      <if test="uifoper != null">
+        Uifoper,
+      </if>
+      <if test="uismenu != null">
+        uismenu,
+      </if>
+      <if test="uoptype != null">
+        Uoptype,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uopid != null">
+        #{uopid,jdbcType=INTEGER},
+      </if>
+      <if test="uopcode != null">
+        #{uopcode,jdbcType=VARCHAR},
+      </if>
+      <if test="uopname != null">
+        #{uopname,jdbcType=VARCHAR},
+      </if>
+      <if test="uophref != null">
+        #{uophref,jdbcType=VARCHAR},
+      </if>
+      <if test="uopseq != null">
+        #{uopseq,jdbcType=INTEGER},
+      </if>
+      <if test="uifoper != null">
+        #{uifoper,jdbcType=CHAR},
+      </if>
+      <if test="uismenu != null">
+        #{uismenu,jdbcType=CHAR},
+      </if>
+      <if test="uoptype != null">
+        #{uoptype,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdv.shop.model.PtOperation">
+    update pt_operation
+    <set>
+      <if test="uopcode != null">
+        Uopcode = #{uopcode,jdbcType=VARCHAR},
+      </if>
+      <if test="uopname != null">
+        Uopname = #{uopname,jdbcType=VARCHAR},
+      </if>
+      <if test="uophref != null">
+        Uophref = #{uophref,jdbcType=VARCHAR},
+      </if>
+      <if test="uopseq != null">
+        Uopseq = #{uopseq,jdbcType=INTEGER},
+      </if>
+      <if test="uifoper != null">
+        Uifoper = #{uifoper,jdbcType=CHAR},
+      </if>
+      <if test="uismenu != null">
+        uismenu = #{uismenu,jdbcType=CHAR},
+      </if>
+      <if test="uoptype != null">
+        Uoptype = #{uoptype,jdbcType=CHAR},
+      </if>
+    </set>
+    where Uopid = #{uopid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdv.shop.model.PtOperation">
+    update pt_operation
+    set Uopcode = #{uopcode,jdbcType=VARCHAR},
+      Uopname = #{uopname,jdbcType=VARCHAR},
+      Uophref = #{uophref,jdbcType=VARCHAR},
+      Uopseq = #{uopseq,jdbcType=INTEGER},
+      Uifoper = #{uifoper,jdbcType=CHAR},
+      uismenu = #{uismenu,jdbcType=CHAR},
+      Uoptype = #{uoptype,jdbcType=CHAR}
+    where Uopid = #{uopid,jdbcType=INTEGER}
+  </update>-->
+</mapper>

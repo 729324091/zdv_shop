@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.OtNoticeMapper">
+	<update id="updateByPrimaryKey" parameterType="com.zdv.shop.model.OtNotice">
+		update ot_notice
+		<set>
+			<if test="utitle != null">utitle = #{usource},</if>
+			<if test="usource != null">usource = #{usource},</if>
+			<if test="uauthor != null">uauthor = #{uauthor},</if>
+			<if test="usummary != null">usummary = #{usummary},</if>
+			uhomepic = #{uhomepic},
+			<if test="udesc != null">udesc = #{udesc},</if>
+			<if test="ucreatedate != null">ucreatedate = #{ucreatedate},</if>
+			<if test="uflag != null">uflag = #{uflag},</if>
+		</set> 
+		where unoticeid = #{unoticeid}
+	</update>
+</mapper>

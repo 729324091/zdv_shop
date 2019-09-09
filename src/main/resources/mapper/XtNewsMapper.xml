@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.XtNewsMapper">
+
+    <select id="queryNewsList" resultType="com.zdv.shop.model.XtNews">
+        select xn.newsid,xn.ucompid,xn.ucustomerid,xn.title,xn.source,xn.author,
+                xn.summary,xn.iffirstnews,xn.browsepoint,DATE_FORMAT(xn.ucreatedate,'%Y-%m-%d %H:%i:%s') ucreatedate
+        from xt_news xn
+        <where>
+            <if test="ucustomerid != null and ''!=ucustomerid">
+                and xn.ucustomerid = #{ucustomerid}
+            </if>
+            <if test="newsid != null and ''!=newsid">
+                and xn.newsid = #{newsid}
+            </if>
+            <if test="ucompid != null and ''!=ucompid">
+                and xn.ucompid = #{ucompid}
+            </if>
+            <if test="author != null and ''!=author">
+                and xn.author = #{author}
+            </if>
+            <if test="source != null and ''!=source">
+                and xn.source = #{source}
+            </if>
+            <if test="iffirstnews != null and ''!=iffirstnews">
+                and xn.iffirstnews = #{iffirstnews}
+            </if>
+        </where>
+        order by ucreatedate desc
+    </select>
+
+    <insert id="addNews">
+        insert into xt_news
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="newsid != null and ''!= newsid">newsid,</if>
+            <if test="ucompid != null and ''!= ucompid">ucompid,</if>
+            <if test="ucustomerid != null and ''!= ucustomerid">ucustomerid,</if>
+            <if test="title != null and ''!= title">title,</if>
+            <if test="source != null and ''!= source">source,</if>
+            <if test="author != null and ''!= author">author,</if>
+            <if test="summary != null and ''!= summary">summary,</if>
+            <if test="iffirstnews != null and ''!= iffirstnews">iffirstnews,</if>
+            <if test="browsepoint != null and ''!= browsepoint">browsepoint,</if>
+            <if test="content != null and ''!= content">content,</if>
+            <if test="videopath != null and ''!= videopath">videopath,</if>
+            <if test="imgpath != null and ''!= imgpath">imgpath,</if>
+            ucreatedate,
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="newsid != null and ''!= newsid">#{newsid},</if>
+            <if test="ucompid != null and ''!= ucompid">#{ucompid},</if>
+            <if test="ucustomerid != null and ''!= ucustomerid">#{ucustomerid},</if>
+            <if test="title != null and ''!= title">#{title},</if>
+            <if test="source != null and ''!= source">#{source},</if>
+            <if test="author != null and ''!= author">#{author},</if>
+            <if test="summary != null and ''!= summary">#{summary},</if>
+            <if test="iffirstnews != null and ''!= iffirstnews">#{iffirstnews},</if>
+            <if test="browsepoint != null and ''!= browsepoint">#{browsepoint},</if>
+            <if test="content != null and ''!= content">#{content},</if>
+            <if test="videopath != null and ''!= videopath">#{videopath},</if>
+            <if test="imgpath != null and ''!= imgpath">#{imgpath},</if>
+            now(),
+        </trim>
+    </insert>
+
+    <update id="updateNewsBynewsid">
+        update xt_news
+        <set>
+            <if test="ucompid != null and ''!= ucompid">ucompid = #{ucompid},</if>
+            <if test="ucustomerid != null and ''!= ucustomerid">ucustomerid = #{ucustomerid},</if>
+            <if test="title != null and ''!= title">title = #{title},</if>
+            <if test="source != null and ''!= source">source = #{source},</if>
+            <if test="author != null and ''!= author">author = #{author},</if>
+            <if test="summary != null and ''!= summary">summary = #{summary},</if>
+            <if test="iffirstnews != null and ''!= iffirstnews">iffirstnews = #{iffirstnews},</if>
+            <if test="browsepoint != null and ''!= browsepoint">browsepoint = #{browsepoint},</if>
+            <if test="content != null and ''!= content">content = #{content},</if>
+            <if test="videopath != null and ''!= videopath">videopath = #{videopath},</if>
+            <if test="imgpath != null and ''!= imgpath">imgpath = #{imgpath},</if>
+            ucreatedate = now()
+        </set>
+          <where>
+              <if test="newsid != null and ''!= newsid">newsid =#{newsid}</if>
+
+          </where>
+    </update>
+    <select id="queryNewsBynewsid" resultType="com.zdv.shop.model.XtNews">
+        select xn.newsid,xn.ucompid,xn.ucustomerid,xn.title,xn.source,xn.author,
+                xn.summary,xn.iffirstnews,xn.browsepoint,xn.content,DATE_FORMAT(xn.ucreatedate,'%Y-%m-%d %H:%i:%s') ucreatedate
+       from xt_news xn where  xn.newsid = #{newsid}
+    </select>
+    <delete id="delNews" >
+        delete from xt_news where newsid = #{newsid}
+    </delete>
+</mapper>

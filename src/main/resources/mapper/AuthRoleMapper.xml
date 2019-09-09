@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.AuthRoleMapper">
+	<resultMap id="BaseResultMap" type="com.zdv.shop.model.AuthRole">
+		<id column="roleid" jdbcType="VARCHAR" property="roleid" />
+		<result column="parentid" jdbcType="VARCHAR" property="parentid" />
+		<result column="rolename" jdbcType="VARCHAR" property="rolename" />
+		<result column="cname" jdbcType="VARCHAR" property="cname" />
+		<result column="compid" jdbcType="VARCHAR" property="compid" />
+		<result column="customerid" jdbcType="VARCHAR" property="customerid" />
+		<association property="frole" column="parentid" javaType="com.zdv.shop.model.AuthRole">
+			<id property="roleid" column="roleid" />
+			<result property="cname" column="cname" />
+		</association>
+		<collection property="operations" ofType="com.zdv.shop.model.AuthOperation">
+			<id column="opid" jdbcType="INTEGER" property="opid" />
+			<result column="opcode" jdbcType="VARCHAR" property="opcode" />
+			<result column="opname" jdbcType="VARCHAR" property="opname" />
+			<result column="ophref" jdbcType="VARCHAR" property="ophref" />
+			<result column="opseq" jdbcType="INTEGER" property="opseq" />
+		</collection>		
+	</resultMap>
+
+	<select id="queryRoleById" resultMap="BaseResultMap">
+		select 
+			r.roleid, r.parentid,r.rolename, r.cname,r.customerid, r.compid,o.opid, o.opname, o.opcode, o.ophref, o.opseq from auth_role r
+		left join auth_role_operation ro on r.roleid = ro.roleid
+		left join auth_operation o on o.opid = ro.opid
+		where r.roleid = #{roleid}
+	</select>
+	
+	<insert id="addAdmin" useGeneratedKeys="true" keyProperty="roleid">
+		insert into auth_role(roleid,parentid,rolename, cname,customerid,compid) values(#{roleid},#{parentid},#{rolename}, #{cname},#{customerid},#{compid})
+	</insert>
+	<insert id="insertRole" parameterType="com.zdv.shop.model.AuthRole">
+		insert into auth_role(roleid,rolename, cname,customerid,compid,types) values(#{roleid},#{rolename}, #{cname},#{customerid},#{compid},#{types})
+	</insert>
+
+	<select id="queryByRolename" resultMap="BaseResultMap">
+		select 
+			r.roleid,r.parentid, r.rolename, r.cname,r.customerid,r.compid from auth_role r 
+		where r.rolename = #{rolename} limit 1
+	</select>
+		<select id="queryByRolename1" resultMap="BaseResultMap">
+		select 
+			r.roleid,r.parentid, r.rolename, r.cname,r.customerid,r.compid from auth_role r 
+		where r.rolename = #{rolename} <if test="null!=customerid and ''!=customerid">and r.customerid=#{customerid}</if> limit 1
+	</select>
+	<select id="rootRolelist" resultMap="BaseResultMap">
+		select 	r.roleid,r.parentid, r.rolename, r.cname,r.customerid,r.compid from auth_role r 
+		where (r.parentid is null or r.parentid='')  and r.customerid=#{customerid}
+	</select>
+	<select id="childRolelist" resultMap="BaseResultMap">
+		select 	r.roleid,r.parentid, r.rolename, r.cname,r.customerid,r.compid from auth_role r 
+		where r.parentid=#{roleid}  and r.customerid=#{customerid}
+	</select>
+	
+	<insert id="insertAuth_role_operation" parameterType="String">
+		insert into auth_role_operation(roleid,opid)  select #{roleid},opid from auth_operation where ifoper = #{ifoper}
+	</insert>
+</mapper>

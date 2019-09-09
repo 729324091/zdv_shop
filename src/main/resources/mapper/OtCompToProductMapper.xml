@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="uTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.OtCompToProductMapper">
+	<resultMap type="com.zdv.shop.model.po.OtCompToProductPO" id="mapPO">
+		<id column="ucomproductid" property="ucomproductid"/>
+		<result column="ucompid" property="ucompid"/>
+		<result column="uuserid" property="uuserid"/>
+		<result column="uproductid" property="uproductid"/>
+		<result column="uproducttypeid" property="uproducttypeid"/>
+		<result column="ualias" property="ualias"/>
+		<result column="ucode" property="ucode"/>
+		<result column="uparentid" property="uparentid"/>
+		<result column="uunit" property="uunit"/>
+		<result column="uunitid" property="uunitid"/>
+		<result column="uobjname" property="uobjname"/>
+		<result column="uobjvalue" property="uobjvalue"/>
+		<result column="ubuyprice" property="ubuyprice"/>
+		<result column="umarketprice" property="umarketprice"/>
+		<result column="uprice" property="uprice"/>
+		<result column="uvipprice" property="uvipprice"/>
+		<result column="uifsales" property="uifsales"/>
+		<result column="usalesprice" property="usalesprice"/>
+		<result column="usalesBegindate" property="usalesBegindate"/>
+		<result column="usalesEnddate" property="usalesEnddate"/>
+		<result column="ustock" property="ustock"/>
+		<result column="usalesnum" property="usalesnum"/>
+		<result column="ubrowsepoint" property="ubrowsepoint"/>
+		<result column="urefreshdate" property="urefreshdate"/>
+		<result column="uiftop" property="uiftop"/>
+		<result column="uflag" property="uflag"/>
+		<result column="ucostprice" property="ucostprice"/>
+		<association property="otProduct" javaType="com.zdv.shop.model.OtProduct">
+             <id column="puproductid" property="uproductid"/>
+             <result column="puproducttypeid" property="uproducttypeid"/>
+             <result column="puproductname" property="uproductname"/>
+             <result column="pusource" property="usource"/>
+             <result column="puopuserid" property="uopuserid"/>
+             <result column="puqrcode" property="uqrcode"/>
+             <result column="pumainqrcode" property="umainqrcode"/>
+             <result column="puunit" property="uunit"/>
+             <result column="puprice" property="uprice"/>
+             <result column="puareaid" property="uareaid"/>
+             <result column="puareaname" property="uareaname"/>
+             <result column="pufactoryname" property="ufactoryname"/>
+             <result column="puhomepic" property="uhomepic"/>
+             <result column="puflag" property="uflag"/>
+             <result column="pudesc" property="udesc"/>
+             <result column="pubrowsepoint" property="ubrowsepoint"/>
+             <result column="pucreatedate" property="ucreatedate"/>
+             <result column="pudistributorid" property="udistributorid"/>
+         </association>
+	</resultMap>
+	<select id="selectList" resultType="com.zdv.shop.model.OtCompToProduct">
+		select ctp.ucomproductid, ctp.ualias, ctp.ucode, ctp.uunit, ctp.ubuyprice, ctp.umarketprice, ctp.uprice, ctp.uvipprice,
+		ctp.uifsales, ctp.usalesprice, ctp.usales_begindate 'usalesBegindate', ctp.usales_enddate 'usalesEnddate',
+		ctp.ucostprice, ctp.ustock, ctp.usalesnum, ctp.ubrowsepoint, ctp.ufinishflag, ctp.uiftop, ctp.uflag, c.ucompname
+		from ot_comp_to_product ctp
+		inner join ct_comp c on c.ucompid = ctp.ucompid
+		<where>
+			<if test="ucompid != null and '' != ucompid">c.ucompid = #{ucompid}</if>
+			<if test="ualias != null and '' != ualias">and ctp.ualias like concat('%',#{ualias},'%')</if>
+		</where>
+	</select>
+	
+	<select id="selectGoodsByComproductid" resultType="map">
+		select ctp.ucomproductid, ctp.ualias, ctp.umarketprice,ctp.upromotesales, ctp.uprice, ctp.uvipprice,ctp.ucostprice,ctp.usalesprice,
+		ctp.usalesnum, ctp.ustock, ctp.uhomepic,ctp.udesc, c.ucompname, c.ulogo, c.ucompid
+		from ot_comp_to_product ctp
+		inner join ot_product p on p.uproductid = ctp.uproductid
+		inner join ct_comp c on ctp.ucompid = c.ucompid
+		where ctp.ucomproductid  = #{ucomproductid}
+	</select>
+
+	<select id="queryByUcomproductid" resultType="com.zdv.shop.model.OtCompToProduct">
+		select ctp.ucomproductid, ctp.ualias, ctp.umarketprice, ctp.uprice, ctp.uvipprice,ctp.ucostprice,ctp.usalesprice,
+		ctp.usalesnum, ctp.ustock, ctp.uhomepic,ctp.udesc
+		from ot_comp_to_product ctp
+		inner join ot_product p on p.uproductid = ctp.uproductid
+		inner join ct_comp c on ctp.ucompid = c.ucompid
+		where ctp.ucomproductid  = #{ucomproductid}
+	</select>
+	
+	<!-- 查询首页推荐商品列表 -->
+	<select id="selectRecommendGoodsList" resultType="map">
+		select ctp.ucomproductid, ctp.ualias, ctp.uprice, ctp.uhomepic,ctp.usalesnum,ctp.umarketprice,ctp.uvipprice
+		 from ot_comp_to_product ctp
+		inner join ot_product p on p.uproductid = ctp.uproductid
+		inner join ct_comp cc on cc.ucompid = ctp.ucompid
+		where ctp.uiftop = 1 and ctp.uflag = '01' and ctp.uifsales = 0 and ctp.upromotesales = 0 and cc.ucustomerid = #{ucustomerid}
+		<if test="ucustomerid == 10000032">
+			and cc.ucompid = 53991086192078848
+		</if>
+		order by ctp.ubrowsepoint desc 
+	</select>
+	
+	<!-- 查询热搜产品列表 -->
+	<select id="selectHotClickList" resultType="map" parameterType="com.zdv.shop.model.vo.H5GoodsListVO">
+		select ctp.ucomproductid, ctp.ualias, ctp.uprice, ctp.ustock, ctp.umarketprice, ctp.uhomepic from ot_comp_to_product ctp
+		inner join ot_product p on p.uproductid = ctp.uproductid
+		where ctp.uflag = '01' and ctp.uifsales = 0
+		<if test="priceMin != null and priceMax != null and priceMin >= 0 and priceMax > 0">
+			and ctp.uprice >= #{priceMin} and ctp.uprice &lt;= #{priceMax}
+		</if>
+		<if test="keywords != null and '' != keywords">
+			and ctp.ualias like concat('%', #{keywords}, '%')
+		</if>
+		order by ctp.ubrowsepoint
+		<choose>
+			<when test="sort == 'ubrowsepoint' and order == 'ASC'">asc</when>
+			<otherwise>desc</otherwise>
+		</choose>
+		<if test="sort == 'usalesnum'">
+			,ctp.usalesnum
+			<choose>
+				<when test="order == 'ASC'">asc</when>
+				<otherwise>desc</otherwise>
+			</choose>
+		</if>
+		<if test="sort == 'uprice'">
+			,ctp.uprice
+			<choose>
+				<when test="order == 'ASC'">asc</when>
+				<otherwise>desc</otherwise>
+			</choose>
+		</if>
+	</select>
+	
+	<!-- 查询促销产品列表 -->
+	<select id="selectPromoteSalesGoodsList" resultType="map">
+		select ctp.ucomproductid, ctp.ualias, ctp.uprice, ctp.ustock, ctp.umarketprice, ctp.uhomepic from ot_comp_to_product ctp
+		inner join ot_product p on p.uproductid = ctp.uproductid
+		where ctp.uflag = '01' and ctp.uifsales = 1
+		and ctp.usales_begindate <![CDATA[<]]> unix_timestamp(now()) and ctp.usales_enddate <![CDATA[>]]> unix_timestamp(now())
+		order by ctp.usales_enddate asc
+	</select>
+	
+	<!-- 根据销售商ID查询产品列表 -->
+	<select id="selectGoodsListByCompid" resultType="map">
+		select ctp.ucomproductid, ctp.ualias, ctp.uprice, ctp.ustock, ctp.umarketprice, ctp.uhomepic
+		from ot_comp_to_product ctp
+		inner join ot_product p on p.uproductid = ctp.uproductid
+		where ctp.ucompid = #{ucompid}
+	</select>
+
+
+	<select id="queryProductList" resultType="map">
+		select ctp.ucomproductid, ctp.ualias, ctp.uprice,ctp.usalesnum, ctp.ustock, ctp.umarketprice, ctp.uhomepic
+		from ot_comp_to_product ctp
+		inner join ct_comp c on c.ucompid = ctp.ucompid
+		inner join ot_product p on p.uproductid = ctp.uproductid
+		<where>
+			<if test="ucustomerid !=null and ''!= ucustomerid" >
+				and c.ucustomerid = #{ucustomerid}
+				<if test="ucustomerid == 10000032">
+					and c.ucompid = 53991086192078848
+				</if>
+			</if>
+
+			<if test="uproducttypeid !=null and ''!= uproducttypeid" >
+				and ctp.uproducttypeid=#{uproducttypeid}
+			</if>
+			and ctp.upromotesales = '0' and ctp.uflag = '01'
+		</where>
+	</select>
+	<select id="queryNewestProduct" resultType="com.zdv.shop.model.OtCompToProduct">
+		select ctp.ucomproductid, ctp.ualias, ctp.uprice,ctp.usalesnum, ctp.ustock, ctp.umarketprice,ctp.uvipprice, ctp.uhomepic
+		from ot_comp_to_product ctp
+		inner join ct_comp c on c.ucompid = ctp.ucompid
+		inner join ot_product p on p.uproductid = ctp.uproductid
+		<where>
+			<if test="ucustomerid !=null and ''!= ucustomerid" >
+				and c.ucustomerid = #{ucustomerid}
+				<if test="ucustomerid == 10000032">
+					and c.ucompid = 53991086192078848
+				</if>
+			</if>
+			and ctp.upromotesales = '0'
+		</where>
+		order by ctp.ucreatedate desc
+		limit #{num}
+	</select>
+
+	<select id="queryFreeProduct" resultType="com.zdv.shop.model.OtCompToProduct">
+		select ctp.ucomproductid, ctp.ualias,ctp.upromotesales, ctp.uprice,ctp.usalesnum, ctp.ustock, ctp.umarketprice,ctp.uvipprice, ctp.uhomepic
+		from ot_comp_to_product ctp
+		inner join ct_comp c on c.ucompid = ctp.ucompid
+		inner join ot_product p on p.uproductid = ctp.uproductid
+		<where>
+			<if test="ucustomerid !=null and ''!= ucustomerid" >
+				and c.ucustomerid = #{ucustomerid}
+				<if test="ucustomerid == 10000032">
+					and c.ucompid = 53991086192078848
+				</if>
+			</if>
+			<if test="ucompid != null">
+				and c.ucompid = #{ucompid}
+			</if>
+			and ctp.upromotesales = #{type}
+		</where>
+	</select>
+	
+	
+	
+	<select id="queryProductListAndSort" resultMap="mapPO">
+		select ctp.ucomproductid, ctp.ualias, ctp.uprice, ctp.ustock, ctp.umarketprice, ctp.uhomepic puhomepic,ctp.Ubrowsepoint Ubrowsepoint,ctp.Usalesnum Usalesnum
+		from ot_comp_to_product ctp
+		inner join ot_product p on p.uproductid = ctp.uproductid
+		<where>
+			<if test="ucustomerid !=null and ''!= ucustomerid" >
+				and ctp.ucustomerid = #{ucustomerid}
+				<if test="ucustomerid == 10000032">
+					and ctp.ucompid = 53991086192078848
+				</if>
+			</if>
+			<if test="uproducttypeid !=null and ''!= uproducttypeid" >
+				and p.uproducttypeid=#{uproducttypeid}
+			</if>
+			<if test="type !=null and ''!= type" >
+				order by ctp.${type}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryProductListByUaliasAndSort" resultMap="mapPO">
+		select ctp.ucomproductid, ctp.ualias, ctp.uprice, ctp.ustock, ctp.umarketprice, ctp.uhomepic puhomepic,ctp.Ubrowsepoint Ubrowsepoint,ctp.Usalesnum Usalesnum
+		from ot_comp_to_product ctp
+		inner join ot_product p on p.uproductid = ctp.uproductid
+		<where>
+			<if test="Ualias !=null and ''!= Ualias" >
+				and ctp.Ualias like  concat(concat('%',#{Ualias}),'%') 
+			</if>
+			<if test="ucustomerid !=null and ''!= ucustomerid" >
+				and ctp.ucustomerid = #{ucustomerid}
+				<if test="ucustomerid == 10000032">
+					and ctp.ucompid = 53991086192078848
+				</if>
+			</if>
+			<if test="type !=null and ''!= type" >
+				order by ctp.${type}
+			</if>
+
+
+		</where>
+	</select>
+
+	<update id="updateStockById">
+		update ot_comp_to_product
+		<set>
+			<if test="ustock != null and '' != ustock">
+				ustock = #{ustock},
+			</if>
+			<if test="usalesnum != null and '' != usalesnum">
+				usalesnum = #{usalesnum},
+			</if>
+		</set>
+			where ucomproductid = #{ucomproductid}
+
+	</update>
+
+
+	<select id="queryIntegralProduct" resultType="com.zdv.shop.model.OtCompToProduct">
+		select ctp.ucomproductid,ctp.uintegral, ctp.ualias,ctp.upromotesales, ctp.uprice,ctp.usalesnum, ctp.ustock,
+		ctp.umarketprice,ctp.uvipprice, ctp.uhomepic
+		from ot_comp_to_product ctp
+		inner join ct_comp c on c.ucompid = ctp.ucompid
+		inner join ot_product p on p.uproductid = ctp.uproductid
+		<where>
+			<if test="ucustomerid !=null and ''!= ucustomerid" >
+				and c.ucustomerid = #{ucustomerid}
+				<if test="ucustomerid == 10000032">
+					and c.ucompid = 53991086192078848
+				</if>
+			</if>
+
+			<if test="ucompid !=null and ''!= ucompid" >
+				and c.ucompid = #{ucompid}
+			</if>
+
+			and ctp.uintegralflag = 1
+		</where>
+
+	</select>
+	
+</mapper>

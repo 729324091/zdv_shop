@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.OtCompProductStockObjnameMapper">
+
+
+
+	<!-- <select id="selectObjNameList" resultType="map"> select cpso.uproductstockid, 
+		cpso.uobjnameid, cpso.uobjname from ot_comp_product_stock cps inner join 
+		ot_comp_product_stock_objname cpso on cps.uproductstockid = cpso.uproductstockid 
+		where cps.ucomproductid = #{ucomproductid} group by cpso.uobjnameid </select> 
+		<select id="selectObjValList" resultType="map"> select uobjvalueid, uobjvalue 
+		from ot_comp_product_stock_objname where uproductstockid = #{uproductstockid} 
+		and uobjnameid = #{uobjnameid} </select> -->
+	<select id="getObjnamesByucompproductid" resultType="com.zdv.shop.model.OtCompProductStockObjname">
+		select
+		ocpso1.uobjnamevalueid,ocpso1.uproductid,ocpso1.uproductstockid,ocpso1.uobjnameid,ocpso1.uobjname,ocpso1.uobjvalueid,ocpso1.uobjvalue
+		from
+		ot_comp_product_stock_objname ocpso1
+		where
+		ocpso1.uproductid=#{ucompproductid}
+	</select>
+
+</mapper>	

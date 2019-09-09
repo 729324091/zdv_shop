@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="uTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.OaSmsContentMapper">
+		
+		
+		<resultMap id="BaseResultMap" type="com.zdv.shop.model.OaSmsContent">
+				<id column="usmsid" jdbcType="BIGINT" property="usmsid" /> 
+				<result column="usmsSendid" jdbcType="BIGINT" property="usmsSendid"/>
+				<result column="usmsType" jdbcType="VARCHAR" property="usmsType"/>
+				<result column="usmsSendType" jdbcType="VARCHAR" property="usmsSendType"/>  
+				<result column="usmsSendTimer" jdbcType="DATE" property="usmsSendTimer"/>  
+				<result column="ucorpid" jdbcType="VARCHAR" property="ucorpid"/>
+				<result column="ugareenno" jdbcType="VARCHAR" property="ugareenno"/>
+				<result column="uname" jdbcType="VARCHAR" property="uname"/>
+				<result column="umobile" jdbcType="VARCHAR" property="umobile"/>
+				<result column="ucontent" jdbcType="VARCHAR" property="ucontent"/>
+				<result column="ueflag" jdbcType="VARCHAR" property="ueflag"/>
+				<result column="uCustomerid" jdbcType="VARCHAR" property="uCustomerid"/>
+				<result column="usmsSendStatus" jdbcType="VARCHAR" property="usmsSendStatus"/>
+				<result column="usmsBatchid" jdbcType="VARCHAR" property="usmsBatchid"/>  
+				<result column="utitle" jdbcType="DATE" property="usendtime"/>  
+				<result column="udatestart" jdbcType="CHAR" property="usuccess"/>
+				<result column="udateend" jdbcType="VARCHAR" property="ufailReason"/>
+				<result column="uattachname" jdbcType="INTEGER" property="unum"/>
+		</resultMap>	
+
+		<sql id="columns">
+			a.usmsSendid,
+			a.usmsid,
+			a.usmsType,
+			a.usmsSendType,
+			a.usmsSendTimer,
+			a.ucorpid,
+			a.ugareenno,
+			a.uname,
+			a.umobile,
+			a.ucontent,
+			a.ueflag,
+			a.uCustomerid,
+			a.usmsSendStatus,
+			a.usmsBatchid,
+			a.usendtime,
+			a.usuccess,
+			a.ufailReason,
+			a.unum
+		</sql>
+
+		<!-- 按条件查询短信内容信息 -->
+	     <select id="queryList" parameterType="com.zdv.shop.model.OaSmsContent" resultMap="BaseResultMap">
+	      	     SELECT 
+	      	     		<include refid="columns"></include>
+	      	     FROM	OA_SmsContent a
+	      	     WHERE 1=1      	    
+	  	     		 <if test="usmsid != null and ''!= usmsid">
+	  	     		     AND   a.usmsid=#{usmsid}
+	  	     		 </if>
+	  	     		 <if test="usmsSendid != null and ''!= usmsSendid">
+	  	     		     AND  a.usmsSendid=#{usmsSendid}
+	  	     		 </if>
+	  	     		  <if test="usmsType != null and ''!= usmsType">
+	  	     		     AND   a.usmsType=#{usmsType}
+	  	     		 </if>
+	  	     		 <if test="usmsSendType != null and ''!= usmsSendType">
+	  	     		     AND  a.usmsSendType=#{usmsSendType}
+	  	     		 </if>
+	  	     		  <if test="usmsSendTimer != null and ''!= usmsSendTimer">
+	  	     		     AND   a.usmsSendTimer=#{usmsSendTimer}
+	  	     		 </if>
+	  	     		 <if test="ucorpid != null and ''!= ucorpid">
+	  	     		     AND  a.ucorpid=#{ucorpid}
+	  	     		 </if>
+	  	     		  <if test="ugareenno != null and ''!= ugareenno">
+	  	     		     AND   a.ugareenno=#{ugareenno}
+	  	     		 </if>
+	  	     		  <if test="uname != null and ''!= uname">
+	  	     		     AND   a.uname=#{uname}
+	  	     		 </if>
+	  	     		 <if test="umobile != null and ''!= umobile">
+	  	     		     AND   a.umobile=#{umobile}
+	  	     		 </if>
+	  	     		 <if test="ucontent != null and ''!= ucontent">
+	  	     		     AND   a.ucontent=#{ucontent}
+	  	     		 </if>
+	  	     		 <if test="ueflag != null and ''!= ueflag">
+	  	     		     AND   a.ueflag=#{ueflag}
+	  	     		 </if>
+	  	     		  <if test="uCustomerid != null and ''!= uCustomerid">
+	  	     		     AND   a.uCustomerid=#{uCustomerid}
+	  	     		 </if>
+	  	     		 <if test="usmsSendStatus != null and ''!= usmsSendStatus">
+	  	     		     AND  a.usmsSendStatus=#{usmsSendStatus}
+	  	     		 </if>
+	  	     		  <if test="usmsBatchid != null and ''!= usmsBatchid">
+	  	     		     AND   a.usmsBatchid=#{usmsBatchid}
+	  	     		 </if>
+	  	     		 <if test="usendtime != null and ''!= usendtime">
+	  	     		     AND  a.usendtime=#{usendtime}
+	  	     		 </if>
+	  	     		  <if test="usuccess != null and ''!= usuccess">
+	  	     		     AND   a.usuccess=#{usuccess}
+	  	     		 </if>
+	  	     		 <if test="ufailReason != null and ''!= ufailReason">
+	  	     		     AND  a.ufailReason=#{ufailReason}
+	  	     		 </if>
+	  	     		  <if test="unum != null and ''!= unum">
+	  	     		     AND   a.unum=#{unum}
+	  	     		 </if>
+	  	     		
+	     </select>
+		
+		<!-- 按条件删除短信内容信息 -->	
+		 <delete id="deleteById" parameterType="java.lang.Integer">
+	 			DELETE FROM OA_SmsContent  
+	 			WHERE 1=1
+		 			 <if test="usmsSendid != null and ''!= usmsSendid">
+		 				AND	usmsSendid = #{usmsSendid}
+		 			 </if>
+		 			  <if test="usmsid != null and ''!= usmsid">
+		 				AND	usmsid = #{usmsid}
+		 			 </if>
+		 			 <if test="ucorpid != null and ''!= ucorpid">
+		 				AND	ucorpid = #{ucorpid}
+		 			 </if>
+		 			  <if test="ugareenno != null and ''!= ugareenno">
+		 				AND	ugareenno = #{ugareenno}
+		 			 </if>
+	 	 </delete>
+			
+		
+		<!-- 添加短信内容信息-->		
+		 <insert id="insertOaSmsContent" parameterType="com.zdv.shop.model.OaSmsContent">
+			    INSERT INTO OA_SmsContent
+		    <trim prefix="(" suffix=")" suffixOverrides=",">
+			    <if test="usmsid != null and ''!= usmsid">usmsid,</if>
+			    <if test="usmsType != null and ''!= usmsType">usmsType,</if>
+			    <if test="usmsSendType != null and ''!= usmsSendType">usmsSendType,</if>
+			    <if test="usmsSendTimer != null and ''!= usmsSendTimer">usmsSendTimer,</if>
+			    <if test="ucorpid != null and ''!= ucorpid">ucorpid,</if>
+			    <if test="ugareenno != null and ''!= ugareenno">ugareenno,</if>
+			    <if test="uname != null and ''!= uname">uname,</if>
+			    <if test="umobile != null and ''!= umobile">umobile,</if>
+			    <if test="ucontent != null and ''!= ucontent">ucontent,</if>
+			    <if test="ueflag != null and ''!= ueflag">ueflag,</if>
+			    <if test="uCustomerid != null and ''!= uCustomerid">uCustomerid,</if>
+			    <if test="usmsSendStatus != null and ''!= usmsSendStatus">usmsSendStatus,</if>
+			    <if test="usmsBatchid != null and ''!= usmsBatchid">usmsBatchid,</if>
+			    <if test="usendtime != null and ''!= usendtime">usendtime,</if>
+			    <if test="usuccess != null and ''!= usuccess">usuccess,</if>
+			    <if test="ufailReason != null and ''!= ufailReason">ufailReason,</if>
+			    <if test="unum != null and ''!= unum">unum,</if>
+		    </trim>
+				VALUES
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+			    <if test="usmsid != null and ''!= usmsid">#{usmsid},</if>
+			    <if test="usmsType != null and ''!= usmsType">#{usmsType},</if>
+			    <if test="usmsSendType != null and ''!= usmsSendType">#{usmsSendType},</if>
+			    <if test="usmsSendTimer != null and ''!= usmsSendTimer">#{usmsSendTimer},</if>
+			    <if test="ucorpid != null and ''!= ucorpid">#{ucorpid},</if>
+			    <if test="ugareenno != null and ''!= ugareenno">#{ugareenno},</if>
+			    <if test="uname != null and ''!= uname">#{uname},</if>
+			    <if test="umobile != null and ''!= umobile">#{umobile},</if>
+			    <if test="ucontent != null and ''!= ucontent">#{ucontent},</if>
+			    <if test="ueflag != null and ''!= ueflag">#{ueflag},</if>
+			    <if test="uCustomerid != null and ''!= uCustomerid">#{uCustomerid},</if>
+			    <if test="usmsSendStatus != null and ''!= usmsSendStatus">#{usmsSendStatus},</if>
+			    <if test="usmsBatchid != null and ''!= usmsBatchid">#{usmsBatchid},</if>
+			    <if test="usendtime != null and ''!= usendtime">#{usendtime},</if>
+			    <if test="usuccess != null and ''!= usuccess">#{usuccess},</if>
+			    <if test="ufailReason != null and ''!= ufailReason">#{ufailReason},</if>
+			    <if test="unum != null and ''!= unum">#{unum},</if>
+		    </trim>
+		 </insert>
+
+		  <!--按条件进行修改  -->
+		  <update id="updateByIds">
+				UPDATE OA_SmsContent
+					<set>						
+						<if test="null != usmsid and ''!= usmsid"> usmsid = #{usmsid},</if>
+						<if test="null != usmsSendid and ''!= usmsSendid"> usmsSendid = #{usmsSendid},</if>
+						<if test="null != usmsType and ''!= usmsType"> usmsType = #{usmsType},</if>
+						<if test="null != usmsSendType and ''!= usmsSendType"> usmsSendType = #{usmsSendType},</if>		
+						<if test="null != usmsSendType and ''!= usmsSendType"> usmsSendType = #{usmsSendType},</if>
+						<if test="null != ucorpid and ''!= ucorpid"> ucorpid = #{ucorpid},</if>
+						<if test="null != ugareenno and ''!= ugareenno"> ugareenno = #{ugareenno},</if>
+						<if test="null != uname and ''!= uname"> uname = #{uname},</if>
+						<if test="null != umobile and ''!= umobile"> umobile = #{umobile},</if>
+						<if test="null != ucontent and ''!= ucontent"> ucontent = #{ucontent},</if>
+						<if test="null != ueflag and ''!= ueflag"> ueflag = #{ueflag},</if>
+						<if test="null != uCustomerid and ''!= uCustomerid"> uCustomerid = #{uCustomerid},</if>
+						<if test="null != usmsSendStatus and ''!= usmsSendStatus"> usmsSendStatus = #{usmsSendStatus},</if>
+						<if test="null != usmsBatchid and ''!= usmsBatchid"> usmsBatchid = #{usmsBatchid},</if>
+						<if test="null != usendtime and ''!= usendtime"> usendtime = #{usendtime},</if>		
+						<if test="null != usuccess and ''!= usuccess"> usuccess = #{usuccess},</if>
+						<if test="null != ufailReason and ''!= ufailReason"> ufailReason = #{ufailReason},</if>
+						<if test="null != unum and ''!= unum"> unum = #{unum},</if>														
+					</set>
+				WHERE 1=1
+					 <if test="usmsSendid != null and ''!= usmsSendid">
+		 				AND	usmsSendid = #{usmsSendid}
+		 			 </if>
+		 			  <if test="usmsid != null and ''!= usmsid">
+		 				AND	usmsid = #{usmsid}
+		 			 </if>
+		 			 <if test="ucorpid != null and ''!= ucorpid">
+		 				AND	ucorpid = #{ucorpid}
+		 			 </if>
+		 			  <if test="ugareenno != null and ''!= ugareenno">
+		 				AND	ugareenno = #{ugareenno}
+		 			 </if>
+		  </update>
+
+
+</mapper>

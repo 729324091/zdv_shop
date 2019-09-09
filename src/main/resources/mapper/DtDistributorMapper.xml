@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.DtDistributorMapper">
+
+	<sql id="base">
+	d.udistributorid,
+	d.udname,
+	d.utype,
+	d.ulogo,
+	d.uaddress,
+	d.uareaid,
+	d.ulatitude,
+	d.ulongitude,
+	d.ucontact,
+	d.utel,
+	d.uparentid,
+	d.ulevel,
+	d.udesc,
+	d.ucreatedate
+	</sql>
+
+
+	<select id="queryDistributorByUserid" resultType="map">
+		select d.udistributorid, d.ulogo, d.udname, d.utype, d.ucontact, d.utel,d.ucreatedate, count(1) 'storeCount'
+		from dt_opuser_to_distributor utd, DT_distributor d 
+		left join dt_distributor_to_comp dtc on d.udistributorid = dtc.udistributorid
+		where utd.uopuserid = #{userid} and d.udistributorid = utd.udistributorid
+		<if test="keywords != null and '' != keywords">
+			and (d.udname like concat('%', #{keywords}, '%')
+			or d.ucontact like concat('%', #{keywords}, '%'))
+		</if>
+		<if test="areaid != null">and d.uareaid = #{areaid}</if>
+		group by d.udistributorid
+	</select>
+
+
+	<select id="queryDistributorListByUopuserid" resultType="com.zdv.shop.model.DtDistributor" >
+		select <include refid="base"/>
+		from DT_distributor d
+		left join dt_opuser_to_distributor utd on utd.udistributorid = d.udistributorid
+		where utd.uopuserid = #{userid}
+	</select>
+	
+	<select id="queryPossessAreaByUserid" resultType="com.zdv.shop.model.PtArea">
+		select a.uareaid, a.uareaname  from dt_opuser_to_distributor utd, dt_distributor d, pt_area a
+		where utd.udistributorid = d.udistributorid
+		and a.uareaid = d.uareaid
+		and utd.uopuserid  = #{userid}
+		group by a.uareaid
+	</select>
+	
+	<select id="selectOrdersDistributor" resultType="com.zdv.shop.model.DtDistributor">
+		select <include refid="base" /> from dt_distributor d 
+		inner join ot_distributor_to_product dtp on d.udistributorid = dtp.udistributorid
+		inner join ot_distributor_product_stock dps on dps.udistribproductid = dtp.udistribproductid 
+		where d.uareaid = #{uareaid} and dps.uproductid = #{uproductid} and dps.ustock >= #{ustock}
+		group by dps.uproductid order by length(d.ulevel) desc limit 1 
+	</select>
+	
+	<!-- 判断一个经销商是否有子经销商 -->
+	<select id="getdistributorchildById" resultType="java.lang.Integer">
+		select count(1) from dt_distributor where uparentid=#{udistributorid}
+	</select>
+		<select id="selectParentDistributorById" resultType="com.zdv.shop.model.DtDistributor">
+		select d.udistributorid, d.ulogo, d.udname,d.ulatitude,d.ulongitude, d.uaddress,d.utype, d.ucontact, d.utel,d.ucreatedate
+		from DT_distributor d
+		where d.uparentid = #{udistributorid}  limit 1
+	</select>
+
+	<delete id="delAllById">
+		delete d from dt_distributor d
+		left join op_opuser_m_distributor omd on d.udistributorid = omd.udistributorid
+		left join DT_distributor_t_company dtc on d.udistributorid = dtc.udistributorid
+		left join dt_distributor_role dr on d.udistributorid = dr.udistributorid
+		left join dt_opuser_to_distributor utd on d.udistributorid = utd.udistributorid
+		where d.udistributorid = #{udistributorid}
+	</delete>
+	<select id="queryChildrenIdList" resultType="com.zdv.shop.model.DtDistributor" >
+		SELECT d.udistributorid
+		from dt_distributor d
+		where d.uparentid = #{udistributorid}
+	</select>
+	<!--获得经销商及其子经销商的id字符串-->
+	<select id="childrenListIdFromDistributor" resultType="java.lang.String">
+		<![CDATA[
+			call getChildFromDistributor(#{udistributorid})
+			]]>
+	</select>
+
+	<select id="childrenList" resultType="com.zdv.shop.model.DtDistributor" >
+		SELECT <include refid="base"/>
+		from dt_distributor d
+		<where>
+
+			<if test="udname !=null and ''!=udname">
+				and d.udname like CONCAT('%',#{udname},'%')
+			</if>
+			<if test="utype !=null and ''!=utype">
+				and d.utype = #{utype}
+			</if>
+			<if test="ulogo !=null and ''!=ulogo">
+				and d.ulogo = #{ulogo}
+			</if>
+			<if test="uaddress !=null and ''!=uaddress">
+				and d.uaddress = #{uaddress}
+			</if>
+			<if test="uareaid !=null and ''!=uareaid">
+				and d.uareaid = #{uareaid}
+			</if>
+			<if test="ulatitude !=null and ''!=ulatitude">
+				and d.ulatitude = #{ulatitude}
+			</if>
+			<if test="ulongitude !=null and ''!=ulongitude">
+				and d.ulongitude = #{ulongitude}
+			</if>
+			<if test="ucontact !=null and ''!=ucontact">
+				and d.ucontact = #{ucontact}
+			</if>
+			<if test="utel !=null and ''!=utel">
+				and d.utel = #{utel}
+			</if>
+			<if test="ulevel !=null and ''!=ulevel">
+				and d.ulevel = #{ulevel}
+			</if>
+			<if test="udistributorid !=null and ''!=udistributorid">
+				and FIND_IN_SET(d.uparentid,#{udistributorid})
+			</if>
+		</where>
+	</select>
+
+	<select id="queryPage" resultType="com.zdv.shop.model.DtDistributor">
+		SELECT <include refid="base"/>
+		from dt_distributor d
+		where 1=1
+		<if test="udistributorid !=null and ''!=udistributorid">
+			and d.udistributorid = #{udistributorid}
+		</if>
+		<if test="udname !=null and ''!=udname">
+			and d.udname like CONCAT('%',#{udname},'%')
+		</if>
+		<if test="utype !=null and ''!=utype">
+			and d.utype = #{utype}
+		</if>
+		<if test="ulogo !=null and ''!=ulogo">
+			and d.ulogo = #{ulogo}
+		</if>
+		<if test="uaddress !=null and ''!=uaddress">
+			and d.uaddress = #{uaddress}
+		</if>
+		<if test="uareaid !=null and ''!=uareaid">
+			and d.uareaid = #{uareaid}
+		</if>
+		<if test="ulatitude !=null and ''!=ulatitude">
+			and d.ulatitude = #{ulatitude}
+		</if>
+		<if test="ulongitude !=null and ''!=ulongitude">
+			and d.ulongitude = #{ulongitude}
+		</if>
+		<if test="ucontact !=null and ''!=ucontact">
+			and d.ucontact = #{ucontact}
+		</if>
+		<if test="utel !=null and ''!=utel">
+			and d.utel = #{utel}
+		</if>
+		<if test="uparentid !=null and ''!=uparentid">
+			and d.uparentid = #{uparentid}
+		</if>
+		<if test="ulevel !=null and ''!=ulevel">
+			and d.ulevel = #{ulevel}
+		</if>
+		order by d.ucreatedate desc
+	</select>
+	<select id="querypageByUTD" resultType="com.zdv.shop.model.DtDistributor">
+		SELECT
+		<include refid="base"/>
+		from dt_distributor d
+		LEFT JOIN dt_opuser_to_distributor utd on utd.udistributorid = d.udistributorid
+		where utd.uopuserid = #{uopuserid}
+		<if test="udistributorid !=null and ''!=udistributorid">
+			and d.udistributorid = #{udistributorid}
+		</if>
+		<if test="uroleid != null and '' != uroleid">
+			and d.uroleid = #{uroleid}
+		</if>
+	</select>
+	<select id="selectDistributorById" resultType="com.zdv.shop.model.DtDistributor">
+		SELECT
+		<include refid="base"/>
+		from dt_distributor d
+		where d.udistributorid = #{udistributorid}
+	</select>
+
+<insert id="insertDistributor">
+	insert into dt_distributor
+	<trim prefix="(" suffix=")" suffixOverrides=",">
+		<if test="udistributorid != null and '' != udistributorid">
+			udistributorid,
+		</if>
+		<if test="udname != null and '' != udname">
+			udname,
+		</if>
+		<if test="ucustomerid != null and '' != ucustomerid">
+			ucustomerid,
+		</if>
+		<if test="ulevel != null and '' != ulevel">
+			ulevel,
+		</if>
+		<if test="utype != null and '' != utype">
+			utype,
+		</if>
+		<if test="utypes != null and '' != utypes">
+			utypes,
+		</if>
+		<if test="ustatus != null and '' != ustatus">
+			ustatus,
+		</if>
+		<if test="ulogo != null and '' != ulogo">
+			ulogo,
+		</if>
+		<if test="uaddress != null and '' != uaddress">
+			uaddress,
+		</if>
+		<if test="uareaid != null and '' != uareaid">
+			uareaid,
+		</if>
+		<if test="ulatitude != null and '' != ulatitude">
+			ulatitude,
+		</if>
+		<if test="ulongitude != null and '' != ulongitude">
+			ulongitude,
+		</if>
+		<if test="ucontact != null and '' != ucontact">
+			ucontact,
+		</if>
+		<if test="utel != null and '' != utel">
+			utel,
+		</if>
+		<if test="uparentid != null and '' != uparentid">
+			uparentid,
+		</if>
+		<if test="ucertificatepath != null and '' != ucertificatepath">
+			ucertificatepath,
+		</if>
+		<if test="udesc != null and '' != udesc">
+			udesc,
+		</if>
+		ucreatedate,
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides=",">
+		<if test="udistributorid != null and '' != udistributorid">
+			#{udistributorid},
+		</if>
+		<if test="udname != null and '' != udname">
+			#{udname},
+		</if>
+		<if test="ucustomerid != null and '' != ucustomerid">
+			#{ucustomerid},
+		</if>
+		<if test="ulevel != null and '' != ulevel">
+			#{ulevel},
+		</if>
+		<if test="utype != null and '' != utype">
+			#{utype},
+		</if>
+		<if test="utypes != null and '' != utypes">
+			#{utypes},
+		</if>
+		<if test="ustatus != null and '' != ustatus">
+			#{ustatus},
+		</if>
+		<if test="ulogo != null and '' != ulogo">
+			#{ulogo},
+		</if>
+		<if test="uaddress != null and '' != uaddress">
+			#{uaddress},
+		</if>
+		<if test="uareaid != null and '' != uareaid">
+			#{uareaid},
+		</if>
+		<if test="ulatitude != null and '' != ulatitude">
+			#{ulatitude},
+		</if>
+		<if test="ulongitude != null and '' != ulongitude">
+			#{ulongitude},
+		</if>
+		<if test="ucontact != null and '' != ucontact">
+			#{ucontact},
+		</if>
+		<if test="utel != null and '' != utel">
+			#{utel},
+		</if>
+		<if test="uparentid != null and '' != uparentid">
+			#{uparentid},
+		</if>
+		<if test="ucertificatepath != null and '' != ucertificatepath">
+			#{ucertificatepath},
+		</if>
+		<if test="udesc != null and '' != udesc">
+			#{udesc},
+		</if>
+		UNIX_TIMESTAMP(now()),
+	</trim>
+</insert>
+
+</mapper>

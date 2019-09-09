@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.UtUsersMapper">
+    <sql id="user">
+        uuserid,
+        uname,
+        ucardtype,
+        ucardid,
+        uloginname,
+        uusercode,
+        upassword,
+        upuserid,
+        uuserlevelid,
+        ubalance,
+        uintegral,
+        uemail,
+        umobile,
+        ubirthday,
+        usex,
+        uvip,
+        FROM_UNIXTIME(LEFT(uregdate,10),'%Y-%m-%d %H:%i:%S') uregdate,
+        ulastlogtime,
+        ulogo,
+        ulogins,
+        upaserrnum,
+        upaserrtime,
+        ueflag
+    </sql>
+
+    <select id="userList" resultType="com.zdv.shop.model.UtUsers" >
+        select
+        <include refid="user"/>
+        from ut_users
+        <where>
+            <if test="uuserid != null and ''!= uuserid">
+                and uuserid = #{uuserid}
+            </if>
+            <if test="uname != null and ''!= uname">
+                and uname = #{uname}
+            </if>
+            <if test="uusercode != null and ''!= uusercode">
+                and uusercode = #{uname}
+            </if>
+            <if test="ucardtype != null and ''!= ucardtype">
+                and ucardtype = #{ucardtype}
+            </if>
+            <if test="ucardid != null and ''!= ucardid">
+                and ucardid = #{ucardid}
+            </if>
+            <if test="uloginname != null and ''!= uloginname">
+                and uloginname = #{uloginname}
+            </if>
+            <if test="upuserid != null and ''!= upuserid">
+                and upuserid = #{upuserid}
+            </if>
+            <if test="uuserlevelid != null and ''!= uuserlevelid">
+                and uuserlevelid = #{uuserlevelid}
+            </if>
+            <if test="uregdate != null and ''!= uregdate">
+                and uregdate = #{uregdate}
+            </if>
+            <if test="ueflag != null and ''!= ueflag">
+                and ueflag = #{ueflag}
+            </if>
+            <if test="usex != null and ''!= usex">
+                and usex = #{usex}
+            </if>
+        </where>
+        order by uregdate desc
+    </select>
+    
+    <select id="">
+    	select
+        <include refid="user"/>
+        from ut_users
+        <where>
+        	<if test="uuserid != null and ''!= uuserid">
+                and uuserid = #{uuserid}
+            </if>
+            <if test="uname != null and ''!= uname">
+                and uname = #{uname}
+            </if>
+            <if test="ucardtype != null and ''!= ucardtype">
+                and ucardtype = #{ucardtype}
+            </if>
+            <if test="ucardid != null and ''!= ucardid">
+                and ucardid = #{ucardid}
+            </if>
+            <if test="uloginname != null and ''!= uloginname">
+                and uloginname = #{uloginname}
+            </if>
+            <if test="upuserid != null and ''!= upuserid">
+                and upuserid = #{upuserid}
+            </if>
+            <if test="uuserlevelid != null and ''!= uuserlevelid">
+                and uuserlevelid = #{uuserlevelid}
+            </if>
+            <if test="uregdate != null and ''!= uregdate">
+                and uregdate = #{uregdate}
+            </if>
+            <if test="ueflag != null and ''!= ueflag">
+                and ueflag = #{ueflag}
+            </if>
+            <if test="usex != null and ''!= usex">
+                and usex = #{usex}
+            </if>
+        </where>
+    </select>
+    
+     <select id="queryUnameByUorderitemid" resultType="java.lang.String">
+    	select uu.uname 
+		from ut_order_item uoi INNER JOIN ut_users uu 
+		on uoi.uuserid = uu.uuserid where uoi.uorderitemid=#{uorderitemid}
+    </select>
+
+    <insert id="addUser" parameterType="com.zdv.shop.model.UtUsers">
+        insert into ut_users
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uuserid != null and ''!= uuserid">uuserid,</if>
+            <if test="uname != null and ''!= uname">uname,</if>
+            <if test="ucardtype != null and ''!= ucardtype">ucardtype,</if>
+            <if test="ucardid != null and ''!= ucardid">ucardid,</if>
+            <if test="uloginname != null and ''!= uloginname">uloginname,</if>
+            <if test="uusercode != null and ''!= uusercode">uusercode,</if>
+            <if test="upassword != null and ''!= upassword">upassword,</if>
+            <if test="upuserid != null and ''!= upuserid">upuserid,</if>
+            <if test="uuserlevelid != null and ''!= uuserlevelid">uuserlevelid,</if>
+            <if test="ubalance != null and ''!= ubalance">ubalance,</if>
+            <if test="uintegral != null and ''!= uintegral">uintegral,</if>
+            <if test="uemail != null and ''!= uemail">uemail,</if>
+            <if test="umobile != null and ''!= umobile">umobile,</if>
+            <if test="ubirthday != null and ''!= ubirthday">ubirthday,</if>
+            <if test="usex != null and ''!= usex">usex,</if>
+            <if test="ulastlogtime != null and ''!= ulastlogtime">ulastlogtime,</if>
+            <if test="ulogins != null and ''!= ulogins">ulogins,</if>
+            <if test="upaserrnum != null and ''!= upaserrnum">upaserrnum,</if>
+            <if test="upaserrtime != null and ''!= upaserrtime">upaserrtime,</if>
+            <if test="ueflag != null and ''!= ueflag">ueflag,</if>
+            <if test="uvip != null and ''!= uvip">uvip,</if>
+            <if test="ulogo != null and ''!= ulogo">ulogo,</if>
+            <if test="qrcode != null and ''!= qrcode">qrcode,</if>
+            uregdate,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uuserid != null and ''!= uuserid">#{uuserid},</if>
+            <if test="uname != null and ''!= uname">#{uname},</if>
+            <if test="ucardtype != null and ''!= ucardtype">#{ucardtype},</if>
+            <if test="ucardid != null and ''!= ucardid">#{ucardid},</if>
+            <if test="uloginname != null and ''!= uloginname">#{uloginname},</if>
+            <if test="uusercode != null and ''!= uusercode">#{uusercode},</if>
+            <if test="upassword != null and ''!= upassword">#{upassword},</if>
+            <if test="upuserid != null and ''!= upuserid">#{upuserid},</if>
+            <if test="uuserlevelid != null and ''!= uuserlevelid">#{uuserlevelid},</if>
+            <if test="ubalance != null and ''!= ubalance">#{ubalance},</if>
+            <if test="uintegral != null and ''!= uintegral">#{uintegral},</if>
+            <if test="uemail != null and ''!= uemail">#{uemail},</if>
+            <if test="umobile != null and ''!= umobile">#{umobile},</if>
+            <if test="ubirthday != null and ''!= ubirthday">#{ubirthday},</if>
+            <if test="usex != null and ''!= usex">#{usex},</if>
+            <if test="ulastlogtime != null and ''!= ulastlogtime">#{ulastlogtime},</if>
+            <if test="ulogins != null and ''!= ulogins">#{ulogins},</if>
+            <if test="upaserrnum != null and ''!= upaserrnum">#{upaserrnum},</if>
+            <if test="upaserrtime != null and ''!= upaserrtime">#{upaserrtime},</if>
+            <if test="ueflag != null and ''!= ueflag">#{ueflag},</if>
+            <if test="uvip != null and ''!= uvip">#{uvip},</if>
+            <if test="ulogo != null and ''!= ulogo">#{ulogo},</if>
+            <if test="qrcode != null and ''!= qrcode">#{qrcode},</if>
+            UNIX_TIMESTAMP(now())
+        </trim>
+    </insert>
+
+    <update id="updateUser" parameterType="com.zdv.shop.model.UtUsers">
+        update ut_users
+        <set>
+            <if test="uname != null and ''!= uname">uname = #{uname},</if>
+            <if test="ucardtype != null and ''!= ucardtype">ucardtype = #{ucardtype},</if>
+            <if test="ucardid != null and ''!= ucardid">ucardid = #{ucardid},</if>
+            <if test="uloginname != null and ''!= uloginname">uloginname = #{uloginname},</if>
+            <if test="upassword != null and ''!= upassword">upassword = #{upassword},</if>
+            <if test="upuserid != null and ''!= upuserid">upuserid = #{upuserid},</if>
+            <if test="uuserlevelid != null and ''!= uuserlevelid">uuserlevelid = #{uuserlevelid},</if>
+            <if test="ubalance != null and ''!= ubalance">ubalance = #{ubalance},</if>
+            <if test="uintegral != null and ''!= uintegral">uintegral = #{uintegral},</if>
+            <if test="uemail != null and ''!= uemail">uemail = #{uemail},</if>
+            <if test="umobile != null and ''!= umobile">umobile = #{umobile},</if>
+            <if test="ubirthday != null and ''!= ubirthday">ubirthday = #{ubirthday},</if>
+            <if test="usex != null and ''!= usex">usex = #{usex},</if>
+            <if test="ulastlogtime != null and ''!= ulastlogtime">ulastlogtime = #{ulastlogtime},</if>
+            <if test="ulogins != null and ''!= ulogins">ulogins = #{ulogins},</if>
+            <if test="upaserrnum != null and ''!= upaserrnum">upaserrnum = #{upaserrnum},</if>
+            <if test="upaserrtime != null and ''!= upaserrtime">upaserrtime = #{upaserrtime},</if>
+            <if test="ueflag != null and ''!= ueflag">ueflag = #{ueflag},</if>
+            <if test="uvip != null and ''!= uvip">uvip = #{uvip},</if>
+            <if test="ulogo != null and ''!= ulogo">ulogo=#{ulogo},</if>
+        </set>
+        where uuserid = #{uuserid}
+    </update>
+    <delete id="delUserById" parameterType="java.lang.String">
+    delete from ut_users
+    where uuserid = #{uuserid}
+    </delete>
+    <select id="selectUserById"  resultType="com.zdv.shop.model.UtUsers">
+    select <include refid="user"/> from ut_users
+    where uuserid = #{uuserid}</select>
+    <select id="getBeRecommend" resultType="com.zdv.shop.model.UtUsers">
+    	select uuserid,uname,ulogo,uvip,date_format(uregdate,'%Y-%m-%d
+        %H:%i:%s') uregdate
+    	from ut_users 
+    	where uPuserid = #{uUserId}
+    	<if test="uvip != null and '' != uvip">
+            and uvip =#{uvip}
+        </if>
+    </select>
+    <select id="getAreaManager" resultType="com.zdv.shop.model.UtUsers">
+    	select uu.uuserid,uu.uname,uu.ulogo,date_format(uumub.ucreatedate,'%Y-%m-%d
+        %H:%i:%s') uregdate
+    	from ut_users uu inner join ut_user_manage_user_branchcomp uumub on uumub.touserid = uu.uuserid
+    	where uumub.uuserid = #{uUserId}
+    </select>
+
+
+
+    <select id="selectByUloginame" resultType="com.zdv.shop.model.UtUsers">
+        select uu.uuserid,uu.uname,uu.ulogo,uu.ubalance
+        from ut_users uu where uu.uloginname = #{uloginname} or uusercode=#{uloginname}
+    </select>
+
+    <select id="listChildren" resultType="com.zdv.shop.model.vo.TeamUserVo">
+        select c.uuserid,c.uname,c.ulogo,c.uusercode,c.uvip,date_format(c.uregdate,'%Y-%m-%d
+        %H:%i:%s') uregdate,p.uname as upname
+        from ut_users  c
+        inner join ut_users p on c.upuserid = p.uuserid
+        where c.upuserid = #{upuserid}
+    </select>
+    <update id="updateUbalance">
+        update ut_users
+        set ubalance = #{ubalance} where uuserid = #{uuserid}
+    </update>
+
+
+    <select id="queryCountByUmobileOnCompany" resultType="java.lang.Integer" >
+		select count(0) from ut_users u
+		inner join ut_comp_member_user cmu on u.uuserid = cmu.uuserid
+		and (u.umobile = #{umobile} or u.uloginname = #{umobile})
+		and cmu.ucustomerid = #{ucustomerid}
+	</select>
+ <select id="queryUserOnCompany" resultType="com.zdv.shop.model.UtUsers" >
+		select u.uuserid,
+u.uname,
+u.ucardtype,
+u.ucardid,
+u.uloginname,
+u.uusercode,
+u.upassword,
+u.upuserid,
+u.uuserlevelid,
+u.ubalance,
+u.uintegral,
+u.uemail,
+u.umobile,
+u.ubirthday,
+u.usex,
+u.uvip,
+u.ulastlogtime,
+u.ulogo,
+u.ueflag
+from ut_users u
+		inner join ut_comp_member_user cmu on u.uuserid = cmu.uuserid
+		and u.uloginname = #{uloginname}
+		and cmu.ucustomerid = #{ucustomerid}
+	</select>
+
+
+
+
+    <select id="getSuperiorUuseridByUuserid" resultType="java.lang.String">
+        <![CDATA[
+			call getUserDistribtionFromUsers(#{uuserid})
+			]]>
+    </select>
+
+</mapper>

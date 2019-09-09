@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="uTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.QtQrcodeMapper">
+	<resultMap id="BaseResultMap" type="com.zdv.shop.model.QtQrcode">
+		<id column="uqrcodeid" property="uqrcodeid" /> 
+		<result column="uqrcode" property="uqrcode"/>
+		<result column="uqrcodepath" property="uqrcodepath"/>  
+		<result column="uboxqrcode" property="uboxqrcode"/>
+		<result column="ulumpqrcode" property="ulumpqrcode"/>
+		<result column="uproductid" property="uproductid"/>
+		<result column="uproducttypeid" property="uproducttypeid"/>
+		<result column="uproductname" property="uproductname"/>
+		<result column="udistributorid" property="udistributorid"/> 
+		<result column="ueflag" property="ueflag"/>
+		<result column="uiswin" property="uiswin"/>
+		<result column="ucreatedate" property="ucreatedate"/> 
+	</resultMap>	
+		
+		
+	<sql id="selResult">
+		qr.uqrcodeid,qr.uqrcode,qr.uqrcodepath,qr.uboxqrcode,
+		qr.ulumpqrcode,qr.uproductid,qr.uproducttypeid,qr.uproductname,
+		qr.udistributorid,qr.ueflag,qr.uiswin,qr.ucreatedate
+	</sql>
+	
+	<select id="selQrcodeById" resultMap="BaseResultMap">
+		select
+		<include refid="selResult" />
+		from qt_qrcode qr
+		<trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+			<if test="udistributorid !=null and udistributorid !=''">
+				and udistributorid = #{udistributorid}
+			</if>
+			<if test="uproductid !=null and uproductid !=''">
+				and uproductid = #{uproductid}
+			</if>
+		</trim>
+	</select>
+
+</mapper>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.UtMyproductstoreMapper">
+
+    <insert id="addMyproductstore">
+        insert into ut_myproductstore
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uproductstoreid != null and '' != uproductstoreid">
+                uproductstoreid,
+            </if>
+            <if test="ucomproductid != null and '' != ucomproductid">
+                ucomproductid,
+            </if>
+            <if test="ucompid != null and '' != ucompid">
+                ucompid,
+            </if>
+            <if test="ucustomerid != null and '' != ucustomerid">
+                ucustomerid,
+            </if>
+            <if test="uuserid != null and '' != uuserid">
+                uuserid,
+            </if>
+            <if test="uproductid != null and '' != uproductid">
+                uproductid,
+            </if>
+            ucreatedate,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uproductstoreid != null and '' != uproductstoreid">
+                #{uproductstoreid},
+            </if>
+            <if test="ucomproductid != null and '' != ucomproductid">
+                #{ucomproductid},
+            </if>
+            <if test="ucompid != null and '' != ucompid">
+                #{ucompid},
+            </if>
+            <if test="ucustomerid != null and '' != ucustomerid">
+                #{ucustomerid},
+            </if>
+            <if test="uuserid != null and '' != uuserid">
+                #{uuserid},
+            </if>
+            <if test="uproductid != null and '' != uproductid">
+                #{uproductid},
+            </if>
+            UNIX_TIMESTAMP(now()),
+        </trim>
+    </insert>
+
+    <delete id="delMyproductstore">
+        delete from ut_myproductstore
+        <where>
+            <if test="uproductstoreid != null and '' != uproductstoreid">
+                and uproductstoreid = #{uproductstoreid}
+            </if>
+            <if test="ucomproductid != null and '' != ucomproductid">
+                and ucomproductid = #{ucomproductid}
+            </if>
+            <if test="ucompid != null and '' != ucompid">
+                and ucompid = #{ucompid}
+            </if>
+            <if test="ucustomerid != null and '' != ucustomerid">
+                and ucustomerid = #{ucustomerid}
+            </if>
+            <if test="uuserid != null and '' != uuserid">
+                and uuserid = #{uuserid}
+            </if>
+            <if test="uproductid != null and '' != uproductid">
+                and uproductid = #{uproductid}
+            </if>
+        </where>
+
+    </delete>
+
+</mapper>

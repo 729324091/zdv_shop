@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="uTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.OtProducttypeMapper">
+	<resultMap id="ResultMap" type="com.zdv.shop.model.OtProducttype">
+		<id column="uproducttypeid" property="uproducttypeid" /> 
+		<result column="uname" property="uname"/>
+		<result column="uparentid" property="uparentid"/>  
+		<result column="uorderno" property="uorderno"/>
+	</resultMap>	
+		
+	<sql id="selResult">
+		p1.uproducttypeid,p1.uname,p1.uparentid,p1.uhomepic
+	</sql>
+	
+	<select id="productTypePage" resultMap="ResultMap">
+		select <include refid="selResult" />
+		from ot_producttype p1
+		<trim prefix="where" prefixOverrides="and">
+			<if test="uparentid !=null and uparentid !=''">
+				and p1.uparentid = #{uparentid}
+			</if>
+			<if test="uparentid ==null or uparentid ==''">
+				and p1.uparentid is null
+			</if>
+		</trim>
+		order by p1.uorderno desc
+	</select>
+	
+	<select id="selectProductTypeList" resultType="map">
+		select t.uproducttypeid, t.uname from ot_comp_to_product ctp
+		inner join ot_product p on ctp.uproductid = p.uproductid
+		inner join ot_producttype t on t.uproducttypeid = p.uproducttypeid
+		where ctp.ucompid = #{ucompid}
+		group by t.uproducttypeid
+	</select>
+	
+	<select id="selectFirstProductTypeList" resultMap="ResultMap">
+		select <include refid="selResult" /> from ot_producttype p1 where p1.uparentid is null
+	</select>
+	
+	<select id="selectChildProductTypeList" resultMap="ResultMap">
+		select <include refid="selResult" /> from ot_producttype p1 where p1.uparentid = #{uproducttypeid}
+	</select>
+</mapper>

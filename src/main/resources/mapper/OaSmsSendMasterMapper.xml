@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="uTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.OaSmsSendMasterMapper">
+		<resultMap id="BaseResultMap" type="com.zdv.shop.model.OaSmsSendMaster">
+				<id column="usmsSendid" jdbcType="BIGINT" property="usmsSendid" /> 
+				<result column="usmsType" jdbcType="VARCHAR" property="usmsType"/>
+				<result column="usmsPersonType" jdbcType="VARCHAR" property="usmsPersonType"/>
+				<result column="usmsSendType" jdbcType="VARCHAR" property="usmsSendType"/>  
+				<result column="usmsSendTimer" jdbcType="DATE"  property="usmsSendTimer"/>  
+				<result column="uremark" jdbcType="VARCHAR" property="uremark"/>
+				<result column="umtstate" jdbcType="VARCHAR" property="umtstate"/>
+				<result column="ustepname" jdbcType="VARCHAR" property="ustepname"/>
+				<result column="uflid" jdbcType="VARCHAR" property="uflid"/>
+				<result column="uoperater" jdbcType="VARCHAR" property="uoperater"/>
+				<result column="uoperatedate" jdbcType="DATE" property="uoperatedate"/>
+				<result column="ueflag" jdbcType="VARCHAR" property="ueflag"/>				
+		</resultMap>	
+
+		<sql id="columns">
+			a.usmsSendid,
+			a.usmsType,
+			a.usmsPersonType,
+			a.usmsSendType,
+			a.usmsSendTimer,
+			a.uremark,
+			a.umtstate,
+			a.ustepname,
+			a.uflid,
+			a.uoperater,
+			a.uoperatedate,
+			a.ueflag
+		</sql>
+
+		<!-- 按条件查询短信发送信息 -->
+	     <select id="queryList" parameterType="com.zdv.shop.model.OaSmsSendMaster" resultMap="BaseResultMap">
+	      	     SELECT 
+	      	     		<include refid="columns"></include>
+	      	     FROM	BS_SmsSendMaster a
+	      	     WHERE 1=1      	    
+	  	     		 <if test="usmsSendid != null and ''!= usmsSendid">
+	  	     		     AND   a.usmsSendid=#{usmsSendid}
+	  	     		 </if>
+	  	     		 <if test="usmsType != null and ''!= usmsType">
+	  	     		     AND  a.usmsType=#{usmsType}
+	  	     		 </if>
+	  	     		  <if test="usmsPersonType != null and ''!= usmsPersonType">
+	  	     		     AND   a.usmsPersonType=#{usmsPersonType}
+	  	     		 </if>
+	  	     		 <if test="usmsSendType != null and ''!= usmsSendType">
+	  	     		     AND  a.usmsSendType=#{usmsSendType}
+	  	     		 </if>
+	  	     		  <if test="usmsSendTimer != null and ''!= usmsSendTimer">
+	  	     		     AND   a.usmsSendTimer=#{usmsSendTimer}
+	  	     		 </if>
+	  	     		 <if test="uremark != null and ''!= uremark">
+	  	     		     AND  a.uremark=#{uremark}
+	  	     		 </if>
+	  	     		  <if test="umtstate != null and ''!= umtstate">
+	  	     		     AND   a.umtstate=#{umtstate}
+	  	     		 </if>
+	  	     		  <if test="ustepname != null and ''!= ustepname">
+	  	     		     AND   a.ustepname=#{ustepname}
+	  	     		 </if>
+	  	     		 <if test="uflid != null and ''!= uflid">
+	  	     		     AND   a.uflid=#{uflid}
+	  	     		 </if>
+	  	     		 <if test="uoperater != null and ''!= uoperater">
+	  	     		     AND   a.uoperater=#{uoperater}
+	  	     		 </if>
+	  	     		 <if test="uoperatedate != null and ''!= uoperatedate">
+	  	     		     AND   a.uoperatedate=#{uoperatedate}
+	  	     		 </if>
+	  	     		  <if test="ueflag != null and ''!= ueflag">
+	  	     		     AND   a.ueflag=#{ueflag}
+	  	     		 </if>
+	  	     		
+	     </select>
+		
+		<!-- 按条件删除短信发送信息 -->	
+		 <delete id="deleteById" parameterType="java.lang.Integer">
+	 			DELETE FROM BS_SmsSendMaster  
+	 			WHERE 1=1
+		 			 <if test="usmsSendid != null and ''!= usmsSendid">
+		 				AND	usmsSendid = #{usmsSendid}
+		 			 </if>		
+	 	 </delete>
+			
+		
+		<!-- 添加短信发送信息-->		
+		 <insert id="insertOaSmsSendMaster" parameterType="com.zdv.shop.model.OaSmsSendMaster">
+			    INSERT INTO BS_SmsSendMaster
+		    <trim prefix="(" suffix=")" suffixOverrides=",">
+			    <if test="usmsSendid != null and ''!= usmsSendid">usmsSendid,</if>
+			    <if test="usmsType != null and ''!= usmsType">usmsType,</if>
+			    <if test="usmsPersonType != null and ''!= usmsPersonType">usmsPersonType,</if>
+			    <if test="usmsSendType != null and ''!= usmsSendType">usmsSendType,</if>
+			    <if test="usmsSendTimer != null and ''!= usmsSendTimer">usmsSendTimer,</if>
+			    <if test="uremark != null and ''!= uremark">uremark,</if>
+			    <if test="umtstate != null and ''!= umtstate">umtstate,</if>
+			    <if test="ustepname != null and ''!= ustepname">ustepname,</if>
+			    <if test="uflid != null and ''!= uflid">uflid,</if>
+			    <if test="uoperater != null and ''!= uoperater">uoperater,</if>
+			    <if test="uoperatedate != null and ''!= uoperatedate">uoperatedate,</if>
+			    <if test="ueflag != null and ''!= ueflag">ueflag,</if>   
+		    </trim>
+				VALUES
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+			     <if test="usmsSendid != null and ''!= usmsSendid">#{usmsSendid},</if>
+			    <if test="usmsType != null and ''!= usmsType">#{usmsType},</if>
+			    <if test="usmsPersonType != null and ''!= usmsPersonType">#{usmsPersonType},</if>
+			    <if test="usmsSendType != null and ''!= usmsSendType">#{usmsSendType},</if>
+			    <if test="usmsSendTimer != null and ''!= usmsSendTimer">#{usmsSendTimer},</if>
+			    <if test="uremark != null and ''!= uremark">#{uremark},</if>
+			    <if test="umtstate != null and ''!= umtstate">#{umtstate},</if>
+			    <if test="ustepname != null and ''!= ustepname">#{ustepname},</if>
+			    <if test="uflid != null and ''!= uflid">#{uflid},</if>
+			    <if test="uoperater != null and ''!= uoperater">#{uoperater},</if>
+			    <if test="uoperatedate != null and ''!= uoperatedate">#{uoperatedate},</if>
+			    <if test="ueflag != null and ''!= ueflag">#{ueflag},</if>  
+		    </trim>
+		 </insert>
+
+		  <!--按条件进行修改  -->
+		  <update id="updateByIds">
+				UPDATE BS_SmsSendMaster
+					<set>						
+						<if test="null != usmsSendid and ''!= usmsSendid"> usmsSendid = #{usmsSendid},</if>
+						<if test="null != usmsType and ''!= usmsType"> usmsType = #{usmsType},</if>
+						<if test="null != usmsPersonType and ''!= usmsPersonType"> usmsPersonType = #{usmsPersonType},</if>
+						<if test="null != usmsSendType and ''!= usmsSendType"> usmsSendType = #{usmsSendType},</if>		
+						<if test="null != usmsSendTimer and ''!= usmsSendTimer"> usmsSendTimer = #{usmsSendTimer},</if>
+						<if test="null != uremark and ''!= uremark"> uremark = #{uremark},</if>
+						<if test="null != umtstate and ''!= umtstate"> umtstate = #{umtstate},</if>
+						<if test="null != ustepname and ''!= ustepname"> ustepname = #{ustepname},</if>
+						<if test="null != uflid and ''!= uflid"> uflid = #{uflid},</if>
+						<if test="null != uoperater and ''!= uoperater"> uoperater = #{uoperater},</if>
+						<if test="null != uoperatedate and ''!= uoperatedate"> uoperatedate = #{uoperatedate},</if>
+						<if test="null != ueflag and ''!= ueflag"> ueflag = #{ueflag},</if>														
+					</set>
+				WHERE 1=1
+					 <if test="usmsSendid != null and ''!= usmsSendid">
+		 				AND	usmsSendid = #{usmsSendid}
+		 			 </if>	
+		  </update>
+		
+
+</mapper>

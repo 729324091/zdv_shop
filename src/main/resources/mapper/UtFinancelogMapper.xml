@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.UtFinancelogMapper">
+
+
+    <insert id="saveFinaceLog">
+        insert into ut_financelog
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ufinancelogid != null and ''!= ufinancelogid">ufinancelogid,</if>
+            <if test="ucompid != null and ''!= ucompid">ucompid,</if>
+            <if test="uuserid != null and ''!= uuserid">uuserid,</if>
+            <if test="uinfoid != null and ''!= uinfoid">uinfoid,</if>
+            <if test="ustatus != null and ''!= ustatus">ustatus,</if>
+            <if test="utype != null and ''!= utype">utype,</if>
+            <if test="utradetype != null and ''!= utradetype">utradetype,</if>
+            <if test="utrademoney != null and ''!= utrademoney">utrademoney,</if>
+            <if test="uglidenumber != null and ''!= uglidenumber">uglidenumber,</if>
+            <if test="ifline != null and ''!= ifline">ifline,</if>
+            <if test="upaymode != null and ''!= upaymode">upaymode,</if>
+            <if test="accttype != null and ''!= accttype">accttype,</if>
+            <if test="transactionId != null and ''!= transactionId">transaction_id,</if>
+
+
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ufinancelogid != null and ''!= ufinancelogid">#{ufinancelogid},</if>
+            <if test="ucompid != null and ''!= ucompid">#{ucompid},</if>
+            <if test="uuserid != null and ''!= uuserid">#{uuserid},</if>
+            <if test="uinfoid != null and ''!= uinfoid">#{uinfoid},</if>
+            <if test="ustatus != null and ''!= ustatus">#{ustatus},</if>
+            <if test="utype != null and ''!= utype">#{utype},</if>
+            <if test="utradetype != null and ''!= utradetype">#{utradetype},</if>
+            <if test="utrademoney != null and ''!= utrademoney">#{utrademoney},</if>
+            <if test="uglidenumber != null and ''!= uglidenumber">#{uglidenumber},</if>
+            <if test="ifline != null and ''!= ifline">#{ifline},</if>
+            <if test="upaymode != null and ''!= upaymode">#{upaymode},</if>
+            <if test="accttype != null and ''!= accttype">#{accttype},</if>
+            <if test="transactionId != null and ''!= transactionId">#{transactionId},</if>
+
+        </trim>
+    </insert>
+
+    <select id="queryFinancelogList" resultType="com.zdv.shop.model.UtFinancelog">
+        select
+        ufinancelogid,ucompid,uuserid,uinfoid,ustatus,utype,utradetype,utrademoney,uglidenumber,ifline,upaymode,date_format(ucreatedate,'%Y-%m-%d
+        %H:%i:%s') ucreatedate,accttype,transaction_id transactionId
+        from ut_financelog
+        <where>
+            <if test="ufinancelogid !=null and ''!=ufinancelogid">
+                and ufinancelogid = #{ufinancelogid}
+            </if>
+            <if test="ucompid !=null and ''!=ucompid">
+                and ucompid = #{ucompid}
+            </if>
+            <if test="uuserid !=null and ''!=uuserid">
+                and uuserid = #{uuserid}
+            </if>
+            <if test="uinfoid !=null and ''!=uinfoid">
+                and uinfoid = #{uinfoid}
+            </if>
+            <if test="ustatus !=null and ''!=ustatus">
+                and ustatus = #{ustatus}
+            </if>
+            <if test="utype !=null and ''!=utype">
+                and utype = #{utype}
+            </if>
+            <if test="utradetype !=null and ''!=utradetype">
+                and utradetype = #{utradetype}
+            </if>
+            <if test="uglidenumber !=null and ''!=uglidenumber">
+                and uglidenumber = #{uglidenumber}
+            </if>
+            <if test="ifline !=null and ''!=ifline">
+                and ifline = #{ifline}
+            </if>
+            <if test="upaymode !=null and ''!=upaymode">
+                and upaymode = #{upaymode}
+            </if>
+            <if test="accttype !=null and ''!=accttype">
+                and accttype = #{accttype}
+            </if>
+            <if test="transactionId !=null and ''!=transactionId">
+                and transaction_id = #{transactionId}
+            </if>
+            <if test="begindate !=null and ''!=begindate">
+                <![CDATA[and ucreatedate >= UNIX_TIMESTAMP(#{begindate})]]>
+            </if>
+            <if test="enddate !=null and ''!=enddate">
+                <![CDATA[and ucreatedate <= UNIX_TIMESTAMP(#{enddate})]]>
+            </if>
+        </where>
+        order by ucreatedate desc limit #{pageNo},#{pageSize}
+
+    </select>
+    <select id="queryFinancelogListMap" resultType="map">
+        select
+        ufinancelogid,ucompid,uuserid,uinfoid,ustatus,utype,utradetype,utrademoney,uglidenumber,ifline,upaymode,date_format(ucreatedate,'%Y-%m-%d
+        %H:%i:%s') ucreatedate,accttype,transaction_id transactionId
+        from ut_financelog
+        <where>
+            <if test="ufinancelogid !=null and ''!=ufinancelogid">
+                and ufinancelogid = #{ufinancelogid}
+            </if>
+            <if test="ucompid !=null and ''!=ucompid">
+                and ucompid = #{ucompid}
+            </if>
+            <if test="uuserid !=null and ''!=uuserid">
+                and uuserid = #{uuserid}
+            </if>
+            <if test="uinfoid !=null and ''!=uinfoid">
+                and uinfoid = #{uinfoid}
+            </if>
+            <if test="ustatus !=null and ''!=ustatus">
+                and ustatus = #{ustatus}
+            </if>
+            <if test="utype !=null and ''!=utype">
+                and utype = #{utype}
+            </if>
+            <if test="utradetype !=null and ''!=utradetype">
+                and utradetype = #{utradetype}
+            </if>
+            <if test="uglidenumber !=null and ''!=uglidenumber">
+                and uglidenumber = #{uglidenumber}
+            </if>
+            <if test="ifline !=null and ''!=ifline">
+                and ifline = #{ifline}
+            </if>
+            <if test="upaymode !=null and ''!=upaymode">
+                and upaymode = #{upaymode}
+            </if>
+            <if test="accttype !=null and ''!=accttype">
+                and accttype = #{accttype}
+            </if>
+            <if test="transactionId !=null and ''!=transactionId">
+                and transaction_id = #{transactionId}
+            </if>
+            <if test="begindate !=null and ''!=begindate">
+                <![CDATA[and ucreatedate >= UNIX_TIMESTAMP(#{begindate})]]>
+            </if>
+            <if test="enddate !=null and ''!=enddate">
+                <![CDATA[and ucreatedate <= UNIX_TIMESTAMP(#{enddate})]]>
+            </if>
+        </where>
+        order by ucreatedate desc limit #{pageNo},#{pageSize}
+
+    </select>
+
+    <update id="updateByUfinancelogid">
+        update ut_financelog
+        <set>
+            <if test="ucompid !=null and ''!=ucompid">
+                 ucompid = #{ucompid},
+            </if>
+            <if test="uuserid !=null and ''!=uuserid">
+                 uuserid = #{uuserid},
+            </if>
+            <if test="uinfoid !=null and ''!=uinfoid">
+                 uinfoid = #{uinfoid},
+            </if>
+            <if test="ustatus !=null and ''!=ustatus">
+                 ustatus = #{ustatus},
+            </if>
+            <if test="utype !=null and ''!=utype">
+                 utype = #{utype},
+            </if>
+            <if test="utradetype !=null and ''!=utradetype">
+                 utradetype = #{utradetype},
+            </if>
+            <if test="uglidenumber !=null and ''!=uglidenumber">
+                 uglidenumber = #{uglidenumber},
+            </if>
+            <if test="ifline !=null and ''!=ifline">
+                 ifline = #{ifline},
+            </if>
+            <if test="upaymode !=null and ''!=upaymode">
+                upaymode = #{upaymode},
+            </if>
+            <if test="accttype !=null and ''!=accttype">
+                accttype = #{accttype},
+            </if>
+            <if test="transactionId !=null and ''!=transactionId">
+                transaction_id = #{transactionId},
+            </if>
+        </set>
+        where ufinancelogid = #{ufinancelogid}
+
+    </update>
+
+
+
+    <select id="queryFinancelogCount" resultType="java.lang.Integer">
+        select count(1)
+        from ut_financelog
+        <where>
+            <if test="ufinancelogid !=null and ''!=ufinancelogid">
+                and ufinancelogid = #{ufinancelogid}
+            </if>
+            <if test="ucompid !=null and ''!=ucompid">
+                and ucompid = #{ucompid}
+            </if>
+            <if test="uuserid !=null and ''!=uuserid">
+                and uuserid = #{uuserid}
+            </if>
+            <if test="uinfoid !=null and ''!=uinfoid">
+                and uinfoid = #{uinfoid}
+            </if>
+            <if test="ustatus !=null and ''!=ustatus">
+                and ustatus = #{ustatus}
+            </if>
+            <if test="utype !=null and ''!=utype">
+                and utype = #{utype}
+            </if>
+            <if test="utradetype !=null and ''!=utradetype">
+                and utradetype = #{utradetype}
+            </if>
+            <if test="uglidenumber !=null and ''!=uglidenumber">
+                and uglidenumber = #{uglidenumber}
+            </if>
+            <if test="ifline !=null and ''!=ifline">
+                and ifline = #{ifline}
+            </if>
+            <if test="upaymode !=null and ''!=upaymode">
+                and upaymode = #{upaymode}
+            </if>
+            <if test="accttype !=null and ''!=accttype">
+                and accttype = #{accttype}
+            </if>
+            <if test="transactionId !=null and ''!=transactionId">
+                and transaction_id = #{transactionId}
+            </if>
+            <if test="begindate !=null and ''!=begindate">
+                <![CDATA[and ucreatedate >= UNIX_TIMESTAMP(#{begindate})]]>
+            </if>
+            <if test="enddate !=null and ''!=enddate">
+                <![CDATA[and ucreatedate <= UNIX_TIMESTAMP(#{enddate})]]>
+            </if>
+        </where>
+    </select>
+
+</mapper>

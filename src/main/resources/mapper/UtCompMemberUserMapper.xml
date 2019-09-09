@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.UtCompMemberUserMapper">
+<select id="selectnoqrcodelist" resultType="com.zdv.shop.model.UtCompMemberUser">
+	select cmu.ucompid,cmu.ucustomerid,cmu.uuserid,cmu.qrcodepath,wc.appid,wc.appsecret,wc.mchid
+	from ut_comp_member_user cmu
+	inner join ct_wxpay_config wc on cmu.ucustomerid=wc.ucustomerid
+	where (cmu.qrcodepath is null or cmu.qrcodepath='')
+</select>
+<update id="updateCompMemberUser">
+	update ut_comp_member_user set qrcodepath=#{qrcodepath} where ucompid=#{ucompid} and uuserid=#{userid}
+</update>
+<delete id="delCompMemberUser">
+	delete from ut_comp_member_user where ucompid=#{ucompid} and uuserid=#{userid}
+</delete>
+	<insert id="addCompMemberUser">
+		insert into ut_comp_member_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ucompid != null and '' != ucompid">
+				ucompid,
+			</if>
+			<if test="ucustomerid != null and '' != ucustomerid">
+				ucustomerid,
+			</if>
+			<if test="uuserid != null and '' != uuserid">
+				uuserid,
+			</if>
+			<if test="uopuserid != null and '' != uopuserid">
+				uopuserid,
+			</if>
+			<if test="ufromchannel != null and '' != ufromchannel">
+				ufromchannel,
+			</if>
+			<if test="qrcodepath != null and '' != qrcodepath">
+				qrcodepath,
+			</if>
+			ucreatedate,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="ucompid != null and '' != ucompid">
+				#{ucompid},
+			</if>
+			<if test="ucustomerid != null and '' != ucustomerid">
+				#{ucustomerid},
+			</if>
+			<if test="uuserid != null and '' != uuserid">
+				#{uuserid},
+			</if>
+			<if test="uopuserid != null and '' != uopuserid">
+				#{uopuserid},
+			</if>
+			<if test="ufromchannel != null and '' != ufromchannel">
+				#{ufromchannel},
+			</if>
+			<if test="qrcodepath != null and '' != qrcodepath">
+				#{qrcodepath},
+			</if>
+			UNIX_TIMESTAMP(now()),
+		</trim>
+	</insert>
+
+	<select id="getByUuserid" resultType="com.zdv.shop.model.UtCompMemberUser">
+		select ucompid,ucustomerid,uuserid,uopuserid,ufromchannel,qrcodepath,ucreatedate
+		from ut_comp_member_user where uuserid = #{uuserid} limit 1
+
+	</select>
+	<select id="queryTeamList" resultType="com.zdv.shop.model.vo.TeamUserVo">
+		select u.uuserid,u.uname,u.ulogo,u.uusercode,u.uvip,date_format(u.uregdate,'%Y-%m-%d
+        %H:%i:%s') uregdate,c.ucompname as upname
+        from ut_users  u
+        inner join ut_comp_member_user p on u.upuserid = p.uuserid
+        inner join ct_comp c on c.ucompid = p.ucompid
+        <where>
+			<if test="ucompid != null and ''!=ucompid">
+				and p.ucompid = #{ucompid}
+			</if>
+			<if test="ucustomerid != null and ''!=ucustomerid">
+				and p.ucustomerid = #{ucustomerid}
+			</if>
+			<if test="uuserid != null and ''!=uuserid">
+				and p.uuserid = #{uuserid}
+			</if>
+			<if test="uopuserid != null and ''!=uopuserid">
+				and p.uopuserid = #{uopuserid}
+			</if>
+			<if test="ufromchannel != null and ''!=ufromchannel">
+				and p.ufromchannel = #{ufromchannel}
+			</if>
+			<if test="qrcodepath != null and ''!=qrcodepath">
+				and p.qrcodepath = #{qrcodepath}
+			</if>
+			<if test="ucreatedate != null and ''!=ucreatedate">
+				and p.ucreatedate = #{ucreatedate}
+			</if>
+		</where>
+	</select>
+
+</mapper>

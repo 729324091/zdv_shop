@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.OtConfigMapper">
+<select id="getConfigByType" resultType="com.zdv.shop.model.OtConfig">
+	select
+	 uconfigid,utype,ustate,uinfoid,uhomepic,udesc,ucompid,ucustomerid,uhref,ucreatedate
+	 from ot_config oc
+	  <where>
+		  <if test="utype != null">
+			  and oc.utype=#{utype}
+		  </if>
+		  <if test="ucustomerid != null">
+			  and oc.ucustomerid = #{ucustomerid}
+		  </if>
+		  <if test="ucompid != null">
+			  and oc.ucompid = #{ucompid}
+		  </if>
+
+	  </where>
+</select>
+
+
+</mapper>

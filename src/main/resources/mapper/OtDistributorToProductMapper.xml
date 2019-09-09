@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="uTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.OtDistributorToProductMapper">
+	
+	<select id="appQueryStock" resultType="com.zdv.shop.model.vo.AppQueryStockVo" parameterType="com.zdv.shop.model.vo.AppQueryStockArgVo">
+		select p.uproductid, p.uproductname, p.ufactoryname, p.uprice, dps.uproductpic, dtp.ustock, dtp.uunitid, dtp.uunit, dps.uproductstockid, u.ucolor
+		from ot_distributor_to_product dtp
+		inner join ot_product p on p.uproductid = dtp.uproductid
+		inner join dt_distributor d on d.udistributorid = dtp.udistributorid
+		left join qt_productunit u on u.uunitid = dtp.uunitid
+		inner join ot_distributor_product_stock dps on dtp.udistribproductid = dps.udistribproductid
+		left join ot_distributor_product_stock_objname dpso on dpso.uproductstockid = dps.uproductstockid
+		where dtp.uflag = '01'
+		<if test="uproducttypeid != null and '' != uproducttypeid">
+			and p.uproducttypeid = #{uproducttypeid}
+		</if>
+		<if test="keywords != null and '' != keywords">
+			and p.uproductname like concat('%', #{keywords}, '%')
+		</if>
+		<if test="ustock != null and '' != ustock">
+			and dps.ustock &lt;= #{ustock}
+		</if>
+		<if test="udistributorid != null and '' != udistributorid">
+			and dtp.udistributorid = #{udistributorid}
+		</if>
+		<if test="uqrcode != null and '' != uqrcode">
+			and p.uqrcode = #{uqrcode}
+		</if>
+		group by dps.uproductstockid
+	</select>
+	
+	<select id="appQueryProductTypeList" resultType="com.zdv.shop.model.OtProducttype">
+		select t.uproducttypeid, t.uname from ot_distributor_to_product dtp
+		inner join ot_product p on dtp.uproductid = p.uproductid
+		inner join ot_producttype t on t.uproducttypeid = p.uproducttypeid
+		where dtp.udistributorid = #{udistributorid}
+		group by t.uproducttypeid
+	</select>
+	
+	<select id="selectList" resultType="com.zdv.shop.model.OtDistributorToProduct">
+		select dtp.udistribproductid, dtp.udistributorid, d.udname, dtp.ualias, dtp.ucode, dtp.uunit, dtp.umarketprice, dtp.uprice, dtp.uvipprice, dtp.uifsales, 
+		dtp.usalesprice, dtp.usales_begindate as 'usalesBegindate', dtp.usales_enddate as 'usalesEnddate', dtp.ucostprice, dtp.ustock, dtp.usalesnum, 
+		dtp.ubrowsepoint, dtp.ufinishflag, dtp.uiftop, dtp.uflag
+		from ot_distributor_to_product dtp
+		inner join dt_distributor d on d.udistributorid = dtp.udistributorid
+		<where>
+			<if test="udistributorid != null and '' != udistributorid">
+				dtp.udistributorid = #{udistributorid}
+			</if>
+			<if test="uifsales != null and '' != uifsales">
+				and dtp.uifsales = #{uifsales}
+			</if>
+			<if test="uiftop != null and '' != uiftop">
+				and dtp.uiftop = #{uiftop}
+			</if>
+			<if test="uflag != null and '' != uflag">
+				and dtp.uflag = #{uflag}
+			</if>
+			<if test="ualias != null and '' != ualias">
+				and dtp.ualias like concat('%', #{ualias}, '%')
+			</if>
+		</where>
+	</select>
+	<!-- 获得指定地区代理某个产品的终端代理商 通过产品ID和地区 终端代理商要ulevel标识-->
+	<select id="queryDistributorByProductId" parameterType="java.util.HashMap" resultType="com.zdv.shop.model.OtDistributorToProduct">
+	select dtp.udistributorid,dtp.uproductid from ot_distributor_to_product dtp inner join dt_distributor d on d.udistributorid = dtp.udistributorid
+	<where> <if test="ids != null"> dtp.uproductid in
+		<foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</if>
+	<if test="uareaid != null and '' != uareaid">
+		and d.uareaid = #{uareaid}
+	</if>
+	<if test="ulevel != null and '' != ulevel">
+		and d.ulevel = #{ulevel}
+	</if>
+	</where>
+	group by dtp.udistributorid,dtp.uproductid
+	</select>
+</mapper>

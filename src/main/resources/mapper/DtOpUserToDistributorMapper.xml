@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.DtOpUserToDistributorMapper">
+
+
+    <sql id="utd">
+    utd.udistributorid,
+    utd.uopuserid,
+    utd.uroleid,
+    utd.ustatus,
+    utd.ucreatedate
+    </sql>
+
+
+    <update id="updateUTD">
+        update dt_opuser_to_distributor
+        <set>
+            <if test="uroleid != null and ''!=uroleid">
+                uroleid = #{uroleid},
+            </if>
+            <if test="ustatus != null and ''!=ustatus">
+                ustatus = #{ustatus},
+            </if>
+        </set>
+        where uopuserid = #{uopuserid} and udistributorid =#{udistributorid}
+    </update>
+
+	<select id="appQueryPossessUsers" parameterType="com.zdv.shop.model.vo.AppQueryOpuserVO" resultType="map">
+		select u.uopuserid, u.ulogo, u.uopname, u.umobile, u.uregdate, dr_m.uroleid, dr_m.urolename, 
+		dr_m.ulevelcolor, dr_m.utypes, u.ulognum
+		<!-- ifnull(sum(co.utotalmoney), 0) as salesmoney -->
+		from dt_distributor_role dr_o
+		inner join dt_opuser_to_distributor utd_o on utd_o.uroleid = dr_o.uroleid
+		inner join dt_distributor_role dr_m on length(dr_m.ulevel) > length(dr_o.ulevel)
+		inner join dt_opuser_to_distributor utd on utd.uroleid = dr_m.uroleid
+		inner join op_users u on u.uopuserid = utd.uopuserid
+		<!--  left join op_opuser_m_comp omc on omc.uopuserid = utd.uopuserid
+		left join qt_comp_order co on omc.ucompid = co.ucompid-->
+		where dr_o.uroleid = #{uroleid}
+		and dr_o.udistributorid = #{udistributorid}
+		and dr_m.uroleid != #{uroleid}
+		and utd.udistributorid = #{udistributorid}
+		and utd_o.uopuserid = #{uopuserid}
+		and utd_o.udistributorid = #{udistributorid}
+		<if test="uroleidCriteria != null and '' != uroleidCriteria">and dr_m.uroleid = #{uroleidCriteria}</if>
+		<if test="keywords != null and '' != keywords">and u.uopname like concat('%', #{keywords}, '%')</if>
+		group by u.uopuserid
+	</select>
+	<!-- 商家销售产品中对应的经销商 -->
+	<select id="opuserDistributorBycomproductid" parameterType="java.lang.String" resultType="map">
+		select uopuserid from ot_comp_to_product cp inner join dt_opuser_to_distributor od on cp.udistributorid=od.udistributorid where cp.ucomproductid=#{ucomproductid} 
+	</select>
+
+	<!-- 获取经销商可接收信息的管理员 -->
+	<select id="opuserDistributorBydistributorid" parameterType="java.lang.String" resultType="map">
+			select uopuserid from dt_opuser_to_distributor where uifacceptinfo=1 and udistributorid = #{udistributorid}
+	</select>
+</mapper>

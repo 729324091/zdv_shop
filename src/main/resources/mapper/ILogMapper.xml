@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.ILogMapper">
+	<resultMap id="BaseResultMap" type="com.zdv.shop.model.ILog">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="username" jdbcType="VARCHAR" property="username" />
+		<result column="type" jdbcType="INTEGER" property="type" />
+		<result column="customerid" jdbcType="VARCHAR" property="customerid" />
+		<result column="url" jdbcType="VARCHAR" property="url" />
+		<result column="method" jdbcType="VARCHAR" property="method" />
+		<result column="params" jdbcType="VARCHAR" property="params" />
+		<result column="requestip" jdbcType="VARCHAR" property="requestip" />
+		<result column="exclass" jdbcType="VARCHAR" property="exclass" />
+		<result column="detail" jdbcType="VARCHAR" property="detail" />
+		<result column="description" jdbcType="VARCHAR" property="description" />
+		<result column="oper_date" jdbcType="VARCHAR" property="operDate" />
+	</resultMap>
+    <!-- /*in_flag INT(1)   0 没有父ID新数据编码；1有选择父ID新增数据，2修改父ID 修改数据,in_fulevel （选择父编码）varchar(70),in_currentlevel 自己当前编码, in_tablename(表名称),in in_condition（条件）,OUT result 返回值*/ -->
+    <!--<select id="sp_level" resultType="java.lang.String" useCache="false"
+        statementType="CALLABLE">  
+        <![CDATA[ 
+        call sp_level(
+        #{flag,mode=IN,jdbcType=INTEGER},
+        #{fulevel,mode=IN,jdbcType=VARCHAR},
+        #{currentlevel,mode=IN,jdbcType=VARCHAR},
+        #{tablename,mode=IN,jdbcType=VARCHAR},
+        #{condition,mode=IN,jdbcType=VARCHAR},
+        #{result,mode=OUT,jdbcType=VARCHAR});
+        ]]>
+    </select>-->
+	<select id="sp_level" resultType="java.lang.String" useCache="false"
+			statementType="CALLABLE">
+        <![CDATA[
+        call sp_level(
+        #{flag,mode=IN,jdbcType=INTEGER},
+        #{fulevel,mode=IN,jdbcType=VARCHAR},
+        #{currentlevel,mode=IN,jdbcType=VARCHAR},
+        #{tablename,mode=IN,jdbcType=VARCHAR},
+        #{condition,mode=IN,jdbcType=VARCHAR},
+        #{result,mode=OUT,jdbcType=VARCHAR});
+        ]]>
+    </select>
+
+	<select id="sp_createRandom" parameterType="java.lang.String" resultType="java.lang.Integer" useCache="false"
+			statementType="CALLABLE">
+        <![CDATA[
+        call Sp_CreateRandom(
+        #{loginName,mode=IN,jdbcType=VARCHAR},4,
+        #{result,mode=OUT,jdbcType=INTEGER});
+        ]]>
+    </select>
+
+	<select id="selectCodeBymobileCount" resultType="Integer">
+		select count(1) from xt_code where umobile = #{umobile} and codeno = #{codeno}
+	</select>
+  
+</mapper>

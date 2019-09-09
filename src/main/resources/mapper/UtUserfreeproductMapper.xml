@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.UtUserfreeproductMapper">
+    <select id="getLastFreeproduct" resultType="com.zdv.shop.model.UtUserfreeproduct">
+
+        select uuserfreeproductid,ucompid,ucustomerid,uuserid,ucomproductid,uproductid,upromotesales,ucreatedate
+
+        from ut_userfreeproduct
+        <where>
+            <if test="ucompid != null and '' != ucompid">
+                and ucompid =#{ucompid}
+            </if>
+            <if test="ucustomerid != null and '' != ucustomerid">
+                and ucustomerid =#{ucustomerid}
+            </if>
+            <if test="uuserid != null and '' != uuserid">
+                and uuserid =#{uuserid}
+            </if>
+            <if test="ucomproductid != null and '' != ucomproductid">
+                and ucomproductid =#{ucomproductid}
+            </if>
+            <if test="uorderitemid != null and '' != uorderitemid">
+                and uorderitemid =#{uorderitemid}
+            </if>
+            <if test="uproductid != null and '' != uproductid">
+                and uproductid =#{uproductid}
+            </if>
+            <if test="upromotesales != null and '' != upromotesales">
+                and upromotesales =#{upromotesales}
+            </if>
+        </where>
+    </select>
+
+    <insert id="saveUserfreeproduct">
+        insert into ut_userfreeproduct
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uuserfreeproductid != null and ''!= uuserfreeproductid">
+                uuserfreeproductid,
+            </if>
+            <if test="ucompid != null and ''!= ucompid">
+                ucompid,
+            </if>
+            <if test="ucustomerid != null and ''!= ucustomerid">
+                ucustomerid,
+            </if>
+            <if test="uorderitemid != null and ''!= uorderitemid">
+                uorderitemid,
+            </if>
+            <if test="uuserid != null and ''!= uuserid">
+                uuserid,
+            </if>
+            <if test="ucomproductid != null and ''!= ucomproductid">
+                ucomproductid,
+            </if>
+            <if test="uproductid != null and ''!= uproductid">
+                uproductid,
+            </if>
+            <if test="upromotesales != null and ''!= upromotesales">
+                upromotesales,
+            </if>
+            ucreatedate,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uuserfreeproductid != null and ''!= uuserfreeproductid">
+               #{uuserfreeproductid},
+            </if>
+            <if test="ucompid != null and ''!= ucompid">
+                #{ucompid},
+            </if>
+            <if test="ucustomerid != null and ''!= ucustomerid">
+                #{ucustomerid},
+            </if>
+            <if test="uorderitemid != null and ''!= uorderitemid">
+                #{uorderitemid},
+            </if>
+            <if test="uuserid != null and ''!= uuserid">
+                 #{uuserid},
+            </if>
+            <if test="ucomproductid != null and ''!= ucomproductid">
+                 #{ucomproductid},
+            </if>
+            <if test="uproductid != null and ''!= uproductid">
+                 #{uproductid},
+            </if>
+            <if test="upromotesales != null and ''!= upromotesales">
+                 #{upromotesales},
+            </if>
+            UNIX_TIMESTAMP(now()),
+        </trim>
+    </insert>
+
+
+    <delete id="delUserfreeproductByUorderitemid">
+        delete from ut_userfreeproduct
+        where uorderitemid = #{uorderitemid};
+
+    </delete>
+
+</mapper>

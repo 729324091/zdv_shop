@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.UtAreaManagerMapper">
+    <sql id="areaManager">
+        umanagerid,
+        uareaid,
+        uuserid,
+        uprofit_rate
+    </sql>
+
+    <select id="areaManagerList" resultType="com.zdv.shop.model.UtAreaManager" >
+        select
+        <include refid="areaManager"/>
+        from ut_area_manager
+        <where>
+            <if test="umanagerid != null and ''!= umanagerid">
+                and umanagerid = #{umanagerid}
+            </if>
+            <if test="uareaid != null and ''!= uareaid">
+                and uareaid = #{uareaid}
+            </if>
+            <if test="uuserid != null and ''!= uuserid">
+                and uuserid = #{uuserid}
+            </if>
+            <if test="uprofit_rate != null and ''!= uprofit_rate">
+                and uprofit_rate = #{uprofit_rate}
+            </if>
+        </where>
+    </select>
+
+    <insert id="addAreaManager" parameterType="com.zdv.shop.model.UtAreaManager">
+        insert into ut_area_manager
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="umanagerid != umanagerid and ''!= umanagerid">umanagerid,</if>
+            <if test="uareaid != null and ''!= uareaid">uareaid,</if>
+            <if test="uuserid != null and ''!= uuserid">uuserid,</if>
+            <if test="uprofit_rate != null and ''!= uprofit_rate">uprofit_rate,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="umanagerid != null and ''!= umanagerid">#{umanagerid},</if>
+            <if test="uareaid != null and ''!= uareaid">#{uareaid},</if>
+            <if test="uuserid != null and ''!= uuserid">#{uuserid},</if>
+            <if test="uprofit_rate != null and ''!= uprofit_rate">#{uprofit_rate},</if>
+        </trim>
+    </insert>
+
+    <update id="updateAreaManager" parameterType="com.zdv.shop.model.UtAreaManager">
+        update ut_area_manager
+        <set>
+            <if test="uareaid != null and ''!= uareaid">uareaid = #{uareaid},</if>
+            <if test="uuserid != null and ''!= uuserid">uuserid = #{uuserid},</if>
+            <if test="uprofit_rate != null and ''!= uprofit_rate">uprofit_rate = #{uprofit_rate},</if>
+        </set>
+        where umanagerid = #{umanagerid}
+    </update>
+    <delete id="delAreaManagerById" parameterType="java.lang.String">
+    delete from ut_area_manager
+    where umanagerid = #{umanagerid}
+    </delete>
+</mapper>

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.UtOrderItemMapper">
+
+    <sql id="item">
+    ui.uorderitemid,
+    ui.uorderid,
+    ui.ucompid,
+    ui.uproductid,
+    ui.uproductname,
+    ui.udiscount,
+    ui.umarketprice,
+    ui.uprice,
+    ui.upayprice,
+    ui.ucosttype,
+    ui.uunit,
+    ui.uobjnamevalue,
+    ui.udistributorid,
+    ui.uname,
+    ui.upaystatus,
+    ui.uprofit,
+    ui.ucostprice,
+    FROM_UNIXTIME(LEFT(ui.ucreatedate,10),'%Y-%m-%d %H:%i:%S') ucreatedate
+    </sql>
+
+    <select id="queryOrderItemPage" resultType="com.zdv.shop.model.UtOrderItem">
+        select
+        <include refid="item"/>
+        from ut_order_item ui
+        <where>
+            <if test="uorderitemid != null and '' != uorderitemid">
+                and uorderitemid = #{uorderitemid}
+            </if>
+            <if test="uorderid != null and '' != uorderid">
+                and uorderid = #{uorderid}
+            </if>
+            <if test="ucompid != null and '' != ucompid">
+                and ucompid = #{ucompid}
+            </if>
+            <if test="uproductid != null and '' != uproductid">
+                and uproductid = #{uproductid}
+            </if>
+            <if test="uproductname != null and '' != uproductname">
+                and uproductname = #{uproductname}
+            </if>
+            <if test="udiscount != null and '' != udiscount">
+                and udiscount = #{udiscount}
+            </if>
+            <if test="uprice != null and '' != uprice">
+                and uprice = #{uprice}
+            </if>
+            <if test="upayprice != null and '' != upayprice">
+                and upayprice = #{upayprice}
+            </if>
+            <if test="ucosttype != null and '' != ucosttype">
+                and ucosttype = #{ucosttype}
+            </if>
+            <if test="uunit != null and '' != uunit">
+                and uunit = #{uunit}
+            </if>
+            <if test="uobjnamevalue != null and '' != uobjnamevalue">
+                and uobjnamevalue = #{uobjnamevalue}
+            </if>
+            <if test="udistributorid != null and '' != udistributorid">
+                and udistributorid = #{udistributorid}
+            </if>
+            <if test="uname != null and '' != uname">
+                and uname = #{uname}
+            </if>
+            <if test="upaystatus != null and '' != upaystatus">
+                and upaystatus = #{upaystatus}
+            </if>
+            <if test="uprofit != null and '' != uprofit">
+                and uprofit = #{uprofit}
+            </if>
+            <if test="ucostprice != null and '' != ucostprice">
+                and ucostprice = #{ucostprice}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectCartOrderItem" resultType="map">
+    	select oi.uorderitemid, oi.uproductnum, oi.uproductname,oi.ucomproductid,oi.uproductid, oi.uobjnamevalue,oi.uunit,oi.uproductstockid,
+		oi.uproductname,oi.umarketprice,oi.uprice, oi.upayprice, p.uhomepic,oi.ucompid,c.ucompname
+		from ut_order_item oi
+		inner join ot_comp_to_product ctp on ctp.ucomproductid = oi.ucomproductid
+		inner join ot_product p on p.uproductid = ctp.uproductid
+		inner join ct_comp c on c.ucompid = oi.ucompid
+		where oi.uuserid = #{uuserid} and oi.uorderid is null
+
+		order by oi.ucreatedate desc 
+    </select>
+
+    <select id="selectCartOrderItemList" resultType="com.zdv.shop.model.UtOrderItem">
+    	select oi.uorderitemid, oi.uproductnum, oi.uproductname,oi.ucomproductid,oi.uproductid, oi.uobjnamevalue,oi.uunit,oi.uproductstockid,
+		oi.uproductname,oi.umarketprice,oi.uprice, oi.upayprice, p.uhomepic,oi.ucompid,c.ucompname,ctp.upromotesales
+		from ut_order_item oi
+		inner join ot_comp_to_product ctp on ctp.ucomproductid = oi.ucomproductid
+		inner join ot_product p on p.uproductid = ctp.uproductid
+		inner join ct_comp c on c.ucompid = oi.ucompid
+		where oi.uuserid = #{uuserid} and oi.uorderid is null
+
+		order by oi.ucreatedate desc
+    </select>
+    <select id="selectOrderItem" resultType="com.zdv.shop.model.UtOrderItem">
+    	select oi.uorderitemid,oi.ucompid,oi.uproductid,oi.udistributorid,oi.ucomproductid,oi.ucomproductid,oi.uproductstockid, oi.uproductnum, oi.uproductname, oi.uobjnamevalue,oi.uunit,
+		oi.uproductname,oi.umarketprice,oi.uprice, oi.upayprice,oi.ucostprice,oi.ucosttype, p.uhomepic,ctp.upromotesales,
+		c.ulogo as uclogo ,c.ucontact as uccontact, c.utel as uctel,c.uaddress as ucaddress,c.ucompname
+		from ut_order_item oi
+		inner join ot_comp_to_product ctp on ctp.ucomproductid = oi.ucomproductid
+		inner join ot_product p on p.uproductid = ctp.uproductid
+		inner join ct_comp c on c.ucompid = oi.ucompid
+		where  find_in_set(oi.uorderitemid,#{uorderitemids})
+		order by oi.ucreatedate desc
+    </select>
+    <select id="queryOrderItemListByUorderitemids" resultType="map">
+    	select oi.uorderitemid, oi.uproductnum, oi.uproductname,oi.ucomproductid,oi.uproductid, oi.uobjnamevalue,oi.uunit,oi.uproductstockid,
+		oi.uproductname,oi.umarketprice,oi.uprice, oi.upayprice, p.uhomepic,oi.ucompid,c.ucompname,ctp.upromotesales
+		from ut_order_item oi
+		inner join ot_comp_to_product ctp on ctp.ucomproductid = oi.ucomproductid
+		inner join ot_product p on p.uproductid = ctp.uproductid
+		inner join ct_comp c on c.ucompid = oi.ucompid
+		where  find_in_set(oi.uorderitemid,#{uorderitemids})
+		order by oi.ucreatedate desc
+    </select>
+    <select id="listOrderitemByUorderid" resultType="com.zdv.shop.model.UtOrderItem">
+    	select oi.uorderitemid,oi.uorderid,oi.uuserid,oi.ucompid,oi.ucomproductid,oi.uproductname,oi.uproductnum,oi.uprofit,ctp.upromotesales
+		from ut_order_item oi
+		inner join ut_order o on oi.uorderid = o.uorderid
+        left join ot_comp_to_product ctp on oi.ucomproductid = ctp.ucomproductid
+		 where o.uorderid = #{uorderid}
+    </select>
+    <select id="queryCartItemList" resultType="com.zdv.shop.model.UtOrderItem">
+    	select oi.uorderitemid, oi.uproductnum, oi.uproductname, oi.uobjnamevalue,oi.uunit,
+		oi.uproductname,oi.uprice, oi.upayprice, p.uhomepic from ut_order_item oi
+		inner join ot_comp_to_product ctp on ctp.ucomproductid = oi.ucomproductid
+		inner join ot_product p on p.uproductid = ctp.uproductid
+        <where>
+            <if test="uuserid !=null and '' != uuserid">
+                and oi.uuserid = #{uuserid}
+            </if>
+            <if test="uproductid !=null and ''!=uproductid">
+                and oi.uproductid = #{uproductid}
+            </if>
+            <if test="ucomproductid !=null and ''!=ucomproductid">
+                and oi.ucomproductid = #{ucomproductid}
+            </if>
+            <if test="uproductstockid !=null and ''!=uproductstockid">
+                and oi.uproductstockid = #{uproductstockid}
+            </if>
+            <if test="uproductname !=null and ''!=uproductname">
+                and oi.uproductname = #{uproductname}
+            </if>
+            <if test="uobjnamevalue != null and '' != uobjnamevalue">
+                and oi.uobjnamevalue = #{uobjnamevalue}
+            </if>
+            and oi.uorderid is null
+
+
+        </where>
+		order by oi.ucreatedate desc
+    </select>
+
+
+    <select id="queryOrderItemList" resultType="com.zdv.shop.model.UtOrderItem">
+     select oi.uorderitemid,oi.uproductid,oi.ucomproductid, oi.uproductnum, oi.uproductname, oi.uobjnamevalue,oi.uunit,
+		oi.uproductname,oi.uprice, oi.upayprice, oi.uhomepic,ctp.upromotesales
+        from ut_order_item oi
+        left join ot_comp_to_product ctp on ctp.ucomproductid = oi.ucomproductid
+
+        <where>
+            <if test="uuserid !=null and '' != uuserid">
+                and oi.uuserid = #{uuserid}
+            </if>
+            <if test="uproductid !=null and ''!=uproductid">
+                and oi.uproductid = #{uproductid}
+            </if>
+            <if test="uproductname !=null and ''!=uproductname">
+                and oi.uproductname = #{uproductname}
+            </if>
+            <if test="uorderid !=null and ''!=uorderid">
+                and oi.uorderid = #{uorderid}
+            </if>
+            <if test="ucompid !=null and ''!=ucompid">
+                and oi.ucompid = #{ucompid}
+            </if>
+
+        </where>
+    </select>
+    
+   
+    <update id="updateOrderItemList">
+        <if test="list!=null">
+            <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+                update ut_order_item
+                <set>
+                    <if test="item.uorderid != null and ''!= item.uorderid">uorderid=#{item.uorderid},</if>
+                    <if test="item.ucompid != null and ''!= item.ucompid">ucompid=#{item.ucompid},</if>
+                    <if test="item.uproductid != null and ''!= item.uproductid">uproductid=#{item.uproductid},</if>
+                    <if test="item.uopuserid != null and ''!= item.uopuserid">uopuserid=#{item.uopuserid},</if>
+                    <if test="item.uuserid != null and ''!= item.uuserid">uuserid=#{item.uuserid},</if>
+                    <if test="item.uproductnum != null and ''!= item.uproductnum">uproductnum=#{item.uproductnum},</if>
+                    <if test="item.uproductname != null and ''!= item.uproductname">uproductname=#{item.uproductname},</if>
+                    <if test="item.udiscount != null and ''!= item.udiscount">udiscount=#{item.udiscount},</if>
+                    <if test="item.umarketprice != null and ''!= item.umarketprice">umarketprice=#{item.umarketprice},</if>
+                    <if test="item.uprice != null and ''!= item.uprice">uprice=#{item.uprice},</if>
+                    <if test="item.upayprice != null and ''!= item.upayprice">upayprice=#{item.upayprice},</if>
+                    <if test="item.ucostprice != null and ''!= item.ucostprice">ucostprice=#{item.ucostprice},</if>
+                    <if test="item.ucosttype != null and ''!= item.ucosttype">ucosttype=#{item.ucosttype},</if>
+                    <if test="item.uunit != null and ''!= item.uunit">uunit=#{item.uunit},</if>
+                    <if test="item.uunitid != null and ''!= item.uunitid">uunitid=#{item.uunitid},</if>
+                    <if test="item.uobjnamevalue != null and ''!= item.uobjnamevalue">uobjnamevalue=#{item.uobjnamevalue},</if>
+                    <if test="item.udistributorid != null and ''!= item.udistributorid">udistributorid=#{item.udistributorid},</if>
+                    <if test="item.udname != null and ''!= item.udname">udname=#{item.udname},</if>
+                    <if test="item.upaystatus != null and ''!= item.upaystatus">upaystatus=#{item.upaystatus},</if>
+                    <if test="item.uprofit != null and ''!= item.uprofit">uprofit=#{item.uprofit},</if>
+                    <if test="item.ucost != null and ''!= item.ucost">ucost=#{item.ucost},</if>
+                    <if test="item.ucreatedate != null and ''!= item.ucreatedate">ucreatedate=#{item.ucreatedate},</if>
+                    <if test="item.ufactoryname != null and ''!= item.ufactoryname">ufactoryname=#{item.ufactoryname},</if>
+                    <if test="item.uhomepic != null and ''!= item.uhomepic">uhomepic=#{item.uhomepic},</if>
+                </set>
+                where uorderitemid = #{item.uorderitemid}
+            </foreach>
+        </if>
+    </update>
+
+
+    <delete id="delByUorderid">
+        delete from ut_order_item
+        where uorderid = #{uorderid}
+    </delete>
+</mapper>

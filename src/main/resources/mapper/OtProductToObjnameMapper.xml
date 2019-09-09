@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.OtProductToObjnameMapper">
+
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into ot_product_to_objname (uproductid, uobjnameid) values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.uproductid},
+			#{item.uobjnameid})
+		</foreach>
+	</insert>
+
+</mapper>

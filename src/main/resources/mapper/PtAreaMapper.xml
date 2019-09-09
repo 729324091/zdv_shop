@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.PtAreaMapper">
+
+    <select id="queryAreaList" resultType="com.zdv.shop.model.PtArea">
+        select uareaid,uareaname,uparentid,ulatitude,ulongitude
+          from pt_area
+          <where>
+              <if test="uareaid !=null and ''!= uareaid">
+                  and uareaid = #{uareaid}
+              </if>
+              <if test="uareaname !=null and ''!= uareaname">
+                  and uareaname like concat('%',#{uareaname},'%')
+              </if>
+              <if test="uparentid !=null and ''!= uparentid">
+                  uparentid = #{uparentid}
+              </if>
+          </where>
+    </select>
+
+
+    <insert id="addArea">
+        insert into pt_area
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uareaid != null and ''!= uareaid">uareaid,</if>
+            <if test="uareaname != null and ''!= uareaname">uareaname,</if>
+            <if test="uparentid != null and ''!= uparentid">uparentid,</if>
+            <if test="ulatitude != null and ''!= ulatitude">ulatitude,</if>
+            <if test="ulongitude != null and ''!= ulongitude">ulongitude,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uareaid != null and ''!= uareaid">#{uareaid},</if>
+            <if test="uareaname != null and ''!= uareaname">#{uareaname},</if>
+            <if test="uparentid != null and ''!= uparentid">#{uparentid},</if>
+            <if test="ulatitude != null and ''!= ulatitude">#{ulatitude},</if>
+            <if test="ulongitude != null and ''!= ulongitude">#{ulongitude},</if>
+        </trim>
+    </insert>
+
+
+    <update id="updateArea">
+        update pt_area
+        <set>
+            <if test="uareaname != null and ''!= uareaname">uareaname = #{uareaname},</if>
+            <if test="uparentid != null and ''!= uparentid">uparentid = #{uparentid},</if>
+            <if test="ulatitude != null and ''!= ulatitude">ulatitude = #{ulatitude},</if>
+            <if test="ulongitude != null and ''!= ulongitude">ulongitude = #{ulongitude},</if>
+        </set>
+        where uareaid =#{uareaid}
+    </update>
+
+
+    <select id="findChildrenids" resultType="java.lang.String">
+        select uareaid
+        from pt_area
+        where uparentid = #{uparentid}
+    </select>
+
+
+    <delete id="deleteArea">
+        delete from pt_area
+        where find_in_set(uareaid,#{uareaid})
+
+    </delete>
+    <select id="queryTopArea" resultType="com.zdv.shop.model.PtArea">
+        select uareaid,uareaname,uparentid,ulatitude,ulongitude
+        from pt_area
+        where (uparentid is null) or (''=uparentid)
+    </select>
+    <select id="queryAreaByUparentid" resultType="com.zdv.shop.model.PtArea">
+       select uareaid,uareaname,uparentid,ulatitude,ulongitude
+        from pt_area
+        where uparentid = #{uparentid}
+    </select>
+</mapper>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="uTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.OaRemindMapper">
+
+		<resultMap id="BaseResultMap" type="com.zdv.shop.model.OaRemind">
+				<result column="uremindtype" jdbcType="VARCHAR" property="uremindtype"/>
+				<result column="ucorpid" jdbcType="VARCHAR" property="ucorpid"/>
+				<result column="udatatype" jdbcType="VARCHAR" property="udatatype"/>
+				<result column="uoperater" jdbcType="VARCHAR" property="uoperater"/>
+				<result column="ucount" jdbcType="INTEGER" property="ucount"/>
+		</resultMap>	
+
+		<sql id="columns">
+			a.uremindtype,
+			a.ucorpid,
+			a.udatatype,
+			a.uoperater,
+			a.ucount
+		</sql>
+
+		<!-- 按条件今日提醒日结信息 -->
+	     <select id="queryList" parameterType="com.zdv.shop.model.OaRemind" resultMap="BaseResultMap">
+	      	     SELECT 
+	      	     		<include refid="columns"></include>
+	      	     FROM	OA_Remind a
+	      	     WHERE 1=1      	    
+	  	     		 <if test="uremindtype != null and ''!= uremindtype">
+	  	     		     AND   a.uremindtype=#{uremindtype}
+	  	     		 </if>
+	  	     		 <if test="ucorpid != null and ''!= ucorpid">
+	  	     		     AND  a.ucorpid=#{ucorpid}
+	  	     		 </if>
+	  	     		 <if test="udatatype != null and ''!= udatatype">
+	  	     		     AND  a.udatatype=#{udatatype}
+	  	     		 </if>
+	  	     		  <if test="uoperater != null and ''!= uoperater">
+	  	     		     AND  a.uoperater=#{uoperater}
+	  	     		 </if>     
+	     </select>
+		
+		<!-- 按提醒类型或（和）客户编码或（和）操作员删除今日提醒日结信息 -->	
+		 <delete id="deleteById" parameterType="java.lang.Integer">
+	 			DELETE FROM OA_Remind  
+	 			WHERE 1=1
+			 		<if test="uremindtype != null and ''!= uremindtype">
+		  	     		     AND  uremindtype=#{uremindtype}
+		  	     	</if>
+		  	     	<if test="ucorpid != null and ''!= ucorpid">
+		  	     		     AND  ucorpid=#{ucorpid}
+		  	     	 </if>
+		  	     	 <if test="uoperater != null and ''!= uoperater">
+		  	     		     AND  uoperater=#{uoperater}
+		  	     	 </if>
+	 	 </delete>
+			
+		
+		<!-- 添加今日提醒日结信息 -->		
+		 <insert id="insertOaRemind" parameterType="com.zdv.shop.model.OaRemind">
+			    INSERT INTO OA_Remind
+		    <trim prefix="(" suffix=")" suffixOverrides=",">
+			    <if test="uremindtype != null and ''!= uremindtype">uremindtype,</if>
+			    <if test="ucorpid != null and ''!= ucorpid">ucorpid,</if>
+			    <if test="udatatype != null and ''!= udatatype">udatatype,</if>
+			    <if test="uoperater != null and ''!= uoperater">uoperater,</if>
+			    <if test="ucount != null and ''!= ucount">ucount,</if>
+		    </trim>
+				VALUES
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+			   <if test="uremindtype != null and ''!= uremindtype">#{uremindtype},</if>
+			    <if test="ucorpid != null and ''!= ucorpid">#{ucorpid},</if>
+			    <if test="udatatype != null and ''!= udatatype">#{udatatype},</if>
+			    <if test="uoperater != null and ''!= uoperater">#{uoperater},</if>
+			    <if test="ucount != null and ''!= ucount">#{ucount},</if>
+		    </trim>
+		 </insert>
+
+		  <!--按提醒类型或（和）客户编码或（和）操作员进行修改  -->
+		  <update id="updateByIds">
+				UPDATE OA_Remind
+					<set>
+						<if test="null != uremindtype and ''!= uremindtype"> uremindtype = #{uremindtype},</if>
+						<if test="null != ucorpid and ''!= ucorpid"> ucorpid = #{ucorpid},</if>
+						<if test="null != udatatype and ''!= udatatype"> udatatype = #{udatatype},</if>
+						<if test="null != uoperater and ''!= uoperater"> uoperater = #{uoperater},</if>
+						<if test="null != ucount and ''!= ucount"> ucount = #{ucount},</if>					
+					</set>
+				WHERE 1=1
+				<if test="uremindtype != null and ''!= uremindtype">
+	  	     		     AND  uremindtype=#{uremindtype}
+	  	     	</if>
+	  	     	<if test="ucorpid != null and ''!= ucorpid">
+	  	     		     AND  ucorpid=#{ucorpid}
+	  	     	 </if>
+	  	     	 <if test="uoperater != null and ''!= uoperater">
+	  	     		     AND  uoperater=#{uoperater}
+	  	     	 </if>
+		  </update>
+</mapper>

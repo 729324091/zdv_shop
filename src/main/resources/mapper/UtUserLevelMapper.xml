@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.UtUserLevelMapper">
+    <sql id="level">
+        uuserlevelid,
+        ucompid,
+        uuserlevel,
+        udiscount,
+        uintegral,
+        ustyle,
+        udistribution,
+        udefault,
+        uprofit_rate,
+        uprofit_view_all
+    </sql>
+
+    <select id="levelList" resultType="com.zdv.shop.model.UtUserLevel" >
+        select
+        <include refid="level"/>
+        from ut_user_level
+        <where>
+            <if test="uuserlevelid != null and ''!= uuserlevelid">
+                and uuserlevelid = #{uuserlevelid}
+            </if>
+            <if test="ucompid != null and ''!= ucompid">
+                and ucompid = #{ucompid}
+            </if>
+            <if test="uuserlevel != null and ''!= uuserlevel">
+                and uuserlevel = #{uuserlevel}
+            </if>
+            <if test="udiscount != null and ''!= udiscount">
+                and udiscount = #{udiscount}
+            </if>
+            <if test="uintegral != null and ''!= uintegral">
+                and uintegral = #{uintegral}
+            </if>
+            <if test="ustyle != null and ''!= ustyle">
+                and ustyle = #{ustyle}
+            </if>
+            <if test="udefault != null and ''!= udefault">
+                and udefault = #{udefault}
+            </if>
+            <if test="uprofit_rate != null and ''!= uprofit_rate">
+                and uprofit_rate = #{uprofit_rate}
+            </if>
+            <if test="uprofit_view_all != null and ''!= uprofit_view_all">
+                and uprofit_view_all = #{uprofit_view_all}
+            </if>
+        </where>
+    </select>
+
+    <insert id="addUserLevel" parameterType="com.zdv.shop.model.UtUserLevel">
+        insert into ut_user_level
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uuserlevelid != null and ''!= uuserlevelid">uuserlevelid,</if>
+            <if test="ucompid != null and ''!= ucompid">ucompid,</if>
+            <if test="uuserlevel != null and ''!= uuserlevel">uuserlevel,</if>
+            <if test="udiscount != null and ''!= udiscount">udiscount,</if>
+            <if test="uintegral != null and ''!= uintegral">uintegral,</if>
+            <if test="ustyle != null and ''!= ustyle">ustyle,</if>
+            <if test="udistribution != null and ''!= udistribution">udistribution,</if>
+            <if test="udefault != null and ''!= udefault">udefault,</if>
+            <if test="uprofit_rate != null and ''!= uprofit_rate">uprofit_rate,</if>
+            <if test="uprofit_view_all != null and ''!= uprofit_view_all">uprofit_view_all,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uuserlevelid != null and ''!= uuserlevelid">#{uuserlevelid},</if>
+            <if test="ucompid != null and ''!= ucompid">#{ucompid},</if>
+            <if test="uuserlevel != null and ''!= uuserlevel">#{uuserlevel},</if>
+            <if test="udiscount != null and ''!= udiscount">#{udiscount},</if>
+            <if test="uintegral != null and ''!= uintegral">#{uintegral},</if>
+            <if test="ustyle != null and ''!= ustyle">#{ustyle},</if>
+            <if test="udistribution != null and ''!= udistribution">#{udistribution},</if>
+            <if test="udefault != null and ''!= udefault">#{udefault},</if>
+            <if test="uprofit_rate != null and ''!= uprofit_rate">#{uprofit_rate},</if>
+            <if test="uprofit_view_all != null and ''!= uprofit_view_all">#{uprofit_view_all},</if>
+        </trim>
+    </insert>
+
+    <update id="updateUserLevel" parameterType="com.zdv.shop.model.UtUserLevel">
+        update ut_user_level
+        <set>
+            <if test="ucompid != null and ''!= ucompid">ucompid = #{ucompid},</if>
+            <if test="uuserlevel != null and ''!= uuserlevel">uuserlevel = #{uuserlevel},</if>
+            <if test="udiscount != null and ''!= udiscount">udiscount = #{udiscount},</if>
+            <if test="uintegral != null and ''!= uintegral">uintegral = #{uintegral},</if>
+            <if test="ustyle != null and ''!= ustyle">ustyle = #{ustyle},</if>
+            <if test="udistribution != null and ''!= udistribution">udistribution = #{udistribution},</if>
+            <if test="udefault != null and ''!= udefault">udefault = #{udefault},</if>
+            <if test="uprofit_rate != null and ''!= uprofit_rate">uprofit_rate = #{uprofit_rate},</if>
+            <if test="uprofit_view_all != null and ''!= uprofit_view_all">uprofit_view_all = #{uprofit_view_all},</if>
+        </set>
+        where uuserlevelid = #{uuserlevelid}
+    </update>
+    <delete id="delUserLevelById" parameterType="java.lang.String">
+    delete from ut_user_level
+    where uuserlevelid = #{uuserlevelid}
+    </delete>
+</mapper>

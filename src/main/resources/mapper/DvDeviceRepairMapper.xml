@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.DvDeviceRepairMapper">
+    <sql id="device">
+        udeviceRepairid,
+        udeviceid,
+        ummsed,
+        ubatchno,
+        udevicename,
+        ustatus,
+        ucompid,
+        ucompname,
+        uopname,
+        uoperdate,
+    </sql>
+
+    <select id="deviceRepairList" resultType="com.zdv.shop.model.DvDeviceRepair" >
+        select
+        <include refid="device"/>
+        from dv_deviceRepair
+        <where>
+            <if test="udeviceRepairid != null and ''!= udeviceRepairid">
+                and udeviceRepairid = #{udeviceRepairid}
+            </if>
+            <if test="udeviceid != null and ''!= udeviceid">
+                and udeviceid = #{udeviceid}
+            </if>
+            <if test="ummsed != null and ''!= ummsed">
+                and ummsed = #{ummsed}
+            </if>
+            <if test="ubatchno != null and ''!= ubatchno">
+                and ubatchno = #{ubatchno}
+            </if>
+            <if test="udevicename != null and ''!= udevicename">
+                and udevicename = #{udevicename}
+            </if>
+            <if test="ustatus != null and ''!= ustatus">
+                and ustatus = #{ustatus}
+            </if>
+            <if test="ucompid != null and ''!= ucompid">
+                and ucompid = #{ucompid}
+            </if>
+            <if test="ucompname != null and ''!= ucompname">
+                and ucompname = #{ucompname}
+            </if>
+            <if test="uopname != null and ''!= uopname">
+                and uopname = #{uopname}
+            </if>
+            <if test="uoperdate != null and ''!= uoperdate">
+                and uoperdate = #{uoperdate}
+            </if>
+        </where>
+    </select>
+
+    <insert id="addDeviceRepair" parameterType="com.zdv.shop.model.DvDeviceRepair">
+        insert into dv_deviceRepair
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="udeviceRepairid != null and ''!= udeviceRepairid">udeviceRepairid,</if>
+            <if test="udeviceid != null and ''!= udeviceid">udeviceid,</if>
+            <if test="ummsed != null and ''!= ummsed">ummsed,</if>
+            <if test="ubatchno != null and ''!= ubatchno">ubatchno,</if>
+            <if test="udevicename != null and ''!= udevicename">udevicename,</if>
+            <if test="ustatus != null and ''!= ustatus">ustatus,</if>
+            <if test="ucompid != null and ''!= ucompid">ucompid,</if>
+            <if test="ucompname != null and ''!= ucompname">ucompname,</if>
+            <if test="uopname != null and ''!= uopname">uopname,</if>
+            uperdate,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="udeviceRepairid != null and ''!= udeviceRepairid">#{udeviceRepairid},</if>
+            <if test="udeviceid != null and ''!= udeviceid">#{udeviceid},</if>
+            <if test="ummsed != null and ''!= ummsed">#{ummsed},</if>
+            <if test="ubatchno != null and ''!= ubatchno">#{ubatchno},</if>
+            <if test="udevicename != null and ''!= udevicename">#{udevicename},</if>
+            <if test="ustatus != null and ''!= ustatus">#{ustatus},</if>
+            <if test="ucompid != null and ''!= ucompid">#{ucompid},</if>
+            <if test="ucompname != null and ''!= ucompname">#{ucompname},</if>
+            <if test="uopname != null and ''!= uopname">#{uopname},</if>
+            UNIX_TIMESTAMP(now())
+        </trim>
+    </insert>
+
+    <update id="updateDeviceRepair" parameterType="com.zdv.shop.model.DvDeviceRepair">
+        update dv_deviceRepair
+        <set>
+            <if test="udeviceid != null and ''!= udeviceid">#{udeviceid},</if>
+            <if test="ummsed != null and ''!= ummsed">ummsed = #{ummsed},</if>
+            <if test="ubatchno != null and ''!= ubatchno">ubatchno = #{ubatchno},</if>
+            <if test="udevicename != null and ''!= udevicename">udevicename = #{udevicename},</if>
+            <if test="ustatus != null and ''!= ustatus">ustatus = #{ustatus},</if>
+            <if test="ucompid != null and ''!= ucompid">ucompid = #{ucompid},</if>
+            <if test="ucompname != null and ''!= ucompname">ucompname = #{ucompname},</if>
+            <if test="uopname != null and ''!= uopname">uopname = #{uopname},</if>
+            uoperdate = UNIX_TIMESTAMP(now())
+        </set>
+        where udeviceRepairid = #{udeviceRepairid}
+    </update>
+    <delete id="delDeviceRepairById" parameterType="java.lang.String">
+    delete from dv_deviceRepair
+    where udeviceRepairid = #{udeviceRepairid}
+    </delete>
+</mapper>

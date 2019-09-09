@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="uTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.CtWxpayConfigMapper">
+		<resultMap id="BaseResultMap" type="com.zdv.shop.model.CtWxpayConfig">
+				<id column="uwxpayid" property="uwxpayid"/>
+				<result column="ucompid" property="ucompid"/>
+				<result column="ucustomerid" property="ucustomerid"/>
+				<result column="appid" property="appid"/>
+				<result column="appsecret" property="appsecret"/>
+				<result column="mchid" property="mchid"/>
+				<result column="apikey" property="apikey"/>
+				<result column="utypes" property="utypes"/>
+				<result column="wxtoken" property="wxtoken"/>
+				<result column="wxpath" property="wxpath"/>
+				<result column="templateid" property="templateid"/>
+				<result column="biz" property="biz"/>
+				<result column="apiclientcertpath" property="apiclientcertpath"/>
+				<result column="apiclientcertpempath" property="apiclientcertpempath"/>
+				<result column="apiclientkeypath" property="apiclientkeypath"/>
+				<result column="ucreatedate" property="ucreatedate"/>
+		</resultMap>	
+
+		<sql id="columns">
+			uwxpayid,
+			ucompid,
+			ucustomerid,
+			appid,
+			appsecret,
+			mchid,
+			apikey,
+			utypes,
+			wxtoken,
+			wxpath,
+			templateid,
+			biz,
+			apiclientcertpath,
+			apiclientcertpempath,
+			apiclientkeypath,
+			ucreatedate
+		</sql>
+
+		<!-- 按条件查询流程处理信息 -->
+	     <select id="queryList" parameterType="com.zdv.shop.model.CtWxpayConfig" resultMap="BaseResultMap">
+	      	     SELECT 
+	      	     		<include refid="columns"></include>
+	      	     FROM	ct_wxpay_config 
+	      	     WHERE 1=1      	    
+	  	     		 <if test="ucompid != null and ''!= ucompid">
+	  	     		     AND   ucompid=#{ucompid}
+	  	     		 </if>
+	  	     		 <if test="ucustomerid != null and ''!= ucustomerid">
+	  	     		     AND  ucustomerid=#{ucustomerid}
+	  	     		 </if>
+	  	     		  <if test="uwxpayid != null and ''!= uwxpayid">
+	  	     		     AND   uwxpayid=#{uwxpayid}
+	  	     		 </if>
+	     </select>
+	     <select id="selectByIds" resultType="com.zdv.shop.model.CtWxpayConfig">
+	      	     SELECT 
+	      	     		<include refid="columns"></include>
+	      	     FROM	ct_wxpay_config 
+	      	     WHERE 1=1      	    
+	  	     		 <if test="ucompid != null and ''!= ucompid">
+	  	     		     AND   ucompid=#{ucompid}
+	  	     		 </if>
+	  	     		 <if test="ucustomerid != null and ''!= ucustomerid">
+	  	     		     AND  ucustomerid=#{ucustomerid}
+	  	     		 </if>
+	  	     		  <if test="uwxpayid != null and ''!= uwxpayid">
+	  	     		     AND   uwxpayid=#{uwxpayid}
+	  	     		 </if>
+	  	     		 limit 1
+	     </select>
+		<!-- 按条件删除公告管理信息 -->	
+		 <delete id="deleteByIds" parameterType="java.lang.Integer">
+	 			DELETE FROM ct_wxpay_config  
+	 			WHERE uwxpayid=#{uwxpayid}
+	 	 </delete>
+			
+		
+		<!-- 添加公告管理信息-->		
+		 <insert id="inserts" parameterType="com.zdv.shop.model.CtWxpayConfig">
+			    INSERT INTO ct_wxpay_config
+		    <trim prefix="(" suffix=")" suffixOverrides=",">
+			    <if test="uwxpayid != null and ''!= uwxpayid">uwxpayid,</if>            
+				<if test="ucompid != null and ''!= ucompid">ucompid,</if>             
+				<if test="ucustomerid != null and ''!= ucustomerid">ucustomerid,</if>         
+				<if test="appid != null and ''!= appid">appid,</if>               
+				<if test="appsecret != null and ''!= appsecret">appsecret,</if>           
+				<if test="mchid != null and ''!= mchid">mchid,</if>               
+				<if test="apikey != null and ''!= apikey">apikey,</if> 
+				<if test="utypes != null and ''!= utypes">utypes,</if>
+				<if test="wxtoken != null and ''!= wxtoken">wxtoken,</if>
+				<if test="wxpath != null and ''!= wxpath">wxpath,</if>         
+				<if test="biz != null and ''!= biz">biz,</if>                 
+				<if test="apiclientcertpath != null and ''!= apiclientcertpath">apiclientcertpath,</if>   
+				<if test="apiclientcertpempath != null and ''!= apiclientcertpempath">apiclientcertpempath,</if>
+				<if test="apiclientkeypath != null and ''!= apiclientkeypath">apiclientkeypath,</if>    
+				ucreatedate,
+		    </trim>
+				VALUES
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+			    <if test="uwxpayid != null and ''!= uwxpayid">#{uwxpayid},</if>            
+				<if test="ucompid != null and ''!= ucompid">#{ucompid},</if>             
+				<if test="ucustomerid != null and ''!= ucustomerid">#{ucustomerid},</if>         
+				<if test="appid != null and ''!= appid">#{appid},</if>               
+				<if test="appsecret != null and ''!= appsecret">#{appsecret},</if>           
+				<if test="mchid != null and ''!= mchid">#{mchid},</if>               
+				<if test="apikey != null and ''!= apikey">#{apikey},</if> 
+				<if test="utypes != null and ''!= utypes">#{utypes}</if>
+				<if test="wxtoken != null and ''!= wxtoken">#{wxtoken},</if>
+				<if test="wxpath != null and ''!= wxpath">#{wxpath},</if>              
+				<if test="biz != null and ''!= biz">#{biz},</if>                 
+				<if test="apiclientcertpath != null and ''!= apiclientcertpath">#{apiclientcertpath},</if>   
+				<if test="apiclientcertpempath != null and ''!= apiclientcertpempath">#{apiclientcertpempath},</if>
+				<if test="apiclientkeypath != null and ''!= apiclientkeypath">#{apiclientkeypath},</if>    
+				UNIX_TIMESTAMP(now()),
+		    </trim>
+		 </insert>
+
+		  <!--按条件进行修改  -->
+		  <update id="updateByIds">
+				UPDATE ct_wxpay_config
+					<set>						
+						<if test="uwxpayid != null and ''!= uwxpayid">uwxpayid = #{uwxpayid},</if>            
+						<if test="ucompid != null and ''!= ucompid">ucompid = #{ucompid},</if>             
+						<if test="ucustomerid != null and ''!= ucustomerid">ucustomerid = #{ucustomerid},</if>         
+						<if test="appid != null and ''!= appid">appid = #{appid},</if>               
+						<if test="appsecret != null and ''!= appsecret">appsecret = #{appsecret},</if>           
+						<if test="mchid != null and ''!= mchid">mchid = #{mchid},</if>               
+						<if test="apikey != null and ''!= apikey">apikey = #{apikey},</if> 
+						<if test="utypes != null and ''!= utypes">utypes=#{utypes}</if>
+						<if test="wxtoken != null and ''!= wxtoken">wxtoken=#{wxtoken},</if>
+						<if test="wxpath != null and ''!= wxpath">wxpath=#{wxpath},</if>              
+						<if test="biz != null and ''!= biz">biz = #{biz},</if>                 
+						<if test="apiclientcertpath != null and ''!= apiclientcertpath">apiclientcertpath = #{apiclientcertpath},</if>   
+						<if test="apiclientcertpempath != null and ''!= apiclientcertpempath">apiclientcertpempath = #{apiclientcertpempath},</if>
+						<if test="apiclientkeypath != null and ''!= apiclientkeypath">apiclientkeypath = #{apiclientkeypath},</if>    
+					</set>
+				WHERE uwxpayid=#{uwxpayid}
+		  </update>
+		
+
+</mapper>

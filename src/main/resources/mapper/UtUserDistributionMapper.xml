@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="uTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.UtUserDistributionMapper">
+
+
+<select id="queryDustributionList" resultType="com.zdv.shop.model.UtUserDistribution">
+  select udistributionid,ucompid,ucustomerid,udistributionname,uprofit,ulevel,
+        usubordinatesnum,uupdatemode,uparentid,ucreatedate,udistributionprice,usubordinatesprice,udesc
+  from ut_user_distribution
+  <where>
+      <if test="udistributionid!=null and ''!=udistributionid">
+          and udistributionid = #{udistributionid}
+      </if>
+      <if test="ucompid!=null and ''!=ucompid">
+          and ucompid = #{ucompid}
+      </if>
+      <if test="ucustomerid!=null and ''!=ucustomerid">
+          and ucustomerid = #{ucustomerid}
+      </if>
+      <if test="udistributionname!=null and ''!=udistributionname">
+          and udistributionname = #{udistributionname}
+      </if>
+      <if test="ulevel!=null and ''!=ulevel">
+          and ulevel = #{ulevel}
+      </if>
+      <if test="usubordinatesnum!=null ">
+          and usubordinatesnum = #{usubordinatesnum}
+      </if>
+      <if test="uupdatemode!=null ">
+          and uupdatemode = #{uupdatemode}
+      </if>
+      <if test="uparentid!=null">
+          and uparentid = #{uparentid}
+      </if>
+      <if test="udistributionprice!=null">
+          and udistributionprice = #{udistributionprice}
+      </if>
+      <if test="usubordinatesprice!=null">
+          and usubordinatesprice = #{usubordinatesprice}
+      </if>
+  </where>
+    order by ulevel
+</select>
+    <insert id="addUserDistribution">
+        insert into ut_user_distribution
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="udistributionid != null">udistributionid,</if>
+            <if test="ucompid != null">ucompid,</if>
+            <if test="ucustomerid != null">ucustomerid,</if>
+            <if test="udistributionname != null">udistributionname,</if>
+            <if test="uprofit != null">uprofit,</if>
+            <if test="ulevel != null">ulevel,</if>
+            <if test="usubordinatesnum != null">usubordinatesnum,</if>
+            <if test="uupdatemode != null">uupdatemode,</if>
+            <if test="uparentid != null and '' != uparentid">uparentid,</if>
+            <if test="ucreatedate != null">ucreatedate,</if>
+            <if test="udistributionprice != null">udistributionprice,</if>
+            <if test="usubordinatesprice != null">usubordinatesprice,</if>
+            <if test="udesc != null">udesc,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="udistributionid != null">#{udistributionid},</if>
+            <if test="ucompid != null">#{ucompid},</if>
+            <if test="ucustomerid != null">#{ucustomerid},</if>
+            <if test="udistributionname != null">#{udistributionname},</if>
+            <if test="uprofit != null">#{uprofit},</if>
+            <if test="ulevel != null">#{ulevel},</if>
+            <if test="usubordinatesnum != null">#{usubordinatesnum},</if>
+            <if test="uupdatemode != null">#{uupdatemode},</if>
+            <if test="uparentid != null and '' != uparentid">#{uparentid},</if>
+            <if test="ucreatedate != null">#{ucreatedate},</if>
+            <if test="udistributionprice != null">#{udistributionprice},</if>
+            <if test="usubordinatesprice != null">#{usubordinatesprice},</if>
+            <if test="udesc != null">#{udesc},</if>
+        </trim>
+    </insert>
+
+
+    <update id="updateUserDistributionByIds">
+        update ut_user_distribution
+        <set>
+            <if test="ucompid != null">ucompid = #{ucompid},</if>
+            <if test="udistributionname != null">udistributionname =#{udistributionname},</if>
+            <if test="uprofit != null">uprofit = #{uprofit},</if>
+            <if test="ulevel != null">ulevel = #{ulevel},</if>
+            <if test="usubordinatesnum != null">usubordinatesnum = #{usubordinatesnum},</if>
+            <if test="uupdatemode != null">uupdatemode = #{uupdatemode},</if>
+            <if test="uparentid != null and ''!= uparentid">uparentid = #{uparentid},</if>
+            <if test="ucreatedate != null">ucreatedate = #{ucreatedate},</if>
+            <if test="udistributionprice != null">udistributionprice = #{udistributionprice},</if>
+            <if test="usubordinatesprice != null">usubordinatesprice = #{usubordinatesprice},</if>
+            <if test="udesc != null">udesc = #{udesc},</if>
+        </set>
+        where udistributionid = #{udistributionid} and ucustomerid = #{ucustomerid}
+    </update>
+
+    <select id="selectUserDistributionLastLevel" resultType="com.zdv.shop.model.UtUserDistribution">
+       select udistributionid,ucompid,ucustomerid,udistributionname,uprofit,ulevel,
+        usubordinatesnum,uupdatemode,uparentid,ucreatedate,udistributionprice,usubordinatesprice,udesc
+          from ut_user_distribution
+          where ucustomerid = #{ucustomerid}
+
+          order by ulevel desc limit 1
+    </select>
+
+    <select id="queryProfitSumByUcustomerid" resultType="java.lang.Double">
+        select sum(uprofit) from ut_user_distribution where ucustomerid = #{ucustomerid} and udistributionid !=#{udistributionid}
+    </select>
+
+    <delete id="delUserDistributions">
+
+        delete from ut_user_distribution where LENGTH(ulevel) &gt;= length(#{ulevel}) and ucustomerid = #{ucustomerid}
+
+    </delete>
+
+    <select id="queryUserDistributionByUuserid" resultType="com.zdv.shop.model.UtUserDistribution">
+        select ud.udistributionid,ud.ucompid,ud.ucustomerid,ud.udistributionname,ud.uprofit,ud.ulevel,
+        ud.usubordinatesnum,ud.uupdatemode,ud.uparentid,ud.ucreatedate,ud.udistributionprice,ud.usubordinatesprice,ud.udesc,ud.udefault
+        from ut_user_distribution ud
+        inner join ut_users u on ud.udistributionid = u.udistributionid
+        where u.uuserid = #{uuserid}
+    </select>
+
+
+</mapper>

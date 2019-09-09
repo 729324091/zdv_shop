@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.OtProductGradeMapper">
+	<sql id="allColumns">
+		opg.productgradeid,
+		opg.ucompid,
+		opg.uproductid,
+		opg.contentgrade,
+		opg.logisticsgrade,
+		opg.servicegrade,
+		opg.content,
+		opg.imgpic,
+		opg.createdate,
+		opg.isshowname,
+		opg.uorderitemid
+	</sql>
+	<insert id="addProductGrade">
+		insert into ot_product_grade
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="productgradeid != null and ''!= productgradeid">productgradeid,</if>
+			<if test="ucompid != null and ''!= ucompid">ucompid,</if>
+			<if test="uuserid != null and ''!= uuserid">uuserid,</if>
+			<if test="uorderitemid != null and ''!= uorderitemid">uorderitemid,</if>
+			<if test="uproductid != null and ''!= uproductid">uproductid,</if>
+			<if test="contentgrade != null and ''!= contentgrade">contentgrade,</if>
+			<if test="logisticsgrade != null and ''!= logisticsgrade">logisticsgrade,</if>
+			<if test="servicegrade != null and ''!= servicegrade">servicegrade,</if>
+			<if test="content != null and ''!= content">content,</if>
+			<if test="imgpic != null and ''!= imgpic">imgpic,</if>
+			<if test="isshowname != null and ''!= isshowname">isshowname,</if>
+			createdate,
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="productgradeid != null and ''!= productgradeid">#{productgradeid},</if>
+			<if test="ucompid != null and ''!= ucompid">#{ucompid},</if>
+			<if test="uuserid != null and ''!= uuserid">#{uuserid},</if>
+			<if test="uorderitemid != null and ''!= uorderitemid">#{uorderitemid},</if>
+			<if test="uproductid != null and ''!= uproductid">#{uproductid},</if>
+			<if test="contentgrade != null and ''!= contentgrade">#{contentgrade},</if>
+			<if test="logisticsgrade != null and ''!= logisticsgrade">#{logisticsgrade},</if>
+			<if test="servicegrade != null and ''!= servicegrade">#{servicegrade},</if>
+			<if test="content != null and ''!= content">#{content},</if>
+			<if test="imgpic != null and ''!= imgpic">#{imgpic},</if>
+			<if test="isshowname != null and ''!= isshowname">#{isshowname},</if>
+			UNIX_TIMESTAMP(now()),
+		</trim>
+	</insert>
+
+
+	<insert id="addProductGradeList">
+		insert into
+		ot_product_grade(productgradeid,ucompid,uuserid,uorderitemid,uproductid,contentgrade,logisticsgrade,servicegrade,content,imgpic,isshowname,createdate)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.productgradeid}, #{item.ucompid}, #{item.uuserid},
+			#{item.uorderitemid},#{item.uproductid},#{item.contentgrade},#{item.logisticsgrade},#{item.servicegrade},#{item.content},#{item.imgpic},#{item.isshowname},UNIX_TIMESTAMP(now()))
+		</foreach>
+	</insert>
+
+	<select id="getCommenByUorderitemidAndType" resultType="com.zdv.shop.model.OtProductGrade">
+		select
+		<include refid="allColumns" />
+		from
+		ot_comp_to_product octp
+		INNER JOIN
+		ot_product_grade opg
+		ON
+		octp.uproductid = opg.uproductid
+		where octp.ucomproductid = #{ucomproductid}
+		<if test="flag == '1'.toString()">
+		  and opg.servicegrade &gt; 3
+		</if>
+		<if test="flag == '0'.toString()">
+		  and opg.servicegrade = 3
+		</if>
+		<if test="flag == '-1'.toString()">
+		  and opg.servicegrade &lt; 3
+		</if>
+	</select>
+		<select id="getCommenByUorderitemid" resultType="com.zdv.shop.model.OtProductGrade">
+		select
+		<include refid="allColumns" />
+		from
+		ot_comp_to_product octp
+		INNER JOIN
+		ot_product_grade opg
+		ON
+		octp.uproductid = opg.uproductid
+		where octp.ucomproductid = #{ucomproductid}
+	</select>
+	
+		<select id="getGradeToTalByType" resultType="java.lang.Integer">
+		select
+		count(1)
+		from
+		ot_comp_to_product octp
+		INNER JOIN
+		ot_product_grade opg
+		ON
+		octp.uproductid = opg.uproductid
+		where octp.ucomproductid = #{ucomproductid}
+		<if test="flag == '1'.toString()">
+		  and opg.servicegrade &gt; 3
+		</if>
+		<if test="flag == '0'.toString()">
+		  and opg.servicegrade = 3
+		</if>
+		<if test="flag == '-1'.toString()">
+		  and opg.servicegrade &lt; 3
+		</if>
+	</select>
+
+	<select id="queryProductGrade" resultType="com.zdv.shop.model.OtProductGrade">
+		select <include refid="allColumns" />
+		from ot_product_grade opg
+		<where>
+			<if test="productgradeid != null and ''!=productgradeid">
+				and productgradeid = #{productgradeid}
+			</if>
+			<if test="ucompid != null and ''!=ucompid">
+				and ucompid = #{ucompid}
+			</if>
+			<if test="uproductid != null and ''!=uproductid">
+				and uproductid = #{uproductid}
+			</if>
+			<if test="uorderitemid != null and ''!=uorderitemid">
+				and uorderitemid = #{uorderitemid}
+			</if>
+
+			order by createdate desc
+		</where>
+
+	</select>
+
+	
+
+</mapper>

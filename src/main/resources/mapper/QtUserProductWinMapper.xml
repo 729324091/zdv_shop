@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.QtUserProductWinMapper">
+	<resultMap id="BaseResultMap" type="com.zdv.shop.model.QtUserProductWin">
+		<id column="uproductwinid"  property="uproductwinid"/>
+		<result column="uuserid"  property="uuserid"/>
+		<result column="uname"  property="uname"/>
+		<result column="uqrcodeid"  property="uqrcodeid"/>
+		<result column="uqrcode"  property="uqrcode"/>
+		<result column="unqrcode"  property="unqrcode"/>
+		<result column="uboxqrcode"  property="uboxqrcode"/>
+		<result column="ulumpqrcode"  property="ulumpqrcode"/>
+		<result column="uproductid"  property="uproductid"/>
+		<result column="uproductname"  property="uproductname"/>
+		<result column="ueflag"  property="ueflag"/>
+		<result column="ucompid"  property="ucompid"/>
+		<result column="ucompname"  property="ucompname"/>
+		<result column="uopuserid"  property="uopuserid"/>
+		<result column="uopname"  property="uopname"/>
+		<result column="uwindate"  property="uwindate"/>
+		<result column="num"  property="num"/>
+		<result column="udname"  property="udname"/>
+		<result column="ufactoryname"  property="ufactoryname"/>
+		<result column="ucontact"  property="ucontact"/>
+		<result column="umobile"  property="umobile"/>
+		<result column="ulogo"  property="ulogo"/>
+		<result column="uunit"  property="uunit"/>
+		<result column="uhomepic"  property="uhomepic"/>
+		<result column="uorderno"  property="uorderno"/>
+		<result column="ucreatedate"  property="ucreatedate"/>
+	</resultMap>
+	<resultMap type="com.zdv.shop.model.QtCashOrder" id="cashOrderResultMap">
+		<id column="ucashorderid"  property="ucashorderid"/>  
+		<result column="ucashorderno"  property="ucashorderno"/>  
+		<result column="utotalnum"  property="utotalnum"/> 
+		<result column="utotype"  property="utotype"/>          
+		<result column="utype"  property="utype"/>         
+		<result column="ueflag"  property="ueflag"/>        
+		<result column="ucompid"  property="ucompid"/>       
+		<result column="ucname"  property="ucname"/>     
+		<result column="uaddress"  property="uaddress"/>      
+		<result column="ulatitude"  property="ulatitude"/>     
+		<result column="ulongitude"  property="ulongitude"/>    
+		<result column="ucontact"  property="ucontact"/>      
+		<result column="utel"  property="utel"/>          
+		<result column="ulogo"  property="ulogo"/>         
+		<result column="utocompid"  property="utocompid"/>
+		<result column="utoname"  property="utoname"/>         
+		<result column="utoaddress"  property="utoaddress"/>     
+		<result column="utolatitude"  property="utolatitude"/>    
+		<result column="utolongitude"  property="utolongitude"/>   
+		<result column="utocontact"  property="utocontact"/>     
+		<result column="utotel"  property="utotel"/>         
+		<result column="utologo"  property="utologo"/>        
+		<result column="ucreatedate"  property="ucreatedate"/> 
+	</resultMap>
+	<sql id="userProductWinAllFields">
+		uproductwinid,uuserid,uname,uqrcodeid,
+		uqrcode,unqrcode,uboxqrcode,ulumpqrcode,uproductid,
+		uproductname,ueflag,ucompid,ucompname,uwindate,ucreatedate,
+		uopuserid,uopname,uorderno,DATE_FORMAT(ucreatedate, '%Y-%m-%d %H:%i:%s') createdate
+	</sql>
+	<select id="queryListAjax" resultMap="BaseResultMap">
+		select <include refid="userProductWinAllFields" />
+		from qt_user_product_win  
+		<where>
+		<if test="userProductWin.uuserid != null and ''!= userProductWin.uuserid"> and uuserid=#{userProductWin.uuserid}</if> 
+		<if test="userProductWin.uopuserid != null and ''!= userProductWin.uopuserid"> and uopuserid=#{userProductWin.uopuserid}</if>  
+		<if test="userProductWin.uqrcodeid != null and ''!= userProductWin.uqrcodeid"> and uqrcodeid=#{userProductWin.uqrcodeid}</if>   
+		<if test="userProductWin.uproductid != null and ''!= userProductWin.uproductid"> and uproductid=#{userProductWin.uproductid}</if>
+		<if test="userProductWin.ucompid != null and ''!= userProductWin.ucompid"> and ucompid=#{userProductWin.ucompid}</if>   
+		<if test="userProductWin.ueflag != null and ''!= userProductWin.ueflag"> and ueflag=#{userProductWin.ueflag}</if>  
+		<if test="userProductWin.uname != null and ''!= userProductWin.uname"> and uname=#{userProductWin.uname}</if>    
+		<if test="userProductWin.keywords != null  and ''!= userProductWin.keywords">and (uqrcode like CONCAT('%',#{userProductWin.keywords},'%') or unqrcode like CONCAT('%',#{userProductWin.keywords},'%') or uproductname like CONCAT('%',#{userProductWin.keywords},'%') or ucompname like CONCAT('%',#{userProductWin.keywords},'%') or uopname like CONCAT('%',#{userProductWin.keywords},'%')) </if>
+		</where> 
+		<!-- <isNotEmpty property="userProductWin.orderByClause" > order by ${userProductWin.orderByClause} ${userProductWin.sorting}</isNotEmpty>
+		<isEmpty property="userProductWin.orderByClause" >  -->order by ucreatedate desc
+	</select>
+	<select id="queryList" resultMap="BaseResultMap">
+		select <include refid="userProductWinAllFields" />
+		from qt_user_product_win  
+		<where>
+		<if test="uuserid != null and ''!= uuserid"> and uuserid=#{uuserid}</if> 
+		<if test="uopuserid != null and ''!= uopuserid">and uopuserid=#{uopuserid}</if>  
+		<if test="uqrcodeid != null and ''!= uqrcodeid">and uqrcodeid=#{uqrcodeid}</if>   
+		<if test="uproductid != null and ''!= uproductid">and uproductid=#{uproductid}</if>
+		<if test="ucompid != null and ''!= ucompid">and ucompid=#{ucompid}</if>   
+		<if test="ueflag != null and ''!= ueflag">and ueflag=#{ueflag}</if> 		
+		<if test="uname != null and ''!= uname">and uname=#{uname}</if>     
+		<if test="keywords != null  and ''!= keywords">and (uqrcode like CONCAT('%',#{keywords},'%') or unqrcode like CONCAT('%',#{keywords},'%') or uproductname like CONCAT('%',#{keywords},'%') or ucompname like CONCAT('%',#{keywords},'%') or uopname like CONCAT('%',#{keywords},'%')) </if>
+		</where> 
+		order by ucreatedate desc limit #{pageNo},#{pageSize}
+	</select>
+	<!-- 指定销售商未核销的产品 1-->
+	<select id="queryCompCashProductList" resultMap="BaseResultMap">
+		select max(uuserid) uuserid,uw.uproductid,max(uw.uproductname)uproductname,max(p.uhomepic) uhomepic,max(p.uunit)uunit,max(uw.uorderno)uorderno,max(FROM_UNIXTIME(uw.ucreatedate,'%Y-%m-%d'))ucreatedate,max(p.ufactoryname)ufactoryname,count(1)ucompname
+		from qt_user_product_win uw inner join ot_product p on uw.uproductid=p.uproductid 
+		<where>
+		<if test="ucompid != null and ''!= ucompid">and uw.ucompid=#{ucompid}</if>   
+		<if test="ueflag != null and ''!= ueflag">and uw.ueflag=#{ueflag}</if> 
+		<if test="uorderno != null and ''!= uorderno">and uw.uorderno=#{uorderno}</if> 
+		<if test="udistributorid != null and ''!= udistributorid">and uw.ucompid in(select dtc.ucompid from dt_distributor_to_comp dtc where dtc.udistributorid=#{udistributorid})</if>
+		<if test="keywords != null  and ''!= keywords">and ( uw.uproductname like CONCAT('%',#{keywords},'%') or uw.ucompname like CONCAT('%',#{keywords},'%')) </if>
+		</where> 
+		group by uw.uproductid order by uw.ucreatedate desc limit #{pageNo},#{pageSize}
+	</select>
+	<!-- 用户已兑奖历史订单 -->
+	<select id="queryUserCompCashList" resultMap="BaseResultMap">
+		select u.uuserid,u.uname,uw.uorderno,FROM_UNIXTIME(uw.ucreatedate,'%Y-%m-%d')ucreatedate,count(1) as num,uw.ucompid,uw.ucompname,u.ulogo
+		from qt_user_product_win uw inner join ut_users u on uw.uuserid=u.uuserid 
+		<where>
+		<if test="ucompid != null and ''!= ucompid">and uw.ucompid=#{ucompid}</if>   
+		<if test="ueflag != null and ''!= ueflag">and uw.ueflag in('01','02')</if> 
+		<if test="uuserid != null and ''!= uuserid">and uw.uuserid=#{uuserid}</if> 
+		<if test="keywords != null  and ''!= keywords">and ( u.uname like CONCAT('%',#{keywords},'%') or uw.ucompname like CONCAT('%',#{keywords},'%')) </if>
+		</where> 
+		group by uw.uorderno order by uw.ucreatedate desc limit #{pageNo},#{pageSize}
+	</select>
+		<!-- 指定经销商未核销的产品 1-->
+		<select id="queryDistributorCashProductList" resultMap="BaseResultMap">
+		select p.uproductid,max(p.uproductname)uproductname,max(p.uhomepic) uhomepic,max(p.uunit)uunit,max(FROM_UNIXTIME(co.ucreatedate,'%Y-%m-%d'))ucreatedate,max(p.ufactoryname)ufactoryname,count(1) as num
+		from ot_product p inner join qt_cash_offset co on p.uproductid=co.uproductid
+		<where>  
+		<if test="uproductid != null and ''!= uproductid">and p.uproductid=#{uproductid}</if> 
+		<if test="ueflag != null and ''!= ueflag">and co.ueflag=#{ueflag}</if> 
+		<if test="udistributorid != null and ''!= udistributorid">and co.udistributorid=#{udistributorid}</if> 		
+		<if test="keywords != null  and ''!= keywords">and ( p.uproductname like CONCAT('%',#{keywords},'%') or cor.uopname like CONCAT('%',#{keywords},'%')) </if>
+		</where> 
+		group by p.uproductid order by co.ucreatedate desc limit #{pageNo},#{pageSize}
+	</select>
+	<select id="queryDistributorCashOrderProductList" resultMap="BaseResultMap">
+		select p.uproductid,max(p.uproductname)uproductname,max(p.uhomepic) uhomepic,max(p.uunit)uunit,max(cor.utocompid)ucompid,max(cor.utoname)ucompname,max(FROM_UNIXTIME(cor.ucreatedate,'%Y-%m-%d'))ucreatedate,max(p.ufactoryname)ufactoryname,count(1) as num
+		from ot_product p inner join qt_cash_offset co on p.uproductid=co.uproductid inner join qt_cash_order cor on co.ucashorderid=cor.ucashorderid
+		<where>  
+		<if test="uproductid != null and ''!= uproductid">and p.uproductid=#{uproductid}</if>
+		<if test="ucompid != null and ''!= ucompid">and cor.ucompid=#{ucompid}</if>   
+		<if test="ueflag != null and ''!= ueflag">and cor.ueflag=#{ueflag}</if> 
+		<if test="ucashorderid != null and ''!= ucashorderid">and cor.ucashorderid=#{ucashorderid}</if>
+		<if test="udistributorid != null and ''!= udistributorid">and cor.utocompid=#{udistributorid}</if> 		
+		<if test="keywords != null  and ''!= keywords">and ( cor.utoname like CONCAT('%',#{keywords},'%') or cor.uopname like CONCAT('%',#{keywords},'%')) </if>
+		</where> 
+		group by p.uproductid order by cor.ucreatedate desc limit #{pageNo},#{pageSize}
+	</select>
+	<!-- 需要全部的数量 1-->
+	<select id="queryCompCashProductAllCount" resultType="java.lang.Integer">
+		select count(1) num from qt_user_product_win uw inner join ot_product p on uw.uproductid=p.uproductid
+		<where>  
+		<if test="uproductid != null and ''!= uproductid">and uw.uproductid=#{uproductid}</if>
+		<if test="ucompid != null and ''!= ucompid">and uw.ucompid=#{ucompid}</if>   
+		<if test="ueflag != null and ''!= ueflag">and uw.ueflag=#{ueflag}</if> 
+		<if test="udistributorid != null and ''!= udistributorid">and uw.ucompid in(select dtc.ucompid from dt_distributor_to_comp dtc where dtc.udistributorid=#{udistributorid})</if> 
+		</where>  
+	</select>
+	<select id="queryDistributorCashProductAllCount" resultType="java.lang.Integer">
+		select count(1) num from qt_cash_offset co inner join qt_cash_order cor on co.udistributorid=cor.utocompid and co.ucashorderid=cor.ucashorderid 
+		<where>  
+		<if test="uproductid != null and ''!= uproductid">and co.uproductid=#{uproductid}</if>
+		<if test="ucompid != null and ''!= ucompid">and cor.ucompid=#{ucompid}</if>   
+		<if test="ueflag != null and ''!= ueflag">and co.ueflag=#{ueflag}</if> 
+		<if test="udistributorid != null and ''!= udistributorid">and cor.utocompid=#{udistributorid}</if> 
+		</where>  
+	</select>
+	<!-- 未核销的销售商的（首页） 1-->
+	<select id="queryCompCashList" resultMap="cashOrderResultMap">
+		select ct.ucompid,ct.ucompname as udname,ct.uaddress,ct.ulatitude,ct.ulongitude,ct.ucontact,ct.utel,ct.ulogo,(select count(1) from qt_user_product_win uw 
+		<where>  and uw.ucompid=ct.ucompid  
+		<if test="uproductid != null and ''!= uproductid">and uw.uproductid=#{uproductid}</if>		 
+		<if test="ueflag != null and ''!= ueflag">and uw.ueflag=#{ueflag}</if> </where>) as num
+		from ct_comp ct
+		<where>  
+		<if test="udistributorid != null and ''!= udistributorid">and ct.ucompid in(select dtc.ucompid from dt_distributor_to_comp dtc where dtc.udistributorid=#{udistributorid}) </if> 		 
+		<if test="keywords != null  and ''!= keywords">and (ct.ucompname like CONCAT('%',#{keywords},'%') or ct.ucontact like CONCAT('%',#{keywords},'%') or ct.umobile like CONCAT('%',#{keywords},'%') ) </if>
+		</where> 
+		order by num desc limit #{pageNo},#{pageSize}
+	</select>
+		<!-- 未核销的经销商的（首页） 1-->
+	<select id="queryDistributorCashWinList" resultMap="cashOrderResultMap">
+		select ct.udistributorid as ucompid,ct.ucname,ct.uaddress,ct.ulatitude,ct.ulongitude,ct.ucontact,ct.utel,ct.ulogo,(select count(1) from qt_cash_offset uw 
+		<where>  and uw.udistributorid=ct.udistributorid  
+		<if test="uproductid != null and ''!= uproductid">and uw.uproductid=#{uproductid}</if>		 
+		<if test="ueflag != null and ''!= ueflag">and uw.ueflag=#{ueflag}</if> </where>) as num
+		from dt_distributor ct 
+		<where>  
+		<if test="udistributorid != null and ''!= udistributorid">and ct.udistributorid in(select dtc.udistributorid from dt_distributor dtc where dtc.uparentid=#{udistributorid}) </if> 		 
+		<if test="keywords != null  and ''!= keywords">and (ct.ucname like CONCAT('%',#{keywords},'%') or ct.ucontact like CONCAT('%',#{keywords},'%') or ct.umobile like CONCAT('%',#{keywords},'%') ) </if>
+		</where> 
+		order by num desc limit #{pageNo},#{pageSize}
+	</select>
+	<!-- 经销商已核销的记录-->
+	<select id="queryDistributorCashList" resultMap="cashOrderResultMap">
+		select cor.ucashorderid,max(cor.ucashorderno)ucashorderno,max(cor.utotalnum)utotalnum,max(cor.ueflag)ueflag,max(cor.uaddress)uaddress,max(cor.ulatitude)ulatitude,max(cor.ulongitude)ulongitude,max(cor.ucontact)ucontact,max(cor.utel)utel,max(cor.utocompid)utocompid,max(cor.utoname)utoname,max(cor.ucompid)ucompid,max(cor.ucname)ucname,max(cor.ulogo)ulogo,FROM_UNIXTIME(co.ucreatedate,'%Y-%m-%d')ucreatedate,count(1) as num
+		from qt_cash_offset co inner join qt_cash_order cor on co.udistributorid=cor.utocompid
+		<where>
+
+		<if test="ucompid != null and ''!= ucompid">and cor.ucompid=#{ucompid}</if>   
+		<if test="ueflag != null and ''!= ueflag">and cor.ueflag=#{ueflag}</if> 
+		<if test="udistributorid != null and ''!= udistributorid">and cor.utocompid=#{udistributorid}</if>		   
+		<if test="keywords != null  and ''!= keywords">and (cor.utoname like CONCAT('%',#{keywords},'%') or cor.uopname like CONCAT('%',#{keywords},'%')) </if>
+		</where> 
+		group by cor.ucashorderid order by co.ucreatedate desc limit #{pageNo},#{pageSize}
+	</select>
+	<!-- 核销订单的记录-->
+	<select id="queryCashOrderList" resultMap="cashOrderResultMap">
+		select cor.ucashorderid,cor.ucashorderno,cor.utotalnum,cor.utype,cor.utotype,cor.ueflag,cor.ucompid,cor.ucname,cor.uaddress,cor.ulatitude,cor.ulongitude,cor.ucontact,cor.utel,cor.ulogo,cor.utocompid,cor.utoname,cor.utoaddress,cor.utolatitude,cor.utolongitude,cor.utocontact,cor.utotel,cor.utologo,FROM_UNIXTIME(cor.ucreatedate,'%Y-%m-%d')ucreatedate
+		from qt_cash_order cor
+		<where>  
+		<if test="ueflag != null and ''!= ueflag"><if test="ueflag=='09'">and cor.ueflag!='00'</if><if test="ueflag!='09'">and cor.ueflag=#{ueflag}</if></if> 
+		<if test="ucompid != null and ''!= ucompid">and cor.ucompid=#{ucompid}</if>	
+		<if test="utocompid != null and ''!= utocompid">and cor.utocompid=#{utocompid}</if>		   
+		<if test="keywords != null  and ''!= keywords">and (cor.ucname like CONCAT('%',#{keywords},'%') or cor.utoname like CONCAT('%',#{keywords},'%')) </if>
+		</where> 
+		order by cor.ucreatedate desc limit #{pageNo},#{pageSize}
+	</select>
+	<!-- 核销中的销售商产品 -->
+	<select id="queryCompCashProductingList" resultMap="BaseResultMap">
+		select p.uproductid,max(p.uproductname)uproductname,max(p.uhomepic) uhomepic,max(p.uunit)uunit,max(FROM_UNIXTIME(co.ucreatedate,'%Y-%m-%d'))ucreatedate,max(p.ufactoryname)ufactoryname,count(1) as num
+		from qt_cash_offset co inner join ot_product p on co.uproductid=p.uproductid inner join qt_cash_order cor on co.ucashorderid=cor.ucashorderid
+		<where>  
+		<if test="uproductid != null and ''!= uproductid">and co.uproductid=#{uproductid}</if>
+		<if test="ucompid != null and ''!= ucompid">and cor.ucompid=#{ucompid}</if>   
+		<if test="ueflag != null and ''!= ueflag">and cor.ueflag=#{ueflag}</if> 
+		<if test="udistributorid != null and ''!= udistributorid">and cor.utocompid=#{udistributorid}</if> 		   
+		<if test="keywords != null  and ''!= keywords">and (cor.ucname like CONCAT('%',#{keywords},'%') or cor.utoname like CONCAT('%',#{keywords},'%') or p.uproductname like CONCAT('%',#{keywords},'%')) </if>
+		</where> 
+		group by p.uproductid order by cor.ucreatedate desc limit #{pageNo},#{pageSize}
+	</select>
+	<!-- 历史核销的销售商 -->
+	<select id="queryCompCashhisList" resultMap="BaseResultMap">
+		select uw.ucompid,max(uw.ucompname)ucompname,max(ct.ucontact)ucontact,max(ct.umobile)umobile,max(uw.uorderno)uorderno,max(FROM_UNIXTIME(uw.ucreatedate,'%Y-%m-%d'))ucreatedate,count(1) as num
+		from qt_user_product_win uw   inner join ct_comp ct on uw.ucompid=ct.ucompid
+		<where>
+		<if test="uuserid != null and ''!= uuserid"> and uw.uuserid=#{uuserid}</if> 
+		<if test="uopuserid != null and ''!= uopuserid">and uw.uopuserid=#{uopuserid}</if>  
+		<if test="uqrcodeid != null and ''!= uqrcodeid">and uw.uqrcodeid=#{uqrcodeid}</if>   
+		<if test="uproductid != null and ''!= uproductid">and uw.uproductid=#{uproductid}</if>
+		<if test="ucompid != null and ''!= ucompid">and uw.ucompid=#{ucompid}</if>   
+		and uw.ueflag='02'
+		<!--  and FROM_UNIXTIME(uw.uwindate,'%Y-%m-%d %H:%i:%s')-->
+		<if test="udistributorid != null and ''!= udistributorid">and uw.ucompid in(select dtc.ucompid from dt_distributor_to_comp dtc where dtc.udistributorid=#{udistributorid}) </if>	
+		<if test="uname != null and ''!= uname">and uw.uname=#{uname}</if>    
+		<if test="keywords != null  and ''!= keywords">and (uw.uqrcode like CONCAT('%',#{keywords},'%') or uw.unqrcode like CONCAT('%',#{keywords},'%') or uw.uproductname like CONCAT('%',#{keywords},'%') or uw.ucompname like CONCAT('%',#{keywords},'%') or uw.uopname like CONCAT('%',#{keywords},'%')) </if>
+		</where> 
+		group by uw.ucompid order by uw.uwindate desc limit #{pageNo},#{pageSize}
+	</select>
+	<select id="selectObjById" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select <include refid="userProductWinAllFields" />
+		from qt_user_product_win  
+		<where>
+		<if test="uproductwinid != null and ''!= uproductwinid">uproductwinid=#{uproductwinid},</if> 
+		</where> limit 1
+	</select>	
+	<insert id="inserts" parameterType="com.zdv.shop.model.QtUserProductWin">
+		insert into qt_user_product_win
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uproductwinid != null and ''!= uproductwinid">uproductwinid,</if>
+			<if test="uuserid != null and ''!= uuserid">uuserid,</if>      
+			<if test="uname != null and ''!= uname">uname,</if>    
+			<if test="uqrcodeid != null and ''!= uqrcodeid">uqrcodeid,</if>    
+			<if test="uqrcode != null and ''!= uqrcode">uqrcode,</if>      
+			<if test="unqrcode != null and ''!= unqrcode">unqrcode,</if>     
+			<if test="uboxqrcode != null and ''!= uboxqrcode">uboxqrcode,</if>   
+			<if test="ulumpqrcode != null and ''!= ulumpqrcode">ulumpqrcode,</if>  
+			<if test="uproductid != null and ''!= uproductid">uproductid,</if>   
+			<if test="uproductname != null and ''!= uproductname">uproductname,</if> 
+			<if test="ueflag != null and ''!= ueflag">ueflag,</if>       
+			<if test="ucompid != null and ''!= ucompid">ucompid,</if>      
+			<if test="ucompname != null and ''!= ucompname">ucompname,</if>    
+			<if test="uopuserid != null and ''!= uopuserid">uopuserid,</if>    
+			<if test="uopname != null and ''!= uopname">uopname,</if>      
+			<if test="uwindate != null and ''!= uwindate">uwindate,</if> 
+			<if test="uorderno != null and ''!= uorderno">uorderno,</if>          
+		ucreatedate,	
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uproductwinid != null and ''!= uproductwinid">#{uproductwinid},</if>
+			<if test="uuserid != null and ''!= uuserid">#{uuserid},</if>      
+			<if test="uname != null and ''!= uname">#{uname},</if>    
+			<if test="uqrcodeid != null and ''!= uqrcodeid">#{uqrcodeid},</if>    
+			<if test="uqrcode != null and ''!= uqrcode">#{uqrcode},</if>      
+			<if test="unqrcode != null and ''!= unqrcode">#{unqrcode},</if>     
+			<if test="uboxqrcode != null and ''!= uboxqrcode">#{uboxqrcode},</if>   
+			<if test="ulumpqrcode != null and ''!= ulumpqrcode">#{ulumpqrcode},</if>  
+			<if test="uproductid != null and ''!= uproductid">#{uproductid},</if>   
+			<if test="uproductname != null and ''!= uproductname">#{uproductname},</if> 
+			<if test="ueflag != null and ''!= ueflag">#{ueflag},</if>       
+			<if test="ucompid != null and ''!= ucompid">#{ucompid},</if>      
+			<if test="ucompname != null and ''!= ucompname">#{ucompname},</if>    
+			<if test="uopuserid != null and ''!= uopuserid">#{uopuserid},</if>    
+			<if test="uopname != null and ''!= uopname">#{uopname},</if>      
+			<if test="uwindate != null and ''!= uwindate">#{uwindate},</if>
+			<if test="uorderno != null and ''!= uorderno">#{uorderno},</if>     
+			,UNIX_TIMESTAMP(now())
+		</trim>
+	</insert>	
+	<update id="updateByIds" parameterType="com.zdv.shop.model.QtUserProductWin">
+    update qt_user_product_win
+    <set>
+		<if test="uuserid != null and ''!= uuserid">uuserid=#{uuserid},</if>      
+		<if test="uname != null and ''!= uname">uname=#{uname},</if>    
+		<if test="uqrcodeid != null and ''!= uqrcodeid">uqrcodeid=#{uqrcodeid},</if>    
+		<if test="uqrcode != null and ''!= uqrcode">uqrcode=#{uqrcode},</if>      
+		<if test="unqrcode != null and ''!= unqrcode">unqrcode=#{unqrcode},</if>     
+		<if test="uboxqrcode != null and ''!= uboxqrcode">uboxqrcode=#{uboxqrcode},</if>   
+		<if test="ulumpqrcode != null and ''!= ulumpqrcode">ulumpqrcode=#{ulumpqrcode},</if>  
+		<if test="uproductid != null and ''!= uproductid">uproductid=#{uproductid},</if>   
+		<if test="uproductname != null and ''!= uproductname">uproductname=#{uproductname},</if> 
+		<if test="ueflag != null and ''!= ueflag">ueflag=#{ueflag},</if>       
+		<if test="ucompid != null and ''!= ucompid">ucompid=#{ucompid},</if>      
+		<if test="ucompname != null and ''!= ucompname">ucompname=#{ucompname},</if>    
+		<if test="uopuserid != null and ''!= uopuserid">uopuserid=#{uopuserid},</if>    
+		<if test="uopname != null and ''!= uopname">uopname=#{uopname},</if>      
+		<if test="uwindate != null and ''!= uwindate">uwindate=#{uwindate},</if>
+		<if test="uorderno != null and ''!= uorderno">uorderno=#{uorderno},</if>
+    </set>
+    where uproductwinid = #{uproductwinid}
+  </update>
+   <delete id="delObjById" parameterType="java.lang.String">
+    delete from qt_user_product_win
+    where uproductwinid = #{uproductwinid}
+  </delete>
+  <!-- 批量修改状态 -->
+  <update id="updateObjByuserproductwin">
+    update qt_user_product_win set ueflag=#{ueflag}
+    <where> 
+    <if test="ucompid != null and ''!= ucompid"> and ucompid=#{ucompid}</if> 
+    <if test="ucreatedate != null and ''!= ucreatedate"> and uproductwinid in (select co.uproductwinid from qt_cash_offset co where co.ucreatedate = #{ucreatedate})</if> 
+    </where>
+  </update>
+  <insert id="insertcashoffset" parameterType="com.zdv.shop.model.QtCashOffset">
+		insert into qt_cash_offset
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ucashoffsetid != null and ''!= ucashoffsetid">ucashoffsetid,</if>  
+			<if test="uproductid != null and ''!= uproductid">uproductid,</if>
+			<if test="uproductwinid != null and ''!= uproductwinid">uproductwinid,</if>
+			<if test="udistributorid != null and ''!= udistributorid">udistributorid,</if>         
+			<if test="ueflag != null and ''!= ueflag">ueflag,</if>         
+		createdate,	
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ucashoffsetid != null and ''!= ucashoffsetid">#{ucashoffsetid},</if> 
+			<if test="uproductid != null and ''!= uproductid">#{uproductid},</if>  
+			<if test="uproductwinid != null and ''!= uproductwinid">#{uproductwinid},</if>
+			<if test="udistributorid != null and ''!= udistributorid">#{udistributorid},</if>        
+			<if test="ueflag != null and ''!= ueflag">#{ueflag},</if>           
+			,UNIX_TIMESTAMP(now())
+		</trim>
+	</insert>
+	<update id="updateByIdcashoffset" parameterType="com.zdv.shop.model.QtCashOffset">
+    update qt_cash_offset
+    <set>
+		
+			<if test="udistributorid != null and ''!= udistributorid">udistributorid=#{udistributorid},</if> 
+		       
+			<if test="ueflag != null and ''!= ueflag">ueflag=#{ueflag},</if>         
+	
+    </set>
+    where ucashoffsetid = #{ucashoffsetid}
+  </update>
+  <!-- 按照批次删除 -->
+  <delete id="delObjBycashoffset">
+    delete from qt_cash_offset
+    <where> and ucreatedate = #{ucreatedate}
+    <if test="ucompid != null and ''!= ucompid"> and ucompid=#{ucompid}</if> 
+    <if test="udistributorid != null and ''!= udistributorid"> and udistributorid=#{udistributorid}</if> 
+    </where>
+  </delete>
+  <!-- 批量修改状态 -->
+  <update id="updateObjBycashoffset">
+    update qt_cash_offset set ueflag=#{ueflag}
+    <where> and ucreatedate = #{ucreatedate}
+    <if test="ucompid != null and ''!= ucompid"> and ucompid=#{ucompid}</if> 
+    <if test="udistributorid != null and ''!= udistributorid"> and udistributorid=#{udistributorid}</if> 
+    </where>
+  </update>
+    <!-- 按照订单号处理批量修改状态 1-->
+  <update id="updateObjBycashoffsetorderid">
+    update qt_cash_offset set ueflag=#{ueflag}
+    <where>
+    <if test="ucashorderid != null and ''!= ucashorderid"> and ucashorderid=#{ucashorderid}</if> 
+    <if test="udistributorid != null and ''!= udistributorid"> and udistributorid=#{udistributorid}</if> 
+    </where>
+  </update>
+  	<!-- 把销售商需要核销数据插入经销商核销库里 1-->
+	<insert id="insertsCompProductWin" parameterType="com.zdv.shop.model.QtCashOffset">
+	insert into qt_cash_offset(uproductwinid,ucashorderid,uproductid,udistributorid,ueflag,ucreatedate)
+	select uproductwinid,#{ucashorderid},
+		uproductid,#{udistributorid},'00',#{ucreatedate}
+		from qt_user_product_win <where>
+		<if test="ucompid != null and ''!= ucompid"> and ucompid=#{ucompid}</if>   
+		<if test="ueflag != null and ''!= ueflag"> and ueflag=#{ueflag}</if> 
+		<if test="uproductid != null and ''!= uproductid"> and uproductid=#{uproductid}</if> 
+		</where>limit #{pageNo},#{pageSize}
+	</insert>
+	<!-- 把经销商需要核销数据插入上级经销商核销库里1 -->
+	<insert id="insertsDistributorProductWin" parameterType="com.zdv.shop.model.QtCashOffset">
+	insert into qt_cash_offset(uproductwinid,ucashorderid,uproductid,udistributorid,ueflag,ucreatedate)
+	select uproductwinid,#{ucashorderid},
+		uproductid,#{ucompid},
+		'00',#{ucreatedate}
+		from qt_cash_offset <where>
+		<if test="udistributorid != null and ''!= udistributorid"> and udistributorid=#{udistributorid}</if>   
+		and ueflag='01'
+		<if test="uproductid != null and ''!= uproductid"> and uproductid=#{uproductid}</if> 
+		</where>limit #{pageNo},#{pageSize}
+	</insert>
+
+
+	<!-- 单个内容 -->
+	<select id="selectCashOrder" resultType="com.zdv.shop.model.QtCashOrder">
+		select ucashorderid,ucashorderno,utotalnum,utype,utotype,ueflag,ucompid,ucname,uaddress,ulatitude,ulongitude,ucontact,utel,ulogo,utocompid,utoname,utoaddress,utolatitude,utolongitude,utocontact,utotel,utologo,FROM_UNIXTIME(ucreatedate,'%Y-%m-%d')ucreatedate
+		from qt_cash_order where ucashorderid=#{ucashorderid} limit 1
+	</select>
+	<insert id="insertCashOrder" parameterType="com.zdv.shop.model.QtCashOrder">
+		insert into qt_cash_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ucashorderid != null and ''!= ucashorderid">ucashorderid,</if>  
+			<if test="ucashorderno != null and ''!= ucashorderno">ucashorderno,</if>  
+			<if test="utotalnum != null and ''!= utotalnum">utotalnum,</if> 
+			<if test="utotype != null and ''!= utotype">utotype,</if>           
+			<if test="utype != null and ''!= utype">utype,</if>         
+			<if test="ueflag != null and ''!= ueflag">ueflag,</if>        
+			<if test="ucompid != null and ''!= ucompid">ucompid,</if>       
+			<if test="ucname != null and ''!= ucname">ucname,</if>     
+			<if test="uaddress != null and ''!= uaddress">uaddress,</if>      
+			<if test="ulatitude != null and ''!= ulatitude">ulatitude,</if>     
+			<if test="ulongitude != null and ''!= ulongitude">ulongitude,</if>    
+			<if test="ucontact != null and ''!= ucontact">ucontact,</if>      
+			<if test="utel != null and ''!= utel">utel,</if>          
+			<if test="ulogo != null and ''!= ulogo">ulogo,</if>         
+			<if test="utocompid != null and ''!= utocompid">utocompid,</if>
+			<if test="utoname != null and ''!= utoname">utoname,</if>         
+			<if test="utoaddress != null and ''!= utoaddress">utoaddress,</if>     
+			<if test="utolatitude != null and ''!= utolatitude">utolatitude,</if>    
+			<if test="utolongitude != null and ''!= utolongitude">utolongitude,</if>   
+			<if test="utocontact != null and ''!= utocontact">utocontact,</if>     
+			<if test="utotel != null and ''!= utotel">utotel,</if>         
+			<if test="utologo != null and ''!= utologo">utologo,</if>       
+		ucreatedate,	
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ucashorderid != null and ''!= ucashorderid">#{ucashorderid},</if>  
+			<if test="ucashorderno != null and ''!= ucashorderno">#{ucashorderno},</if>  
+			<if test="utotalnum != null and ''!= utotalnum">#{utotalnum},</if>  
+			<if test="utotype != null and ''!= utotype">#{utotype},</if> 			      
+			<if test="utype != null and ''!= utype">#{utype},</if>         
+			<if test="ueflag != null and ''!= ueflag">#{ueflag},</if>        
+			<if test="ucompid != null and ''!= ucompid">#{ucompid},</if>       
+			<if test="ucname != null and ''!= ucname">#{ucname},</if>     
+			<if test="uaddress != null and ''!= uaddress">#{uaddress},</if>      
+			<if test="ulatitude != null and ''!= ulatitude">#{ulatitude},</if>     
+			<if test="ulongitude != null and ''!= ulongitude">#{ulongitude},</if>    
+			<if test="ucontact != null and ''!= ucontact">#{ucontact},</if>      
+			<if test="utel != null and ''!= utel">#{utel},</if>          
+			<if test="ulogo != null and ''!= ulogo">#{ulogo},</if>         
+			<if test="utocompid != null and ''!= utocompid">#{utocompid},</if>
+			<if test="utoname != null and ''!= utoname">#{utoname},</if>         
+			<if test="utoaddress != null and ''!= utoaddress">#{utoaddress},</if>     
+			<if test="utolatitude != null and ''!= utolatitude">#{utolatitude},</if>    
+			<if test="utolongitude != null and ''!= utolongitude">#{utolongitude},</if>   
+			<if test="utocontact != null and ''!= utocontact">#{utocontact},</if>     
+			<if test="utotel != null and ''!= utotel">#{utotel},</if>         
+			<if test="utologo != null and ''!= utologo">#{utologo},</if>
+			UNIX_TIMESTAMP(now()),
+		</trim>
+	</insert>
+	<update id="updateByIdCashOrder" parameterType="com.zdv.shop.model.QtCashOrder">
+    update qt_cash_order
+    <set>
+		<if test="utotalnum != null and ''!= utotalnum">utotalnum=#{utotalnum},</if>           
+		<if test="utype != null and ''!= utype">utype=#{utype},</if>          
+		<if test="ueflag != null and ''!= ueflag">ueflag=#{ueflag},</if>         
+		<if test="ucompid != null and ''!= ucompid">ucompid=#{ucompid},</if>        
+		<if test="ucname != null and ''!= ucname">ucname=#{ucname},</if>      
+		<if test="uaddress != null and ''!= uaddress">uaddress=#{uaddress},</if>       
+		<if test="ulatitude != null and ''!= ulatitude">ulatitude=#{ulatitude},</if>      
+		<if test="ulongitude != null and ''!= ulongitude">ulongitude=#{ulongitude},</if>     
+		<if test="ucontact != null and ''!= ucontact">ucontact=#{ucontact},</if>       
+		<if test="utel != null and ''!= utel">utel=#{utel},</if>           
+		<if test="ulogo != null and ''!= ulogo">ulogo=#{ulogo},</if>          
+		<if test="utocompid != null and ''!= utocompid">utocompid=#{utocompid},</if> 
+		<if test="utoname != null and ''!= utoname">utoname=#{utoname},</if>          
+		<if test="utoaddress != null and ''!= utoaddress">utoaddress=#{utoaddress},</if>      
+		<if test="utolatitude != null and ''!= utolatitude">utolatitude=#{utolatitude},</if>     
+		<if test="utolongitude != null and ''!= utolongitude">utolongitude=#{utolongitude},</if>    
+		<if test="utocontact != null and ''!= utocontact">utocontact=#{utocontact},</if>      
+		<if test="utotel != null and ''!= utotel">utotel=#{utotel},</if>          
+		<if test="utologo != null and ''!= utologo">utologo=#{utologo},</if>         
+		</set>
+    where ucashorderid = #{ucashorderid}
+  </update>   
+</mapper>

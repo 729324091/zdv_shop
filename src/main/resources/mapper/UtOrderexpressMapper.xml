@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="uTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.UtOrderexpressMapper">		
+		<resultMap id="BaseResultMap" type="com.zdv.shop.model.UtOrderexpress">
+			<id column="uorderexpressid" property="uorderexpressid"/>  
+			<result column="ucompid" property="ucompid"/>          
+			<result column="ucustomerid" property="ucustomerid"/>      
+			<result column="uuserid" property="uuserid"/>          
+			<result column="uorderid" property="uorderid"/>         
+			<result column="uexpresscompname" property="uexpresscompname"/> 
+			<result column="uexpresscompcode" property="uexpresscompcode"/> 
+			<result column="uexpressnum" property="uexpressnum"/>      
+			<result column="ucreatedate" property="ucreatedate"/> 
+		</resultMap>	
+
+		<sql id="columns">
+			oe.uorderexpressid,  
+			oe.ucompid,          
+			oe.ucustomerid,      
+			oe.uuserid,          
+			oe.uorderid,         
+			oe.uexpresscompname, 
+			oe.uexpresscompcode, 
+			oe.uexpressnum,      
+			date_format(oe.ucreatedate,'%Y-%m-%d %H:%i:%s') ucreatedate
+		</sql>
+
+		<!-- 按条件查询流程处理信息 -->
+	     <select id="queryList" parameterType="com.zdv.shop.model.UtOrderexpress" resultMap="BaseResultMap">
+	      	     SELECT 
+	      	     		<include refid="columns"></include>
+	      	     FROM	ut_orderexpress oe
+	      	     WHERE 1=1      	    
+	  	     		 <if test="uuserid != null and ''!= uuserid">
+	  	     		     AND   oe.uuserid=#{uuserid}
+	  	     		 </if>
+	  	     		 <if test="uorderid != null and ''!= uorderid">
+	  	     		     AND   oe.uorderid=#{uorderid}
+	  	     		 </if>
+	     </select>
+	     <select id="selectByIds" resultMap="BaseResultMap">
+	      	     SELECT 
+	      	     		<include refid="columns"></include>
+	      	     FROM	ut_orderexpress oe
+	      	     WHERE 1=1      	    
+	  	     		 <if test="uuserid != null and ''!= uuserid">
+	  	     		     AND   oe.uuserid=#{uuserid}
+	  	     		 </if>
+	  	     	
+	  	     		 <if test="uorderid != null and ''!= uorderid">
+	  	     		     AND   oe.uorderid=#{uorderid}
+	  	     		 </if>
+	  	     		 limit 1
+	     </select>
+		
+		
+
+</mapper>

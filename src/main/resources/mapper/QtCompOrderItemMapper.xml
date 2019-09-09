@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="uTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.QtCompOrderItemMapper">
+	<resultMap id="BaseResultMap" type="com.zdv.shop.model.QtCompOrderItem">
+		<id column="uorderitemid" property="uorderitemid"/>    
+		<result column="uorderid" property="uorderid"/>        
+		<result column="uqrcode" property="uqrcode"/>          
+		<result column="uproductid" property="uproductid"/>    
+		<result column="udistributorid" property="udistributorid"/>
+		<result column="ucompid" property="ucompid"/>          
+		<result column="uproductname" property="uproductname"/>
+		<result column="ufactoryname" property="ufactoryname"/>
+		<result column="uhomepic" property="uhomepic"/>        
+		<result column="uunitid" property="uunitid"/>
+		<result column="uproductnum" property="uproductnum"/>  
+		<result column="uunit" property="uunit"/>              
+		<result column="uprice" property="uprice"/>    
+		 <result column="ucostprice" property="ucostprice"/>       
+		<result column="uobjnamevalue" property="uobjnamevalue"/>
+		<result column="ucreatedate" property="ucreatedate"/>
+	</resultMap>	
+		
+	<sql id="selResult">
+		uorderitemid,uorderid,uqrcode,uproductid,udistributorid,ucompid,uproductname,ufactoryname,uhomepic,uunitid,uproductnum,uunit,uprice,ucostprice,uobjnamevalue,FROM_UNIXTIME(LEFT(ucreatedate,10),'%Y-%m-%d %H:%i:%S') ucreatedate
+	</sql>
+
+	<insert id="insertOrderItemList" parameterType="java.util.List">
+		insert into qt_comp_order_item (
+		uorderitemid,uorderid,uqrcode,uproductid,udistributorid,ucompid,uproductname,ufactoryname,uhomepic,uunitid,uproductnum,uunit,uprice,ucostprice,uobjnamevalue,ucreatedate
+		)values
+		<foreach collection="orderItemList" item="item" separator=",">
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+			 #{item.uorderitemid},#{item.uorderid},#{item.uqrcode},#{item.uproductid},
+			 #{item.udistributorid},#{item.ucompid},#{item.uproductname},#{item.ufactoryname},
+			 #{item.uhomepic},#{item.uunitid},#{item.uproductnum},#{item.uunit},
+			 #{item.uprice},#{item.ucostprice},#{item.uobjnamevalue},UNIX_TIMESTAMP(now())
+			</trim>
+		</foreach>
+	</insert>
+	
+	<insert id="inserts">
+		insert into qt_comp_order_item 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+		<if test="uorderitemid != null and ''!= uorderitemid">uorderitemid,</if>
+		<if test="uorderid != null and ''!= uorderid">uorderid,</if>      
+		<if test="uqrcode != null and ''!= uqrcode">uqrcode,</if>       
+		<if test="uproductid != null and ''!= uproductid">uproductid,</if>    
+		<if test="udistributorid != null and ''!= udistributorid">udistributorid,</if>
+		<if test="ucompid != null and ''!= ucompid">ucompid,</if>       
+		<if test="uproductname != null and ''!= uproductname">uproductname,</if>  
+		<if test="ufactoryname != null and ''!= ufactoryname">ufactoryname,</if>  
+		<if test="uhomepic != null and ''!= uhomepic">uhomepic,</if>      
+		<if test="uunitid != null and ''!= uunitid">uunitid,</if>
+		<if test="uproductnum != null and ''!= uproductnum">uproductnum,</if>   
+		<if test="uunit != null and ''!= uunit">uunit,</if>         
+		<if test="uprice != null and ''!= uprice">uprice,</if>
+		<if test="ucostprice != null and ''!= ucostprice">ucostprice,</if>     
+		<if test="uobjnamevalue != null and ''!= uobjnamevalue">uobjnamevalue,</if>         
+		ucreatedate
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+		<if test="uorderitemid != null and ''!= uorderitemid">#{uorderitemid},</if>
+		<if test="uorderid != null and ''!= uorderid">#{uorderid},</if>      
+		<if test="uqrcode != null and ''!= uqrcode">#{uqrcode},</if>       
+		<if test="uproductid != null and ''!= uproductid">#{uproductid},</if>    
+		<if test="udistributorid != null and ''!= udistributorid">#{udistributorid},</if>
+		<if test="ucompid != null and ''!= ucompid">#{ucompid},</if>       
+		<if test="uproductname != null and ''!= uproductname">#{uproductname},</if>  
+		<if test="ufactoryname != null and ''!= ufactoryname">#{ufactoryname},</if>  
+		<if test="uhomepic != null and ''!= uhomepic">#{uhomepic},</if>      
+		<if test="uunitid != null and ''!= uunitid">#{uunitid},</if>
+		<if test="uproductnum != null and ''!= uproductnum">#{uproductnum},</if>   
+		<if test="uunit != null and ''!= uunit">#{uunit},</if>         
+		<if test="uprice != null and ''!= uprice">#{uprice},</if>
+		<if test="ucostprice != null and ''!= ucostprice">#{ucostprice},</if>         
+		<if test="uobjnamevalue != null and ''!= uobjnamevalue">#{uobjnamevalue},</if>  
+			UNIX_TIMESTAMP(now())
+		</trim>
+	</insert>
+	
+	
+	<update id="updateByIds">
+		update qt_comp_order_item
+		<trim prefix="set" suffixOverrides=",">
+			<if test="uorderid !=null and uorderid !=''">uorderid = #{uorderid},</if>
+			<if test="uprcode !=null and uprcode !=''">uprcode = #{uprcode},</if>
+			<if test="uproductid !=null and uproductid !=''">uproductid = #{uproductid},</if>
+			<if test="uunitid !=null and uunitid !=''">uunitid = #{uunitid},</if>
+			<if test="udistributorid !=null and udistributorid !=''">udistributorid = #{udistributorid},</if>
+			<if test="ucompid !=null and ucompid !=''">ucompid = #{ucompid},</if>
+			<if test="uproductname !=null and uproductname !=''">uproductname = #{uproductname},</if>
+			<if test="uunit !=null and uunit !=''">uunit = #{uunit},</if>
+			<if test="uprice !=null and uprice !=''">uprice = #{uprice},</if>
+			<if test="ucostprice !=null and ucostprice !=''">ucostprice = #{ucostprice},</if>
+			<if test="uobjnamevalue !=null and uobjnamevalue !=''">uobjnamevalue = #{uobjnamevalue},</if>
+			<if test="uproductnum !=null and uproductnum !=''">uproductnum = #{uproductnum},</if>
+		</trim>
+		<trim prefix="where" prefixOverrides="and">
+			<if test="uorderitemid !=null and uorderitemid !=''">and uorderitemid =  #{uorderitemid}</if>
+		</trim>
+	</update>	
+	<select id="queryOrderItemById" resultMap="BaseResultMap">
+		select <include refid="selResult" />
+		from qt_comp_order_item
+		<trim prefix="where" prefixOverrides="and">
+			<if test="udistributorid !=null and udistributorid !=''">
+				and udistributorid = #{udistributorid}
+			</if>
+			<if test="keywords !=null and keywords !=''">
+				and uproductname like CONCAT('%',#{keywords},'%')
+				or uunit like CONCAT('%',#{keywords},'%')
+			</if>
+			and uorderid is null
+		</trim>
+	</select>
+
+	<select id="queryItemById"  resultType="com.zdv.shop.model.QtCompOrderItem">
+		select <include refid="selResult"/>
+		from qt_comp_order_item
+		<trim prefix="where" prefixOverrides="and">
+			<if test="uproductid !=null and uproductid !=''">
+				and uproductid = #{uproductid}
+			</if>
+			<if test="uunitid !=null and uunitid !=''">
+				and uunitid = #{uunitid}
+			</if>
+			<if test="udistributorid !=null and udistributorid !=''">
+				and udistributorid = #{udistributorid}
+			</if>
+			<if test="ucompid !=null and ucompid !=''">
+				and ucompid = #{ucompid}
+			</if>
+		</trim> limit 1	
+	</select>
+
+	<select id="queryOrderItemList" resultMap="BaseResultMap">
+	select	<include refid="selResult" />
+	from qt_comp_order_item
+	<where>
+		uorderitemid = #{uorderitemid}
+		and uorderid = #{uorderid}
+		and uproductid = #{uproductid}
+	</where>
+	</select>
+
+	<select id="queryItemPage" resultMap="BaseResultMap">
+		select	<include refid="selResult" />
+		from qt_comp_order_item
+		<where>
+			<if test="uorderitemid != null and ''!= uorderitemid">
+				and uorderitemid =#{uorderitemid},
+			</if>
+			<if test="uorderid != null and ''!= uorderid">
+				and uorderid = #{uorderid}
+			</if>
+			<if test="uqrcode != null and ''!= uqrcode">
+				and uqrcode = #{uqrcode}
+			</if>
+			<if test="uproductid != null and ''!= uproductid">
+				and uproductid = #{uproductid}
+			</if>
+			<if test="udistributorid != null and ''!= udistributorid">
+				and udistributorid = #{udistributorid}
+			</if>
+			<if test="ucompid != null and ''!= ucompid">
+				and ucompid = #{ucompid}
+			</if>
+			<if test="uproductname != null and ''!= uproductname">
+				and uproductname = #{uproductname}
+			</if>
+			<if test="ufactoryname != null and ''!= ufactoryname">
+				and ufactoryname = #{ufactoryname}
+			</if>
+			<if test="uhomepic != null and ''!= uhomepic">
+				and uhomepic = #{uhomepic}
+			</if>
+			<if test="uunitid != null and ''!= uunitid">
+				and uunitid = #{uunitid}
+			</if>
+			<if test="uproductnum != null and ''!= uproductnum">
+				and uunitid = #{uproductnum}
+			</if>
+			<if test="uunit != null and ''!= uunit">
+				and uunit = #{uunit}
+			</if>
+			<if test="uprice != null and ''!= uprice">
+				and uprice = #{uprice}
+			</if>
+			<if test="uobjnamevalue != null and ''!= uobjnamevalue">
+				and uobjnamevalue = #{uobjnamevalue}
+			</if>
+		</where>
+	</select>
+</mapper>

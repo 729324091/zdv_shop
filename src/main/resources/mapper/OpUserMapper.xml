@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.OpUsersMapper">
+
+	<sql id="allFields">
+		uopuserid,
+		uopname,
+		ucardtype,
+		ucardid,
+		uloginname,
+		upassword,
+		ulogo,
+		uemail,
+		umobile,
+		ubirthday,
+		usex,
+		uaddress,
+		uregdate,
+		ulastdate,
+		ulognum,
+		ulastmtime,
+		uflag
+	</sql>
+
+	<sql id="oufield">
+	ou.uopuserid,
+	ou.uopname,
+	ou.ucardtype,
+	ou.ucardid,
+	ou.uloginname,
+	ou.upassword,
+	ou.ulogo,
+	ou.uemail,
+	ou.umobile,
+	FROM_UNIXTIME(LEFT(ou.ubirthday,10),'%Y-%m-%d %H:%i:%S') as ubirthday,
+	ou.usex,
+	ou.uaddress,
+	ou.uregdate,
+	FROM_UNIXTIME(LEFT(ou.ulastdate,10),'%Y-%m-%d %H:%i:%S') as ulastdate,
+	ou.ulognum,
+	ou.ulastmtime,
+	ou.uflag
+	</sql>
+
+	<!--<insert id="insertUser" parameterType="com.zdv.shop.model.OpUsers">
+		insert into op_users(<include refid="allFields" />)
+		select
+			#{uopuserid}, #{uopname}, #{ucardtype}, #{ucardid}, #{uloginname},
+			#{upassword}, #{ulogo}, #{uemail}, #{umobile}, #{ubirthday},
+			#{usex}, #{uaddress}, #{uregdate}, #{ulastdate}, #{ulognum},
+			#{ulastmtime}, #{uflag}
+		from op_users where not exists(
+			select umobile from op_users where umobile=#{umobile}
+		) limit 1
+	</insert>-->
+	<insert id="insertUser" >
+		insert into op_users
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+
+			<if test="null != uopuserid and ''!= uopuserid"> uopuserid, </if>
+			<if test="null != uopname and ''!= uopname"> uopname, </if>
+			<if test="null != ucardtype and ''!= ucardtype"> ucardtype,</if>
+			<if test="null != ucardid and ''!= ucardid"> ucardid,</if>
+			<if test="null != uloginname and ''!= uloginname"> uloginname,</if>
+			<if test="null != upassword and ''!= upassword"> upassword ,</if>
+			<if test="null != ulogo and ''!= ulogo"> ulogo ,</if>
+			<if test="null != uemail and ''!= uemail"> uemail,</if>
+			<if test="null != umobile and ''!= umobile"> umobile,</if>
+			<if test="null != usex and ''!= usex"> usex,</if>
+			<if test="null != ubirthday and ''!= ubirthday"> ubirthday,</if>
+			<if test="null != uaddress and ''!= uaddress"> uaddress,</if>
+			<if test="null != ulastdate and ''!= ulastdate"> ulastdate,</if>
+			<if test="null != ulognum and ''!= ulognum"> ulognum,</if>
+			<if test="null != ulastmtime and ''!= ulastmtime"> ulastmtime,</if>
+			<if test="null != uloginip and ''!= uloginip"> uloginip,</if>
+			<if test="null != uflag and ''!= uflag"> uflag,</if>
+
+			uregdate,
+		</trim>
+
+		<trim prefix="select" suffix="from" suffixOverrides=",">
+			<if test="null != uopuserid and ''!= uopuserid"> #{uopuserid},</if>
+			<if test="null != uopname and ''!= uopname"> #{uopname},</if>
+			<if test="null != ucardtype and ''!= ucardtype">#{ucardtype},</if>
+			<if test="null != ucardid and ''!= ucardid">#{ucardid},</if>
+			<if test="null != uloginname and ''!= uloginname">#{uloginname},</if>
+
+			<if test="null != upassword and ''!= upassword">#{upassword},</if>
+			<if test="null != ulogo and ''!= ulogo">#{ulogo},</if>
+			<if test="null != uemail and ''!= uemail">#{uemail},</if>
+			<if test="null != umobile and ''!= umobile">#{umobile},</if>
+			<if test="null != usex and ''!= usex">  #{usex},</if>
+			<if test="null != ubirthday and ''!= ubirthday">#{ubirthday},</if>
+			<if test="null != uaddress and ''!= uaddress">#{uaddress},</if>
+			<if test="null != ulastdate and ''!= ulastdate">#{ulastdate},</if>
+			<if test="null != ulognum and ''!= ulognum">#{ulognum},</if>
+			<if test="null != ulastmtime and ''!= ulastmtime">#{ulastmtime},</if>
+			<if test="null != uloginip and ''!= uloginip">#{uloginip},</if>
+			<if test="null != uflag and ''!= uflag">#{uflag},</if>
+			UNIX_TIMESTAMP(now()),
+		</trim>
+		op_users where not exists(
+		select uloginname from op_users where uloginname=#{uloginname}
+		) limit 1
+	</insert>
+	
+	<select id="queryByUmobile" resultType="com.zdv.shop.model.OpUsers">
+		select <include refid="allFields" /> from op_users where umobile = #{umobile} limit 1
+	</select>
+
+	<!-- 登录查询经销商和角色信息 -->
+	<select id="queryDistributorRoleByOpUserId" resultType="map">
+		select d.udistributorid, d.uname, d.ulogo, d.utype, ar.uroleid, ar.urolename, ar.utypes as 'uroletype'
+		from dt_opuser_to_distributor utd, dt_distributor d, dt_distributor_role ar
+		where utd.udistributorid = d.udistributorid and ar.udistributorid = d.udistributorid
+		and ar.uroleid = utd.uroleid
+		and utd.uopuserid = #{uopuserid}
+	</select>
+	<!-- 销售商下工作人员拥有的销售商角色 -->
+	<select id="queryCompanyRoleByOpUserId" resultType="map">
+		select c.ucompid, c.ucompname as uname, c.ulogo, c.utype, cr.uroleid, cr.urolename, cr.utypes as 'uroletype'
+		from ct_comp c inner join ct_opuser_to_comp utc on c.ucompid=utc.ucompid inner join ct_comp_role cr on cr.uroleid=utc.uroleid and cr.ucompid=utc.ucompid
+		where 
+		utc.uopuserid = #{uopuserid}
+	</select>
+	<!-- 角色下所有的经销商 -->
+	<select id="queryPossessOpUserByRoleid" resultType="map">
+		select ou.ulogo, ou.uopuserid, ou.uopname, ou.umobile, ou.uregdate, ar.uroleid, ar.utypes, ar.urolename,
+		ar.ulevelcolor, IFNULL(SUM(co.utotalprice), 0.00) as 'performance'
+		from dt_distributor_role ar, 
+		(select uroleid, ulevel from dt_distributor_role where uparentid = #{currentRoleid}) as temp,
+		dt_opuser_to_distributor utd, op_users ou
+		left join op_opuser_m_comp omc on omc.uopuserid = ou.uopuserid
+		left join qt_comp_order co on co.ucompid = omc.ucompid
+		where utd.uroleid = ar.uroleid and ou.uopuserid = utd.uopuserid
+		and SUBSTRING(ar.ulevel, 1, length(temp.ulevel))=temp.ulevel
+		and temp.uroleid = ar.uroleid
+		<if test="keywords != null and '' != keywords">and ou.uopname like concat('%', #{keywords},'%')</if>
+		<if test="roleid != null">and ar.uroleid = #{roleid}</if>
+		group by ou.uopuserid
+	</select>
+
+	<select id="queryListByDtid" resultType="com.zdv.shop.model.OpUsers">
+		select ou.uopuserid,ou.uopname,ou.uloginname
+		from op_users ou
+		left join dt_opuser_to_distributor utd on ou.uopuserid = utd.uopuserid
+		where 1=1
+		<if test="udistributorid !=null and ''!=udistributorid">
+			and utd.udistributorid = #{udistributorid}
+		</if>
+		<if test="uroleid !=null and ''!=uroleid">
+			and utd.uroleid = #{uroleid}
+		</if>
+	</select>
+	<select id="queryByUsername" resultType="com.zdv.shop.model.OpUsers">
+		select
+		<include refid="allFields"/>
+		from op_users
+		where uloginname = #{uloginname} limit 1
+	</select>
+	<!-- 经销商下的管理员详情 -->
+	<select id="appQueryUserDetails" resultType="map">
+		select u.uopuserid, u.ulogo, u.uopname, u.umobile, u.uregdate, dr.uroleid, dr.utypes, dr.urolename,
+		dr.ulevelcolor, ifnull(sum(co.utotalmoney), 0.00) as 'salesmoney' from op_users u
+		inner join dt_opuser_to_distributor utd on u.uopuserid = utd.uopuserid
+		inner join dt_distributor_role dr on dr.udistributorid = utd.udistributorid
+		left join op_opuser_m_comp omc on omc.uopuserid = u.uopuserid
+		left join qt_comp_order co on co.ucompid = omc.ucompid
+		where utd.udistributorid = #{udistributorid} and utd.uopuserid = #{uopuserid} and utd.uroleid = #{uroleid}
+		group by u.uopuserid
+	</select>
+	<!-- 销售商下的管理员详情 -->
+	<select id="appQueryCompUserDetails" resultType="map">
+		select u.uopuserid, u.ulogo, u.uopname, u.umobile, u.uregdate, dr.uroleid, dr.utypes, dr.urolename,
+		dr.ulevelcolor from op_users u
+		inner join ct_opuser_to_comp utd on u.uopuserid = utd.uopuserid
+		inner join ct_comp_role dr on dr.ucompid = utd.ucompid
+		where utd.ucompid = #{ucompid} and utd.uopuserid = #{uopuserid} and utd.uroleid = #{uroleid}
+		group by u.uopuserid
+	</select>
+	<select id="queryCtUserList" resultType="com.zdv.shop.model.OpUsers">
+		select <include refid="oufield"/>
+		from op_users ou
+		left join ct_opuser_to_comp utc on ou.uopuserid = utc.uopuserid
+		where utc.ucompid = #{ucompid}
+		<if test="uroleid !=null and ''!=uroleid">
+			and utc.uroleid = #{uroleid}
+		</if>
+	</select>
+	<select id="queryDtUserList" resultType="com.zdv.shop.model.OpUsers">
+		select
+		<include refid="oufield"/>,dr.urolename,utd.ustatus,FROM_UNIXTIME(LEFT(utd.ucreatedate,10),'%Y-%m-%d %H:%i:%S') as ucreatedate
+		from op_users ou
+		left join dt_opuser_to_distributor utd on ou.uopuserid = utd.uopuserid
+		left join dt_distributor_role dr on utd.uroleid = dr.uroleid
+		<where>
+			<if test="uroleid != null and '' != uroleid">
+				and utd.uroleid = #{uroleid}
+			</if>
+			<if test="udistributorid != null and '' != udistributorid">
+				and utd.udistributorid = #{udistributorid}
+			</if>
+		</where>
+		order by utd.ucreatedate desc
+	</select>
+	<select id="findRootByUdistributorid" resultType="com.zdv.shop.model.OpUsers">
+		select <include refid="oufield"/>
+		from op_users ou
+		left join dt_opuser_to_distributor utd on utd.uopuserid = ou.uopuserid
+		left join dt_distributor_role dr on dr.uroleid = utd.uroleid
+		where  dr.udistributorid = #{udistributorid} and dr.utypes= '0' limit 1
+	</select>
+	<select id="findRootByUcompid" resultType="com.zdv.shop.model.OpUsers">
+		select <include refid="oufield"/>
+		from op_users ou
+		left join ct_opuser_to_comp utc on utc.uopuserid = ou.uopuserid
+		left join ct_comp_role cr on cr.uroleid = utc.uroleid
+		where  cr.ucompid = #{ucompid} and cr.utypes= '0' limit 1
+	</select>
+
+	<update id="updateUsers" >
+		update op_users
+		<set>
+			<if test="null != uopname and ''!= uopname"> uopname = #{uopname},</if>
+			<if test="null != ucardtype and ''!= ucardtype"> ucardtype = #{ucardtype},</if>
+			<if test="null != ucardid and ''!= ucardid"> ucardid = #{ucardid},</if>
+			<if test="null != uloginname and ''!= uloginname"> uloginname = #{uloginname},</if>
+			<if test="null != upassword and ''!= upassword"> upassword = #{upassword},</if>
+			<if test="null != ulogo and ''!= ulogo"> ulogo = #{ulogo},</if>
+			<if test="null != uemail and ''!= uemail"> uemail = #{uemail},</if>
+			<if test="null != umobile and ''!= umobile"> umobile = #{umobile},</if>
+			<if test="null != usex and ''!= usex"> ustaffid = #{usex},</if>
+			<if test="null != ubirthday and ''!= ubirthday"> ubirthday = #{ubirthday},</if>
+			<if test="null != uaddress and ''!= uaddress"> uaddress = #{uaddress},</if>
+			<if test="null != ulastdate and ''!= ulastdate"> ulastdate = #{ulastdate},</if>
+			<if test="null != ulognum and ''!= ulognum"> ulognum = #{ulognum},</if>
+			<if test="null != ulastmtime and ''!= ulastmtime"> ulastmtime = #{ulastmtime},</if>
+			<if test="null != uflag and ''!= uflag"> uflag = #{uflag},</if>
+		</set>
+		where uopuserid = #{uopuserid}
+	</update>
+
+
+
+</mapper>

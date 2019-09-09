@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.UtOrderMapper">
+
+	<resultMap type="com.zdv.shop.model.vo.SalesOrderVO" id="salesOrderMap">
+    	<id property="uorderid" column="uorderid"  />
+    	<result property="utotalprice" column="utotalprice" />
+    	<result property="ucreatedate" column="ucreatedate" />
+    	<result property="uproductnum" column="uproductnum" />
+    	<collection property="orderItemList" ofType="com.zdv.shop.model.vo.SalesProductVO">
+    		<id property="uproductid" column="uproductid" />
+    		<result property="uhomepic" column="uhomepic" />
+    	</collection>
+    </resultMap>
+    
+    <resultMap type="com.zdv.shop.model.vo.SalesOrderVO" id="salesOrderDetailsMap">
+    	<id property="uorderid" column="uorderid" />
+    	<result property="utotalprice" column="utotalprice" />
+    	<result property="ucreatedate" column="ucreatedate" />
+    	<result property="uproductnum" column="uproductnum" />
+    	<result property="uorderno" column="uorderno" />
+    	<collection property="orderItemList" ofType="com.zdv.shop.model.vo.SalesProductDetailsVO">
+    		<id property="uproductid" column="uproductid" />
+    		<result property="uhomepic" column="uhomepic" />
+    		<result property="uproductname" column="uproductname" />
+    		<result property="uobjnamevalue" column="uobjnamevalue" />
+    		<result property="uproductnum" column="uproductnum" />
+    		<result property="upayprice" column="upayprice" />
+    		<result property="uunit" column="uunit" />
+    		<result property="ucolor" column="ucolor" />
+    		<result property="uunitid" column="uunitid" />
+    		<collection property="uobjList" ofType="com.zdv.shop.model.OtCompProductStockObjname" column="uobjnamevalueid">
+    			<id property="uobjnamevalueid" column="uobjnamevalueid" />
+				<result property="uobjnameid" column="uobjnameid" />
+				<result property="uobjname" column="uobjname" />
+				<result property="uobjvalueid" column="uobjvalueid" />
+				<result property="uobjvalue" column="uobjvalue" />
+    		</collection>
+    	</collection>
+    </resultMap>
+
+    <sql id="order">
+    uorderid,
+    uorderno,
+    uproductname,
+    uproductnum,
+    utotalprice,
+    upayprice,
+    upaystate,
+    upaytype,
+    uuserid,
+    uname,
+    uprofit_rate,
+    uaddress,
+    ucompid,
+    ucompname,
+    usolve,
+    usend_type,
+    ucrawl,
+    ushoptype,
+    uprint,
+    uremark,
+    ueflag,
+    FROM_UNIXTIME(LEFT(ucreatedate,10),'%Y-%m-%d %H:%i:%S') ucreatedate
+    </sql>
+
+    <select id="orderList" resultType="com.zdv.shop.model.UtOrder" >
+        select
+        <include refid="order"/>
+        from ut_order
+        <where>
+            <if test="utOrder.uorderid != null and ''!= utOrder.uorderid">
+                and uorderid = #{utOrder.uorderid}
+            </if>
+            <if test="utOrder.uorderno != null and ''!= utOrder.uorderno">
+                and uorderno = #{utOrder.uorderno}
+            </if>
+            <if test="utOrder.uproductname != null and ''!= utOrder.uproductname">
+                and uproductname LIKE  #{utOrder.uproductname}
+            </if>
+            <if test="utOrder.uproductnum != null and ''!= utOrder.uproductnum">
+                and uproductnum = #{utOrder.uproductnum}
+            </if>
+            <if test="utOrder.utotalprice != null and ''!= utOrder.utotalprice">
+                and utotalprice = #{utOrder.utotalprice}
+            </if>
+            <if test="utOrder.upayprice != null and ''!= utOrder.upayprice">
+                and upayprice = #{utOrder.upayprice}
+            </if>
+            <if test="utOrder.upaystate != null and ''!= utOrder.upaystate">
+                and upaystate = #{utOrder.upaystate}
+            </if>
+            <if test="utOrder.upaytype != null and ''!= utOrder.upaytype">
+                and upaytype = #{utOrder.upaytype}
+            </if>
+            <if test="utOrder.uuserid != null and ''!= utOrder.uuserid">
+                and uuserid = #{utOrder.uuserid}
+            </if>
+            <if test="utOrder.uname != null and ''!= utOrder.uname">
+                and uname = #{utOrder.uname}
+            </if>
+            <if test="utOrder.uprofit_rate != null and ''!= utOrder.uprofit_rate">
+                and uprofit_rate = #{utOrder.uprofit_rate}
+            </if>
+            <if test="utOrder.uaddress != null and ''!= utOrder.uaddress">
+                and uaddress = #{utOrder.uaddress}
+            </if>
+            <if test="utOrder.ucompid != null and ''!= utOrder.ucompid">
+                and ucompid = #{utOrder.ucompid}
+            </if>
+            <if test="utOrder.ucompname != null and ''!= utOrder.ucompname">
+                and ucompname LIKE #{utOrder.ucompname}
+            </if>
+            <if test="utOrder.usolve != null and ''!= utOrder.usolve">
+                and usolve = #{utOrder.usolve}
+            </if>
+            <if test="utOrder.usend_type != null and ''!= utOrder.usend_type">
+                and usend_type = #{utOrder.usend_type}
+            </if>
+            <if test="utOrder.ucrawl != null and ''!= utOrder.ucrawl">
+                and ucrawl = #{utOrder.ucrawl}
+            </if>
+            <if test="utOrder.ushoptype != null and ''!= utOrder.ushoptype">
+                and ushoptype = #{utOrder.ushoptype}
+            </if>
+            <if test="utOrder.uprint != null and ''!= utOrder.uprint">
+                and uprint = #{utOrder.uprint}
+            </if>
+            <if test="utOrder.ueflag != null and ''!= utOrder.ueflag">
+                and ueflag = #{utOrder.ueflag}
+            </if>
+            <if test="starttime != null and ''!=starttime ">
+                <![CDATA[and ucreatedate >= #{starttime}]]>
+            </if>
+            <if test="endtime !=null and '' != endtime">
+                <![CDATA[and ucreatedate <= #{endtime}]]>
+            </if>
+        </where>
+        order by ucreatedate desc
+    </select>
+
+	<select id="selectSalesOrderByCompid" resultMap="salesOrderMap">
+		select p.uproductid, p.uhomepic, o.uorderid, o.utotalprice, o.ucreatedate, o.uproductnum
+		from ut_order o
+		inner join ut_order_item i on o.uorderid = i.uorderid
+		inner join ot_product p on p.uproductid = i.uproductid
+		where o.ucompid = #{ucompid}
+	</select>
+	
+	<select id="selectSalesOrderDetailsByOrderid" resultMap="salesOrderDetailsMap">
+		select o.uorderid, o.uorderno, o.ucreatedate, o.uproductnum, o.upayprice,
+		o.utotalprice, p.uproductid, p.uhomepic, i.uproductname, i.uobjnamevalue,
+		i.uproductnum, i.upayprice, i.uunitid, i.uunit, u.ucolor,
+		cpso.uobjnamevalueid, cpso.uobjnameid, cpso.uobjname, cpso.uobjvalueid, cpso.uobjvalue
+		from ut_order o 
+		inner join ut_order_item i on o.uorderid = i.uorderid 
+		inner join ot_product p on p.uproductid = i.uproductid
+		inner join qt_productunit u on u.uunitid = i.uunitid
+		left join ot_comp_to_product ctp on ctp.uproductid = i.uproductid and o.ucompid = ctp.ucompid
+		left join ot_comp_product_stock cps on cps.ucomproductid = ctp.ucomproductid
+		left join ot_comp_product_stock_objname cpso on cpso.uproductstockid = cps.uproductstockid
+		where o.uorderid = #{uorderid}
+		order by i.ucreatedate desc
+	</select>
+	<!-- 销售商产品统计排行榜 -->
+	<select id="querycompproductSales"  resultType="com.zdv.shop.model.UtOrderItem">
+		select p.uproductid, p.uproductname,sum(i.upayprice*i.uproductnum)utotalprice,sum(i.uproductnum)uproductnum,p.uhomepic,p.ufactoryname,max(i.uunit)uunit,max(i.uobjnamevalue)uobjnamevalue,max(i.ucreatedate)ucreatedate
+		from ut_order_item i 
+		inner join ot_product p on p.uproductid = i.uproductid
+		<where> 
+		<if test="null != ucompid and '' != ucompid">and i.ucompid = #{ucompid}</if>
+		<if test="null != ueflag and '' != ueflag">and i.ueflag = #{ueflag}</if>
+		<if test="null != begindate and '' != begindate">
+	<if test="null != enddate and '' != enddate">
+		  <if test="types==0">and (FROM_UNIXTIME(i.ucreatedate,'%Y-%m-%d')&gt;=DATE_FORMAT(#{begindate},'%Y-%m-%d') or DATE_FORMAT(#{enddate},'%Y-%m-%d')&gt;=FROM_UNIXTIME(i.ucreatedate,'%Y-%m-%d')) </if>
+	    <if test="types==1">and (FROM_UNIXTIME(i.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(i.ucreatedate,'%Y-%m')) </if>
+	    <if test="types==2">and (FROM_UNIXTIME(i.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(i.ucreatedate,'%Y-%m')) </if>
+	    <if test="types==3">and (FROM_UNIXTIME(i.ucreatedate,'%Y')&gt;=DATE_FORMAT(#{begindate},'%Y') or DATE_FORMAT(#{enddate},'%Y')&gt;=FROM_UNIXTIME(i.ucreatedate,'%Y')) </if>
+    </if></if>
+	</where> 	
+		group by p.uproductid order by uproductnum desc limit #{pageNo},#{pageSize}
+	</select>
+	<!-- 销售商产品销售排行榜计算总数 -->
+	<select id="querycompproductSalesCount"  resultType="com.zdv.shop.model.UtOrderItem">
+		select sum(i.upayprice*i.uproductnum)utotalprice,sum(i.uproductnum)uproductnum
+		from ut_order_item i 
+		inner join ot_product p on p.uproductid = i.uproductid
+		<where> 
+		<if test="null != ucompid and '' != ucompid">and i.ucompid = #{ucompid}</if>
+		<if test="null != ueflag and '' != ueflag">and i.ueflag = #{ueflag}</if>
+		<if test="null != begindate and '' != begindate">
+	<if test="null != enddate and '' != enddate">
+		  <if test="types==0">and (FROM_UNIXTIME(i.ucreatedate,'%Y-%m-%d')&gt;=DATE_FORMAT(#{begindate},'%Y-%m-%d') or DATE_FORMAT(#{enddate},'%Y-%m-%d')&gt;=FROM_UNIXTIME(i.ucreatedate,'%Y-%m-%d')) </if>
+	    <if test="types==1">and (FROM_UNIXTIME(i.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(i.ucreatedate,'%Y-%m')) </if>
+	    <if test="types==2">and (FROM_UNIXTIME(i.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(i.ucreatedate,'%Y-%m')) </if>
+	    <if test="types==3">and (FROM_UNIXTIME(i.ucreatedate,'%Y')&gt;=DATE_FORMAT(#{begindate},'%Y') or DATE_FORMAT(#{enddate},'%Y')&gt;=FROM_UNIXTIME(i.ucreatedate,'%Y')) </if>
+    </if></if>
+	</where> 	
+		
+	</select>
+	<!-- 销售商根据日期获得日或者月、年销售和进货产品统计数据 -->
+  <select id="querycompproductSalesByDate"  resultType="com.zdv.shop.model.UtOrderItem">
+	select uproductid,uproductname,utotalprice,uproductnum,uhomepic,ufactoryname,uunit,uobjnamevalue,ucreatedate,type from(
+		(select p.uproductid, p.uproductname,sum(i.upayprice*i.uproductnum)utotalprice,sum(i.uproductnum)uproductnum,p.uhomepic,p.ufactoryname,max(i.uunit)uunit,max(i.uobjnamevalue)uobjnamevalue,max(i.ucreatedate)ucreatedate,1 as type
+		from ut_order_item i
+		inner join ot_product p on p.uproductid = i.uproductid inner join qt_comp_order_item coi on p.uproductid = coi.uproductid
+		<where> 
+		<if test="null != ucompid and '' != ucompid">and i.ucompid = #{ucompid}</if>
+		<if test="null != ueflag and '' != ueflag">and i.ueflag = #{ueflag}</if>
+		<if test="null != begindate and '' != begindate">
+		  <if test="types==0">and (FROM_UNIXTIME(i.ucreatedate,'%Y-%m-%d')=DATE_FORMAT(#{begindate},'%Y-%m-%d')) </if>
+	    <if test="types==1">and (FROM_UNIXTIME(i.ucreatedate,'%Y-%m')=DATE_FORMAT(#{begindate},'%Y-%m')) </if>
+	    <if test="types==2">and (FROM_UNIXTIME(i.ucreatedate,'%Y-%m')=DATE_FORMAT(#{begindate},'%Y-%m')) </if>
+	    <if test="types==3">and (FROM_UNIXTIME(i.ucreatedate,'%Y')=DATE_FORMAT(#{begindate},'%Y')) </if>
+    </if>
+	</where> 	
+	)union( select p.uproductid, p.uproductname,sum(coi.uprice*coi.uproductnum)utotalprice,sum(coi.uproductnum)uproductnum,p.uhomepic,p.ufactoryname,max(coi.uunit)uunit,max(coi.uobjnamevalue)uobjnamevalue,max(coi.ucreatedate)ucreatedate,0 as type
+		from qt_comp_order_item coi inner join ot_product p on  p.uproductid = coi.uproductid
+				<where> 
+		<if test="null != ucompid and '' != ucompid">and coi.ucompid = #{ucompid}</if>
+		<if test="null != ueflag and '' != ueflag">and coi.ueflag = #{ueflag}</if>
+		<if test="null != begindate and '' != begindate">
+		  <if test="types==0">and (FROM_UNIXTIME(coi.ucreatedate,'%Y-%m-%d')=DATE_FORMAT(#{begindate},'%Y-%m-%d')) </if>
+	    <if test="types==1">and (FROM_UNIXTIME(coi.ucreatedate,'%Y-%m')=DATE_FORMAT(#{begindate},'%Y-%m')) </if>
+	    <if test="types==2">and (FROM_UNIXTIME(coi.ucreatedate,'%Y-%m')=DATE_FORMAT(#{begindate},'%Y-%m')) </if>
+	    <if test="types==3">and (FROM_UNIXTIME(coi.ucreatedate,'%Y')=DATE_FORMAT(#{begindate},'%Y')) </if>
+    </if>
+	</where> ))b
+	group by b.uproductid order by b.uproductnum desc  limit #{pageNo},#{pageSize}
+	</select>
+
+
+	<insert id="addOrderList">
+		insert into ut_order(uorderid,uorderno,uproductname,uproductnum,ucustomerid
+		uopuserid,utotalprice,upayprice,ucostprice,upaystate,upaytype,uuserid,uname,
+		uprofit_rate,uaddress,ucompid,ucompname,usolve,usend_type,ucrawl,ushoptype,
+		uprint,uremark,ueflag,ucontact,utel,ulogo,ucaddress,uccontact,uctel,uclogo,
+		ucreatedate,udistributorid
+		) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.uorderid},#{item.uorderno},#{item.uproductname},#{item.uproductnum},#{item.ucustomerid},
+			#{item.uopuserid},#{item.utotalprice},#{item.upayprice},#{item.ucostprice},#{item.upaystate},
+			#{item.upaytype},#{item.uuserid},#{item.uname},#{item.uprofit_rate},#{item.uaddress},
+			#{item.ucompid},#{item.ucompname},#{item.usolve},#{item.usend_type},#{item.ucrawl},
+			#{item.ushoptype},#{item.uprint},#{item.uremark},#{item.ueflag},#{item.ucontact},
+			#{item.utel},#{item.ulogo},#{item.ucaddress},#{item.uccontact},#{item.uctel},
+			#{item.uclogo},UNIX_TIMESTAMP(now()),#{udistributorid})
+
+		</foreach>
+	</insert>
+	<insert id="addOrder">
+		insert into ut_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uorderid != null and ''!= uorderid">uorderid,</if>
+			<if test="uorderno != null and ''!= uorderno">uorderno,</if>
+			<if test="uproductname != null and ''!= uproductname">uproductname,</if>
+			<if test="uproductnum != null and ''!= uproductnum">uproductnum,</if>
+			<if test="ucustomerid != null and ''!= ucustomerid">ucustomerid,</if>
+			<if test="uopuserid != null and ''!= uopuserid">uopuserid,</if>
+			<if test="utotalprice != null and ''!= utotalprice">utotalprice,</if>
+			<if test="upayprice != null and ''!= upayprice">upayprice,</if>
+			<if test="ucostprice != null and ''!= ucostprice">ucostprice,</if>
+			<if test="upaystate != null and ''!= upaystate">upaystate,</if>
+			<if test="upaytype != null and ''!= upaytype">upaytype,</if>
+			<if test="uuserid != null and ''!= uuserid">uuserid,</if>
+			<if test="uname != null and ''!= uname">uname,</if>
+			<if test="uprofit_rate != null and ''!= uprofit_rate">uprofit_rate,</if>
+			<if test="uaddress != null and ''!= uaddress">uaddress,</if>
+			<if test="ucompid != null and ''!= ucompid">ucompid,</if>
+			<if test="ucompname != null and ''!= ucompname">ucompname,</if>
+			<if test="usolve != null and ''!= usolve">usolve,</if>
+			<if test="usend_type != null and ''!= usend_type">usend_type,</if>
+			<if test="ucrawl != null and ''!= ucrawl">ucrawl,</if>
+			<if test="ushoptype != null and ''!= ushoptype">ushoptype,</if>
+			<if test="uprint != null and ''!= uprint">uprint,</if>
+			<if test="uremark != null and ''!= uremark">uremark,</if>
+			<if test="ueflag != null and ''!= ueflag">ueflag,</if>
+			<if test="ucontact != null and ''!= ucontact">ucontact,</if>
+			<if test="utel != null and ''!= utel">utel,</if>
+			<if test="ulogo != null and ''!= ulogo">ulogo,</if>
+			<if test="ucaddress != null and ''!= ucaddress">ucaddress,</if>
+			<if test="uccontact != null and ''!= uccontact">uccontact,</if>
+			<if test="uctel != null and ''!= uctel">uctel,</if>
+			<if test="uclogo != null and ''!= uclogo">uclogo,</if>
+			<if test="udistributorid != null and ''!= udistributorid">udistributorid,</if>
+			ucreatedate
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uorderid != null and ''!= uorderid">#{uorderid},</if>
+			<if test="uorderno != null and ''!= uorderno">#{uorderno},</if>
+			<if test="uproductname != null and ''!= uproductname">#{uproductname},</if>
+			<if test="uproductnum != null and ''!= uproductnum">#{uproductnum},</if>
+			<if test="ucustomerid != null and ''!= ucustomerid">#{ucustomerid},</if>
+			<if test="uopuserid != null and ''!= uopuserid">#{uopuserid},</if>
+			<if test="utotalprice != null and ''!= utotalprice">#{utotalprice},</if>
+			<if test="upayprice != null and ''!= upayprice">#{upayprice},</if>
+			<if test="ucostprice != null and ''!= ucostprice">#{ucostprice},</if>
+			<if test="upaystate != null and ''!= upaystate">#{upaystate},</if>
+			<if test="upaytype != null and ''!= upaytype">#{upaytype},</if>
+			<if test="uuserid != null and ''!= uuserid">#{uuserid},</if>
+			<if test="uname != null and ''!= uname">#{uname},</if>
+			<if test="uprofit_rate != null and ''!= uprofit_rate">#{uprofit_rate},</if>
+			<if test="uaddress != null and ''!= uaddress">#{uaddress},</if>
+			<if test="ucompid != null and ''!= ucompid">#{ucompid},</if>
+			<if test="ucompname != null and ''!= ucompname">#{ucompname},</if>
+			<if test="usolve != null and ''!= usolve">#{usolve},</if>
+			<if test="usend_type != null and ''!= usend_type">#{usend_type},</if>
+			<if test="ucrawl != null and ''!= ucrawl">#{ucrawl},</if>
+			<if test="ushoptype != null and ''!= ushoptype">#{ushoptype},</if>
+			<if test="uprint != null and ''!= uprint">#{uprint},</if>
+			<if test="uremark != null and ''!= uremark">#{uremark},</if>
+			<if test="ueflag != null and ''!= ueflag">#{ueflag},</if>
+			<if test="ucontact != null and ''!= ucontact">#{ucontact},</if>
+			<if test="utel != null and ''!= utel">#{utel},</if>
+			<if test="ulogo != null and ''!= ulogo">#{ulogo},</if>
+			<if test="ucaddress != null and ''!= ucaddress">#{ucaddress},</if>
+			<if test="uccontact != null and ''!= uccontact">#{uccontact},</if>
+			<if test="uctel != null and ''!= uctel">#{uctel},</if>
+			<if test="uclogo != null and ''!= uclogo">#{uclogo},</if>
+			<if test="udistributorid != null and ''!= udistributorid">#{udistributorid},</if>
+
+			UNIX_TIMESTAMP(now())
+		</trim>
+	</insert>
+	<select id="queryOrderList" resultType="map">
+		select o.uorderid,o.uorderno,o.upayprice,o.ucontact,o.utotalprice,o.utel,o.uaddress,o.uproductnum,
+		o.usend_type,
+		CASE
+		WHEN o.ueflag = '00' THEN '待付款'
+		WHEN o.ueflag = '01' THEN '待发货'
+		WHEN o.ueflag = '02' THEN '待收货'
+		WHEN o.ueflag = '03' THEN '待评价'
+		WHEN o.ueflag = '04' THEN '已完成'
+		WHEN o.ueflag = '99' THEN '已关闭'
+		ELSE '其他'
+		END AS ueflag,
+		CASE
+		WHEN o.upaytype = '1' THEN '支付宝'
+		WHEN o.upaytype = '2' THEN '微信'
+		WHEN o.upaytype = '3' THEN '银联支付'
+		WHEN o.upaytype = '4' THEN '银联'
+		WHEN o.upaytype = '5' THEN '百度钱包'
+		WHEN o.upaytype = '6' THEN '后结'
+		WHEN o.upaytype = '8' THEN '会员卡支付'
+		ELSE '其他'
+		END AS upaytype,
+		FROM_UNIXTIME(LEFT(o.ucreatedate,10),'%Y-%m-%d %H:%i:%S') ucreatedate
+		from ut_order o
+		<where>
+			<if test="null != ucompid and '' != ucompid">and o.ucompid = #{ucompid}</if>
+			<if test="null != ueflag and '' != ueflag">and o.ueflag = #{ueflag}</if>
+			<if test="null != ushoptype and '' != ushoptype">and o.ushoptype = #{ushoptype}</if>
+			<if test="null != uuserid and '' != uuserid">and o.uuserid = #{uuserid}</if>
+			<if test="null != uorderid and '' != uorderid">and o.uorderid = #{uorderid}</if>
+			<if test="null != uorderno and '' != uorderno">and o.uorderno = #{uorderno}</if>
+
+		</where>
+		order by ucreatedate desc
+
+	</select>
+
+	<update id="updateOrder">
+		update ut_order
+		<set>
+			<if test="uorderid != null and ''!= uorderid">
+				 uorderid = #{uorderid},
+			</if>
+			<if test="uorderno != null and ''!= uorderno">
+				 uorderno = #{uorderno},
+			</if>
+			<if test="uproductnum != null and ''!= uproductnum">
+				 uproductnum = #{uproductnum},
+			</if>
+			<if test="utotalprice != null and ''!= utotalprice">
+				 utotalprice = #{utotalprice},
+			</if>
+			<if test="upayprice != null and ''!= upayprice">
+				 upayprice = #{upayprice},
+			</if>
+			<if test="upaystate != null and ''!= upaystate">
+				 upaystate = #{upaystate},
+			</if>
+			<if test="upaytype != null and ''!= upaytype">
+				 upaytype = #{upaytype},
+			</if>
+			<if test="uuserid != null and ''!= uuserid">
+				 uuserid = #{uuserid},
+			</if>
+			<if test="uname != null and ''!= uname">
+				 uname = #{uname},
+			</if>
+			<if test="uprofit_rate != null and ''!= uprofit_rate">
+				 uprofit_rate = #{uprofit_rate},
+			</if>
+			<if test="uaddress != null and ''!= uaddress">
+				 uaddress = #{uaddress},
+			</if>
+			<if test="ucompid != null and ''!= ucompid">
+				 ucompid = #{ucompid},
+			</if>
+			<if test="usolve != null and ''!= usolve">
+				 usolve = #{usolve},
+			</if>
+			<if test="usend_type != null and ''!= usend_type">
+				 usend_type = #{usend_type},
+			</if>
+			<if test="ucrawl != null and ''!= ucrawl">
+				 ucrawl = #{ucrawl},
+			</if>
+			<if test="ushoptype != null and ''!= ushoptype">
+				 ushoptype = #{ushoptype},
+			</if>
+			<if test="uprint != null and ''!= uprint">
+				 uprint = #{uprint},
+			</if>
+			<if test="ueflag != null and ''!= ueflag">
+				ueflag = #{ueflag},
+			</if>
+			<if test="uintegral != null and ''!= uintegral">
+				uintegral = #{uintegral},
+			</if>
+			<if test="uverificationcode != null and ''!= uverificationcode">
+				uverificationcode = #{uverificationcode},
+			</if>
+		</set>
+		where uorderid = #{uorderid}
+	</update>
+	<delete id="delOrder">
+		delete from  ut_order
+		where uorderid = #{uorderid} and uuserid = #{uuserid} and ueflag = '00'
+	</delete>
+	<select id="queryConsumption" resultType="java.lang.Double">
+		select sum(upayprice) from ut_order
+		<where>
+
+			<if test="ucustomerid != null and ''!=ucustomerid"> and ucustomerid = #{ucustomerid}</if>
+			<if test="uuserid != null and ''!=uuserid"> and uuserid = #{uuserid}</if>
+			and ueflag != '00' and ueflag != '99' and upaystate = 1
+		</where>
+	</select>
+
+
+	<select id="selectVerificationcode" resultType="java.lang.String">
+		select uverificationcode from ut_order where uorderid=#{uorderid} and uuserid=#{uuserid}
+	</select>
+</mapper>

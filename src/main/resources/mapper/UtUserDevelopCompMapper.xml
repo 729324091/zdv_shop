@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.UtUserDevelopCompMapper">
+
+    <select id="getByUcompid" resultType="com.zdv.shop.model.UtUserDevelopComp">
+        select uuserid,ucompid,ucompname,ucustomerid,uremark,ucreatedate
+        from  ut_user_develop_comp where ucompid = #{ucompid} limit 1
+
+    </select>
+    <select id="listChildren" resultType="com.zdv.shop.model.vo.TeamUserVo">
+  	select cc.ucompid as uuserid,cc.ulogo, date_format(uudc.ucreatedate,'%Y-%m-%d
+        %H:%i:%s') as uregdate,cc.ucompname as uname ,'4' as uvip,'店铺' as uvipname ,u.uname as upname,'店铺' as uusercode
+  	from ut_user_develop_comp uudc
+  	inner join ct_comp cc on uudc.ucompid = cc.ucompid
+  	inner join ut_users u on uudc.uuserid = u.uuserid
+  	where uudc.uuserid = #{uuserid}
+  </select>
+</mapper>

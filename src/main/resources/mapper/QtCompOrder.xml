@@ -1,0 +1,786 @@
+<?xml version="1.0" encoding="uTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.QtCompOrderMapper">
+	<resultMap id="BaseResultMap" type="com.zdv.shop.model.QtCompOrder">
+		<id column="uorderid" property="uorderid"/>
+		<result column="uorderno" property="uorderno"/>
+		<result column="uproductnum" property="uproductnum"/>
+		<result column="utotalmoney" property="utotalmoney"/>
+		<result column="udistributorid" property="udistributorid"/>
+		<result column="udname" property="udname"/>
+		<result column="uaddress" property="uaddress"/>
+		<result column="uareaid" property="uareaid"/>
+		<result column="ulatitude" property="ulatitude"/>
+		<result column="ulongitude" property="ulongitude"/>
+		<result column="ucontact" property="ucontact"/>
+		<result column="utel" property="utel"/>
+		<result column="ulogo" property="ulogo"/>
+		<result column="ucomptype" property="ucomptype"/>
+		<result column="ucompid" property="ucompid"/>
+		<result column="ucname" property="ucname"/>
+		<result column="ucaddress" property="ucaddress"/>
+		<result column="ucareaid" property="ucareaid"/>
+		<result column="uclatitude" property="uclatitude"/>
+		<result column="uclongitude" property="uclongitude"/>
+		<result column="uccontact" property="uccontact"/>
+		<result column="uctel" property="uctel"/>
+		<result column="uclogo" property="uclogo"/>
+		<result column="ueflag" property="ueflag"/>
+		<result column="upeflag" property="upeflag"/>
+		<result column="ucreatedate" property="ucreatedate"/>
+	</resultMap>
+	
+	<resultMap type="com.zdv.shop.model.vo.AppOrderVo" id="one2ManyVoMap">
+		<id column="uorderid" property="uorderid" />
+		<result column="uorderno" property="uorderno" />
+		<result column="uproductnum" property="uproductnum" />
+		<result column="utotalmoney" property="utotalmoney" />
+		<result column="ustatus" property="ustatus" />
+		<result column="ucreatedate" property="ucreatedate" />
+		<result column="ucaddress" property="consignee.uaddress" />
+		<result column="uccontact" property="consignee.ucontact" />
+		<result column="uctel" property="consignee.utel" />
+		<result column="ucname" property="consignee.udname" />
+		<result column="ucontact" property="shipper.ucontact" />
+		<result column="utel" property="shipper.utel" />
+		<result column="uaddress" property="shipper.uaddress" />
+		<collection property="orderItemList" ofType="com.zdv.shop.model.vo.AppOrderItemVo" column="uorderitemid">
+			<id column="uorderitemid" property="uorderitemid" />
+			<result column="uproductname" property="uproductname" />
+			<result column="uhomepic" property="uhomepic" />
+			<result column="uprice" property="uprice" />
+			<result column="uproductnum" property="uproductnum" />
+			<result column="uobjnamevalue" property="uobjnamevalue" />
+			<result column="uunitid" property="uunitid" />
+			<result column="uunit" property="uunit" />
+			<result column="ucolor" property="ucolor" />
+			<collection property="uobjList" ofType="com.zdv.shop.model.OtDistributorProductStockObjname" column="uobjnamevalueid">
+				<id column="uobjnamevalueid" property="uobjnamevalueid" />
+				<result column="uobjnameid" property="uobjnameid" />
+				<result column="uobjname" property="uobjname" />
+				<result column="uobjvalueid" property="uobjvalueid" />
+				<result column="uobjvalue" property="uobjvalue" />
+			</collection>
+		</collection>
+	</resultMap>
+	<resultMap id="reportResultMap" type="com.zdv.shop.model.QtCompOrderItem">
+		<result column="uprice" property="uprice" />
+		<result column="ucostprice" property="ucostprice" />
+		<result column="uproductnum" property="uproductnum" />
+		<result column="ucreatedate" property="ucreatedate" />
+	</resultMap>
+	<resultMap id="productResultMap" type="com.zdv.shop.model.QtCompOrder">
+		<id column="uproductid" property="uproductid"/>
+		<result column="uproductnum" property="uproductnum"/>
+		<result column="utotalmoney" property="utotalmoney"/>
+		<result column="uproductname" property="uproductname"/>
+		<result column="uunit" property="uunit"/>
+		<result column="ufactoryname" property="ufactoryname"/>
+		<result column="uhomepic" property="uhomepic"/>
+	</resultMap>
+	<sql id="selResult">
+		uorderid,
+		uorderno,
+		uproductnum,
+		utotalmoney,
+		udistributorid,
+		udname,
+		uaddress,
+		uareaid,
+		ulatitude,
+		ulongitude,
+		ucontact,
+		utel,
+		ulogo,
+		ucomptype,
+		ucompid,
+		ucname,
+		ucaddress,
+		ucareaid,
+		uclatitude,
+		uclongitude,
+		uccontact,
+		uctel,
+		uclogo,
+		ueflag,upeflag,FROM_UNIXTIME(LEFT(ucreatedate,10),'%Y-%m-%d %H:%i:%S') ucreatedate
+	</sql>
+
+	<insert id="insertCompOrder" parameterType="com.zdv.shop.model.QtCompOrder">
+		insert into qt_comp_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uorderid != null and ''!= uorderid">uorderid,</if>
+			<if test="uorderno != null and ''!= uorderno">uorderno,</if>
+			<if test="uproductnum != null and ''!= uproductnum">uproductnum,</if>
+			<if test="utotalmoney != null and ''!= utotalmoney">utotalmoney,</if>
+			<if test="udistributorid != null and ''!= udistributorid">udistributorid,</if>
+			<if test="udname != null and ''!= udname">udname,</if>
+			<if test="uaddress != null and ''!= uaddress">uaddress,</if>
+			<if test="uareaid != null and ''!= uareaid">uareaid,</if>
+			<if test="ulatitude != null and ''!= ulatitude">ulatitude,</if>
+			<if test="ulongitude != null and ''!= ulongitude">ulongitude,</if>
+			<if test="ucontact != null and ''!= ucontact">ucontact,</if>
+			<if test="utel != null and ''!= utel">utel,</if>
+			<if test="ulogo != null and ''!= ulogo">ulogo,</if>
+			<if test="ucomptype != null and ''!= ucomptype">ucomptype,</if>
+			<if test="ucompid != null and ''!= ucompid">ucompid,</if>
+			<if test="ucname != null and ''!= ucname">ucname,</if>
+			<if test="ucaddress != null and ''!= ucaddress">ucaddress,</if>
+			<if test="ucareaid != null and ''!= ucareaid">ucareaid,</if>
+			<if test="uclatitude != null and ''!= uclatitude">uclatitude,</if>
+			<if test="uclongitude != null and ''!= uclongitude">uclongitude,</if>
+			<if test="uccontact != null and ''!= uccontact">uccontact,</if>
+			<if test="uctel != null and ''!= uctel">uctel,</if>
+			<if test="uclogo != null and ''!= uclogo">uclogo,</if>
+			<if test="ueflag != null and ''!= ueflag">ueflag,</if>
+			<if test="upeflag != null and ''!= upeflag">upeflag,</if>
+			ucreatedate
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uorderid != null and ''!= uorderid">#{uorderid},</if>
+			<if test="uorderno != null and ''!= uorderno">#{uorderno},</if>
+			<if test="uproductnum != null and ''!= uproductnum">#{uproductnum},</if>
+			<if test="utotalmoney != null and ''!= utotalmoney">#{utotalmoney},</if>
+			<if test="udistributorid != null and ''!= udistributorid">#{udistributorid,</if>
+			<if test="udname != null and ''!= udname">#{udname},</if>
+			<if test="uaddress != null and ''!= uaddress">#{uaddress},</if>
+			<if test="uareaid != null and ''!= uareaid">#{uareaid},</if>
+			<if test="ulatitude != null and ''!= ulatitude">#{ulatitude},</if>
+			<if test="ulongitude != null and ''!= ulongitude">#{ulongitude},</if>
+			<if test="ucontact != null and ''!= ucontact">#{ucontact},</if>
+			<if test="utel != null and ''!= utel">#{utel},</if>
+			<if test="ulogo != null and ''!= ulogo">#{ulogo},</if>
+			<if test="ucomptype != null and ''!= ucomptype">#{ucomptype},</if>
+			<if test="ucompid != null and ''!= ucompid">#{ucompid},</if>
+			<if test="ucname != null and ''!= ucname">#{ucname},</if>
+			<if test="ucaddress != null and ''!= ucaddress">#{ucaddress},</if>
+			<if test="ucareaid != null and ''!= ucareaid">#{ucareaid},</if>
+			<if test="uclatitude != null and ''!= uclatitude">#{uclatitude},</if>
+			<if test="uclongitude != null and ''!= uclongitude">#{uclongitude},</if>
+			<if test="uccontact != null and ''!= uccontact">#{uccontact},</if>
+			<if test="uctel != null and ''!= uctel">#{uctel},</if>
+			<if test="uclogo != null and ''!= uclogo">#{uclogo},</if>
+			<if test="ueflag != null and ''!= ueflag">#{ueflag},</if>
+			<if test="upeflag != null and ''!= upeflag">#{upeflag},</if>
+			UNIX_TIMESTAMP(now())
+		</trim>
+	</insert>
+	<update id="updateByIds" parameterType="com.zdv.shop.model.QtCompOrder">
+		update qt_comp_order
+		<set>
+			<if test="uproductnum != null and ''!= uproductnum">uproductnum=#{uproductnum},</if>
+			<if test="utotalmoney != null and ''!= utotalmoney">utotalmoney=#{utotalmoney},</if>
+			<if test="udistributorid != null and ''!= udistributorid">udistributorid=#{udistributorid},</if>
+			<if test="udname != null and ''!= udname">udname=#{udname},</if>
+			<if test="uaddress != null and ''!= uaddress">uaddress=#{uaddress},</if>
+			<if test="uareaid != null and ''!= uareaid">uareaid=#{uareaid},</if>
+			<if test="ulatitude != null and ''!= ulatitude">ulatitude=#{ulatitude},</if>
+			<if test="ulongitude != null and ''!= ulongitude">ulongitude=#{ulongitude},</if>
+			<if test="ucontact != null and ''!= ucontact">ucontact=#{ucontact},</if>
+			<if test="utel != null and ''!= utel">utel=#{utel},</if>
+			<if test="ulogo != null and ''!= ulogo">ulogo=#{ulogo},</if>
+			<if test="ucomptype != null and ''!= ucomptype">ucomptype=#{ucomptype},</if>
+			<if test="ucompid != null and ''!= ucompid">ucompid=#{ucompid},</if>
+			<if test="ucname != null and ''!= ucname">ucname=#{ucname},</if>
+			<if test="ucaddress != null and ''!= ucaddress">ucaddress=#{ucaddress},</if>
+			<if test="ucareaid != null and ''!= ucareaid">ucareaid=#{ucareaid},</if>
+			<if test="uclatitude != null and ''!= uclatitude">uclatitude=#{uclatitude},</if>
+			<if test="uclongitude != null and ''!= uclongitude">uclongitude=#{uclongitude},</if>
+			<if test="uccontact != null and ''!= uccontact">uccontact=#{uccontact},</if>
+			<if test="uctel != null and ''!= uctel">uctel=#{uctel},</if>
+			<if test="uclogo != null and ''!= uclogo">uclogo=#{uclogo},</if>
+			<if test="ueflag != null and ''!= ueflag">ueflag=#{ueflag},</if>
+			<if test="upeflag != null and ''!= upeflag">upeflag=#{upeflag},</if>
+		</set>
+		where uorderid = #{uorderid}
+	</update>
+
+	<!-- 经销商销售统计 -->
+	<select id="queryCompSalesReportList" resultMap="BaseResultMap"> <!-- types;//统计类型 0按日统计，1按月统计，2按季度，3按年 -->
+		select ifnull(sum(u.uproductnum),0)uproductnum,
+		ifnull(sum(u.utotalmoney),0.00)utotalmoney,
+		max(u.ucompid)ucompid,
+		max(u.ucname)ucname,
+		max(u.ucaddress)ucaddress,
+		max(u.ucareaid)ucareaid,
+		max(u.uclatitude)uclatitude,
+		max(u.uclongitude)uclongitude,
+		max(u.uccontact)uccontact,
+		max(u.uctel)uctel,
+		max(u.uclogo)uclogo,
+		max(FROM_UNIXTIME(c.ucreatedate,'%Y-%m-%d'))uregdate
+		<if test="types==0">,FROM_UNIXTIME(u.ucreatedate,'%Y-%m-%d') as ucreatedate</if>
+		<if test="types==1">
+			,CONCAT(FROM_UNIXTIME(u.ucreatedate,'%Y'),CONCAT('-',quarter(FROM_UNIXTIME(u.ucreatedate,'%Y-%m-%d')))) as
+			ucreatedate
+		</if>
+		<if test="types==2">,FROM_UNIXTIME(u.ucreatedate,'%Y-%m') as ucreatedate</if>
+		<if test="types==3">,FROM_UNIXTIME(u.ucreatedate,'%Y')as ucreatedate</if>
+		from qt_comp_order u inner join ct_comp c on u.ucompid=c.ucompid
+		<where>
+			<if test="ueflag != null and ''!= ueflag">and u.ueflag=#{ueflag},</if>
+			<if test="upeflag != null and ''!= upeflag">and u.upeflag=#{upeflag},</if>
+			<if test="null != uopuserid">and u.uopuserid = #{uopuserid}</if>
+			<if test="null != begindate and '' != begindate">
+				<if test="null != enddate and '' != enddate">
+					<if test="types==0">and (FROM_UNIXTIME(u.ucreatedate,'%Y-%m-%d'
+						)&gt;=DATE_FORMAT(#{begindate},'%Y-%m-%d') or
+						DATE_FORMAT(#{enddate},'%Y-%m-%d')&gt;=FROM_UNIXTIME(u.ucreatedate,'%Y-%m-%d' ))
+					</if>
+					<if test="types==1">and (FROM_UNIXTIME(u.ucreatedate,'%Y-%m' )&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or
+						DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(u.ucreatedate,'%Y-%m' ))
+					</if>
+					<if test="types==2">and (FROM_UNIXTIME(u.ucreatedate,'%Y-%m' )&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or
+						DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(u.ucreatedate,'%Y-%m' ))
+					</if>
+					<if test="types==3">and (FROM_UNIXTIME(u.ucreatedate,'%Y' )&gt;=DATE_FORMAT(#{begindate},'%Y') or
+						DATE_FORMAT(#{enddate},'%Y')&gt;=FROM_UNIXTIME(u.ucreatedate,'%Y' ))
+					</if>
+				</if>
+			</if>
+		</where>
+		<if test="types==0">group by FROM_UNIXTIME(u.ucreatedate,'%Y-%m-%d' ) order by ucreatedate desc</if>
+		<if test="types==1">group by
+			CONCAT(FROM_UNIXTIME(u.ucreatedate,'%Y'),CONCAT('-',quarter(FROM_UNIXTIME(u.ucreatedate,'%Y-%m-%d')))) order
+			by ucreatedate desc
+		</if>
+		<if test="types==2">group by FROM_UNIXTIME(u.ucreatedate,'%Y-%m' ) order by ucreatedate desc</if>
+		<if test="types==3">group by FROM_UNIXTIME(u.ucreatedate,'%Y' ) order by ucreatedate desc</if>
+		limit #{pageNo},#{pageSize}
+	</select>
+
+
+	<!-- 4.工作人员销售统计-->
+	<select id="queryWorkerSalesReportList" resultMap="BaseResultMap"> <!-- types;//统计类型 0按日统计，1按月统计，2按季度，3按年 -->
+	select ifnull(sum(u.uproductnum),0)uproductnum,
+		ifnull(sum(u.utotalmoney),0.00)utotalmoney,
+		op.uopuserid,
+		max(op.uopname)uopname,max(op.umobile)umobile,max(op.ulogo)ulogo,max(op.uregdate)uregdate,max(dr.urolename)urolename,
+		max(u.uclogo)uclogo,
+		max(dr.ulevelcolor)ulevelcolor
+		from op_users op inner join dt_opuser_to_distributor utd on utd.uopuserid=op.uopuserid <if test="udistributorid != null and '' != udistributorid">and utd.udistributorid = #{udistributorid}</if>
+		inner join dt_distributor_role dr on dr.uroleid=utd.uroleid 
+		left join op_opuser_m_comp oc on op.uopuserid=oc.uopuserid left join qt_comp_order u on u.ucompid=oc.ucompid 
+		<if test="null != begindate and '' != begindate">
+				<if test="null != enddate and '' != enddate">
+					<if test="types==0">and (FROM_UNIXTIME(u.ucreatedate,'%Y-%m-%d'
+						)&gt;=DATE_FORMAT(#{begindate},'%Y-%m-%d') or
+						DATE_FORMAT(#{enddate},'%Y-%m-%d')&gt;=FROM_UNIXTIME(u.ucreatedate,'%Y-%m-%d' ))
+					</if>
+					<if test="types==1">and (FROM_UNIXTIME(u.ucreatedate,'%Y-%m' )&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or
+						DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(u.ucreatedate,'%Y-%m' ))
+					</if>
+					<if test="types==2">and (FROM_UNIXTIME(u.ucreatedate,'%Y-%m' )&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or
+						DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(u.ucreatedate,'%Y-%m' ))
+					</if>
+					<if test="types==3">and (FROM_UNIXTIME(u.ucreatedate,'%Y' )&gt;=DATE_FORMAT(#{begindate},'%Y') or
+						DATE_FORMAT(#{enddate},'%Y')&gt;=FROM_UNIXTIME(u.ucreatedate,'%Y' ))
+					</if>
+				</if>
+			</if>
+		where 1=1
+			<if test="ueflag != null and ''!= ueflag">and u.ueflag=#{ueflag},</if>
+			<if test="upeflag != null and ''!= upeflag">and u.upeflag=#{upeflag},</if>
+			<if test="uopuserid != null and ''!= uopuserid">and u.uopuserid = #{uopuserid}</if>
+		
+		<if test="types==0">group by op.uopuserid order by u.ucreatedate desc</if>
+		<if test="types==1">group by op.uopuserid order by u.ucreatedate desc</if>
+		<if test="types==2">group by op.uopuserid order by u.ucreatedate desc</if>
+		<if test="types==3">group by op.uopuserid order by u.ucreatedate desc</if>
+		limit #{pageNo},#{pageSize}
+	</select>
+<!-- 5.工作人员产品销售统计-->
+	<select id="queryWorkerSalesProductReportList" resultMap="productResultMap"> <!-- types;//统计类型 0按日统计，1按月统计，2按季度，3按年 -->
+	select ifnull(sum(oi.uproductnum),0)uproductnum,
+		ifnull(sum(oi.uprice*oi.uproductnum),0.00)utotalmoney,
+		oi.uproductid,
+		max(oi.uproductname)uproductname,
+		max(oi.uunit)uunit,
+		max(oi.ufactoryname)ufactoryname,
+		max(oi.uhomepic)uhomepic	
+		from dt_opuser_to_distributor utd  inner join op_opuser_m_comp oc on utd.uopuserid=oc.uopuserid <if test="udistributorid != null and '' != udistributorid">and utd.udistributorid = #{udistributorid}</if>
+		 inner join qt_comp_order_item oi on utd.udistributorid=oi.udistributorid 
+		<if test="null != begindate and '' != begindate">
+				<if test="null != enddate and '' != enddate">
+					<if test="types==0">and (FROM_UNIXTIME(oi.ucreatedate,'%Y-%m-%d'
+						)&gt;=DATE_FORMAT(#{begindate},'%Y-%m-%d') or
+						DATE_FORMAT(#{enddate},'%Y-%m-%d')&gt;=FROM_UNIXTIME(oi.ucreatedate,'%Y-%m-%d' ))
+					</if>
+					<if test="types==1">and (FROM_UNIXTIME(u.ucreatedate,'%Y-%m' )&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or
+						DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(oi.ucreatedate,'%Y-%m' ))
+					</if>
+					<if test="types==2">and (FROM_UNIXTIME(u.ucreatedate,'%Y-%m' )&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or
+						DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(oi.ucreatedate,'%Y-%m' ))
+					</if>
+					<if test="types==3">and (FROM_UNIXTIME(u.ucreatedate,'%Y' )&gt;=DATE_FORMAT(#{begindate},'%Y') or
+						DATE_FORMAT(#{enddate},'%Y')&gt;=FROM_UNIXTIME(oi.ucreatedate,'%Y' ))
+					</if>
+				</if>
+			</if>
+		where  1=1
+			<if test="ueflag != null and ''!= ueflag">and oi.ueflag=#{ueflag},</if>
+			<if test="uopuserid != null and ''!= uopuserid">and oc.uopuserid = #{uopuserid}</if>
+		
+		<if test="types==0">group by oi.uproductid order by utotalmoney desc</if>
+		<if test="types==1">group by oi.uproductid order by utotalmoney desc</if>
+		<if test="types==2">group by oi.uproductid order by utotalmoney desc</if>
+		<if test="types==3">group by oi.uproductid order by utotalmoney desc</if>
+		limit #{pageNo},#{pageSize}
+	</select>
+
+	<select id="queryPage" resultType="com.zdv.shop.model.QtCompOrder">
+		SELECT
+		<include refid="selResult"/>
+		from qt_comp_order
+		where 1=1
+		<if test="order.uproductnum != null and ''!= order.uproductnum">
+			and uproductnum=#{order.uproductnum}
+		</if>
+		<if test="order.utotalmoney != null and ''!= order.utotalmoney">
+			and utotalmoney=#{order.utotalmoney}
+		</if>
+		<if test="order.udistributorid != null and ''!= order.udistributorid">
+			and udistributorid=#{order.udistributorid}
+		</if>
+		<if test="order.udname != null and ''!= order.udname">
+			and udname=#{order.udname}
+		</if>
+		<if test="order.uaddress != null and ''!= order.uaddress">
+			and uaddress=#{order.uaddress}
+		</if>
+		<if test="order.uareaid != null and ''!= order.uareaid">
+			and uareaid=#{order.uareaid}
+		</if>
+		<if test="order.ulatitude != null and ''!= order.ulatitude">
+			and ulatitude=#{order.ulatitude}
+		</if>
+		<if test="order.ulongitude != null and ''!= order.ulongitude">
+			and ulongitude=#{order.ulongitude}
+		</if>
+		<if test="order.ucontact != null and ''!= order.ucontact">
+			and ucontact=#{order.ucontact}
+		</if>
+		<if test="order.utel != null and ''!= order.utel">
+			and utel=#{order.utel}
+		</if>
+		<if test="order.ulogo != null and ''!= order.ulogo">
+			and ulogo=#{order.ulogo}
+		</if>
+		<if test="order.ucomptype != null and ''!= order.ucomptype">
+			and ucomptype=#{order.ucomptype}
+		</if>
+		<if test="order.ucompid != null and ''!= order.ucompid">
+			and ucompid=#{order.ucompid}
+		</if>
+		<if test="order.ucname != null and ''!= order.ucname">
+			and ucname=#{order.ucname}
+		</if>
+		<if test="order.ucaddress != null and ''!= order.ucaddress">
+			and ucaddress=#{order.ucaddress}
+		</if>
+		<if test="order.ucareaid != null and ''!= order.ucareaid">
+			and ucareaid=#{order.ucareaid}
+		</if>
+		<if test="order.uclatitude != null and ''!= order.uclatitude">
+			and uclatitude=#{order.uclatitude}
+		</if>
+		<if test="order.uclongitude != null and ''!= order.uclongitude">
+			and uclongitude=#{order.uclongitude}
+		</if>
+		<if test="order.uccontact != null and ''!= order.uccontact">
+			and uccontact=#{order.uccontact}
+		</if>
+		<if test="order.uctel != null and ''!= order.uctel">
+			and uctel=#{order.uctel}
+		</if>
+		<if test="order.uclogo != null and ''!= order.uclogo">
+			and uclogo=#{order.uclogo}
+		</if>
+		<if test="order.ueflag != null and ''!= order.ueflag">
+			and ueflag=#{order.ueflag}
+		</if>
+		<if test="order.upeflag != null and ''!= order.upeflag">
+			and upeflag=#{order.upeflag}
+		</if>
+		order by ucreatedate desc
+	</select>
+	<!-- 工作人员个人数据 -->
+<select id="queryWorkerinfo" resultType="com.zdv.shop.model.QtCompOrder">
+	select 
+		(select ifnull(sum(u.utotalmoney),0.00) from op_opuser_m_comp oc left join qt_comp_order u on u.ucompid=oc.ucompid   <if test="uopuserid != null and ''!= uopuserid">and oc.uopuserid = #{uopuserid}</if><if test="ueflag != null and ''!= ueflag"> and u.ueflag=#{ueflag}</if> )utotalmoney,
+		op.uopuserid,
+		op.uopname,op.umobile,op.ulogo,op.uregdate,dr.urolename
+		from op_users op inner join dt_opuser_to_distributor utd on utd.uopuserid=op.uopuserid <if test="udistributorid != null and '' != udistributorid">and utd.udistributorid = #{udistributorid}</if>
+		inner join dt_distributor_role dr on dr.uroleid=utd.uroleid 
+		<where>
+		 <if test="uopuserid != null and ''!= uopuserid"> and op.uopuserid = #{uopuserid}</if>		 
+		</where>
+		limit 1
+	</select>
+	<select id="queryCompOrderPage" resultType="com.zdv.shop.model.QtCompOrder">
+		SELECT
+		<include refid="selResult"/>
+		from qt_comp_order
+		where 1=1
+		<if test="order.uproductnum != null and ''!= order.uproductnum">
+			and uproductnum=#{order.uproductnum}
+		</if>
+		<if test="order.utotalmoney != null and ''!= order.utotalmoney">
+			and utotalmoney=#{order.utotalmoney}
+		</if>
+		<if test="order.udistributorid != null and ''!= order.udistributorid">
+			and udistributorid=#{order.udistributorid}
+		</if>
+		<if test="order.udname != null and ''!= order.udname">
+			and udname=#{order.udname}
+		</if>
+		<if test="order.uaddress != null and ''!= order.uaddress">
+			and uaddress=#{order.uaddress}
+		</if>
+		<if test="order.uareaid != null and ''!= order.uareaid">
+			and uareaid=#{order.uareaid}
+		</if>
+		<if test="order.ulatitude != null and ''!= order.ulatitude">
+			and ulatitude=#{order.ulatitude}
+		</if>
+		<if test="order.ulongitude != null and ''!= order.ulongitude">
+			and ulongitude=#{order.ulongitude}
+		</if>
+		<if test="order.ucontact != null and ''!= order.ucontact">
+			and ucontact=#{order.ucontact}
+		</if>
+		<if test="order.utel != null and ''!= order.utel">
+			and utel=#{order.utel}
+		</if>
+		<if test="order.ulogo != null and ''!= order.ulogo">
+			and ulogo=#{order.ulogo}
+		</if>
+		<if test="order.ucomptype != null and ''!= order.ucomptype">
+			and ucomptype=#{order.ucomptype}
+		</if>
+		<if test="order.ucompid != null and ''!= order.ucompid">
+			and ucompid=#{order.ucompid}
+		</if>
+		<if test="order.ucname != null and ''!= order.ucname">
+			and ucname=#{order.ucname}
+		</if>
+		<if test="order.ucaddress != null and ''!= order.ucaddress">
+			and ucaddress=#{order.ucaddress}
+		</if>
+		<if test="order.ucareaid != null and ''!= order.ucareaid">
+			and ucareaid=#{order.ucareaid}
+		</if>
+		<if test="order.uclatitude != null and ''!= order.uclatitude">
+			and uclatitude=#{order.uclatitude}
+		</if>
+		<if test="order.uclongitude != null and ''!= order.uclongitude">
+			and uclongitude=#{order.uclongitude}
+		</if>
+		<if test="order.uccontact != null and ''!= order.uccontact">
+			and uccontact=#{order.uccontact}
+		</if>
+		<if test="order.uctel != null and ''!= order.uctel">
+			and uctel=#{order.uctel}
+		</if>
+		<if test="order.uclogo != null and ''!= order.uclogo">
+			and uclogo=#{order.uclogo}
+		</if>
+		<if test="order.ueflag != null and ''!= order.ueflag and order.ueflag != '-1' ">
+			and ueflag=#{order.ueflag}
+		</if>
+		<if test="order.ueflag != null and ''!= order.ueflag and order.ueflag == '-1' ">
+			and ueflag != '03'
+		</if>
+		<if test="order.upeflag != null and ''!= order.upeflag and order.upeflag != '-1'">
+			and upeflag=#{order.upeflag}
+		</if>
+		<if test="order.upeflag != null and ''!= order.upeflag and order.upeflag == '-1'">
+			and upeflag != '03'
+		</if>
+		<if test="starttime != null and ''!=starttime ">
+			<![CDATA[and #{starttime} <= ucreatedate]]>
+		</if>
+		<if test="endttime !=null and '' != endttime">
+			<![CDATA[and 	ucreatedate <= #{endttime}]]>
+		</if>
+		order by ucreatedate desc
+	</select>
+
+
+
+
+	<select id="selectByuorderid" resultType="com.zdv.shop.model.QtCompOrder">
+		select
+		uorderid,uorderno,uproductnum,utotalmoney,udistributorid,udname,
+		uaddress,uareaid,ulatitude,ulongitude,ucontact,utel,ulogo,ucomptype,ucompid,ucname,ucaddress,ucareaid,uclatitude,uclongitude,uccontact,uctel,uclogo,ueflag,upeflag,ucreatedate
+		from qt_comp_order
+		where uorderid = #{uorderid}
+	</select>
+	
+	<select id="selectOrderList" resultType="map">
+		select 
+		<if test="upeflag != null and ''!= upeflag">
+			udistributorid 'ucompid',udname 'ucompany.udname',uaddress 'ucompany.uaddress',utel 'ucompany.utel',ulatitude 'ucompany.ulatitude',ulongitude 'ucompany.ulongitude',ucontact 'ucompany.ucontact',ulogo 'ucompany.ulogo',upeflag 'ustatus',
+		</if>
+		<if test="ueflag != null and ''!= ueflag">
+			ucompid,ucname 'ucompany.udname',ucaddress 'ucompany.uaddress',uctel 'ucompany.utel', uclatitude 'ucompany.ulatitude',uclongitude 'ucompany.ulongitude',uccontact 'ucompany.ucontact',uclogo 'ucompany.ulogo',ueflag 'ustatus',
+		</if>
+		uorderid, utotalmoney, ucreatedate
+		from qt_comp_order
+		where ucomptype = 1
+		<if test="upeflag != null and ''!= upeflag">
+			and upeflag = #{upeflag} and udistributorid = #{udistributorid}
+		</if>
+		<if test="ueflag != null and ''!= ueflag">
+			and ueflag = #{ueflag} and ucompid = #{udistributorid}
+		</if>
+		order by ucreatedate desc
+	</select>
+	
+	<select id="selectOrderListAtApp" resultType="map">
+		select 
+		<if test="utype == 1"><!-- 发货方信息 -->
+			udistributorid 'ucompid',udname 'ucompany.udname',uaddress 'ucompany.uaddress',utel 'ucompany.utel',ulatitude 'ucompany.ulatitude',ulongitude 'ucompany.ulongitude',ucontact 'ucompany.ucontact',ulogo 'ucompany.ulogo',upeflag 'ustatus',
+		</if>
+		<if test="utype == 0"><!-- 送货方信息 -->
+			ucompid,ucname 'ucompany.udname',ucaddress 'ucompany.uaddress',uctel 'ucompany.utel', uclatitude 'ucompany.ulatitude',uclongitude 'ucompany.ulongitude',uccontact 'ucompany.ucontact',uclogo 'ucompany.ulogo',ueflag 'ustatus',
+		</if>
+		uorderid, utotalmoney, ucreatedate
+		from qt_comp_order
+		where ucomptype = 1
+		<if test="utype == 1"><!-- 发货方信息 -->
+			and udistributorid = #{udistributorid} and ucompid = #{ucompid} and ueflag = '01' and upeflag = '01'
+		</if>
+		<if test="utype == 0"><!-- 送货方信息 -->
+			and udistributorid = #{ucompid} and ucompid = #{udistributorid} and ueflag = '02' and ueflag = '02'
+		</if>
+		order by ucreatedate desc
+	</select>
+	
+	<update id="updateStatusByOrderId">
+		update qt_comp_order
+		<set>
+			upeflag = #{ustatus},
+			ueflag  = #{ustatus}
+		</set>
+		where uorderid = #{uorderid} 
+	</update>
+	
+	<select id="selectOrderItemByOrderId" resultMap="one2ManyVoMap">
+		select o.uorderid,o.uorderno,o.uproductnum,o.utotalmoney,o.ucreatedate,
+		o.ucaddress, o.uccontact, o.uctel, o.ucname, o.uaddress, o.ucontact, o.utel,
+		<if test="utype == 0">
+			o.upeflag 'ustatus',
+		</if>
+		<if test="utype == 1">
+			o.ueflag 'ustatus',
+		</if>
+		i.uorderitemid, i.uproductname, i.uhomepic, i.uprice, i.uproductnum, i.uobjnamevalue, i.uunitid, i.uunit, u.ucolor,
+		dpso.uobjnamevalueid, dpso.uobjnameid, dpso.uobjname, dpso.uobjvalueid, dpso.uobjvalue
+		from qt_comp_order o
+		inner join qt_comp_order_item i on o.uorderid = i.uorderid
+		inner join qt_productunit u on u.uunitid = i.uunitid
+		left join ot_distributor_to_product dtp  on dtp.uproductid = i.uproductid and o.udistributorid = dtp.udistributorid
+		left join ot_distributor_product_stock dps on dps.udistribproductid = dtp.udistribproductid
+		left join ot_distributor_product_stock_objname dpso on dpso.uproductstockid = dps.uproductstockid		
+		where o.uorderid = #{uorderid}
+		order by i.ucreatedate desc
+	</select>
+	<!-- 以前表的数据开始 -->
+	<!-- 经销商销售统计总量 -->
+	<select id="querySalesReportCount" resultType="com.zdv.shop.model.QtCompOrder"> <!-- types;//统计类型 0按日统计，1按月统计，2按季度，3按年 --> 
+    select sum(case when u.ucompid = #{udistributorid} then u.uproductnum else 0 end)uoutproductnum,
+    sum(case when u.ucompid = #{udistributorid} then u.utotalmoney else 0 end)uouttotalmoney,
+    sum(case when u.udistributorid = #{udistributorid} then u.uproductnum else 0 end)uproductnum,
+    sum(case when u.udistributorid = #{udistributorid} then u.utotalmoney else 0 end)utotalmoney    
+     from qt_comp_order u 
+     <where>  
+	<if test="null != ueflag"> and u.ueflag = #{ueflag}</if>
+	<if test="null != uopuserid"> and u.uopuserid = #{uopuserid}</if>
+	<if test="null != begindate and '' != begindate">
+	<if test="null != enddate and '' != enddate">
+		<if test="types==0">and (FROM_UNIXTIME(u.ucreatedate,'%Y-%m-%d')&gt;=DATE_FORMAT(#{begindate},'%Y-%m-%d') or DATE_FORMAT(#{enddate},'%Y-%m-%d')&gt;=FROM_UNIXTIME(u.ucreatedate,'%Y-%m-%d'))</if>
+	    <if test="types==1">and (FROM_UNIXTIME(u.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(u.ucreatedate,'%Y-%m'))</if>
+	    <if test="types==2">and (FROM_UNIXTIME(u.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(u.ucreatedate,'%Y-%m'))</if>
+	    <if test="types==3">and (FROM_UNIXTIME(u.ucreatedate,'%Y')&gt;=DATE_FORMAT(#{begindate},'%Y') or DATE_FORMAT(#{enddate},'%Y')&gt;=FROM_UNIXTIME(u.ucreatedate,'%Y'))</if>
+    </if></if>
+	</where> 
+  </select>
+	<!-- 经销商销售统计 -->
+	<select id="querySalesReportList" resultMap="BaseResultMap"> <!-- types;//统计类型 0按日统计，1按月统计，2按季度，3按年 --> 
+    select sum(case when u.ucompid = #{udistributorid} then u.uproductnum else 0 end)uoutproductnum,
+    sum(case when u.ucompid = #{udistributorid} then u.utotalmoney else 0 end)uouttotalmoney,
+    sum(case when u.udistributorid = #{udistributorid} then u.uproductnum else 0 end)uproductnum,
+    sum(case when u.udistributorid = #{udistributorid} then u.utotalmoney else 0 end)utotalmoney
+    <if test="types==0">,FROM_UNIXTIME(u.ucreatedate,'%Y-%m-%d') as ucreatedate</if> <if test="types==1">,CONCAT(FROM_UNIXTIME(u.ucreatedate,'%Y'),CONCAT('-',quarter(FROM_UNIXTIME(u.ucreatedate,'%Y-%m-%d')))) as ucreatedate</if>  <if test="types==2">,FROM_UNIXTIME(u.ucreatedate,'%Y-%m') as ucreatedate</if>  <if test="types==3">,FROM_UNIXTIME(u.ucreatedate,'%Y')as ucreatedate</if>
+     from qt_comp_order u 
+     <where>  
+	<if test="null != ueflag"> and u.ueflag = #{ueflag}</if>
+	<if test="null != uopuserid"> and u.uopuserid = #{uopuserid}</if>
+	<if test="null != begindate and '' != begindate">
+	<if test="null != enddate and '' != enddate">
+		<if test="types==0">and (FROM_UNIXTIME(u.ucreatedate,'%Y-%m-%d')&gt;=DATE_FORMAT(#{begindate},'%Y-%m-%d') or DATE_FORMAT(#{enddate},'%Y-%m-%d')&gt;=FROM_UNIXTIME(u.ucreatedate,'%Y-%m-%d'))</if>
+	    <if test="types==1">and (FROM_UNIXTIME(u.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(u.ucreatedate,'%Y-%m'))</if>
+	    <if test="types==2">and (FROM_UNIXTIME(u.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(u.ucreatedate,'%Y-%m'))</if>
+	    <if test="types==3">and (FROM_UNIXTIME(u.ucreatedate,'%Y')&gt;=DATE_FORMAT(#{begindate},'%Y') or DATE_FORMAT(#{enddate},'%Y')&gt;=FROM_UNIXTIME(u.ucreatedate,'%Y'))</if>
+    </if></if>
+	</where> 
+	<if test="types==0">group by FROM_UNIXTIME(u.ucreatedate,'%Y-%m-%d') order by ucreatedate desc</if>
+    <if test="types==1">group by CONCAT(year(FROM_UNIXTIME(u.ucreatedate,'%Y-%m-%d')),CONCAT('-',week(FROM_UNIXTIME(u.ucreatedate,'%Y-%m-%d')))) order by ucreatedate desc</if>
+    <if test="types==2">group by FROM_UNIXTIME(u.ucreatedate,'%Y-%m') order by ucreatedate desc</if>
+    <if test="types==3">group by FROM_UNIXTIME(u.ucreatedate,'%Y') order by ucreatedate desc</if>
+     limit #{pageNo},#{pageSize}
+  </select>
+  
+  <!-- 销售商进出统计 -->
+  <select id="compSalesInOutReportList" resultMap="BaseResultMap"> <!-- types;//统计类型 0按日统计，1按月统计，2按季度，3按年 --> 
+    select ifnull(sum(uor.uproductnum),0)uproductnum,
+    ifnull(sum(uor.upayprice),0)utotalmoney,
+    ifnull(sum(cor.uproductnum),0)uoutproductnum,
+    ifnull(sum(cor.utotalmoney),0)uouttotalmoney
+    <if test="types==0">,ifnull(FROM_UNIXTIME(cor.ucreatedate,'%Y-%m-%d'),uor.ucreatedate) as ucreatedate</if> <if test="types==1">,ifnull(CONCAT(FROM_UNIXTIME(cor.ucreatedate,'%Y'),CONCAT('-',quarter(FROM_UNIXTIME(cor.ucreatedate,'%Y-%m-%d')))),CONCAT(FROM_UNIXTIME(uor.ucreatedate,'%Y'),CONCAT('-',quarter(FROM_UNIXTIME(uor.ucreatedate,'%Y-%m-%d'))))) as ucreatedate</if>  <if test="types==2">,ifnull(FROM_UNIXTIME(cor.ucreatedate,'%Y-%m'),FROM_UNIXTIME(uor.ucreatedate,'%Y-%m')) as ucreatedate</if>  <if test="types==3">,ifnull(FROM_UNIXTIME(cor.ucreatedate,'%Y'),FROM_UNIXTIME(uor.ucreatedate,'%Y'))as ucreatedate</if>
+     from qt_comp_order cor,ut_order uor 
+     <where>  
+     and cor.ucompid=uor.ucompid
+	<if test="null != ueflag"> and cor.ueflag = #{ueflag} and uor.ueflag = #{ueflag}</if>
+	<if test="null != ucompid and '' != ucompid"> and cor.ucompid = #{ucompid} and uor.ucompid = #{ucompid}</if>
+	<if test="null != uopuserid"> and cor.uopuserid = #{uopuserid}</if>
+	<if test="null != begindate and '' != begindate">
+	<if test="null != enddate and '' != enddate">
+		  <if test="types==0">and (FROM_UNIXTIME(cor.ucreatedate,'%Y-%m-%d')&gt;=DATE_FORMAT(#{begindate},'%Y-%m-%d') or DATE_FORMAT(#{enddate},'%Y-%m-%d')&gt;=FROM_UNIXTIME(cor.ucreatedate,'%Y-%m-%d')) and (FROM_UNIXTIME(uor.ucreatedate,'%Y-%m-%d')&gt;=DATE_FORMAT(#{begindate},'%Y-%m-%d') or DATE_FORMAT(#{enddate},'%Y-%m-%d')&gt;=FROM_UNIXTIME(uor.ucreatedate,'%Y-%m-%d'))</if>
+	    <if test="types==1">and (FROM_UNIXTIME(cor.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(cor.ucreatedate,'%Y-%m')) and (FROM_UNIXTIME(uor.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(uor.ucreatedate,'%Y-%m'))</if>
+	    <if test="types==2">and (FROM_UNIXTIME(cor.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(cor.ucreatedate,'%Y-%m')) and (FROM_UNIXTIME(uor.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(uor.ucreatedate,'%Y-%m'))</if>
+	    <if test="types==3">and (FROM_UNIXTIME(cor.ucreatedate,'%Y')&gt;=DATE_FORMAT(#{begindate},'%Y') or DATE_FORMAT(#{enddate},'%Y')&gt;=FROM_UNIXTIME(cor.ucreatedate,'%Y')) and (FROM_UNIXTIME(uor.ucreatedate,'%Y')&gt;=DATE_FORMAT(#{begindate},'%Y') or DATE_FORMAT(#{enddate},'%Y')&gt;=FROM_UNIXTIME(uor.ucreatedate,'%Y'))</if>
+    </if></if>
+	</where> 
+		<if test="types==0">group by FROM_UNIXTIME(cor.ucreatedate,'%Y-%m-%d'),FROM_UNIXTIME(uor.ucreatedate,'%Y-%m-%d') order by ucreatedate desc</if>
+    <if test="types==1">group by CONCAT(year(FROM_UNIXTIME(cor.ucreatedate,'%Y-%m-%d')),CONCAT('-',week(FROM_UNIXTIME(cor.ucreatedate,'%Y-%m-%d')))),CONCAT(year(FROM_UNIXTIME(uor.ucreatedate,'%Y-%m-%d')),CONCAT('-',week(FROM_UNIXTIME(uor.ucreatedate,'%Y-%m-%d')))) order by ucreatedate desc</if>
+    <if test="types==2">group by FROM_UNIXTIME(cor.ucreatedate,'%Y-%m'),FROM_UNIXTIME(uor.ucreatedate,'%Y-%m') order by ucreatedate desc</if>
+    <if test="types==3">group by FROM_UNIXTIME(cor.ucreatedate,'%Y'),FROM_UNIXTIME(uor.ucreatedate,'%Y') order by ucreatedate desc</if>
+     limit #{pageNo},#{pageSize}
+  </select>
+  <!-- 销售商进出统计数 -->
+  <select id="compSalesInOutReportCount" resultType="com.zdv.shop.model.QtCompOrder"> <!-- types;//统计类型 0按日统计，1按月统计，2按季度，3按年 --> 
+    select ifnull(sum(uor.uproductnum),0)uproductnum,
+    ifnull(sum(uor.upayprice),0)utotalmoney,
+    ifnull(sum(cor.uproductnum),0)uoutproductnum,
+    ifnull(sum(cor.utotalmoney),0)uouttotalmoney
+    from qt_comp_order cor,ut_order uor 
+     <where>  
+     and cor.ucompid=uor.ucompid
+	<if test="null != ueflag"> and cor.ueflag = #{ueflag} and uor.ueflag = #{ueflag}</if>
+	<if test="null != ucompid and '' != ucompid"> and cor.ucompid = #{ucompid} and uor.ucompid = #{ucompid}</if>
+	<if test="null != uopuserid"> and cor.uopuserid = #{uopuserid}</if>
+	<if test="null != begindate and '' != begindate">
+	<if test="null != enddate and '' != enddate">
+		  <if test="types==0">and (FROM_UNIXTIME(cor.ucreatedate,'%Y-%m-%d')&gt;=DATE_FORMAT(#{begindate},'%Y-%m-%d') or DATE_FORMAT(#{enddate},'%Y-%m-%d')&gt;=FROM_UNIXTIME(cor.ucreatedate,'%Y-%m-%d')) and (FROM_UNIXTIME(uor.ucreatedate,'%Y-%m-%d')&gt;=DATE_FORMAT(#{begindate},'%Y-%m-%d') or DATE_FORMAT(#{enddate},'%Y-%m-%d')&gt;=FROM_UNIXTIME(uor.ucreatedate,'%Y-%m-%d'))</if>
+	    <if test="types==1">and (FROM_UNIXTIME(cor.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(cor.ucreatedate,'%Y-%m')) and (FROM_UNIXTIME(uor.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(uor.ucreatedate,'%Y-%m'))</if>
+	    <if test="types==2">and (FROM_UNIXTIME(cor.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(cor.ucreatedate,'%Y-%m')) and (FROM_UNIXTIME(uor.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(uor.ucreatedate,'%Y-%m'))</if>
+	    <if test="types==3">and (FROM_UNIXTIME(cor.ucreatedate,'%Y')&gt;=DATE_FORMAT(#{begindate},'%Y') or DATE_FORMAT(#{enddate},'%Y')&gt;=FROM_UNIXTIME(cor.ucreatedate,'%Y')) and (FROM_UNIXTIME(uor.ucreatedate,'%Y')&gt;=DATE_FORMAT(#{begindate},'%Y') or DATE_FORMAT(#{enddate},'%Y')&gt;=FROM_UNIXTIME(uor.ucreatedate,'%Y'))</if>
+    </if></if>
+	</where> 
+	
+  </select>
+	<!-- 商品经销商销售统计 -->
+	<select id="querySalesProductReportList" resultMap="BaseResultMap"> <!-- types;//统计类型 0按日统计，1按月统计，2按季度，3按年 --> 
+    select ori.uproductid,max(ori.uproductname)uproductname,max(ori.uunit)uunit,max(ori.ufactoryname)ufactoryname,max(ori.uhomepic)uhomepic,sum(case when o.ucompid = #{udistributorid} then ori.uproductnum else 0 end)uoutproductnum,
+    sum(case when o.ucompid = #{udistributorid} then ori.uproductnum*ori.uprice else 0 end)uouttotalmoney,
+    sum(case when o.udistributorid = #{udistributorid} then ori.uproductnum else 0 end)uproductnum,
+    sum(case when o.udistributorid = #{udistributorid} then ori.uproductnum*ori.uprice else 0 end)utotalmoney
+    <if test="types==0">,FROM_UNIXTIME(o.ucreatedate,'%Y-%m-%d') as ucreatedate</if> <if test="types==1">,CONCAT(FROM_UNIXTIME(o.ucreatedate,'%Y'),CONCAT('-',quarter(FROM_UNIXTIME(o.ucreatedate,'%Y-%m-%d')))) as ucreatedate</if>  <if test="types==2">,FROM_UNIXTIME(o.ucreatedate,'%Y-%m') as ucreatedate</if>  <if test="types==3">,FROM_UNIXTIME(o.ucreatedate,'%Y')as ucreatedate</if>
+     from qt_comp_order o inner join qt_comp_order_item ori on o.uorderid=ori.uorderid and o.udistributorid=ori.udistributorid
+     <where>  
+	<if test="null != ueflag"> and o.ueflag = #{ueflag}</if>
+	<if test="null != uopuserid"> and o.uopuserid = #{uopuserid}</if>
+	<if test="null != begindate and '' != begindate">
+	<if test="null != enddate and '' != enddate">
+		<if test="types==0"> and (FROM_UNIXTIME(o.ucreatedate,'%Y-%m-%d')&gt;=DATE_FORMAT(#{begindate},'%Y-%m-%d') or DATE_FORMAT(#{enddate},'%Y-%m-%d')&gt;=FROM_UNIXTIME(o.ucreatedate,'%Y-%m-%d'))</if>
+	    <if test="types==1"> and (FROM_UNIXTIME(o.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(o.ucreatedate,'%Y-%m'))</if>
+	    <if test="types==2"> and (FROM_UNIXTIME(o.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(o.ucreatedate,'%Y-%m'))</if>
+	    <if test="types==3"> and (FROM_UNIXTIME(o.ucreatedate,'%Y')&gt;=DATE_FORMAT(#{begindate},'%Y') or DATE_FORMAT(#{enddate},'%Y')&gt;=FROM_UNIXTIME(o.ucreatedate,'%Y'))</if>
+    </if></if>
+	</where> 
+	<if test="types==0">group by ori.uproductid,FROM_UNIXTIME(o.ucreatedate,'%Y-%m-%d') order by uoutproductnum desc</if>
+    <if test="types==1">group by ori.uproductid,CONCAT(FROM_UNIXTIME(o.ucreatedate,'%Y'),CONCAT('-',quarter(FROM_UNIXTIME(o.ucreatedate,'%Y-%m-%d')))) order by uoutproductnum desc</if>
+    <if test="types==2">group by ori.uproductid,FROM_UNIXTIME(o.ucreatedate,'%Y-%m') order by uoutproductnum desc</if>
+    <if test="types==3">group by ori.uproductid,FROM_UNIXTIME(o.ucreatedate,'%Y') order by uoutproductnum desc</if>
+     limit #{pageNo},#{pageSize}
+  </select>
+  <!-- 商品统计详情 -->
+  <select id="querySalesProductDetailsReportList" resultMap="BaseResultMap"> <!-- types;//统计类型 0按日统计，1按月统计，2按季度，3按年 --> 
+     select uproductid,uproductname,uunit,ufactoryname,uhomepic,types,uproductnum,utotalmoney,ucreatedate  from(
+     (select ori.uproductid,max(ori.uproductname)uproductname,max(ori.uunit)uunit,max(ori.ufactoryname)ufactoryname,max(ori.uhomepic)uhomepic,
+    1 types,
+    ifnull(sum(ori.uproductnum),0)uproductnum,
+    ifnull(sum(ori.uproductnum*ori.uprice),0.00)utotalmoney   
+    <if test="types==0">,FROM_UNIXTIME(o.ucreatedate,'%Y-%m-%d') as ucreatedate</if> <if test="types==1">,CONCAT(FROM_UNIXTIME(o.ucreatedate,'%Y'),CONCAT('-',quarter(FROM_UNIXTIME(o.ucreatedate,'%Y-%m-%d')))) as ucreatedate</if>  <if test="types==2">,FROM_UNIXTIME(o.ucreatedate,'%Y-%m') as ucreatedate</if>  <if test="types==3">,FROM_UNIXTIME(o.ucreatedate,'%Y')as ucreatedate</if>
+     from qt_comp_order o inner join qt_comp_order_item ori on o.uorderid=ori.uorderid and o.udistributorid=ori.udistributorid
+     <where>  
+	<if test="null != ueflag"> and o.ueflag = #{ueflag}</if>
+	<if test="null != ucomptype"> and o.ucomptype = #{ucomptype}</if>
+	<if test="null != uopuserid"> and o.uopuserid = #{uopuserid}</if>
+	<if test="null != udistributorid"> and o.ucompid = #{udistributorid}</if>
+	<if test="null != begindate and '' != begindate">
+	<if test="null != enddate and '' != enddate">
+		<if test="types==0"><if test="udate != null and udate != ''">and FROM_UNIXTIME(o.ucreatedate,'%Y-%m-%d')=#{udate}</if> and (FROM_UNIXTIME(o.ucreatedate,'%Y-%m-%d')&gt;=DATE_FORMAT(#{begindate},'%Y-%m-%d') or DATE_FORMAT(#{enddate},'%Y-%m-%d')&gt;=FROM_UNIXTIME(o.ucreatedate,'%Y-%m-%d'))</if>
+	    <if test="types==1"><if test="udate != null and udate != ''">and CONCAT(FROM_UNIXTIME(o.ucreatedate,'%Y'),CONCAT('-',quarter(FROM_UNIXTIME(o.ucreatedate,'%Y-%m-%d'))))=#{udate}</if> and (FROM_UNIXTIME(o.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(o.ucreatedate,'%Y-%m'))</if>
+	    <if test="types==2"><if test="udate != null and udate != ''">and FROM_UNIXTIME(o.ucreatedate,'%Y-%m')=#{udate}</if> and (FROM_UNIXTIME(o.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(o.ucreatedate,'%Y-%m'))</if>
+	    <if test="types==3"><if test="udate != null and udate != ''">and FROM_UNIXTIME(o.ucreatedate,'%Y')=#{udate}</if> and (FROM_UNIXTIME(o.ucreatedate,'%Y')&gt;=DATE_FORMAT(#{begindate},'%Y') or DATE_FORMAT(#{enddate},'%Y')&gt;=FROM_UNIXTIME(o.ucreatedate,'%Y'))</if>
+    </if></if>
+	</where>)union(select ori.uproductid,max(ori.uproductname)uproductname,max(ori.uunit)uunit,max(ori.ufactoryname)ufactoryname,max(ori.uhomepic)uhomepic,
+	0 types,
+    ifnull(sum(ori.uproductnum),0)uproductnum,
+    ifnull(sum(ori.uproductnum*ori.uprice),0.00)utotalmoney
+    <if test="types==0">,FROM_UNIXTIME(o.ucreatedate,'%Y-%m-%d') as ucreatedate</if> <if test="types==1">,CONCAT(FROM_UNIXTIME(o.ucreatedate,'%Y'),CONCAT('-',quarter(FROM_UNIXTIME(o.ucreatedate,'%Y-%m-%d')))) as ucreatedate</if>  <if test="types==2">,FROM_UNIXTIME(o.ucreatedate,'%Y-%m') as ucreatedate</if>  <if test="types==3">,FROM_UNIXTIME(o.ucreatedate,'%Y')as ucreatedate</if>
+     from qt_comp_order o inner join qt_comp_order_item ori on o.uorderid=ori.uorderid and o.udistributorid=ori.udistributorid
+     <where>  
+	<if test="null != ueflag"> and o.ueflag = #{ueflag}</if>
+	<if test="null != uopuserid"> and o.uopuserid = #{uopuserid}</if>
+	<if test="null != udistributorid"> and o.udistributorid = #{udistributorid}</if>
+	<if test="null != begindate and '' != begindate">
+	<if test="null != enddate and '' != enddate">
+		<if test="types==0"><if test="udate != null and udate != ''">and FROM_UNIXTIME(o.ucreatedate,'%Y-%m-%d')=#{udate}</if> and (FROM_UNIXTIME(o.ucreatedate,'%Y-%m-%d')&gt;=DATE_FORMAT(#{begindate},'%Y-%m-%d') or DATE_FORMAT(#{enddate},'%Y-%m-%d')&gt;=FROM_UNIXTIME(o.ucreatedate,'%Y-%m-%d'))</if>
+	    <if test="types==1"><if test="udate != null and udate != ''">and CONCAT(FROM_UNIXTIME(o.ucreatedate,'%Y'),CONCAT('-',quarter(FROM_UNIXTIME(o.ucreatedate,'%Y-%m-%d'))))=#{udate}</if> and (FROM_UNIXTIME(o.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(o.ucreatedate,'%Y-%m'))</if>
+	    <if test="types==2"><if test="udate != null and udate != ''">and FROM_UNIXTIME(o.ucreatedate,'%Y-%m')=#{udate}</if> and (FROM_UNIXTIME(o.ucreatedate,'%Y-%m')&gt;=DATE_FORMAT(#{begindate},'%Y-%m') or DATE_FORMAT(#{enddate},'%Y-%m')&gt;=FROM_UNIXTIME(o.ucreatedate,'%Y-%m'))</if>
+	    <if test="types==3"><if test="udate != null and udate != ''">and FROM_UNIXTIME(o.ucreatedate,'%Y')=#{udate}</if> and (FROM_UNIXTIME(o.ucreatedate,'%Y')&gt;=DATE_FORMAT(#{begindate},'%Y') or DATE_FORMAT(#{enddate},'%Y')&gt;=FROM_UNIXTIME(o.ucreatedate,'%Y'))</if>
+    </if></if>
+	</where>))b
+	group by b.uproductid,b.ucreatedate order by b.uproductnum desc
+     limit #{pageNo},#{pageSize}
+  </select>
+	<!-- 以前表的数据结束 -->
+ <!--获得日期
+ state;//0按日统计 1按月统计 2按季度统计 3 按年统计 4按周统计-->
+   <select id="getTempDate" resultMap="reportResultMap">
+		<![CDATA[
+			call sp_getTempDate(#{begindate},#{enddate},#{state})
+			]]>
+	</select>
+	 <!--获得经销商统计
+	 state;//0按日统计 1按月统计 2按季度统计 3 按年统计 4按周统计，
+	 types;//0本经销商的单个产品销售统计，1某个店的单个产品销售统计，2业务员销售统计
+	 -->
+   <select id="getCompOrderReport" resultMap="reportResultMap">
+		<![CDATA[
+			call sp_getcompany_orderReport(#{begindate},#{enddate},#{state},#{types},#{uproductid},#{udistributorid},#{ucompid},#{uopuserid})
+			]]>
+	</select>
+	<!--获得销售商统计
+	 state;//0按日统计 1按月统计 2按季度统计 3 按年统计 4按周统计，
+	 types;//0本销售商单个产品销售统计，1某个销售商的销售统计，2本销售商店员的销售统计
+	 -->
+   <select id="getorderReport" resultMap="reportResultMap">
+		<![CDATA[
+			call sp_getorderReport(#{begindate},#{enddate},#{state},#{types},#{uproductid},#{ucompid},#{uopuserid})
+			]]>
+	</select>
+	
+	<select id="selectGoodsInOrderList" resultType="map">
+		select udistributorid 'udistributor.udistributorid',udname 'udistributor.udname',uaddress 'udistributor.uaddress',utel 'udistributor.utel', ulatitude 'udistributor.ulatitude', ulongitude 'udistributor.ulongitude',
+		ucontact 'udistributor.ucontact',ulogo 'udistributor.ulogo',ueflag, uorderid, utotalmoney, ucreatedate
+		from qt_comp_order
+		where ucomptype = 0
+		and ueflag = #{ueflag} and ucompid = #{ucompid}
+		order by ucreatedate desc
+	</select>
+</mapper>

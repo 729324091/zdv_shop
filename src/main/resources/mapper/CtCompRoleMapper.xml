@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.CtCompRoleMapper">
+    <sql id="role">
+        cr.uroleid,
+        cr.ulevel,
+        cr.uparentid,
+        cr.urolename,
+        cr.ucompid,
+        cr.ulevelcolor,
+        cr.utypes
+    </sql>
+
+    <select id="queryByRolename" resultType="com.zdv.shop.model.CtCompRole">
+		select urolename  from ct_comp_role
+		where urolename = #{urolename} and ucompid=#{ucompid}
+	</select>
+
+    <select id="rootRolelist" resultType="com.zdv.shop.model.CtCompRole">
+        select <include refid="role"/>
+        from ct_comp_role cr
+        where (cr.uparentid is null or cr.uparentid='')  and cr.ucompid=#{ucompid}
+    </select>
+
+    <select id="childRolelist" resultType="com.zdv.shop.model.CtCompRole">
+        select <include refid="role"/>
+        from ct_comp_role cr
+        where cr.uparentid=#{uparentid}  and cr.ucompid=#{ucompid}
+    </select>
+
+	<select id="selectChildRole" resultType="com.zdv.shop.model.CtCompRole">
+		 select <include refid="role" /> from ct_comp_role cr where cr.ucompid = #{ucompid} and substring(cr.ulevel, 1, length(#{ulevel})) 
+	</select>
+	<delete id="delRoleByID">
+		delete from ct_comp_role		
+		where uroleid = #{uroleid}
+	</delete>
+	<!-- 下级所有工作人员和角色 -->
+	<select id="queryOpuserRoles" resultType="com.zdv.shop.model.CtCompRole">
+		select dr_m.uroleid, dr_m.urolename from ct_comp_role dr_o
+		inner join ct_comp_role dr_m on length(dr_m.ulevel) > length(dr_o.ulevel)
+		inner join ct_opuser_to_comp utd on utd.uroleid = dr_o.uroleid
+		inner join op_users u on u.uopuserid = utd.uopuserid
+		where dr_o.uroleid = #{uroleid} and dr_o.ucompid = #{ucompid}
+		and dr_m.ucompid = #{ucompid} and utd.uopuserid = #{uopuserid} and dr_m.uroleid != #{uroleid}
+		group by dr_m.uroleid
+	</select>
+</mapper>
+
+
+

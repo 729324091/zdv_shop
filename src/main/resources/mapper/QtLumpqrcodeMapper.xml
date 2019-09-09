@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="uTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.QtLumpqrcodeMapper">
+	<resultMap id="BaseResultMap" type="com.zdv.shop.model.QtLumpqrcode">
+		<id column="ulumpqrcodeid" property="ulumpqrcodeid" /> 
+		<result column="ubatchnum" property="ubatchnum"/>
+		<result column="udistributorid" property="udistributorid"/>  
+		<result column="uopuserid" property="uopuserid"/>
+		<result column="uname" property="uname"/>
+		<result column="ulumpqrcode" property="ulumpqrcode"/>
+		<result column="uuwinnrate" property="uuwinnrate"/>
+		<result column="uisbox" property="uisbox"/>
+		<result column="uproductid" property="uproductid"/> 
+		<result column="uproducttypeid" property="uproducttypeid"/>
+		<result column="uproductname" property="uproductname"/>
+		<result column="ucreatedate" property="ucreatedate"/> 
+		<result column="stackNumber" property="stackNumber"/>
+		<result column="boxNumber" property="boxNumber"/>
+		<result column="singleNumber" property="singleNumber"/> 
+		<collection property="otProduct" ofType="com.zdv.shop.model.OtProduct">
+			<id column="uproductid" property="uproductid" /> 
+			<result column="uproducttypeid" property="uproducttypeid"/>
+			<result column="uproductname" property="uproductname"/>  
+			<result column="usource" property="usource"/>
+			<result column="uopuserid" property="uopuserid"/>
+			<result column="uqrcode" property="uqrcode"/>
+			<result column="umainqrcode" property="umainqrcode"/>
+			<result column="uunit" property="uunit"/>
+			<result column="uprice" property="uprice"/> 
+			<result column="uareaid" property="uareaid"/>
+			<result column="uareaname" property="uareaname"/>
+			<result column="uhomepic" property="uhomepic"/>
+			<result column="uflag" property="uflag"/>
+			<result column="udesc" property="udesc"/>
+			<result column="ubrowsepoint" property="ubrowsepoint"/>
+			<result column="ucreatedate" property="ucreatedate"/> 
+		</collection>
+	</resultMap>	
+		
+</mapper>

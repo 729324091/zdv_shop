@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="uTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.UtUsercashoutMapper">
+		<resultMap id="BaseResultMap" type="com.zdv.shop.model.UtUsercashout">
+		    <id column="ucashoutid" property="ucashoutid"/>    
+		    <result column="ucompid" property="ucompid"/>       
+		    <result column="ucustomerid" property="ucustomerid"/>   
+		    <result column="uuserid" property="uuserid"/>       
+		    <result column="uoperuserid" property="uoperuserid"/>   
+		    <result column="ustatus" property="ustatus"/>       
+		    <result column="utrademoney" property="utrademoney"/>   
+		    <result column="uglidenumber" property="uglidenumber"/>  
+		    <result column="uremark" property="uremark"/>       
+		    <result column="transaction_id" property="transaction_id"/>
+		    <result column="ufee" property="ufee"/>	         
+		    <result column="uprocesstime" property="uprocesstime"/>  
+		    <result column="ucreatedate" property="ucreatedate"/>  
+		</resultMap>	
+
+		<sql id="columns">
+			uo.ucashoutid,    
+			uo.ucompid,       
+			uo.ucustomerid,   
+			uo.uuserid,       
+			uo.uoperuserid,   
+			uo.ustatus,       
+			uo.utrademoney,   
+			uo.uglidenumber,  
+			uo.uremark,       
+			uo.transaction_id,
+			uo.ufee,	         
+			uo.uprocesstime,  
+			date_format(uo.ucreatedate,'%Y-%m-%d %H:%i:%s') ucreatedate
+		</sql>
+
+		<!-- 按条件查询流程处理信息 -->
+	     <select id="queryList" parameterType="com.zdv.shop.model.UtUsercashout" resultMap="BaseResultMap">
+	      	     SELECT 
+	      	     		<include refid="columns"></include>
+	      	     FROM	ut_usercashout uo
+	      	     WHERE 1=1      	    
+	  	     		 <if test="ucompid != null and ''!= ucompid">
+	  	     		     AND   uo.ucompid=#{ucompid}
+	  	     		 </if>
+	  	     		 <if test="ucustomerid != null and ''!= ucustomerid">
+	  	     		     AND  uo.ucustomerid=#{ucustomerid}
+	  	     		 </if>
+	  	     		  <if test="ucashoutid != null and ''!= ucashoutid">
+	  	     		     AND   uo.ucashoutid=#{ucashoutid}
+	  	     		 </if>
+	     </select>
+	     <select id="selectByIds" resultMap="BaseResultMap">
+	      	     SELECT 
+	      	     		<include refid="columns"></include>
+	      	     FROM	ut_usercashout uo
+	      	     WHERE 1=1      	    
+	  	     		 <if test="ucompid != null and ''!= ucompid">
+	  	     		     AND   uo.ucompid=#{ucompid}
+	  	     		 </if>
+	  	     		 <if test="ucustomerid != null and ''!= ucustomerid">
+	  	     		     AND  uo.ucustomerid=#{ucustomerid}
+	  	     		 </if>
+	  	     		  <if test="ucashoutid != null and ''!= ucashoutid">
+	  	     		     AND   uo.ucashoutid=#{ucashoutid}
+	  	     		 </if>
+	  	     		 limit 1
+	     </select>
+		<!-- 按条件删除公告管理信息 -->	
+		 <delete id="deleteByIds" parameterType="java.lang.Integer">
+	 			DELETE FROM ut_usercashout  
+	 			WHERE ucashoutid=#{ucashoutid}
+	 	 </delete>
+			
+		
+		<!-- 添加公告管理信息-->		
+		 <insert id="inserts" parameterType="com.zdv.shop.model.UtUsercashout">
+			    INSERT INTO ut_usercashout
+		    <trim prefix="(" suffix=")" suffixOverrides=",">
+			    <if test="ucashoutid != null and ''!= ucashoutid">ucashoutid,</if>      
+				<if test="ucompid != null and ''!= ucompid">ucompid,</if>                 
+				<if test="ucustomerid != null and ''!= ucustomerid">ucustomerid,</if>     
+				<if test="uuserid != null and ''!= uuserid">uuserid,</if>                 
+				<if test="uoperuserid != null and ''!= uoperuserid">uoperuserid,</if>     
+				<if test="ustatus != null and ''!= ustatus">ustatus,</if>                 
+				<if test="utrademoney != null and ''!= utrademoney">utrademoney,</if>     
+				<if test="uglidenumber != null and ''!= uglidenumber">uglidenumber,</if>  
+				<if test="uremark != null and ''!= uremark">uremark,</if>                 
+				<if test="transaction_id != null and ''!= transaction_id">transaction_id,</if>
+				<if test="ufee != null and ''!= ufee">ufee,</if>                          
+				<if test="uwithdrawtype != null and ''!= uwithdrawtype">uwithdrawtype,</if>
+				<if test="ubankid != null and ''!= ubankid">ubankid,</if>
+				<if test="ubankcardno != null and ''!= ubankcardno">ubankcardno,</if>
+				<if test="uprocesstime != null and ''!= uprocesstime">uprocesstime,</if>
+
+		    </trim>
+				VALUES
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+			    <if test="ucashoutid != null and ''!= ucashoutid">#{ucashoutid},</if>      
+				<if test="ucompid != null and ''!= ucompid">#{ucompid},</if>                 
+				<if test="ucustomerid != null and ''!= ucustomerid">#{ucustomerid},</if>     
+				<if test="uuserid != null and ''!= uuserid">#{uuserid},</if>                 
+				<if test="uoperuserid != null and ''!= uoperuserid">#{uoperuserid},</if>     
+				<if test="ustatus != null and ''!= ustatus">#{ustatus},</if>                 
+				<if test="utrademoney != null and ''!= utrademoney">#{utrademoney},</if>     
+				<if test="uglidenumber != null and ''!= uglidenumber">#{uglidenumber},</if>  
+				<if test="uremark != null and ''!= uremark">#{uremark},</if>                 
+				<if test="transaction_id != null and ''!= transaction_id">#{transaction_id},</if>
+				<if test="ufee != null and ''!= ufee">#{ufee},</if>
+				<if test="uwithdrawtype != null and ''!= uwithdrawtype">#{uwithdrawtype},</if>
+				<if test="ubankid != null and ''!= ubankid">#{ubankid},</if>
+				<if test="ubankcardno != null and ''!= ubankcardno">#{ubankcardno},</if>
+				<if test="uprocesstime != null and ''!= uprocesstime">#{uprocesstime},</if>     
+
+		    </trim>
+		 </insert>
+
+		  <!--按条件进行修改  -->
+		  <update id="updateByIds">
+				UPDATE ut_usercashout
+					<set>						
+					<if test="ucashoutid != null and ''!= ucashoutid">ucashoutid=#{ucashoutid},</if>    
+					<if test="ucompid != null and ''!= ucompid">ucompid=#{ucompid},</if>            
+					<if test="ucustomerid != null and ''!= ucustomerid">ucustomerid=#{ucustomerid},</if>   
+					<if test="uuserid != null and ''!= uuserid">uuserid=#{uuserid},</if>            
+					<if test="uoperuserid != null and ''!= uoperuserid">uoperuserid=#{uoperuserid},</if>  
+					<if test="ustatus != null and ''!= ustatus">ustatus=#{ustatus},</if>    
+					<if test="utrademoney != null and ''!= utrademoney">utrademoney=#{utrademoney},</if>    
+					<if test="uglidenumber != null and ''!= uglidenumber">uglidenumber=#{uglidenumber},</if>  
+					<if test="uremark != null and ''!= uremark">uremark=#{uremark},</if>          
+					<if test="transaction_id != null and ''!= transaction_id">transaction_id=#{transaction_id},</if>
+					<if test="ufee != null and ''!= ufee">ufee=#{ufee},</if>
+					<if test="uwithdrawtype != null and ''!= uwithdrawtype">uwithdrawtype =#{uwithdrawtype},</if>
+					<if test="ubankid != null and ''!= ubankid">ubankid = #{ubankid},</if>
+					<if test="ubankcardno != null and ''!= ubankcardno">ubankcardno = #{ubankcardno},</if>
+					<if test="uprocesstime != null and ''!= uprocesstime">uprocesstime=#{uprocesstime},</if>    
+					</set>
+				WHERE ucashoutid=#{ucashoutid}
+		  </update>
+
+
+	<select id="ListByUserid" resultType="map">
+		select uu.ucashoutid,uu.ucompid,uu.ucustomerid,uu.uuserid,uu.uoperuserid,uu.ustatus,uu.utrademoney,
+			uu.uglidenumber,uu.uremark,uu.transaction_id,uu.ufee,uu.uprocesstime, date_format(uu.ucreatedate,'%Y-%m-%d
+			%H:%i:%s') ucreatedate
+		from ut_usercashout uu
+		inner join ut_users u on uu.uuserid = u.uuserid
+		where uu.uuserid = #{uuserid}
+		order by uu.ucreatedate desc
+		limit #{pageNo},#{pageSize}
+	</select>
+
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.UtThirdloginMapper">
+
+
+    <select id="selectInfoByOpenId" resultType="com.zdv.shop.model.UtThirdlogin">
+        select thirdloginid,access_token,openid,uuserid,utype
+        from ut_thirdlogin
+        where openid = #{openid} AND utype = #{utype}
+        limit 1
+    </select>
+    <select id="selectInfoByUserid" resultType="com.zdv.shop.model.UtThirdlogin">
+        select thirdloginid,access_token,openid,uuserid,utype
+        from ut_thirdlogin
+        where uuserid = #{uuserid} AND utype = #{utype}
+        limit 1
+    </select>
+
+
+</mapper>

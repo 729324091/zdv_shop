@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.UtBankinfoMapper">
+	<select id="getBankCardList" resultType="com.zdv.shop.model.UtBankinfo">
+		select * from ut_bankinfo where uuserid = #{uUserId}
+	</select>
+	<delete id="deleteCard" >
+		delete from ut_bankinfo where ubankid = #{uBankId}
+	</delete>
+
+	<insert id="saveBankinfo">
+		insert into ut_bankinfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ubankId != null and ''!= ubankId">ubankid,</if>
+			<if test="uuserid != null and ''!= uuserid">uuserid,</if>
+			<if test="ubankName != null and ''!= ubankName">ubankname,</if>
+			<if test="ubankCardno != null and ''!= ubankCardno">ubankcardno,</if>
+			<if test="ubankAccountName != null and ''!= ubankAccountName">ubankaccountName,</if>
+			<if test="uifClose != null and ''!= uifClose">uifClose,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ubankId != null and ''!= ubankId">#{ubankId},</if>
+			<if test="uuserid != null and ''!= uuserid">#{uuserid},</if>
+			<if test="ubankName != null and ''!= ubankName">#{ubankName},</if>
+			<if test="ubankCardno != null and ''!= ubankCardno">#{ubankCardno},</if>
+			<if test="ubankAccountName != null and ''!= ubankAccountName">#{ubankAccountName},</if>
+			<if test="uifClose != null and ''!= uifClose">#{uifClose},</if>
+		</trim>
+	</insert>
+
+
+	<select id="getBankCardByBankid" resultType="com.zdv.shop.model.UtBankinfo">
+		select ubankid ,ubankcardno,ubankname from ut_bankinfo
+		where ubankid = #{ubankid}
+
+	</select>
+</mapper>

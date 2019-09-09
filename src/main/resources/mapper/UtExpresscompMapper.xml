@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="uTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdv.shop.mapper.UtExpresscompMapper">		
+		<resultMap id="BaseResultMap" type="com.zdv.shop.model.UtExpresscomp">
+				<id column="expresscompid" property="expresscompid"/>
+				<result column="expressname" property="expressname"/>
+				<result column="expresscode" property="expresscode"/>
+		</resultMap>
+		<sql id="columns">
+			expresscompid,
+			expressname,
+			expresscode
+		</sql>
+
+		<!-- 按条件查询流程处理信息 -->
+	     <select id="queryList" parameterType="com.zdv.shop.model.UtExpresscomp" resultMap="BaseResultMap">
+	      	     SELECT 
+	      	     		<include refid="columns"></include>
+	      	     FROM	ut_expresscomp 
+	      	     WHERE 1=1          
+	  	     		
+	  	     		  <if test="expresscompid != null and ''!= expresscompid">
+	  	     		     AND   expresscompid=#{expresscompid}
+	  	     		 </if>
+	     </select>
+	     <select id="selectByIds" resultType="com.zdv.shop.model.UtExpresscomp">
+	      	     SELECT 
+	      	     		<include refid="columns"></include>
+	      	     FROM	ut_expresscomp 
+	      	     WHERE 1=1      	    
+	  	     		  <if test="expresscompid != null and ''!= expresscompid">
+	  	     		     AND   expresscompid=#{expresscompid}
+	  	     		 </if>
+	  	     		 limit 1
+	     </select>		
+		
+
+</mapper>
