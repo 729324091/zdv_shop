@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="description" content="港货灵是一套分销系统，港货灵VIP获得超低价购买，VIP推荐用户成为VIP获得100元奖励，推荐用户购买获得利润的40%分成，推荐厂家产品给产品的所有销售的利润的5%分成，成为区域公司获得该区域下所有消费的利润5%分成。是一个最好的系统" />
+		<meta name="keywords" content="港货灵分销，港货灵VIP获得超低价购买" />
+		<title>港货灵</title>
+		<link rel="stylesheet" href="/h5/themes/default/statics/css/ectouch.css" />
+		<script type="text/javascript">
+			var tpl = '/ectouch/wsc/themes/default';
+		</script>
+
+	</head>
+
+	<body style="max-width:640px;">
+		<div id="loading"><img src="/h5/themes/default/statics/img/loading.gif" /></div>
+		<style>
+			a.a-sequence {
+				width: 3.5rem;
+				height: 0rem;
+				line-height: 3rem;
+				margin-left: 0.5rem;
+			}
+			
+			a.s-filter {
+				line-height: 3rem;
+				padding-left: 0rem;
+			}
+		</style>
+		<div class="con">
+			<div class="category">
+				<section class="search">
+					<div class="text-all dis-box j-text-all text-all-back">
+						<a class="a-icon-back j-close-search" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou is-left-font"></i></a>
+						<div class="box-flex input-text n-input-text i-search-input">
+							<a class="a-search-input j-search-input" href="javascript:void(0)"></a>
+							<i class="iconfont icon-sousuo"></i>
+							<input class="j-input-text" type="text" placeholder="请输入您搜索的关键词!" th:value="${vo.keywords}" />
+							<i class="iconfont icon-guanbi1 is-null j-is-null"></i>
+						</div>
+						<a class="a-sequence j-a-sequence"><i class="iconfont icon-pailie" data="1"></i></a>
+					</div>
+				</section>
+				<section class="product-sequence dis-box">
+					<a class="box-flex active" th:class="'box-flex ' + (${#strings.isEmpty(vo.sort)} ? 'active')" th:href="'/h5/hotClickGoods'">默认</a>
+					<a class="box-flex a-change active" th:class="'box-flex ' + (${vo.sort == 'usalesnum'} ? 'active ' : ' ') + ' ' + (${vo.sort == 'usalesnum'} and ${#strings.equalsIgnoreCase(vo.order, 'ASC')} ? 'a-change' : '')" th:href="'/h5/hotClickGoods?sort=usalesnum&order='+ (${vo.sort == 'usalesnum'} and ${!#strings.isEmpty(vo.order)} ? ${vo.order} : 'ASC') + '&priceMin=' + ${#strings.defaultString(vo.priceMin,'')} + '&priceMax=' + ${#strings.defaultString(vo.priceMax,'')} + '&keywords=' + ${#strings.defaultString(vo.keywords,'')}">销量<i class="iconfont icon-xiajiantou"></i></a>
+					<a class="box-flex" th:class="'box-flex ' + (${vo.sort == 'ubrowsepoint'} ? 'active ' : ' ') + ' ' + (${vo.sort == 'ubrowsepoint'} and ${#strings.equalsIgnoreCase(vo.order, 'ASC')} ? 'a-change' : '')" th:href="'/h5/hotClickGoods?sort=ubrowsepoint&order='+ (${vo.sort == 'ubrowsepoint'} and ${!#strings.isEmpty(vo.order)} ? ${vo.order} : 'ASC') + '&priceMin=' + ${#strings.defaultString(vo.priceMin,'')} + '&priceMax=' + ${#strings.defaultString(vo.priceMax,'')} + '&keywords=' + ${#strings.defaultString(vo.keywords,'')}">人气<i class="iconfont icon-xiajiantou"></i></a><!-- ${#strings.isEmpty(vo.order)}?'ASC':${vo.order} -->
+					<a class="box-flex" th:class="'box-flex ' + (${vo.sort == 'uprice'} ? 'active ' : ' ') + ' ' + (${vo.sort == 'uprice'} and ${#strings.equalsIgnoreCase(vo.order, 'ASC')} ? 'a-change' : '')" th:href="'/h5/hotClickGoods?sort=uprice&order='+ (${vo.sort == 'uprice'} and ${!#strings.isEmpty(vo.order)} ? ${vo.order} : 'ASC') + '&priceMin=' + ${#strings.defaultString(vo.priceMin,'')} + '&priceMax=' + ${#strings.defaultString(vo.priceMax,'')} + '&keywords=' + ${#strings.defaultString(vo.keywords,'')}">价格<i class="iconfont icon-xiajiantou"></i></a>
+					<a href="#j-filter-div" class="box-flex s-filter j-s-filter">筛选</a>
+				</section>
+				<section class="product-list j-product-list product-list-medium" data="1">
+					<ul id="j-product-box">
+						<!-- <li>
+							<div class="product-div">
+								<a class="product-div-link" href="https://shop.ectouch.cn/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=10958&amp;u=0"></a>
+								<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/10958_thumb_G_1441858938304.jpg">
+								<div class="product-text">
+									<h4>包邮 美国Laura mercier/LM 罗拉抗氧保湿隔离妆前乳唤颜凝露50ml</h4>
+									<p class="dis-box p-t-remark"><span class="box-flex">库存：200</span>
+									<p><span class="p-price t-first ">￥208.00元<small><del>￥285.00元</del></small></span></p>
+									<a href="javascript:addCart(10958)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="product-div">
+								<a class="product-div-link" href="https://shop.ectouch.cn/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=9982&amp;u=0"></a>
+								<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9982_thumb_G_1442261519124.jpg">
+								<div class="product-text">
+									<h4>[零石化]美国耶丽娅怀孕妇护肤品天然套装用孕妇化妆品套装纯天然</h4>
+									<p class="dis-box p-t-remark"><span class="box-flex">库存：200</span>
+									<p><span class="p-price t-first ">￥199.00元<small><del>￥574.00元</del></small></span></p>
+									<a href="javascript:addCart(9982)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="product-div">
+								<a class="product-div-link" href="https://shop.ectouch.cn/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=19930&amp;u=0"></a>
+								<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19930_thumb_G_1442265124718.jpg">
+								<div class="product-text">
+									<h4>[零石化]美国耶丽娅怀孕妇护肤品天然套装用孕妇化妆品套装纯天然</h4>
+									<p class="dis-box p-t-remark"><span class="box-flex">库存：178</span>
+									<p><span class="p-price t-first ">￥199.00元<small><del>￥574.00元</del></small></span></p>
+									<a href="javascript:addCart(19930)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="product-div">
+								<a class="product-div-link" href="https://shop.ectouch.cn/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=544&amp;u=0"></a>
+								<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/544_thumb_G_1441842498565.jpg">
+								<div class="product-text">
+									<h4>美国进口 帕玛氏雅儿孕妇专用妊娠纹修复按摩霜 产后消除淡化修复</h4>
+									<p class="dis-box p-t-remark"><span class="box-flex">库存：200</span>
+									<p><span class="p-price t-first ">￥168.00元<small><del>￥188.00元</del></small></span></p>
+									<a href="javascript:addCart(544)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="product-div">
+								<a class="product-div-link" href="https://shop.ectouch.cn/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=19916&amp;u=0"></a>
+								<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19916_thumb_G_1442265121882.jpg">
+								<div class="product-text">
+									<h4>美国进口 帕玛氏雅儿孕妇专用妊娠纹修复按摩霜 产后消除淡化修复</h4>
+									<p class="dis-box p-t-remark"><span class="box-flex">库存：200</span>
+									<p><span class="p-price t-first ">￥168.00元<small><del>￥188.00元</del></small></span></p>
+									<a href="javascript:addCart(19916)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="product-div">
+								<a class="product-div-link" href="https://shop.ectouch.cn/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=13643&amp;u=0"></a>
+								<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/13643_thumb_G_1442262722499.jpg">
+								<div class="product-text">
+									<h4>美国进口宝宝零食Dremz优格曼酸奶溶豆草莓蓝莓樱桃香芒28克*6袋</h4>
+									<p class="dis-box p-t-remark"><span class="box-flex">库存：200</span>
+									<p><span class="p-price t-first ">￥159.00元<small><del>￥288.00元</del></small></span></p>
+									<a href="javascript:addCart(13643)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="product-div">
+								<a class="product-div-link" href="https://shop.ectouch.cn/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=538&amp;u=0"></a>
+								<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/538_thumb_G_1441842497045.jpg">
+								<div class="product-text">
+									<h4>美国 帕玛氏雅儿孕妇专用修复按摩乳 产前预防产后淡化消除妊娠纹</h4>
+									<p class="dis-box p-t-remark"><span class="box-flex">库存：200</span>
+									<p><span class="p-price t-first ">￥158.00元<small><del>￥188.00元</del></small></span></p>
+									<a href="javascript:addCart(538)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="product-div">
+								<a class="product-div-link" href="https://shop.ectouch.cn/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=19891&amp;u=0"></a>
+								<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19891_thumb_G_1442265110418.jpg">
+								<div class="product-text">
+									<h4>美国 帕玛氏雅儿孕妇专用修复按摩乳 产前预防产后淡化消除妊娠纹</h4>
+									<p class="dis-box p-t-remark"><span class="box-flex">库存：200</span>
+									<p><span class="p-price t-first ">￥158.00元<small><del>￥188.00元</del></small></span></p>
+									<a href="javascript:addCart(19891)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+								</div>
+							</div>
+						</li> -->
+						
+						<script id="f-product" type="text/html">
+							{{each data as vo i}}
+							<li>
+								<div class="product-div">
+									<a class="product-div-link" href="/h5/goods/{{vo.ucomproductid}}"></a>
+									<img class="product-list-img" src="{{vo.uhomepic}}" onerror="this.src='themes/default/images/not_goods.png'" />
+									<div class="product-text">
+										<h4>{{vo.ualias}}</h4>
+										<p class="dis-box p-t-remark"><span class="box-flex">库存：{{vo.ustock}}</span>
+										</p>
+										<p><span class="p-price t-first ">￥{{vo.uprice}}元<small><del>￥{{vo.umarketprice}}元</del></small></span></p>
+										<a href="javascript:addCart({{vo.ucomproductid}})" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+									</div>
+								</div>
+							</li>
+							{{/each}}
+						</script>
+
+						<!-- <li>
+							<div class="product-div">
+								<a class="product-div-link" href="https://shop.ectouch.cn/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=19891&amp;u=0"></a>
+								<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19891_thumb_G_1442265110418.jpg">
+								<div class="product-text">
+									<h4>美国 帕玛氏雅儿孕妇专用修复按摩乳 产前预防产后淡化消除妊娠纹</h4>
+									<p class="dis-box p-t-remark"><span class="box-flex">库存：200</span>
+									<p><span class="p-price t-first ">￥158.00元<small><del>￥188.00元</del></small></span></p>
+									<a href="javascript:addCart(19891)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="product-div">
+								<a class="product-div-link" href="https://shop.ectouch.cn/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=13577&amp;u=0"></a>
+								<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/13577_thumb_G_1442262699365.jpg">
+								<div class="product-text">
+									<h4>禧贝/happy baby 有机婴儿泡芙儿童食品宝宝零食 美国进口60g*4罐</h4>
+									<p class="dis-box p-t-remark"><span class="box-flex">库存：200</span>
+									<p><span class="p-price t-first ">￥149.00元<small><del>￥276.00元</del></small></span></p>
+									<a href="javascript:addCart(13577)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="product-div">
+								<a class="product-div-link" href="https://shop.ectouch.cn/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=4582&amp;u=0"></a>
+								<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/4582_thumb_G_1441849036961.jpg">
+								<div class="product-text">
+									<h4>打火机zippo正版 美国原装限量芝宝黑裂漆236富贵繁花 正品旗舰店</h4>
+									<p class="dis-box p-t-remark"><span class="box-flex">库存：200</span>
+									<p><span class="p-price t-first ">￥139.00元<small><del>￥298.00元</del></small></span></p>
+									<a href="javascript:addCart(4582)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="product-div">
+								<a class="product-div-link" href="https://shop.ectouch.cn/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=10317&amp;u=0"></a>
+								<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/10317_thumb_G_1442261622830.jpg">
+								<div class="product-text">
+									<h4>旗舰店美国 ZoLi吸管杯学饮杯吸管训练杯水杯手柄进口吸管杯</h4>
+									<p class="dis-box p-t-remark"><span class="box-flex">库存：200</span>
+									<p><span class="p-price t-first ">￥130.01元<small><del>￥130.01元</del></small></span></p>
+									<a href="javascript:addCart(10317)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="product-div">
+								<a class="product-div-link" href="https://shop.ectouch.cn/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=6626&amp;u=0"></a>
+								<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/6626_thumb_G_1442260429203.jpg">
+								<div class="product-text">
+									<h4>美国Simple Green布艺沙发清洁剂 地毯清洁剂 地毯干洗清洗剂去污</h4>
+									<p class="dis-box p-t-remark"><span class="box-flex">库存：200</span>
+									<p><span class="p-price t-first ">￥128.00元<small><del>￥256.00元</del></small></span></p>
+									<a href="javascript:addCart(6626)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="product-div">
+								<a class="product-div-link" href="https://shop.ectouch.cn/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=10616&amp;u=0"></a>
+								<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/10616_thumb_G_1442261724818.jpg">
+								<div class="product-text">
+									<h4>美国禧贝Happy Baby宝宝小麦圈婴儿饼干泡芙组合1罐泡芙+3袋溶豆</h4>
+									<p class="dis-box p-t-remark"><span class="box-flex">库存：200</span>
+									<p><span class="p-price t-first ">￥125.00元<small><del>￥168.00元</del></small></span></p>
+									<a href="javascript:addCart(10616)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="product-div">
+								<a class="product-div-link" href="https://shop.ectouch.cn/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=11978&amp;u=0"></a>
+								<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/11978_thumb_G_1442262167780.jpg">
+								<div class="product-text">
+									<h4>禧贝/happy baby 美国进口有机酸奶溶豆3只装 28g*3袋 婴儿零食</h4>
+									<p class="dis-box p-t-remark"><span class="box-flex">库存：200</span>
+									<p><span class="p-price t-first ">￥118.00元<small><del>￥207.00元</del></small></span></p>
+									<a href="javascript:addCart(11978)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="product-div">
+								<a class="product-div-link" href="https://shop.ectouch.cn/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=2366&amp;u=0"></a>
+								<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/2366_thumb_G_1442259049129.jpg">
+								<div class="product-text">
+									<h4>狗粮泰迪专用粮 美国耐威克幼犬主粮5kg 贵宾狗粮天然 全国包邮</h4>
+									<p class="dis-box p-t-remark"><span class="box-flex">库存：200</span>
+									<p><span class="p-price t-first ">￥113.00元<small><del>￥115.00元</del></small></span></p>
+									<a href="javascript:addCart(2366)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="product-div">
+								<a class="product-div-link" href="https://shop.ectouch.cn/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=19917&amp;u=0"></a>
+								<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19917_thumb_G_1442265121290.jpg">
+								<div class="product-text">
+									<h4>美国 帕玛氏Palmer’s雅儿孕妇专用修复乳 预防祛除妊娠纹美版</h4>
+									<p class="dis-box p-t-remark"><span class="box-flex">库存：200</span>
+									<p><span class="p-price t-first ">￥109.00元<small><del>￥188.00元</del></small></span></p>
+									<a href="javascript:addCart(19917)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="product-div">
+								<a class="product-div-link" href="https://shop.ectouch.cn/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=6847&amp;u=0"></a>
+								<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/6847_thumb_G_1442260501244.jpg">
+								<div class="product-text">
+									<h4>正品 美国进口bounty帮庭厨房用纸 吸油去污料理用纸 单卷装*4卷</h4>
+									<p class="dis-box p-t-remark"><span class="box-flex">库存：200</span>
+									<p><span class="p-price t-first ">￥109.00元<small><del>￥192.00元</del></small></span></p>
+									<a href="javascript:addCart(6847)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+								</div>
+							</div>
+						</li> -->
+						<script id="j-product" type="text/html">
+							{{each list as vo i}}
+							<li>
+								<div class="product-div">
+									<a class="product-div-link" href="{{vo.url}}"></a>
+									<img class="product-list-img" src="{{vo.goods_thumb}}" />
+									<div class="product-text">
+										<h4>{{vo.goods_name}}</h4>
+										<p class="dis-box p-t-remark"><span class="box-flex">库存：{{vo.goods_number}}</span>
+											</p>
+										<p><span class="p-price t-first ">{{vo.shop_price}}<small><del>{{vo.market_price}}</del></small></span></p>
+										<a href="javascript:addCart({{vo.goods_id}})" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+									</div>
+								</div>
+							</li>
+							{{/each}}
+						</script>
+					</ul>
+				</section>
+			</div>
+		</div>
+
+		<div class="filter-top" id="scrollUp">
+			<i class="iconfont icon-dingbu"></i>
+		</div>
+
+		<div id="j-filter-div" class="j-filter-div filter-div ts-5 c-filter-div">
+			<div class="mask-filter-div"></div>
+			<section class="close-filter-div j-close-filter-div">
+				<div class="close-f-btn">
+					<i class="iconfont icon-fanhui"></i>
+					<span>关闭</span>
+				</div>
+			</section>
+			<section class="con-filter-div">
+				<form class="hold-height" method="get" th:action="'/h5/hotClickGoods?sort=' + ${#strings.defaultString(vo.sort,'')} + '&order=' + ${#strings.defaultString(vo.order,'')} + '&priceMin=' + ${#strings.defaultString(vo.priceMin,'')} + '&priceMax=' + ${#strings.defaultString(vo.priceMax,'')} + '&keywords=' + ${#strings.defaultString(vo.keywords,'')}">
+					<input type="hidden" name="id" class="cat" value="0" />
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<div class="price-range padding-all m-top08">
+								<label>价格</label>
+								<div class="price-slider">
+									<div id="slider-range" class="slider"></div>
+									<div class="slider-info">
+										<span id="slider-range-amount"></span>
+									</div>
+								</div>
+								<input type="hidden" id="min" name="priceMin" value="0" />
+								<input type="hidden" id="max" name="priceMax" value="0" />
+							</div>
+							<div class="select-two">
+								<a class="select-title padding-all j-menu-select">
+									<label class="fl">品牌</label>
+									<span class="fr t-jiantou j-t-jiantou jian001" id="j-t-jiantou"><em class="fl">
+						全部						 
+												</em><i class="iconfont icon-jiantou tf-180 ts-2"></i></span>
+								</a>
+								<ul class="j-sub-menu padding-all j-get-one" data-istrue="true">
+									<li class="ect-select" data-attr="0">
+										<label class="ts-1">全部<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="12">
+										<label class="ts-1">nb<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="13">
+										<label class="ts-1">苹果<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="14">
+										<label class="ts-1">nike<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="16">
+										<label class="ts-1">Prada<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="17">
+										<label class="ts-1">华为荣耀<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="18">
+										<label class="ts-1">阿迪达斯<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="19">
+										<label class="ts-1">阿玛尼<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="20">
+										<label class="ts-1">Puma<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="21">
+										<label class="ts-1">小米<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="22">
+										<label class="ts-1">Jack w<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="23">
+										<label class="ts-1">哥伦比亚<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="25">
+										<label class="ts-1">三星<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="26">
+										<label class="ts-1">JacK<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="28">
+										<label class="ts-1">Dior<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="30">
+										<label class="ts-1">Gucci<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="31">
+										<label class="ts-1">魅族<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="32">
+										<label class="ts-1">Only<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="34">
+										<label class="ts-1">Bally<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="35">
+										<label class="ts-1">ECCO<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="36">
+										<label class="ts-1">努比亚<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<input type="hidden" name="brand" value="0" />
+								</ul>
+								<input type="hidden" id="filter_attr" name="filter_attr" value="0" />
+							</div>
+							<div class="ect-button-more dis-box padding-all">
+								<a class="box-flex btn-reset j-filter-reset" onclick="javascript:clear_filter();">清空选项</a>
+								<button type="submit" class="box-flex btn-submit">确定</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</section>
+		</div>
+
+		<script type="text/javascript">
+			function clear_filter() {
+				$(".touchweb-com_listType .range").text("全部");
+				$(".touchweb-com_listType input").each(function() {
+					if($(this).attr('class') != 'cat') {
+						$(this).val("");
+					}
+				});
+				$(".ui-slider-handle").css("left", "0");
+				$(".ui-slider-range").css({
+					left: 0,
+					width: 0
+				});
+				$("#slider-range-amount").html(0);
+				$("#min ,#max").val(0);
+				$('input[name="brand"]').val(0);
+				$("#filter_attr").val(0);
+			}
+		</script>
+		<div class="search-div ts-3">
+			<section class="search">
+				<form action="/h5/hotClickGoods" method="get">
+					<div class="text-all dis-box j-text-all">
+						<a class="a-icon-back j-close-search" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou is-left-font"></i></a>
+						<div class="box-flex input-text">
+							<input class="j-input-text" type="text" name="keywords" placeholder="请输入搜索关键词！" id="newinput" th:value="${vo.keywords}" />
+							<i class="iconfont icon-guanbi2 is-null j-is-null"></i>
+						</div>
+						<button type="submit" class="btn-submit">搜索</button>
+					</div>
+				</form>
+			</section>
+			<section class="search-con">
+				<div class="swiper-scroll history-search">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<p>
+								<label class="fl">热门搜索</label>
+							</p>
+							<ul class="hot-search a-text-more">
+								<li class="w-3">
+									<a href="/h5/hotClickGoods?keywords=美国"><span>美国</span></a>
+								</li>
+								<li class="w-3">
+									<a href="/h5/hotClickGoods?keywords=新生婴儿"><span>新生婴儿</span></a>
+								</li>
+							</ul>
+							<p class="hos-search">
+								<label class="fl">最近搜索</label>
+								<span class="fr" onclick="javascript:clearHistroy();"><i class="iconfont icon-xiao10 is-xiao10 jian-top fr"></i></span>
+							</p>
+
+							<ul class="hot-search a-text-more a-text-one" id="search_histroy">
+								<li>
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E7%BE%8E%E5%9B%BD&u=0"><span>美国</span></a>
+								</li>
+								<li>
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E5%B0%8F%E6%98%8E&u=0"><span>小明</span></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="swiper-scrollbar"></div>
+				</div>
+			</section>
+			<footer class="close-search j-close-search">
+				点击关闭
+			</footer>
+		</div>
+
+		<script type="text/javascript">
+			//设置cookie
+			function setCookie(cname, cvalue, exdays) {
+				var d = new Date();
+				d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+				var expires = "expires=" + d.toUTCString();
+				document.cookie = cname + "=" + cvalue + "; " + expires;
+			}
+
+			function clearHistroy() {
+				setCookie('ECS[keywords]', '', -1);
+				document.getElementById("search_histroy").style.visibility = "hidden";
+			}
+		</script>
+		<div class="div-messages"></div>
+
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/swiper.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/ectouch.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.json.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery-ui-1.10.1.custom.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery.ui.touch-punch.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery.scrollUp.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery.lazyload.min.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/common.js"></script>
+
+		<script type="text/javascript" src="/h5/themes/default/statics/js/echo.min.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/template.js"></script>
+		<script type="text/javascript">
+			$('#hide-div').delay(1500).hide(0);
+			var sliders = function() {
+				// 筛选价格区间 js
+				$("#slider-range").slider({
+					range: true,
+					min: 0,
+					max: 10000,
+					step: 10,
+					values: [0, 10000],
+					slide: function(event, ui) {
+						$("#slider-range-amount").text(ui.values[0] + " ~ " + ui.values[1]);
+						$('input[name=priceMin]').val(ui.values[0]);
+						$('input[name=priceMax]').val(ui.values[1]);
+					}
+				});
+				$("#slider-range-amount").text($("#slider-range").slider("values", 0) + " ~ " + $("#slider-range").slider("values", 1));
+			}();
+
+			var url = "/h5/queryHotClickGoodsPage?keywords=[[${vo.keywords}]]&sort=[[${vo.sort}]]&order=[[${#strings.equalsIgnoreCase(vo.order, 'ASC') ? 'DESC':'ASC'}]]&priceMin=[[${vo.priceMin}]]&priceMax=[[${vo.priceMax}]]";
+			var pageNo = 1;		// 当前页码
+			var pageSize = 16;	// 每页显示条数
+			var load = true;	// 是否继续加载
+			var lock = false;	// 加载锁
+			
+			var total = 0;
+			var page = localData.get('cat_0_page');
+			page = (page === null) ? 1 : parseInt(page);
+			// first request
+			get_data(page);
+			localData.set('cat_0_page', page);
+			if(page == 1) {
+				localData.set('cat_0_page_min', 1);
+				localData.set('cat_0_page_max', 1);
+			}
+			if(page > 1) {
+				localData.set('cat_0_page_min', page);
+				localData.set('cat_0_page_max', page);
+			}
+			var minPage = localData.get('cat_0_page_max');
+			var maxPage = localData.get('cat_0_page_max');
+			minPage = (minPage === null) ? 1 : parseInt(minPage);
+			maxPage = (maxPage === null) ? 1 : parseInt(maxPage);
+
+			$(window).scroll(function() {
+				var scrollTop = $(this).scrollTop();
+				var scrollHeight = $(document).height();
+				var windowHeight = $(this).height();
+				// 下拉
+				if(scrollTop + windowHeight == scrollHeight) {
+					if(page >= maxPage) {
+						/* $.ajax({
+							type: "post",
+							url: url,
+							data: 'page=' + (page + 1),
+							dataType: 'json',
+							async: false,
+							success: function(data) {
+								var html = template('j-product', data);
+								$('#j-product-box').append(html);
+								//rug
+								if(!isEmpty(data.list)) {
+									page++;
+									localData.set('cat_0_page', page);
+									if(page > maxPage) {
+										localData.set('cat_0_page_max', page);
+									}
+								}
+							}
+						}); */
+					}
+				}
+				// 上拉
+				if(scrollTop == 0) {
+					/* $.ajax({
+						type: "post",
+						url: url,
+						data: 'page=' + (page - 1),
+						dataType: 'json',
+						async: false,
+						success: function(data) {
+							var html = template('f-product', data);
+							$('#j-product-box').prepend(html);
+							page--;
+							localData.set('cat_0_page', page);
+							if(page < minPage) {
+								localData.set('cat_0_page_min', page);
+							}
+						}
+					}); */
+					get_data();
+				}
+			});
+			
+			/**
+			 * 加载数据
+			 */
+			function get_data(page) {
+				if (load && !lock) {
+					lock = true;	// 添加锁
+					$.ajax({
+						type: "post",
+						url: url,
+						data: {
+							pageNo: pageNo,
+							pageSize: pageSize
+						},
+						success: function(res) {
+							if (res.retcode) {
+								pageNo++;
+								if (res.data.length < pageSize)
+									load = false;
+								var html = template('f-product', res);
+								$('#j-product-box').append(html);
+							}
+						},
+						complete: function() {
+							lock = false;
+						}
+					});
+				}
+			}
+
+			/*
+			 * 检测对象是否是空对象(不包含任何可读属性)。
+			 * 方法既检测对象本身的属性，也检测从原型继承的属性(因此没有使hasOwnProperty)。
+			 */
+			function isEmpty(obj) {
+				for(var name in obj) {
+					return false;
+				}
+				return true;
+			}
+			echo.init();
+			$(function() {
+				$('.ect-select').click(function() {
+					var data = $(this).attr('data-attr');
+					$(this).siblings('input[type="hidden"]').val(data);
+				})
+			})
+			//属性
+			$(function() {
+				$('.j-sub-menu-attr li').click(function() {
+					$(this).addClass('active').siblings('li').removeClass('active');
+					var i = 0;
+					var new_attr = new Array();
+					$(".j-sub-menu-attr li").each(function() {
+						if($(this).hasClass('active')) {
+							new_attr[i] = $(this).find('label').attr('value');
+							i = i + 1;
+						}
+					});
+					var new_attr_str = new_attr.join('.');
+					//属性参数具体值
+					$('input[name=filter_attr]').val(new_attr_str);
+				})
+			})
+		</script>
+
+	</body>
+
+</html>

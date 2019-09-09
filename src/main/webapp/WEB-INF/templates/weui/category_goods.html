@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8">
+	<title>港货灵</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
+	<link rel="stylesheet" href="/h5/themes/default/statics/css/ectouch.css" />
+
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/weui/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/weui/css/main.css">
+	<link rel="stylesheet" href="/weui/css/class.css">
+	<link rel="stylesheet" href="/weui/css/theme-color.css">
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+<header class="zyw-header">
+	<div class="zyw-container white-color">
+		<div class="head-l"><a href="javascript:window.history.back(-1)" target="_self"><img src="/weui/img/svg/head-return.svg" alt=""></a></div>
+		<form id="search" action="/h5/category/goods/type" method="post">
+			<div class="head-search" >
+				<i class="fa fa-search" aria-hidden="true"></i>
+				<input type="text" placeholder="输入您当前要搜索的商品" name="keywords" class="white-color" autofocus="autofocus">
+			</div>
+
+			<div class="head-r">
+				<a class="a-sequence j-a-sequence"><i class="iconfont icon-pailie" data="1"></i></a>
+			</div>
+		</form>
+	</div>
+
+</header>
+<section class="zyw-container product-sequence dis-box">
+	<a class="box-flex a-change" th:href="'/h5/category/goods/type?1=1&'+${uproducttypeid}" href="/ectouch/wsc/index.php?m=default&c=category&a=index&id=0&display=list&brand=0&type=&price_min=0&price_max=0&filter_attr=0&sort=&order=&keywords=%E7%BE%8E%E5%9B%BD&u=0#goods_list">默认</a>
+	<a th:class="'box-flex'  + ${type eq '1'?' active':''}" th:href="'/h5/category/goods/type?type=1&'+${uproducttypeid}" href="/ectouch/wsc/index.php?m=default&c=category&a=index&id=0&display=list&brand=0&type=&price_min=0&price_max=0&filter_attr=0&sort=sales_volume&order=ASC&keywords=%E7%BE%8E%E5%9B%BD&u=0#goods_list">销量<i class="iconfont icon-xiajiantou"></i></a>
+	<a th:class="'box-flex' + ${type eq '0'?' active':' '}" th:href="'/h5/category/goods/type?type=0&'+${uproducttypeid}" href="/ectouch/wsc/index.php?m=default&c=category&a=index&id=0&display=list&brand=0&type=&price_min=0&price_max=0&filter_attr=0&sort=click_count&order=ASC&keywords=%E7%BE%8E%E5%9B%BD&u=0#goods_list">人气<i class="iconfont icon-xiajiantou"></i></a>
+	<a th:class="box-flex + ${type == null ? ' active':' '}" th:href="'/h5/category/goods/type?1=1&'+${uproducttypeid}">价格<i class="iconfont icon-xiajiantou"></i></a>
+	<a href="#j-filter-div" class="box-flex s-filter j-s-filter ">筛选</a>
+
+</section>
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script src="/weui/js/bootstrap.min.js"></script>
+</body>
+</html>

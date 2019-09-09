@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="description" content="港货灵是一套分销系统，港货灵VIP获得超低价购买，VIP推荐用户成为VIP获得100元奖励，推荐用户购买获得利润的40%分成，推荐厂家产品给产品的所有销售的利润的5%分成，成为区域公司获得该区域下所有消费的利润5%分成。是一个最好的系统"/>
+    <meta name="keywords" content="港货灵分销，港货灵VIP获得超低价购买"/>
+    <title>港货灵</title>
+    <link rel="stylesheet" href="/h5/themes/default/statics/css/ectouch.css" />
+    <script type="text/javascript" >var tpl = '/ectouch/wsc/themes/default';</script>
+    <script type="text/javascript" >var ucustomerid = '57264943732633604';</script>
+
+	</head>
+<body style="max-width:640px;">
+<div id="loading"><img src="/h5/themes/default/statics/img/loading.gif" /></div>
+<div class="con m-b7 new-maxbox">
+	<header class="header-max-box">
+				<div class="ect-header-banner dis-box">
+			<div class="box-flex">
+				<div class="ect-header-text fl">
+					<h4>欢迎进入<span class="color-red">易店生活店中店商城</span></h4>
+					<p>关注公众号,享专属服务</p>
+				</div>
+			</div>
+			<a class="btn-submit1 j-ewm-box" href="javascript:;">立即关注</a>
+		</div>
+		<div class="index-weixin-box">
+			<div><img src="/h5/themes/default/statics/img/ewm.png"></div>
+			<p class="text-c">长按二维码关注公众微信</p>
+		</div>
+		<div class="index-bg-box"></div>
+			</header>
+	<div class="index-banner swiper-container box position-rel banner-first">
+				<div class="index-nav-box">
+			<ul class="dis-box">
+				<li class="index-left-box"><a href="/h5/category/"><i class="iconfont icon-caidan color-whie"></i></a></li>
+				<li class="box-flex n-input-index-box">
+					<div class="index-search-box j-search-input" id="j-input-focus"><i class="iconfont icon-sousuo"></i>请输入您搜索的关键词!</div>
+				</li>
+				<li class="index-right-box"><a href="msg_list.html"><i class="iconfont icon-xiaoxi1 color-whie n-xiaoxi-size"></i></a></li>
+			</ul>
+		</div>
+		<div class="swiper-wrapper">
+			<div class="swiper-slide" th:each="img : ${slideshowHome}">
+				<a th:if="${img.ustate eq '1'}" th:href="${'/h5/goods/'+img.uinfoid}">
+						<img th:src="${img.uhomepic}"  src='/h5/data/attached/afficheimg/1475869618740468734.png' border='0' />
+				</a>
+				<a th:if="${img.ustate eq '2'}" th:href="${'/h5/category/goods/'+img.uinfoid}">
+					<img th:src="${img.uhomepic}"  border='0' src='/h5/data/attached/afficheimg/1475947014493634167.png' />
+				</a>
+			</div>
+			<!-- 
+				<div class="swiper-slide">
+				<a href='#'>
+					<img src='/h5/data/attached/afficheimg/1475947014493634167.png' border='0' />
+				</a>
+			</div>
+			<div class="swiper-slide">
+				<a href='#'>
+					<img src='/h5/data/attached/afficheimg/1475869618740468734.png' border='0' />
+				</a>
+			</div>
+			 -->
+		</div>
+		
+		<div class="swiper-pagination banner-first-pagination"></div>
+		
+		<div class="linear"></div>
+	</div>
+	
+	<nav class="bg-white ptb-1 index-nav">
+		<ul class="box ul-4 text-c bg-white">
+						<li class="fl">
+				<a href="/h5/category/" ><img src="/h5/themes/default/images/nav/nav_0.png" /></a>
+				<a class="index-menu-text" href="/h5/category/" >全部分类</a>
+			</li>
+						<li class="fl">
+				<a href="/h5/order/orderList" ><img src="/h5/themes/default/images/nav/nav_1.png" /></a>
+				<a class="index-menu-text" href="/h5/order/orderList" >我的订单</a>
+			</li>
+						<li class="fl">
+				<a href="index.php?c=groupbuy" ><img src="/h5/themes/default/images/nav/nav_4.png" /></a>
+				<a class="index-menu-text" href="index.php?c=groupbuy" >最新团购</a>
+			</li>
+						<li class="fl">
+				<a href="index.php?c=activity" ><img src="/h5/themes/default/images/nav/nav_3.png" /></a>
+				<a class="index-menu-text" href="index.php?c=activity" >促销活动</a>
+			</li>
+						<li class="fl">
+				<a href="/h5/hotClickGoods" ><img src="/h5/themes/default/images/nav/nav_6.png" /></a>
+				<a class="index-menu-text" href="/h5/hotClickGoods" >热门搜索</a>
+			</li>
+						<li class="fl">
+				<a href="brand.html" ><img src="/h5/themes/default/images/nav/nav_2.png" /></a>
+				<a class="index-menu-text" href="brand.html" >品牌街</a>
+			</li>
+						<li class="fl">
+				<a href="/h5/personal_center/" ><img src="/h5/themes/default/images/nav/nav_5.png" /></a>
+				<a class="index-menu-text" href="/h5/personal_center/" >个人中心</a>
+			</li>
+						<li class="fl">
+				<a href="/h5/cart/" ><img src="/h5/themes/default/images/nav/nav_7.png" /></a>
+				<a class="index-menu-text" href="/h5/cart/" >购物车</a>
+			</li>
+			
+		</ul>
+	</nav>
+
+	<!--<div class="box  title inx-ms m-top06">
+		<div class="dis-box m-top1px b-color-f">
+			<div class="box-flex title text-c  pt-1 position-rel index-sale-list">
+				<a th:each="product:${bigproduct}" th:href="${'/h5/goods/'+product.uinfoid}" href='/ectouch/wsc/index.php?m=default&c=affiche&a=index&ad_id=27&uri=http%253A%252F%252Flocalhost%252Fdemo_all%252Fdemo_wfx%252Findex.php%253Fm%253Ddefault%2526c%253Dtopic%2526a%253Dindex%2526topic_id%253D2&u=0'
+                target='_blank'><img th:src="${product.uhomepic}" th:alt="${product.udesc}" src='https://shop.ectouch.cn/ectouch/wsc/data/attached/afficheimg/1516926537648934292.jpg' border='0' /></a>			</div>
+			</div>
+			<div class="box-flex ">
+				<ul class="index-discount">
+					<li class="" >
+						<a th:each="product:${littleproduct}" th:href="${'/h5/goods/'+product.uinfoid}" href='/ectouch/wsc/index.php?m=default&c=affiche&a=index&ad_id=14&uri=http%253A%252F%252Fshop.ectouch.cn%252Findex.php%253Fm%253Ddefault%2526c%253Dgoods%2526a%253Dindex%2526id%253D17538&u=0'
+						target='_blank'><img  th:src="${product.uhomepic}" th:alt="${product.udesc}"  src='http://m.360buyimg.com/mobilecms/jfs/t2500/354/5004119/28206/c13fa182/55e5a38fN0b84386b.jpg' border='0' /></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>-->
+
+
+<div class="box  title inx-ms m-top06">
+	<div class="dis-box m-top1px b-color-f">
+		<div class="box-flex title text-c  pt-1 position-rel index-sale-list">
+			<a th:each="product:${bigproduct}" th:if="${product.ustate eq '1'}" th:href="${'/h5/goods/'+product.uinfoid}" href="#" target="_blank">
+				<img th:src="${product.uhomepic}" th:alt="${product.udesc}" src="https://shop.ectouch.cn/ectouch/wsc/data/attached/afficheimg/1516926537648934292.jpg" border="0">
+			</a>
+			<a th:each="product:${bigproduct}" th:if="${product.ustate eq '2'}" th:href="${'/h5/category/goods/'+product.uinfoid}" href="#" target="_blank">
+				<img th:src="${product.uhomepic}" th:alt="${product.udesc}" src="https://shop.ectouch.cn/ectouch/wsc/data/attached/afficheimg/1516926537648934292.jpg" border="0">
+			</a>
+		</div>
+		<div class="box-flex ">
+			<ul class="index-discount">
+				<li class="">
+					<a th:each="product:${littleproduct}" th:if="${product.ustate eq '1'}" th:href="${'/h5/category/goods/'+product.uinfoid}" href="#" target="_blank">
+						<img th:src="${product.uhomepic}" th:alt="${product.udesc}" src="http://m.360buyimg.com/mobilecms/jfs/t2500/354/5004119/28206/c13fa182/55e5a38fN0b84386b.jpg" border="0">
+					</a>
+					<a th:each="product:${littleproduct}" th:if="${product.ustate eq '2'}" th:href="${'/h5/goods/'+product.uinfoid}" href="#" target="_blank">
+						<img th:src="${product.uhomepic}" th:alt="${product.udesc}" src="http://m.360buyimg.com/mobilecms/jfs/t2500/354/5004119/28206/c13fa182/55e5a38fN0b84386b.jpg" border="0">
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+	<ul class="index-cate-box m-top06">
+		<li class="fr" th:each="categor,iterStat:${categoryHome}" th:if="${iterStat.index % 2 !=0}">
+			<a th:if="${categor.ustate eq '2'}" th:href="${'/h5/category/goods/'+categor.uinfoid}"
+                target='_blank'><img style="width: 100%; height: 150px;"  th:src="${categor.uhomepic}" border='0' src='https://shop.ectouch.cn/ectouch/wsc/themes/default/images/index-theme-icon2.gif' /></a>
+			<a th:if="${categor.ustate eq '1'}" th:href="${'/h5/goods/'+categor.uinfoid}"
+                target='_blank'><img style="width: 100%; height: 150px;"  th:src="${categor.uhomepic}" border='0' src='https://shop.ectouch.cn/ectouch/wsc/themes/default/images/index-theme-icon2.gif' /></a>
+        </li>
+		<li class="fl" th:each="categor,iterStat:${categoryHome}" th:if="${iterStat.index % 2 ==0}">
+			<a th:if="${categor.ustate eq '2'}" th:href="${'/h5/category/goods/'+categor.uinfoid}"
+                target='_blank'><img style="width: 100%; height: 150px;"  th:src="${categor.uhomepic}" border='0' src='https://shop.ectouch.cn/ectouch/wsc/themes/default/images/index-theme-icon2.gif' /></a>
+			<a th:if="${categor.ustate eq '1'}" th:href="${'/h5/goods/'+categor.uinfoid}"
+                target='_blank'><img style="width: 100%; height: 150px;"  th:src="${categor.uhomepic}" border='0' src='https://shop.ectouch.cn/ectouch/wsc/themes/default/images/index-theme-icon2.gif' /></a>
+        </li>
+         <!--<li class="fl"><a href='/ectouch/wsc/index.php?m=default&c=affiche&a=index&ad_id=4&uri=&u=0'
+                target='_blank'><img src='https://shop.ectouch.cn/ectouch/wsc/themes/default/images/index-theme-icon2.gif' border='0' /></a></li><li class="fr"><a href='/ectouch/wsc/index.php?m=default&c=affiche&a=index&ad_id=5&uri=&u=0'
+                target='_blank'><img src='https://shop.ectouch.cn/ectouch/wsc/themes/default/images/index-theme-icon3.gif' border='0' /></a></li><li class="fl"><a href='/ectouch/wsc/index.php?m=default&c=affiche&a=index&ad_id=6&uri=&u=0'
+                target='_blank'><img src='https://shop.ectouch.cn/ectouch/wsc/themes/default/images/index-theme-icon4.gif' border='0' /></a></li>-->
+    </ul>
+	
+	<div class="text-c n-cate-box">
+		<p class="index-title"><i class="iconfont icon-cainixihuan is-cainixihuan"></i>猜你喜欢</p>
+		<p class="index-small-title">实时推荐最适合您的宝贝</p>
+	</div>
+	<!--<section class="product-list j-product-list n-index-box " data="1">-->
+	<section class="product-list j-product-list product-list-small" data="2">
+		<!--<ul class="index-more-list" id="J_ItemList">-->
+		<ul id="J_ItemList">
+			<!-- <div class="single_item" id="more_element_1">
+				<li class="fl">
+					<div class="product-div">
+						<a href="goods.html">
+					  		<img class="lazy" src="http://gi1.mlist.alicdn.com/bao/uploaded/i1/TB1g2FWFVXXXXbIXVXXXXXXXXXX_!!0-item_pic.jpg" alt="蕴蓓 孕妇洗面奶控油纯天然 孕妇专用洗面奶保湿哺乳期洁面乳正品">
+						</a>
+						<a href="goods.html"><h4>蕴蓓 孕妇洗面奶控油纯天然 孕妇专用洗面奶保湿哺乳期洁面乳正品</h4></a>
+						<p><span>￥48.50元</span></p>
+					</div>
+				</li>
+			</div>
+			<div class="single_item" id="more_element_2">
+				<li class="fr">
+					<div class="product-div">
+						<a href="goods.html">
+							<img class="lazy" src="https://shop.ectouch.cn/ectouch/wsc/images/201602/goods_img/19937_G_1456248249298.jpg" alt="妈妈美 孕妇护肤品纯天然套装 孕期化妆品补水保湿专用旗舰店正品妈妈美">
+						</a>
+						<a href="goods.html"><h4>妈妈美 孕妇护肤品纯天然套装 孕期化妆品补水保湿专用旗舰店正品妈妈美</h4></a>
+						<p><span>￥198.00元</span></p>
+					</div>
+				</li>
+			</div>
+			<div class="single_item" id="more_element_3">
+				<li class="fl">
+					<div class="product-div">
+						<a href="goods.html">
+					  		<img class="lazy" src="http://gi1.mlist.alicdn.com/bao/uploaded/i1/1793663235/TB2sP_wXVXXXXaGXXXXXXXXXXXX_!!1793663235.jpg" alt="新生婴儿玩具0-1岁摇铃 小木马床铃 音乐旋转宝宝床头铃床挂风铃">
+						</a>
+						<a href="goods.html"><h4>新生婴儿玩具0-1岁摇铃 小木马床铃 音乐旋转宝宝床头铃床挂风铃</h4></a>
+						<p><span>￥39.00元</span></p>
+					</div>
+				</li>
+			</div>
+			<div class="single_item" id="more_element_4">
+				<li class="fr">
+					<div class="product-div">
+						<a href="goods.html">
+  							<img class="lazy" src="http://gi1.mlist.alicdn.com/bao/uploaded/i5/T1_UjsFoJkXXa68F2c_095646.jpg" alt="Apple/苹果 iPhone 4s">
+						</a>
+						<a href="goods.html"><h4>Apple/苹果 iPhone 4s</h4></a>
+						<p><span>￥2368.00元</span></p>
+					</div>
+				</li>
+			</div> -->
+		</ul>
+	</section>
+	<!--<div class="n-footer-box">
+		<ul class="n-footer-minbox">
+			<li>
+				<a href="http://m.ecmoban.com/index.php?m=touch&amp;c=index&amp;a=download">
+					<div class="n-footer-img-box"><i class="iconfont icon-qunfengshangjiazhushouapperweimafuben is-ban-fize"></i></div>
+					<p class="footer-tit1">客户端</p>
+				</a>
+			</li>
+			<li>
+				<a href="/ectouch/wsc/index.php?m=default&c=index&a=index&u=0">
+					<div class="n-footer-img-box"><i class="iconfont icon-shoujiyanzheng is-ban-fize active"></i></div>
+					<p class="footer-tit">触屏版</p>
+				</a>
+			</li>
+			<li>
+				<a href="https://shop.ectouch.cn/ectouch/?pc">
+					<div class="n-footer-img-box"><i class="iconfont icon-pc is-ban-fize jian-top-2"></i></div>
+					<p class="footer-tit1">电脑版</p>
+				</a>
+			</li>
+		</ul>
+	</div>-->
+</div>
+<div class="filter-top" id="scrollUp">
+	<i class="iconfont icon-dingbu"></i>
+</div>
+<footer class="footer-nav dis-box">
+				<a href="#" class="box-flex nav-list active">
+					<i class="nav-box i-home"></i><span>首页</span>
+				</a>
+				<a href="/h5/category/" class="box-flex nav-list">
+					<i class="nav-box i-cate"></i><span>分类</span>
+				</a>
+				
+				<a href="/h5/cart/" class="box-flex position-rel nav-list">
+					<i class="nav-box i-flow"></i><span>购物车</span>
+				</a>
+				<a href="/h5/personal_center/" class="box-flex nav-list">
+					<i class="nav-box i-user"></i><span>我的</span>
+				</a>
+		</footer>
+<div class="search-div ts-3">
+	<section class="search">
+		<form action="/h5/category/goods/type">
+		<div class="text-all dis-box j-text-all">
+			<a class="a-icon-back j-close-search" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou is-left-font"></i></a>
+			<div class="box-flex input-text">
+				<input class="j-input-text" type="text" name="keywords" placeholder="请输入搜索关键词！" id="newinput"/ >
+				<i class="iconfont icon-guanbi2 is-null j-is-null"></i>
+			</div>
+			<button type="submit" class="btn-submit">搜索</button>
+		</div>
+		</form>
+	</section>
+	<section class="search-con">
+		<div class="swiper-scroll history-search">
+			<div class="swiper-wrapper">
+			<div class="swiper-slide">
+		<p>
+			<label class="fl">热门搜索</label>
+		</p>
+		<ul class="hot-search a-text-more">
+						<li class="w-3"><a href="category_goods.html"><span>美国</span></a></li>
+						<li class="w-3"><a href="category_goods.html"><span>新生婴儿</span></a></li>
+					</ul>
+		<p class="hos-search">
+			<label class="fl">最近搜索</label>
+			<span class="fr" onclick="javascript:clearHistroy();"><i class="iconfont icon-xiao10 is-xiao10 jian-top fr"></i></span>
+		</p>
+		
+			<ul class="hot-search a-text-more a-text-one" id="search_histroy">
+			</ul>
+			</div>
+			</div>
+			<div class="swiper-scrollbar"></div>
+		</div>
+	</section>
+	<footer class="close-search j-close-search">
+		点击关闭
+	</footer>
+</div>
+<script type="text/javascript">
+//设置cookie
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+function clearHistroy(){
+	setCookie('ECS[keywords]', '', -1);
+	document.getElementById("search_histroy").style.visibility = "hidden";
+}
+</script>
+<script type="text/javascript" src="/h5/themes/default/statics/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/h5/themes/default/statics/js/swiper.min.js"></script>
+<script type="text/javascript" src="/h5/themes/default/statics/js/ectouch.js"></script>
+<script type="text/javascript" src="/h5/data/assets/js/jquery.json.js"></script>
+<script type="text/javascript" src="/h5/themes/default/statics/js/jquery-ui-1.10.1.custom.min.js"></script>
+<script type="text/javascript" src="/h5/themes/default/statics/js/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript" src="/h5/themes/default/statics/js/jquery.scrollUp.min.js"></script>
+<script type="text/javascript" src="/h5/themes/default/statics/js/jquery.lazyload.min.js"></script>
+<script type="text/javascript" src="/h5/data/assets/js/common.js"></script>
+<script type="text/javascript" src="/h5/data/assets/js/jquery.more.js"></script>
+<script type="text/javascript">
+var pageNo = 1;		// 当前页码
+var pageSize = 16;	// 每页显示条数
+var load = true;	// 是否继续加载
+var lock = false;	// 加载锁
+
+$(function() {
+
+	$(window).scroll(function() {
+	    if ($(window).scrollTop() == $(document).height() - $(window).height()) {	// 是否滚动至底部
+	    	loadGoods();
+	    }
+	});
+		//第一次加载
+    $.ajax({
+        type: "post",
+        url: "/h5/queryRecommendGoodsPage",
+        data: {
+            pageNo: pageNo,
+            pageSize: pageSize
+        },
+        success: function(res){
+
+            if (res.retcode) {
+                pageNo++;
+                if (res.data.length < pageSize)
+                    load = false;
+                var content = '';
+                console.log(JSON.stringify(res.data));
+                // alert(JSON.stringify(res.data));
+                $(res.data).each(function(i, item) {
+                    var ucomproductid = String(item.ucomproductid);
+
+                    content += '<li>'
+                    content += '<div class="product-div">'
+                    content += '<a class="product-div-link" href="goods/'+ucomproductid+' "></a>'
+                    content += '<img class="product-list-img" src="'+item.uhomepic+'">'
+                    content += '<div class="product-text">'
+                    content += '<h4 >'+item.ualias+'</h4>'
+                    content += '<p class="dis-box p-t-remark">'
+                    content += '<span class="box-flex">库存：'+item.ustock+'</span>'
+                    content += '<span class="box-flex">销量： '+item.usalesnum+'</span>'
+                    content += '</p>'
+                    content += '<p><span class="p-price t-first "><span>￥'+item.uprice+'元</span><small><del>￥'+item.umarketprice+'元</del></small></span></p>'
+                    content += '<a href="addCart(&quot;54771476838232064&quot;)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>'
+                    content += '</div>'
+                    content += '</div>'
+                    content += '</li>'
+                    /*var ucomproductid = String(item.ucomproductid);
+                    content += '<div class="single_item">';
+                    content += 		'<li class="' + (i % 2 == 0 ? 'fl' : 'fr') + '">';
+                    content += 			'<div class="product-div"  >';
+                    content += 				'<a href="goods/' + ucomproductid + '">';
+                    content += 					'<img class="lazy" style="170px"  src="' + item.uhomepic + '" onerror="this.src=\'themes/default/images/not_goods.png\'" alt="' + item.ualias + '">';
+                    content += 				'</a>';
+                    content += 				'<a href="goods/' + item.ucomproductid + '"><h4>' + item.ualias + '</h4></a>';
+                    content += 				'<p><span>￥' + item.uprice + '元</span></p>';
+                    content += 			'</div>';
+                    content += 		'</li>';
+                    content += '</div>';*/
+                })
+                $('#J_ItemList').append(content);
+            }
+        },
+        complete: function(){
+            lock = false;
+        }
+    })
+
+
+})
+
+function loadGoods() {
+	if (load && !lock) {
+		// debugger;
+		lock = true;
+   		$.ajax({
+       		type: "post",
+       		url: "/h5/queryRecommendGoodsPage",
+       		data: {
+       			pageNo: pageNo,
+       			pageSize: pageSize
+       		},
+       		success: function(res){
+               	if (res.retcode) {
+               		pageNo++;
+               		if (res.data.length < pageSize)
+               			load = false;
+               		var content = '';
+
+                    console.log(JSON.stringify(res.data));
+                    // alert(JSON.stringify(res.data));
+                    $(res.data).each(function(i, item) {
+
+                        var ucomproductid = String(item.ucomproductid);
+                        content += '<li>'
+                        content += '<div class="product-div">'
+                        content += '<a class="product-div-link" href="goods/'+ucomproductid+' "></a>'
+                        content += '<img class="product-list-img" src="'+item.uhomepic+'">'
+                        content += '<div class="product-text">'
+                        content += '<h4 >'+item.ualias+'</h4>'
+                        content += '<p class="dis-box p-t-remark">'
+                        content += '<span class="box-flex">库存：'+item.ustock+'</span>'
+                        content += '<span class="box-flex">销量： '+item.usalesnum+'</span>'
+                        content += '</p>'
+                        content += '<p><span class="p-price t-first "><span>￥'+item.uprice+'元</span><small><del>￥'+item.umarketprice+'元</del></small></span></p>'
+                        content += '<a href="addCart(&quot;54771476838232064&quot;)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>'
+                        content += '</div>'
+                        content += '</div>'
+                        content += '</li>'
+             			/*content += '<div class="single_item">';
+           				content += 		'<li class="' + (i % 2 == 0 ? 'fl' : 'fr') + '">';
+       					content += 			'<div class="product-div"  >';
+       					content += 				'<a href="goods/' + ucomproductid + '">';
+       				  	content += 					'<img class="lazy" style="170px" src="' + item.uhomepic + '" onerror="this.src=\'themes/default/images/not_goods.png\'" alt="' + item.ualias + '">';
+       					content += 				'</a>';
+       					content += 				'<a href="goods/' + item.ucomproductid + '"><h4>' + item.ualias + '</h4></a>'; 
+       					content += 				'<p><span>￥' + item.uprice + '元</span></p>';
+       					content += 			'</div>';
+       					content += 		'</li>'; 
+       					content += '</div>';*/
+            		})
+            		$('#J_ItemList').append(content);
+               	}
+           	},
+           	complete: function(){
+           		lock = false;
+           	}
+       	})
+	}
+}
+
+$(function($) {
+	var mySwiper = new Swiper('.banner-first', {
+		pagination: '.banner-first-pagination',
+		loop: false,
+		grabCursor: true,
+		paginationClickable: true,
+		autoplayDisableOnInteraction: false,
+		autoplay: 3000
+	});
+});
+/*立即关注*/
+if ($(".index-weixin-box").hasClass("index-weixin-box")) {
+	$(".index-banner").css({
+		"marginTop": "0rem",
+	})
+} else {
+	$(".index-banner").css({
+		"marginTop": "0rem",
+	})
+}
+</script>
+</body>
+</html>

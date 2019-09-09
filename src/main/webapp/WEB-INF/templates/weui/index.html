@@ -1,0 +1,806 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>港货灵首页</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
+	<link rel="stylesheet" href="/weui/css/weuix.min.css">
+
+	<link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/weui/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/weui/css/swiper.min.css">
+	<link rel="stylesheet" href="/weui/css/main.css">
+	<link rel="stylesheet" href="/weui/css/index.css">
+	<link rel="stylesheet" href="/weui/css/theme-color.css">
+	<link rel="stylesheet" href="/weui/css/style.css">
+	<style>
+		.ware-title{
+			word-break:break-all;
+		}
+
+
+		.venSPB1X {
+			width: 1.56rem;
+			height: 1.56rem;
+			margin: .06rem;
+			border-radius: 2px;
+			background-color: #fafafa;
+		}
+		img {
+			border: 0;
+			max-width: 100%;
+			width: auto;
+			height: auto;
+			vertical-align: top;
+		}
+	</style>
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+<header class="zyw-header">
+	<div class="zyw-container white-color">
+		<!--<div class="head-l" navbar-toggle>
+			<i class="head-l-svg" aria-hidden="true"></i>
+		</div>-->
+		<div class="icon icon-81 f25 iblock" navbar-toggle></div>
+		<div class="head-search" style="position: absolute;left: 15%;"  onclick="window.open('/h5/searchPage','_self')">
+			<i class="fa fa-search" aria-hidden="true"></i> <input type="text" placeholder="输入您当前要搜索的商品"
+					 class="white-color">
+		</div>
+		<div class="head-r">
+			<a href="/h5/cart/we">
+				<i class="head-r-svg" aria-hidden="true"></i><i class="head-length" th:text="${cartCount}"></i>
+			</a>
+		</div>
+	</div>
+</header>
+
+
+<div class="weui-navs" navbar>
+	<ul>
+		<!--<li class="nav-item">
+			<a href="javascript:void(0);"><i class="icon nav-icon icon-49"></i><span>网站配置</span><i class="icon nav-more"></i></a>
+			<ul>
+				<li><a href="javascript:void(0);"><span>网站设置</span></a></li>
+				<li><a href="javascript:void(0);"><span>友情链接</span></a></li>
+				<li><a href="javascript:void(0);"><span>分类管理</span></a></li>
+				<li><a href="javascript:void(0);"><span>系统日志</span></a></li>
+			</ul>
+		</li>
+		<li class="nav-item">
+			<a href="javascript:void(0);"><i class="icon nav-icon icon-49"></i><span>文章管理</span><i class="icon nav-more"></i></a>
+			<ul>
+				<li><a href="javascript:void(0);"><span>站内新闻</span></a></li>
+				<li><a href="javascript:void(0);"><span>站内公告</span></a></li>
+				<li><a href="javascript:void(0);"><span>登录日志</span></a></li>
+			</ul>
+		</li>-->
+		<li class="nav-item">
+			<a href="/h5/home"><i class="icon nav-icon icon-49"></i><span>个人中心</span></a>
+
+		</li>
+		<li class="nav-item">
+			<a href="/h5/order/weuiOrderList"><i class="icon nav-icon icon-49"></i><span>全部订单</span></a>
+		</li>
+		<li class="nav-item">
+			<a href="/h5/wallet/weuiaccount_detail"><i class="icon nav-icon icon-49"></i><span>钱包</span></a>
+		</li>
+		<!--<li class="nav-item">
+			<a href="javascript:void(0);"><i class="icon nav-icon icon-49"></i><span>新年愿望</span><i class="icon nav-more"></i></a>
+			<ul>
+				<li><a href="javascript:void(0);"><span>工作顺利</span></a></li>
+				<li><a href="javascript:void(0);"><span>事事顺心</span></a></li>
+				<li><a href="javascript:void(0);"><span>万事如意</span></a></li>
+			</ul>
+		</li>-->
+	</ul>
+</div>
+
+
+
+
+<footer class="zyw-footer">
+	<div class="zyw-container white-bgcolor clearfix">
+		<div class="weui-tabbar">
+			<a href="/h5/weindex" class="weui-tabbar__item weui-bar__item--on">
+				<div class="weui-tabbar__icon">
+					<img src="/weui/img/svg/foot-1-1.svg" alt="">
+				</div>
+				<p class="weui-tabbar__label">首页</p>
+			</a>
+			<a href="/h5/category/weui" class="weui-tabbar__item">
+				<div class="weui-tabbar__icon">
+					<img src="/weui/img/svg/foot-2.svg" alt="">
+				</div>
+				<p class="weui-tabbar__label">分类</p>
+			</a>
+			<!--<a href="find.html" class="weui-tabbar__item">
+				<div class="weui-tabbar__icon">
+					<img src="/weui/img/svg/foot-3.svg" alt="">
+				</div>
+				<p class="weui-tabbar__label">发现</p>
+			</a>-->
+			<a href="/h5/cart/we" class="weui-tabbar__item">
+				<!--<span class="weui-badge" style="position: absolute; top: -.4em; right: 1em;" th:if="${cartCount == null || cartCount == 0}" ></span>
+				<span class="weui-badge" style="position: absolute; top: -.4em; right: 1em;" th:if="${cartCount != null && cartCount != 0}" th:text="${cartCount}"></span>-->
+				<span th:classappend="${cartCount != null && cartCount !=0} ? 'weui-badge':''" style="position: absolute;top: -.4em;right: 1em;" th:text="${cartCount != null && cartCount !=0}? ${cartCount}:''"></span>
+				<div class="weui-tabbar__icon">
+					<img src="/weui/img/svg/foot-4.svg" alt="">
+				</div>
+				<p class="weui-tabbar__label">购物车</p>
+			</a>
+			<a href="/h5/home" class="weui-tabbar__item">
+				<div class="weui-tabbar__icon">
+					<img src="/weui/img/svg/foot-5.svg" alt="">
+				</div>
+				<p class="weui-tabbar__label">我的</p>
+			</a>
+		</div>
+	</div>
+</footer>
+<section class="zyw-container">
+	<div class="swiper-container">
+		<div class="swiper-wrapper"  >
+			<div class="swiper-slide" th:each="img : ${slideshowHome}">
+				<a th:if="${img?.ustate eq '1'}" th:href="${'/h5/item/'+img.uinfoid}">
+					<img  style="height: 100%;" th:src="${img.uhomepic}"  src='http://shop.diqiucunmall.cn/h5/data/attached/afficheimg/1475947014493634167.png' border='0' />
+				</a>
+				<a th:if="${img?.ustate eq '2'}" th:href="${'/h5/category/goods/'+img.uinfoid}">
+					<img style="height: 100%;"  th:src="${img.uhomepic}"  src='http://shop.diqiucunmall.cn/h5/data/attached/afficheimg/1475947014493634167.png' />
+				</a>
+				<a th:if="${img?.ustate eq '0'}" th:href="${#strings.isEmpty(img?.uhref)||img?.uhref==null} ? '#':${img?.uhref} ">
+					<img style="height: 100%;"  th:src="${img.uhomepic}"  src='http://shop.diqiucunmall.cn/h5/data/attached/afficheimg/1475947014493634167.png' />
+				</a>
+			</div>
+
+		</div>
+		<!-- 如果需要分页器 -->
+		<div class="swiper-pagination"></div>
+	</div>
+	<div class="index-class white-bgcolor" >
+		<div class="weui-flex">
+			<div class="weui-flex__item">
+				<a href="/h5/newproduct">
+					<div class="index-class-img">
+						<img src="/weui/img/yqyl.png" alt="">
+					</div>
+					<p class="index-class-text">新品专区</p>
+				</a>
+			</div>
+			<div class="weui-flex__item">
+				<a href="/h5/freeproduct">
+					<div class="index-class-img">
+						<img src="/weui/img/cjfl.png" alt="">
+					</div>
+					<p class="index-class-text">免费专区</p>
+				</a>
+			</div>
+			<div class="weui-flex__item" th:if="${ucustomerid != '10000032'}">
+				<a href="/h5/integralproduct">
+					<div class="index-class-img">
+						<img src="/weui/img/cjfl.png" alt="">
+					</div>
+					<p class="index-class-text">积分专区</p>
+				</a>
+			</div>
+			<!--<div class="weui-flex__item" th:if="${ucustomerid != '10000032'}">
+				<a href="/weui/seckill.html">
+					<div class="index-class-img">
+						<img src="/weui/img/kbsc.png" alt="">
+					</div>
+					<p class="index-class-text">秒杀专区</p>
+				</a>
+			</div>-->
+			<div class="weui-flex__item" th:if="${ucustomerid eq '10000032'}">
+				<a href="/h5/category/weui?uproducttypeid=72578626654318592" >
+					<div class="index-class-img">
+						<img style="width: 48px;" src="http://m.360buyimg.com/mobilecms/s120x120_jfs/t1/27962/13/1445/4620/5c120b24Edd8c34fe/43ea8051bc50d939.png" alt="">
+					</div>
+					<p class="index-class-text">港货灵生鲜</p>
+				</a>
+			</div>
+			<div class="weui-flex__item" th:if="${ucustomerid eq '10000032'}">
+				<a href="/weui/lvyou.html">
+					<div class="index-class-img">
+						<img style="width: 48px;" src="/weui/img/lvyou.png" alt="">
+					</div>
+					<p class="index-class-text">港货灵旅游</p>
+				</a>
+			</div>
+
+			<div class="weui-flex__item" th:if="${ucustomerid != '10000032'}">
+				<a href="/h5/factory/registPage">
+					<div class="index-class-img">
+						<img src="/weui/img/sjtx.png" alt="">
+					</div>
+					<p class="index-class-text">厂家入驻</p>
+				</a>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="index-class white-bgcolor" th:if="${ucustomerid eq '10000032'}">
+		<div class="weui-flex">
+			<div class="weui-flex__item">
+				<a href="/weui/jfsc.html">
+					<div class="index-class-img">
+						<img  style="width: 48px;" src="/weui/img/jfdh.png" alt="">
+					</div>
+					<p class="index-class-text">积分商城</p>
+				</a>
+			</div>
+			<div class="weui-flex__item">
+				<a href="/weui/yhhd.html">
+					<div class="index-class-img">
+						<img style="width: 48px;" src="/weui/img/yhhd.png" alt="">
+					</div>
+					<p class="index-class-text">优惠活动</p>
+				</a>
+			</div>
+			<div class="weui-flex__item">
+				<a href="/weui/tuangou.html">
+					<div class="index-class-img">
+						<img style="width: 48px;" src="/weui/img/tuangou.png" alt="">
+					</div>
+					<p class="index-class-text">团购专区</p>
+				</a>
+			</div>
+			<div class="weui-flex__item">
+				<a href="/weui/zhengshu.html">
+					<div class="index-class-img">
+						<img style="width: 48px" src="/weui/img/zhengshu.png" alt="">
+					</div>
+					<p class="index-class-text">授权证书</p>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="index-news">
+		<div class="news-cont white-bgcolor">
+			<strong>最新<em>资讯</em>：
+			</strong>
+			<div class="infoBox">
+				<ul class="swiper-wrapper">
+					<li class="swiper-slide" th:each="item :${newsList}" >
+						<a href="#" th:href="${'/h5/news/newsDetail/'+item?.newsid}">
+							<span th:text="${item?.title}"><i>热</i>港货灵商城微信版上线啦！</span>
+						</a>
+					</li>
+					<!--<li class="swiper-slide">
+						<a href="#">
+							<span>港货灵商城微信版上线啦2！</span>
+						</a>
+					</li>
+					<li class="swiper-slide">
+						<a href="#">
+							<span>马上就要开学了，书包买买买！</span>
+						</a>
+					</li>-->
+				</ul>
+			</div>
+			<ul>
+				<li>
+					<a href=""></a>
+				</li>
+			</ul>
+			<a href="/h5/news/newsList" class="news-more">更多</a>
+		</div>
+	</div>
+	<!--<div class="index-seckill white-bgcolor" th:if="${ucustomerid != '10000032'}">
+		<div class="seckill-hd">
+				<span class="seckill-hd-title red-color"><i class="fa fa-clock-o" aria-hidden="true"></i>
+					限时秒杀</span> <strong>10点场</strong>
+			<div id="time"></div>
+			<div class="seckill-hd-r">
+				秒抢好货 <i class="fa fa-angle-right theme-color" aria-hidden="true"></i>
+			</div>
+		</div>
+		<div class="seckill-bd">
+			<div class="seckill-wares">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide seckill-ware" th:each="item:${newlist}">
+						<a href="item.html" th:href="${'/h5/item/'+item.ucomproductid}">
+							<img th:src="${item.uhomepic}"  src="https://m.360buyimg.com/n1/jfs/t15787/353/109633918/16701/5a8390ef/5a27ae6dNc530b5bb.jpg!q70.jpg"
+									alt="">
+							<p class="red-color">
+								￥销售价:<strong th:text="${item.uprice}">3800.00</strong>
+							</p>
+							<p class="red-color" th:if="${ucustomerid != '10000032'}">
+								￥会员价:<strong th:text="${item.uvipprice}">3800.00</strong>
+							</p>
+							<del th:if="${ucustomerid != '10000032'}" th:text="'￥市场价:'+${item.umarketprice}">￥12000.00</del>
+						</a>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>-->
+	<div class="index-show clearfix">
+		<!--<span th:text="${#lists.size(categoryHome)%6}">444</span>-->
+
+		<div th:if="${#lists.size(categoryHome)%3 == 0}" th:each="category : ${categoryHome}">
+			<div class="col-sm-12 col-xs-12"  th:if="${categoryStat.index%6 == 0}"  >
+				<a class="sc-gPEVay jZmIRd" th:if="${category.ustate eq '2'}" th:href="${'/h5/category/goods/'+category.uinfoid}"  href="">
+					<img  th:src="${category.uhomepic}" src="https://s2.juancdn.com/jas/180125/a/0/5a6991598150a12f8a70b929_1080x292.gif" alt="">
+				</a>
+				<a class="sc-gPEVay jZmIRd" th:if="${category.ustate eq '1'}" th:href="${'/h5/item/'+category.uinfoid}"  href="">
+					<img   src="https://s2.juancdn.com/jas/180125/a/0/5a6991598150a12f8a70b929_1080x292.gif" alt="">
+				</a>
+			</div>
+			<!--<span th:text="${categoryStat.index%3 == 0}">444</span>-->
+			<div class="col-sm-6 col-xs-6"  th:if="${(categoryStat.index%6 == 1) || (categoryStat.index%6 == 2)}" >
+				<a class="sc-gPEVay jZmIRd" th:if="${category.ustate eq '2'}" th:href="${'/h5/category/goods/'+category.uinfoid}"  href="">
+					<img  th:src="${category.uhomepic}" src="https://s2.juancdn.com/jas/180125/a/0/5a6991598150a12f8a70b929_1080x292.gif" alt="">
+				</a>
+				<a class="sc-gPEVay jZmIRd" th:if="${category.ustate eq '1'}" th:href="${'/h5/item/'+category.uinfoid}"  href="">
+					<img  th:src="${category.uhomepic}" src="https://s2.juancdn.com/jas/180125/a/0/5a6991598150a12f8a70b929_1080x292.gif" alt="">
+				</a>
+			</div>
+			<div class="col-sm-4 col-xs-4" th:if="${categoryStat.index %6 == 3  || (categoryStat.index%6 ==4)|| (categoryStat.index%6 ==5)}">
+				<a class="sc-gPEVay jZmIRd" th:if="${category.ustate eq '2'}" th:href="${'/h5/category/goods/'+category.uinfoid}"  href="">
+					<img  th:src="${category.uhomepic}" src="https://s2.juancdn.com/jas/180125/a/0/5a6991598150a12f8a70b929_1080x292.gif" alt="">
+				</a>
+				<a class="sc-gPEVay jZmIRd" th:if="${category.ustate eq '1'}" th:href="${'/h5/item/'+category.uinfoid}"  href="">
+					<img  th:src="${category.uhomepic}" src="https://s2.juancdn.com/jas/180125/a/0/5a6991598150a12f8a70b929_1080x292.gif" alt="">
+				</a>
+			</div>
+		</div>
+		<div th:if="${#lists.size(categoryHome)%5 == 0}" th:each="category : ${categoryHome}">
+			<div class="col-sm-12 col-xs-12"  th:if="${categoryStat.index%5 == 0}"  >
+				<a class="sc-gPEVay jZmIRd" th:if="${category.ustate eq '2'}" th:href="${'/h5/category/goods/'+category.uinfoid}"  href="">
+					<img  th:src="${category.uhomepic}" src="https://s2.juancdn.com/jas/180125/a/0/5a6991598150a12f8a70b929_1080x292.gif" alt="">
+				</a>
+				<a class="sc-gPEVay jZmIRd" th:if="${category.ustate eq '1'}" th:href="${'/h5/item/'+category.uinfoid}"  href="">
+					<img  th:src="${category.uhomepic}" src="https://s2.juancdn.com/jas/180125/a/0/5a6991598150a12f8a70b929_1080x292.gif" alt="">
+				</a>
+			</div>
+			<!--<span th:text="${categoryStat.index%3 == 0}">444</span>-->
+			<div class="col-sm-6 col-xs-6"  th:if="${categoryStat.index%5 != 0}" >
+				<a class="sc-gPEVay jZmIRd" th:if="${category.ustate eq '2'}" th:href="${'/h5/category/goods/'+category.uinfoid}"  href="">
+					<img  th:src="${category.uhomepic}" src="https://s2.juancdn.com/jas/180125/a/0/5a6991598150a12f8a70b929_1080x292.gif" alt="">
+				</a>
+				<a class="sc-gPEVay jZmIRd" th:if="${category.ustate eq '1'}" th:href="${'/h5/item/'+category.uinfoid}"  href="">
+					<img  th:src="${category.uhomepic}" src="https://s2.juancdn.com/jas/180125/a/0/5a6991598150a12f8a70b929_1080x292.gif" alt="">
+				</a>
+			</div>
+			<!--<div class="col-sm-6 col-xs-6" th:if="${categoryStat.index == 2}">
+				<a class="sc-gPEVay jZmIRd" href="">
+					<img src="https://goods8.juancdn.com/jas/180125/f/7/5a6995588150a12cfc124a62_540x280.png?imageMogr2/quality/85!/format/png"
+						 alt="">
+				</a>
+			</div>-->
+		</div>
+		<div th:if="${#lists.size(categoryHome)%4 == 0}" th:each="category : ${categoryHome}">
+			<div class="col-sm-12 col-xs-12"  th:if="${(categoryStat.index)%4 == 0} "  >
+				<a class="sc-gPEVay jZmIRd" th:if="${category.ustate eq '2'}" th:href="${'/h5/category/goods/'+category.uinfoid}"  href="">
+					<img  th:src="${category.uhomepic}" src="https://s2.juancdn.com/jas/180125/a/0/5a6991598150a12f8a70b929_1080x292.gif" alt="">
+				</a>
+				<a class="sc-gPEVay jZmIRd" th:if="${category.ustate eq '1'}" th:href="${'/h5/item/'+category.uinfoid}"  href="">
+					<img  th:src="${category.uhomepic}" src="https://s2.juancdn.com/jas/180125/a/0/5a6991598150a12f8a70b929_1080x292.gif" alt="">
+				</a>
+			</div>
+			<div class="col-sm-4 col-xs-4" th:if="${(categoryStat.index)%4 != 0}">
+				<a class="sc-gPEVay jZmIRd" th:if="${category.ustate eq '2'}" th:href="${'/h5/category/goods/'+category.uinfoid}"  href="">
+					<img  th:src="${category.uhomepic}" src="https://s2.juancdn.com/jas/180125/a/0/5a6991598150a12f8a70b929_1080x292.gif" alt="">
+				</a>
+				<a class="sc-gPEVay jZmIRd" th:if="${category.ustate eq '1'}" th:href="${'/h5/item/'+category.uinfoid}"  href="">
+					<img  th:src="${category.uhomepic}" src="https://s2.juancdn.com/jas/180125/a/0/5a6991598150a12f8a70b929_1080x292.gif" alt="">
+				</a>
+			</div>
+		</div>
+
+		<!--<div class="col-sm-12 col-xs-12"   >
+			<a class="sc-gPEVay jZmIRd" href="">
+				<img src="https://s2.juancdn.com/jas/180125/a/0/5a6991598150a12f8a70b929_1080x292.gif" alt="">
+			</a>
+		</div>
+		<div class="col-sm-6 col-xs-6">
+			<a class="sc-gPEVay jZmIRd" href="">
+				<img src="https://goods8.juancdn.com/jas/180125/f/d/5a6991fda9fcf8ad18749379_540x280.png?imageMogr2/quality/85!/format/png"
+						alt="">
+			</a>
+		</div>
+		<div class="col-sm-6 col-xs-6">
+			<a class="sc-gPEVay jZmIRd" href="">
+				<img
+						src="https://goods8.juancdn.com/jas/180125/f/7/5a6995588150a12cfc124a62_540x280.png?imageMogr2/quality/85!/format/png"
+						alt="">
+			</a>
+		</div>
+		<div class="col-sm-4 col-xs-4">
+			<a class="sc-gPEVay jZmIRd" href="">
+				<img src="https://m.360buyimg.com/n1/jfs/t15787/353/109633918/16701/5a8390ef/5a27ae6dNc530b5bb.jpg!q70.jpg"
+						alt="">
+			</a>
+		</div>
+		<div class="col-sm-4 col-xs-4">
+			<a class="sc-gPEVay jZmIRd" href="">
+				<img
+						src="https://goods8.juancdn.com/jas/180125/e/c/5a699928a9fcf805074b5461_360x304.png?imageMogr2/quality/85!/format/png"
+						alt="">
+			</a>
+		</div>
+		<div class="col-sm-4 col-xs-4">
+			<a class="sc-gPEVay jZmIRd" href="">
+				<img
+						src="https://goods1.juancdn.com/jas/180125/1/a/5a699957a9fcf80b4d353e8b_360x304.png?iopcmd=convert&Q=85&dst=png"
+						alt="">
+			</a>
+		</div>-->
+	</div>
+	<div class="index-wares">
+		<div class="wares-title">
+			<a href="/h5/category/goods/" style="color: transparent;
+-webkit-text-stroke: 1px black;
+letter-spacing: 0.04em;
+">全部商品</a>
+			<!--<img src="http://gw.alicdn.com/tfs/TB1Aw9JSVXXXXXQXXXXXXXXXXXX-1500-68.png" alt="">-->
+		</div>
+		<div class="wares-cont">
+			<!--
+            <div class="find-group1-item mb-625 white-bgcolor">
+                <div class="group1-bd clearfix mystyles">
+                    <div class="pull-left bd-l">
+                        <div class="bd-img">
+                            <img
+                                src="https://img11.360buyimg.com/mobilecms/s100x100_jfs/t18607/245/416101886/491398/5ed65605/5a73c80bNc4fab2ca.jpg!q90!cc_100x100.webp"
+                                alt="">
+                        </div>
+                    </div>
+                    <div class="pull-right bd-r">
+                        <h3 class="bd-title">农家散养土鸡蛋葫芦谭新鲜山林草鸡蛋材质</h3>
+                    </div>
+                    <p class="pricess">
+                        <span class="price-icon">￥</span><span class="font-num">25.8</span>
+                    </p>
+                    <div class="d-main">
+                        <p>免运费</p>
+                        <p>
+                            <span>1513</span>人付款
+                        </p>
+                        <p>潮州</p>
+                    </div>
+                </div>
+                <div class="group1-bd clearfix">
+                    <div class="pull-left bd-l">
+                        <div class="bd-img">
+                            <img
+                                src="https://img11.360buyimg.com/mobilecms/s100x100_jfs/t18607/245/416101886/491398/5ed65605/5a73c80bNc4fab2ca.jpg!q90!cc_100x100.webp"
+                                alt="">
+                        </div>
+                    </div>
+                    <div class="pull-right bd-r">
+                        <h3 class="bd-title">时尚女神节 抢5折优惠券转身变女神 你想要的这里都有时尚女</h3>
+                    </div>
+                    <span class="pull-right pull-buttom bd-intro bd-bottom">1.1万人浏览 2390件宝贝</span>
+                </div>
+            </div>
+             -->
+			<!-- 	<ul>
+					<li>
+						<div class="list-item">
+							<div class="p">
+								<a href="#" title="">
+									<img class="p-pic"
+										src="//img.alicdn.com/img/i4/59388406/O1CN01tKxpHN2Bxzqk1mnXt_!!0-saturn_solar.jpg_100x100.jpg"
+										style="visibility: visible;"><span class="flag c-icon-p4p"></span>
+								</a>
+							</div>
+							<div class="d">
+								<a href="#">
+									<h3 class="d-title">家用电脑椅学生学习写字椅简约书房书桌椅子</h3>
+								</a>
+								<p class="d-price">
+									<em class="h"> <span class="price-icon">￥</span> <span class="font-num">299</span>
+									</em>
+									<del>
+										<span class="price-icon">¥</span><span class="font-num2">758</span>
+									</del>
+								</p>
+								<div class="d-main">
+									<p class="d-freight">免运费</p>
+									<p class="d-num">
+										<span class="font-num">1544</span>人付款
+									</p>
+									<p class="d-area">湖州</p>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="list-item">
+							<div class="p">
+								<a href="#" title="">
+									<img class="p-pic"
+										src="//img.alicdn.com/img/i4/59388406/O1CN01tKxpHN2Bxzqk1mnXt_!!0-saturn_solar.jpg_100x100.jpg"
+										style="visibility: visible;"><span class="flag c-icon-p4p"></span>
+								</a>
+							</div>
+							<div class="d">
+								<a href="#">
+									<h3 class="d-title">家用电脑椅学生学习写字椅简约书房书桌椅子</h3>
+								</a>
+								<p class="d-price">
+									<em class="h"> <span class="price-icon">￥</span> <span class="font-num">299</span>
+									</em>
+									<del>
+										<span class="price-icon">¥</span><span class="font-num2">758</span>
+									</del>
+								</p>
+								<div class="d-main">
+									<p class="d-freight">免运费</p>
+									<p class="d-num">
+										<span class="font-num">1544</span>人付款
+									</p>
+									<p class="d-area">湖州</p>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="list-item">
+							<div class="p">
+								<a href="#" title="">
+									<img class="p-pic"
+										src="//img.alicdn.com/img/i4/59388406/O1CN01tKxpHN2Bxzqk1mnXt_!!0-saturn_solar.jpg_100x100.jpg"
+										style="visibility: visible;"><span class="flag c-icon-p4p"></span>
+								</a>
+							</div>
+							<div class="d">
+								<a href="#">
+									<h3 class="d-title">家用电脑椅学生学习写字椅简约书房书桌椅子</h3>
+								</a>
+								<p class="d-price">
+									<em class="h"> <span class="price-icon">￥</span> <span class="font-num">299</span>
+									</em>
+									<del>
+										<span class="price-icon">¥</span><span class="font-num2">758</span>
+									</del>
+								</p>
+								<div class="d-main">
+									<p class="d-freight">免运费</p>
+									<p class="d-num">
+										<span class="font-num">1544</span>人付款
+									</p>
+									<p class="d-area">湖州</p>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>  -->
+			<ul class="clearfix" id="J_ItemList" >
+			</ul>
+		</div>
+	</div>
+</section>
+<input id="ucustomerid" th:value="${ucustomerid}" hidden>
+
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script src="/weui/js/swiper.min.js"></script>
+<script src="/weui/js/bootstrap.min.js"></script>
+<script src="/weui/js/my.js"></script>
+<script src="/weui/js/zepto.min.js"></script>
+<script src="/weui/js/zepto.weui.js"></script>
+<script src="/weui/js/sidebar.js"></script>
+<script type="text/javascript">
+
+
+    $(function(){
+        $('.nav-item>a').on('click', function () {
+            $(".weui-navs ul ul li").removeClass('active');
+            $('.nav-item').children('ul').hide();
+            if ($(this).next().css('display') == "none") {
+                //展开
+                $('.nav-item').children('ul').hide();
+                $(this).next('ul').show();
+                $(this).parent('li').addClass('nav-show').siblings('li').removeClass('nav-show');
+            } else {
+                //收缩
+                $(this).next('ul').hide();
+                $('.nav-item.nav-show').removeClass('nav-show');
+            }
+        });
+    })
+
+    var sidebarjs = new SidebarJS('navbar');
+
+    var pageNo = 1;		// 当前页码
+    var pageSize = 5;	// 每页显示条数
+    var load = true;	// 是否继续加载
+    var lock = false;	// 加载锁
+
+    // 轮播
+    $(document).ready(function() {
+        // 顶部轮播图
+        var mySwiper = new Swiper('.swiper-container', {
+            // 如果需要分页器
+            autoplay : true,
+            pagination : {
+                el : '.swiper-pagination'
+            }
+        });
+        // 秒杀商品滑动
+        var swiper = new Swiper('.seckill-wares', {
+            slidesPerView : 3.5,
+            spaceBetween : 5,
+            freeMode : true
+        });
+        // 新闻资讯
+        var swiper2 = new Swiper('.infoBox', {
+            autoplay : true,
+            delay : 5000,
+            direction : 'vertical'
+        });
+        var flag = false;
+        //第一次加载
+        $.ajax({
+            type: "post",
+            url: "/h5/queryRecommendGoodsPage",
+            data: {
+                pageNo: pageNo,
+                pageSize: pageSize
+            },
+            success: function(res){
+                if (res.retcode) {
+                    pageNo++;
+                    if (res.data.length < pageSize) {
+                        load = false;
+
+                    }
+                    var content = '';
+                    var ucustomerid = $("#ucustomerid").val();
+                    console.log(JSON.stringify(res.data));
+                    // alert(JSON.stringify(res.data));
+                    $(res.data).each(function(i, item) {
+                        var ucomproductid = String(item.ucomproductid);
+                        content +='<li class="col-sm-6 col-xs-6 ware-box"  style="width: 99.2%">';
+                        content +='<a href="/h5/item/'+ucomproductid+'">';
+                        content +='<div class="ware-img"  style="position: relative; padding: 0px;float: left;width:100%" >';
+
+                        content +='<img style="width: 40%;"src="'+item.uhomepic+'"alt="">';
+                        // content +='<span class="ware-vip">vip专享</span>';
+
+                        content +='<div  class="ware-img" style="position: relative; padding: 0px;float: right;width: 55%">'
+                        content +='<span class="ware-title" style="white-space: normal;" >'+item.ualias+'</span>'
+                        // content +='<p class="ware-des">全网通 64G 深空灰</p>';
+                        content +='<p class="ware-prince theme-color">销售价￥'+item.uprice+'元</p>';
+
+
+                        if (ucustomerid != 10000032) {
+							content +='<p class="ware-prince red-color">会员价￥'+item.uvipprice+'元</p>';
+							if(!item.umarketprice){
+								item.umarketprice = item.uprice;
+							}
+							content +='<del class="ware-prince">市场价￥'+item.umarketprice+'元</del>';
+						}
+                        content +='<p class="ware-prince theme-color">销量:'+item.usalesnum+'</p>';
+                        content +='</div>';
+                        content +='</div>';
+                        content +='</a>';
+                        content +='</li>';
+
+
+                    })
+                    $('#J_ItemList').append(content);
+
+                    flag = true;
+                }
+            },
+            complete: function(){
+                lock = false;
+            }
+        });
+
+
+		$(window).scroll(function() {
+			if ($(window).scrollTop() == $(document).height() - $(window).height()) {	// 是否滚动至底部
+				if (flag) {
+				loadGoods();
+				}
+			}
+		});
+
+    })
+
+
+
+
+
+
+    function loadGoods() {
+        if (load && !lock) {
+            // debugger;
+            lock = true;
+            $.ajax({
+                type: "post",
+                url: "/h5/queryRecommendGoodsPage",
+                data: {
+                    pageNo: pageNo,
+                    pageSize: pageSize
+                },
+                success: function(res){
+                    if (res.retcode) {
+                        pageNo++;
+                        if (res.data.length < pageSize)
+                            load = false;
+                        var content = '';
+                        var ucustomerid = $("#ucustomerid").val();
+
+                        console.log(JSON.stringify(res.data));
+                        // alert(JSON.stringify(res.data));
+                        $(res.data).each(function(i, item) {
+
+                            var ucomproductid = String(item.ucomproductid);
+                            content +='<li class="col-sm-6 col-xs-6 ware-box"  style="width: 99.2%">';
+                            content +='<a href="/h5/item/'+ucomproductid+'">';
+                            content +='<div class="ware-img"  style="position: relative; padding: 0px;float: left;width:100%" >';
+
+                            content +='<img style="width: 40%;"src="'+item.uhomepic+'"alt="">';
+                            //content +='<span class="ware-vip">vip专享</span>';
+
+                            content +='<div  class="ware-img" style="position: relative; padding: 0px;float: right;width: 55%">'
+                            content +='<span class="ware-title" style="white-space: normal;" >'+item.ualias+'</span>'
+                            // content +='<p class="ware-des">全网通 64G 深空灰</p>';
+                            content +='<p class="ware-prince theme-color">销售价￥'+item.uprice+'元</p>';
+
+
+                            if (ucustomerid != 10000032) {
+                                content +='<p class="ware-prince red-color">会员价￥'+item.uvipprice+'元</p>';
+                                if(!item.umarketprice){
+                                    item.umarketprice = item.uprice;
+                                }
+                                content +='<del class="ware-prince">市场价￥'+item.umarketprice+'元</del>';
+                            }
+
+
+                            content +='<p class="ware-prince theme-color">销量:'+item.usalesnum+'</p>';
+
+                            /*
+                                                        content +='<p class="ware-prince red-color">会员价￥'+item.uvipprice+'元</p>';
+                                                        if(!item.umarketprice){
+                                                            item.umarketprice = item.uprice;
+                                                        }
+                                                        content +='<del class="ware-prince">市场价￥'+item.umarketprice+'元</del>';*/
+                            content +='</div>';
+                            content +='</div>';
+                            content +='</a>';
+                            content +='</li>';
+
+                        })
+                        $('#J_ItemList').append(content);
+                    }
+                },
+                complete: function(){
+                    lock = false;
+                }
+            })
+        }
+    }
+
+</script>
+
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var uloginname = /*[[${user?.uloginname}]]*/ 'Sebastian';
+    /*]]>*/
+    if (uloginname.length > 20) {
+        bindLoginname();
+
+    }
+
+</script>
+</body>
+</html>

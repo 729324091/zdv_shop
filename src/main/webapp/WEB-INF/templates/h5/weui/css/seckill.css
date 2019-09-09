@@ -1,0 +1,25 @@
+.buttoncolor{
+	background-color: #e02e24;
+}
+.buttoncolor :active {
+    background-color: #179b16; 
+}
+._1pTVFReF{
+	position: relative;
+    height: 100%;
+    width: 8rem;
+    color: #fff;
+    background-color: #f2aba9;
+    border-radius: 6px;
+    font-size: .1rem;
+    font-weight: 700;
+}
+._1HqahKhL{
+	display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    height: 12px;
+}
+.weui-media-box__hd{
+	min-height:100px;
+}

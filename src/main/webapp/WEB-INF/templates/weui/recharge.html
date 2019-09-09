@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>充值页面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/weui/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/weui/css/main.css">
+    <link rel="stylesheet" href="/weui/css/weui.min.css">
+
+    <link rel="stylesheet" href="/weui/css/weuix.min.css">
+    <link rel="stylesheet" href="/weui/css/style.css">
+
+    <!--<link rel="stylesheet" href="/weui/css/home.css">-->
+    <!--<link rel="stylesheet" href="/weui/css/theme-color.css">-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body >
+<header class="wy-header">
+    <div class="wy-header-icon-back">
+        <a href="javascript:window.history.back(-1)" target="_self">
+            <span></span>
+        </a>
+    </div>
+    <div class="wy-header-title">余额充值</div>
+    </div>
+</header>
+
+
+<!--
+<footer class="zyw-footer">
+    <div class="zyw-container white-bgcolor">
+        <div class="weui-tabbar">
+            <a href="/h5/weindex" class="weui-tabbar__item">
+                <div class="weui-tabbar__icon">
+                    <img src="/weui/img/svg/foot-1.svg" alt="">
+                </div>
+                <p class="weui-tabbar__label">首页</p>
+            </a>
+            <a href="/h5/category/weui" class="weui-tabbar__item">
+                <div class="weui-tabbar__icon">
+                    <img src="/weui/img/svg/foot-2.svg" alt="">
+                </div>
+                <p class="weui-tabbar__label">分类</p>
+            </a>
+
+            <a href="/h5/cart/we" class="weui-tabbar__item">
+                &lt;!&ndash;<span class="weui-badge" style="position: absolute; top: -.4em; right: 1em;" th:text="${cartCount}">8</span>&ndash;&gt;
+                <span th:classappend="${cartCount != null && cartCount !=0} ? 'weui-badge':''" style="position: absolute;top: -.4em;right: 1em;" th:text="${cartCount != null && cartCount !=0}? ${cartCount}:''"></span>
+                <div class="weui-tabbar__icon">
+                    <img src="/weui/img/svg/foot-4.svg" alt="">
+                </div>
+                <p class="weui-tabbar__label">购物车</p>
+            </a>
+            <a href="/h5/home" class="weui-tabbar__item weui-bar__item&#45;&#45;on">
+                <div class="weui-tabbar__icon">
+                    <img src="/weui/img/svg/foot-5-1.svg" alt="">
+                </div>
+                <p class="weui-tabbar__label">我的</p>
+            </a>
+        </div>
+    </div>
+</footer>-->
+
+<div class="weui-pay">
+    <div class="weui-pay-inner">
+        <h1 class="weui-pay-title">充值金额(元)</h1>
+        <div class="weui-pay-input"> <strong class="weui-pay-strong">￥</strong>
+            <input type="number" name="money" id="money" class="weui-pay-inputs" placeholder="请输入金额"></div>
+        <!--<div class="weui-pay-intro">最多可输入金额500元</div>-->
+    </div>
+    <p class="weui-pay-info">支付金额给商户</p>
+    <div class="weui-pay-btn">
+        <a href="javascript:pay();" class="weui-btn weui-btn_primary">立即支付</a>
+    </div>
+</div>
+
+<div class="weui-loadmore" style="display: none">
+    <i class="weui-loading"></i>
+    <span class="weui-loadmore-tips">请稍等</span>
+</div>
+
+
+<div class="weui-msg" style="display:none;" id="s1">
+    <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
+    <div class="weui-msg__text-area">
+        <h2 class="weui-msg__title">操作成功</h2>
+        <p class="weui-msg__desc" id="success">内容详情，可根据实际需要安排，如果换行则不超过规定长度，居中展现<a href="javascript:void(0);">文字链接</a></p>
+    </div>
+    <div class="weui-msg__opr-area">
+        <p class="weui-btn-area">
+            <a href="/h5/home" class="weui-btn weui-btn_primary">返回个人中心</a>
+            <!--<a href="javascript:;" class="weui-btn weui-btn_default">辅助操作</a>-->
+        </p>
+    </div>
+    <div class="weui-msg__extra-area">
+
+    </div>
+</div>
+<div class="weui-msg" style="display:none;" id="s2">
+    <div class="weui-msg__icon-area"><i class="weui-icon-warn  weui-icon_msg"></i></div>
+    <div class="weui-msg__text-area">
+        <h2 class="weui-msg__title">操作失败</h2>
+        <p class="weui-msg__desc" id="desc">内容详情，可根据实际需要安排，如果换行则不超过规定长度，居中展现<!--<a href="javascript:void(0);">文字链接</a>--></p>
+    </div>
+    <div class="weui-msg__opr-area">
+        <p class="weui-btn-area">
+            <a href="javascript:window.location.reload();" class="weui-btn weui-btn_primary">重新尝试</a>
+            <a href="/h5/home" class="weui-btn weui-btn_default">返回个人中心</a>
+        </p>
+    </div>
+    <div class="weui-msg__extra-area">
+
+    </div>
+</div>
+
+
+<!--<input id="text" type="hidden" th:value="${path}" value="https://shop.ectouch.cn/ectouch/wsc/?u=35172" style="width:80%" /><br />-->
+<!--<input hidden id="uuserid" th:value="${user?.uuserid}">-->
+
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="/weui/js/qrcode.js"></script>
+<script src="/weui/js/bootstrap.min.js"></script>
+<script src="/weui/js/my.js"></script>
+<script>
+
+
+
+    function pay() {
+        if (isWeiXin()) {
+            window.location.href = "/h5/wallet/recharge?money=" + $("#money").val();
+
+        }/*else{
+            window.location.href = "/h5/user/registVIP?uuserid="+uuserid;
+        }*/
+
+    }
+
+
+
+    function walletpay() {
+        $(".pay-div").css("display", "none");
+        $(".weui-loadmore").css("display", "block");
+        var uuserid = $("#uuserid").val();
+        $.ajax({
+            url:  "/h5/user/walletVIP",
+            // data: "uparentid="+$("#uprovince").val(),
+            type: "post",
+            dataType: "json",
+            success: function (req) {
+                $(".weui-loadmore").css("display", "none");
+
+                if (req.retcode == 1) {
+                    $("#success").html(req.retmsg);
+                    $(".weui-pay").hide();
+                    $("#s1").show();
+                }else{
+                    $(".weui-pay").hide();
+                    $("#desc").html(req.retmsg);
+                    $("#s2").show();
+                    // alert(req.retmsg);
+                }
+            }
+        });
+    }
+    
+    
+    function weixinpay() {
+        $(".pay-div").css("display", "none");
+        $(".weui-loadmore").css("display", "block");
+        var uuserid = $("#uuserid").val()
+        if (isWeiXin()) {
+            window.location.href = "/h5/user/getCode?uuserid="+uuserid;
+
+        }else{
+            window.location.href = "/h5/user/registVIP?uuserid="+uuserid;
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="description" content="港货灵是一套分销系统，港货灵VIP获得超低价购买，VIP推荐用户成为VIP获得100元奖励，推荐用户购买获得利润的40%分成，推荐厂家产品给产品的所有销售的利润的5%分成，成为区域公司获得该区域下所有消费的利润5%分成。是一个最好的系统" />
+		<meta name="keywords" content="港货灵分销，港货灵VIP获得超低价购买" />
+		<title>港货灵</title>
+		<link rel="stylesheet" href="/h5/themes/default/statics/css/ectouch.css" />
+		<script type="text/javascript">
+			var tpl = '/ectouch/wsc/themes/default';
+		</script>
+
+	</head>
+
+	<body style="max-width:640px;">
+		<div id="loading"><img src="/h5/themes/default/statics/img/loading.gif" /></div>
+		<header class="dis-box header-menu b-color color-whie">
+			<a class="" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou"></i></a>
+			<h3 class="box-flex">我的分享</h3>
+			<p><i class="iconfont icon-pailie j-nav-box"></i></p>
+		</header>
+		<div class="j-nav-content">
+			<ul class="dis-box new-footer-box">
+				<li class="box-flex">
+					<a href="/h5/index" class="nav-cont"><i class="nav-box"><img src="/h5/themes/default/statics/img/home.png"></i><span>首页</span></a>
+				</li>
+				<li class="box-flex">
+					<a href="/h5/category/" class="nav-cont"><i class="nav-box"><img src="/h5/themes/default/statics/img/cate.png"></i><span>分类</span></a>
+				<li class="box-flex">
+					<a href="javascript:;" class="nav-cont j-search-input"><i class="nav-box"><img src="/h5/themes/default/statics/img/search.png"></i><span>搜索</span></a>
+				</li>
+				<li class="box-flex">
+					<a href="/h5/cart/" class="nav-cont"><i class="nav-box"><img src="/h5/themes/default/statics/img/flow.png"></i><span>购物车</span></a>
+				</li>
+				<li class="box-flex">
+					<a href="/h5/personal_center/" class="nav-cont"><i class="nav-box"><img src="/h5/themes/default/statics/img/user.png"></i><span>我的</span></a>
+				</li>
+			</ul>
+		</div>
+		<!--<div class="padding-all b-color-f share-cont-box m-top10">
+			<h3 class="my-u-title-size active">我的推荐</h3>
+			<table class="share-table-box">
+				<tr align="center" class="first-tr">
+					<th>等级</th>
+					<th>人数</th>
+					<th>积分分成百分比</th>
+					<th>现金分成百分比</th>
+				</tr>
+				<tr align="center">
+					<td>VIP</td>
+					<td>0</td>
+					<td>60%</td>
+					<td>60%</td>
+				</tr>
+				<tr align="center">
+					<td>普通用户</td>
+					<td>0</td>
+					<td>30%</td>
+					<td>30%</td>
+				</tr>
+				<tr align="center">
+					<td>店铺</td>
+					<td>0</td>
+					<td>10%</td>
+					<td>10%</td>
+				</tr>
+
+			</table>
+		</div>-->
+		<!--<div class="padding-all b-color-f share-cont-box m-top10">
+			<h3 class="my-u-title-size active">我的分成</h3>
+			<table class="share-table-box">
+				<tr align="center" class="first-tr">
+					<th>订单号</th>
+					<th>现金分成</th>
+					<th>积分分成</th>
+					<th>分成模式</th>
+					<th>分成状态</th>
+				</tr>
+				<tr>
+					<td colspan="5" align="center" bgcolor="#ffffff">没有记录</td>
+				</tr>
+			</table>
+		</div>-->
+
+
+		<div class="padding-all b-color-f share-cont-box m-top10">
+
+			<h3 class="my-u-title-size active">分享链接</h3>
+			<!--<span th:text="${path}"></span>-->
+			<!--<p th:text="${path}"></p>-->
+			<input style="width: 100%" id="taokouling" th:value="${path}" value="{{path}}" readonly type="text">
+			<!--<button id="copyCode" class="clipboard" data-clipboard-target="#taokouling" data-clipboard-action="copy">
+				复制淘口令
+			</button>-->
+			<!--<h3 class="my-u-title-size active">分享链接</h3>
+			&lt;!&ndash;<p id="share" hidden >11111111</p>&ndash;&gt;
+			<input type="button" name="anniu1" onClick='copyToClipBoard()' value="复制专题地址和url地址，传给QQ/MSN上的好友">
+			&lt;!&ndash;<button onclick="copyToClipBoard()">copy</button>&ndash;&gt;
+			<input class="clipboard" style="position: absolute;opacity:0;" id="input"  >分享链接</input>-->
+
+		</div>
+
+
+		<div class="padding-all b-color-f share-cont-box m-top10">
+			<h3 class="my-u-title-size active">分享二维码</h3>
+			<div class="share-ewm-box">
+				<div class="share-ewm-box-1">
+					<div  style="width:100%; height:auto;" id="qrcode">
+						<!--<img th:src="${qrcode}"/>-->
+					</div>
+				</div>
+				<p class="text-c col-8 f-02 m-top04">长按扫描二维码</p>
+			</div>
+			<div class="other-login">
+				<h4 class="title-hrbg"><span>点击以下图标分享</span><hr> </h4>
+			</div>
+			<div class="bdsharebuttonbox" data-tag="share_1" style="width:54%;margin:0 auto;">
+				<a class="bds_qzone" data-cmd="qzone" href="#"></a>
+				<a class="bds_tsina" data-cmd="tsina"></a>
+				<a class="bds_bdhome" data-cmd="bdhome"></a>
+				<a class="bds_renren" data-cmd="renren"></a>
+			</div>
+		</div>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/js/qrcode.js"></script>
+		<script type="text/javascript" src="http://www.fndroid.cn/clipboard.min.js"></script>
+		<input id="text" type="hidden" th:value="${path}" value="https://shop.ectouch.cn/ectouch/wsc/?u=35172" style="width:80%" /><br />
+		<script th:inline="javascript">
+            /*<![CDATA[*/
+
+            var path = /*[[${path}]]*/ 'Sebastian';
+
+            /*]]>*/
+
+		</script>
+		<script type="text/javascript">
+            var qrcode = new QRCode(document.getElementById("qrcode"), {
+
+                width: 100,
+                height: 100
+            });
+
+			function makeCode() {
+				var elText = document.getElementById("text");
+
+				if(!elText.value) {
+					alert("Input a text");
+					elText.focus();
+					return;
+				}
+				qrcode.makeCode(elText.value);
+			}
+
+			makeCode();
+
+			$("#text").
+			on("blur", function() {
+				makeCode();
+			}).
+			on("keydown", function(e) {
+				if(e.keyCode == 13) {
+					makeCode();
+				}
+			});
+		</script>
+		<div class="search-div ts-3">
+			<section class="search">
+				<form action="/ectouch/wsc/index.php?m=default&c=category&a=index&u=35172" method="post">
+					<div class="text-all dis-box j-text-all">
+						<a class="a-icon-back j-close-search" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou is-left-font"></i></a>
+						<div class="box-flex input-text">
+							<input class="j-input-text" type="text" name="name" placeholder="请输入搜索关键词！" id="newinput" />
+							<i class="iconfont icon-guanbi2 is-null j-is-null"></i>
+						</div>
+						<button type="submit" class="btn-submit">搜索</button>
+					</div>
+				</form>
+			</section>
+			<section class="search-con">
+				<div class="swiper-scroll history-search">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<p>
+								<label class="fl">热门搜索</label>
+							</p>
+							<ul class="hot-search a-text-more">
+								<li class="w-3">
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E7%BE%8E%E5%9B%BD&u=35172"><span>美国</span></a>
+								</li>
+								<li class="w-3">
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E6%96%B0%E7%94%9F%E5%A9%B4%E5%84%BF&u=35172"><span>新生婴儿</span></a>
+								</li>
+							</ul>
+							<p class="hos-search">
+								<label class="fl">最近搜索</label>
+								<span class="fr" onclick="javascript:clearHistroy();"><i class="iconfont icon-xiao10 is-xiao10 jian-top fr"></i></span>
+							</p>
+
+							<ul class="hot-search a-text-more a-text-one" id="search_histroy">
+								<li>
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E7%BE%8E%E5%9B%BD&u=35172"><span>美国</span></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="swiper-scrollbar"></div>
+				</div>
+			</section>
+			<footer class="close-search j-close-search">
+				点击关闭
+			</footer>
+		</div>
+
+		<script type="text/javascript">
+			//设置cookie
+			function setCookie(cname, cvalue, exdays) {
+				var d = new Date();
+				d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+				var expires = "expires=" + d.toUTCString();
+				document.cookie = cname + "=" + cvalue + "; " + expires;
+			}
+
+			function clearHistroy() {
+				setCookie('ECS[keywords]', '', -1);
+				document.getElementById("search_histroy").style.visibility = "hidden";
+			}
+		</script>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.min.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.json.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/common.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.more.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/utils.js"></script>
+		<script src="/h5/data/assets/swiper/js/jquery.swiper.min.js"></script>
+		<script src="/h5/themes/default/js/ectouch.js"></script>
+		<script src="/h5/themes/default/js/simple-inheritance.min.js"></script>
+		<script src="/h5/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
+		<script src="/h5/data/assets/bootstrap/js/bootstrap.min.js"></script>
+		<script src="/h5/themes/default/js/jquery.scrollUp.min.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/validform.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/ectouch.js"></script>
+		<script language="javascript">
+			var handler = function(e) { //禁止浏览器默认行为
+				e.preventDefault();
+			};
+			/*banner滚动图片*/
+			var swiper = new Swiper('.swiper-container', {
+				pagination: '.swiper-pagination',
+				slidesPerView: 1,
+				loop: true,
+				autoplay: 2000
+			});
+			/*弹出评论层并隐藏其他层*/
+			function openSearch() {
+				document.addEventListener("touchmove", handler, false);
+				$("body").addClass("show-search-div");
+				$(".search-div").css("z-index", "4999");
+				$("input[name='keywords']").focus();
+			}
+
+
+            function copyToClipBoard(){
+               /* var clipBoardContent="";
+                clipBoardContent+=document.title;
+                clipBoardContent+="";
+                clipBoardContent+=this.location.href;
+                clipboardData.setData("Text",clipBoardContent);
+                alert("复制成功，请粘贴到你的QQ/MSN上推荐给你的好友");*/
+
+
+                // var text = document.getElementById("share").innerText;
+                var input = document.getElementById("input");
+                // input.value = text; // 修改文本框的内容
+                input.select(); // 选中文本
+                document.execCommand("copy"); // 执行浏览器复制命令
+                alert("复制成功");
+
+                }
+
+
+
+
+            var clipboard = new Clipboard('.btn');
+            clipboard.on('success', function(e){
+                console.log(e);
+                document.getElementById('copyCode').innerHTML = '复制成功';
+            });
+            clipboard.on('error', function(e){
+                document.getElementById('copyCode').innerHTML = '复制失败，请长按复制';
+            });
+		</script>

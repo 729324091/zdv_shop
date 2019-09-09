@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<title>编辑地址</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+<link rel="stylesheet" href="/weui/lib/weui.min.css">
+<link rel="stylesheet" href="/weui/css/jquery-weui.css">
+<link rel="stylesheet" href="/weui/css/style.css">
+</head>
+<body ontouchstart>
+<!--主体-->
+<header class="wy-header">
+  <a href="javascript:window.history.back(-1)">
+  <div class="wy-header-icon-back" ><span></span></div>
+</a>
+  <div class="wy-header-title" id="title">编辑地址</div>
+</header>
+<div class="weui-content">
+  <div class="weui-cells weui-cells_form wy-address-edit">
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><label class="weui-label wy-lab">收货人</label></div>
+      <div class="weui-cell__bd"><input class="weui-input" id="uname" type="text" th:value="${address?.uname}" pattern="[0-9]*" placeholder=""></div>
+    </div>
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><label class="weui-label wy-lab">手机号</label></div>
+      <div class="weui-cell__bd"><input class="weui-input" id="umobile" th:value="${address?.umobile}" type="number" pattern="[0-9]*" placeholder=""></div>
+    </div>
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><label for="name" class="weui-label wy-lab">所在地区</label></div>
+      <div class="weui-cell__bd"><input class="weui-input" id="address" type="text" th:value="${address}? ${address?.uprovince}+' '+${address?.ucity}+' '+${address?.uarea} : ''" value="湖北省 武汉市 武昌区" readonly="" data-code="420106" data-codes="420000,420100,420106"></div>
+
+    </div>
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><label class="weui-label wy-lab">详细地址</label></div>
+      <div class="weui-cell__bd">
+        <textarea class="weui-textarea" th:text="${address?.udetailaddress}" id="udetailaddress" placeholder=""></textarea>
+      </div>
+    </div>
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><label class="weui-label wy-lab">身份证号</label></div>
+      <div class="weui-cell__bd">
+        <textarea class="weui-textarea" th:text="${address?.ucardid}" id="ucardid" placeholder="身份证号需与收货人对应"></textarea>
+      </div>
+    </div>
+    <div class="weui-cell weui-cell_switch">
+      <div class="weui-cell__bd" >设为默认地址</div>
+      <div class="weui-cell__ft"><input class="weui-switch" type="checkbox"   th:checked="${address?.udefault}" id="udefault" /></div>
+    </div>
+  </div> 
+  <div class="weui-btn-area">
+    <a class="weui-btn weui-btn_primary" id="showTooltips" th:text="${type}? '选择此地址':'保存此地址'">保存此地址</a>
+    <a href="javascript:delAddress() ;" th:href="|/h5/takeAddress/wedel/${address?.utakeaddressid}|" onclick="if (!confirm('您确认要删除该地址吗?')) return false;" class="weui-btn weui-btn_warn">删除此地址</a>
+  </div>
+  <input type="hidden" name="utakeaddressid" value=" " th:value="${address?.utakeaddressid}"id="utakeaddressid" >
+  <input type="hidden" name="type" th:value="${type}"id="type" >
+</div>
+
+<script src="/weui/lib/jquery-2.1.4.js"></script>
+<script src="/weui/lib/fastclick.js"></script>
+<script type="text/javascript" src="/weui/js/jquery.Spinner.js"></script>
+<script>
+  $(function() {
+    FastClick.attach(document.body);
+  });
+</script>
+
+<script src="/weui/js/jquery-weui.js"></script>
+<script src="/weui/js/city-picker.js"></script>
+<script>
+      $("#address").cityPicker({
+        title: "选择出发地",
+        onChange: function (picker, values, displayValues) {
+          // console.log(values, displayValues);
+          console.log(displayValues);
+        }
+      });
+     $("#showTooltips").click(function () {
+         var address = $("#address").val();
+         var ad = address.split(" ");
+          var type = $("#type").val().trim()
+         var utakeaddressid = $('#utakeaddressid').val().trim()
+
+
+         $('#uname').val().trim()
+         $('#umobile').val().trim()
+         $('#udetailaddress').val().trim()
+          $.ajax({
+              type: 'POST',
+              url: '/h5/takeAddress/save',
+              data: {
+                  utakeaddressid: $('#utakeaddressid').val().trim(),
+                  uname: $('#uname').val().trim(),
+                  umobile: $('#umobile').val().trim(),
+                  uprovince: ad[0],
+                  ucity: ad[1],
+                  uarea: ad[2],
+                  udetailaddress: $('#udetailaddress').val().trim(),
+                  ucardid: $('#ucardid').val().trim(),
+                  type: $("#type").val().trim(),
+                  udefault:$("#udefault").prop("checked")
+              },
+              success: function(res) {
+                  if (res.retcode == 3) {
+
+                      window.location.href = "/h5/order/wecheckout?selectAddressid=" + res.data;
+                  }else{
+
+                      alert(res.retmsg);
+                      if (res.retcode == 1) {
+                        window.location.href = "/h5/takeAddress/address_list";
+                      }else{
+                          window.location.href = document.referrer;
+                      }
+                  }
+              }
+          });
+          
+      })
+  
+
+  </script>
+</body>
+</html>

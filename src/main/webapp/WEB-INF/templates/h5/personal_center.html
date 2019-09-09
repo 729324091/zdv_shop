@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="description" content="港货灵是一套分销系统，港货灵VIP获得超低价购买，VIP推荐用户成为VIP获得100元奖励，推荐用户购买获得利润的40%分成，推荐厂家产品给产品的所有销售的利润的5%分成，成为区域公司获得该区域下所有消费的利润5%分成。是一个最好的系统" />
+		<meta name="keywords" content="港货灵分销，港货灵VIP获得超低价购买" />
+		<title>港货灵</title>
+		<link rel="stylesheet" href="/h5/themes/default/statics/css/ectouch.css" />
+		<script type="text/javascript">
+			var tpl = '/ectouch/wsc/themes/default';
+		</script>
+	</head>
+
+	<body style="max-width:640px;">
+		<div id="loading"><img src="/h5/themes/default/statics/img/loading.gif" /></div>
+		<div class="con m-b7">
+			<div class="my-admin-header-box">
+				<div class="admin-bg-box">
+					<div class="my-user-box com-header">
+						<div class="padding-all dis-box">
+							<div class="user-head-img-box">
+								<a href="/h5/personal_info/">
+									<img src="/h5/themes/default/images/idx_user.png" th:src="${session.H5_USER?.ulogo}" onerror="this.src='/h5/themes/default/images/idx_user.png'" /> </a>
+							</div>
+							<div class="user-bg-box"><img src="/h5/themes/default/statics/img/user-1.png"></div>
+							<div class="user-bg2-box"><img src="/h5/themes/default/statics/img/user-2.png"></div>
+							<div class="box-flex">
+								<div class="g-s-i-title-a">
+									<a href="javascript:;">
+										<h4 class="ellipsis-one user-admin-size" th:text="${session.H5_USER?.uloginname}">admin</h4></a>
+									<a href="javascript:;">
+
+										<!--<p class="user-reg-top color-whie f-03"  th:text="${session.H5_USER?.uvip}" >您的等级是 VIP用户 </p>-->
+										<p class="user-reg-top color-whie f-03"  th:if="${session.H5_USER?.uvip}" >您的等级是 VIP用户 </p>
+										<p class="user-reg-top color-whie f-03" th:if="!${session.H5_USER?.uvip}"  >您的等级是 注册用户 </p>
+									</a>
+								</div>
+
+							</div>
+							<div class="user-right-maxbox">
+								<a href="/h5/userinfo/personalInfo">
+									<div class="user-right-box">
+										<i class="iconfont icon-shezhi is-shezi my-user-right-cont" style="display:block;"></i>
+										<p class="my-user-right-cont"><span class="my-t-remark color-whie">设置</span></p>
+									</div>
+								</a>
+								<a href="/h5/msg_list.html">
+									<div class="email-box" style="display:none;"></div>
+									<i class="iconfont icon-youxiang is-youxiang j-yanjing disabled"></i>
+								</a>
+							</div>
+							</ul>
+						</div>
+						</a>
+					</div>
+				</div>
+				<div class="my-nav-box my-shoucang-bg">
+					<div class="user-nav-box n-g-s-i-title-1 dis-box text-center">
+						<a href="/ectouch/wsc/index.php?m=default&c=user&a=collection_list&u=35173" class="box-flex">
+							<h4 class="color-whie ellipsis-one"> 0</h4>
+							<p class="color-whie t-remark3">收藏</p>
+						</a>
+						<a href="/h5/message/" class="box-flex">
+							<h4 class="color-whie ellipsis-one" th:text="${nomessage}"> 0</h4>
+							<p class="color-whie t-remark3">消息</p>
+						</a>
+					</div>
+				</div>
+			</div>
+			<section class="b-color-f my-nav-box m-top10">
+				<a href="/h5/order/orderList">
+					<div class="dis-box padding-all my-bottom">
+						<h3 class="box-flex text-all-span my-u-title-size"><i class="iconfont icon-quanbudingdan is-user-size t-first"></i>我的订单</h3>
+						<div class="box-flex t-goods1 text-right onelist-hidden jian-top">全部订单</div>
+						<span class="t-jiantou"><i class="iconfont icon-jiantou tf-180 jian-top"></i></span>
+					</div>
+				</a>
+				<ul class="user-money-list g-s-i-title-2 dis-box text-center my-dingdan">
+					<a href="/h5/order/nopayList" class="box-flex">
+						<li>
+							<h4 class="ellipsis-one"><i class="iconfont icon-daifukuan my-img-size"></i></h4>
+							<p class="t-remark3">待付款</p>
+							<div class="user-list-num" th:text="${nopay}">
+								0 </div>
+						</li>
+					</a>
+					<a href="/h5/order/waitGoods" class="box-flex">
+						<li>
+							<h4 class="ellipsis-one"><i class="iconfont icon-daifahuo my-img-size"></i></h4>
+							<p class="t-remark3">待收货</p>
+							<div class="user-list-num"  th:text="${wait}">
+								0 </div>
+						</li>
+					</a>
+					<a href="/h5/order/estimate" class="box-flex">
+						<li>
+							<h4 class="ellipsis-one"><i class="iconfont icon-daipingjia my-img-size"></i></h4>
+							<p class="t-remark3">待评价</p>
+							<div class="user-list-num"  th:text="${evaluate}">
+								0 </div>
+						</li>
+					</a>
+					<a href="/h5/aftermarket_list.html" class="box-flex">
+						<li>
+							<h4 class="ellipsis-one"><i class="iconfont icon-p-return my-img-size"></i></h4>
+							<p class="t-remark3">退/换货</p>
+						</li>
+					</a>
+				</ul>
+			</section>
+			<section class="m-top10 my-nav-box b-color-f">
+				<a href="/h5/wallet/account_detail">
+					<div class="dis-box padding-all my-bottom">
+						<h3 class="box-flex text-all-span my-u-title-size"><i class="iconfont icon-qianbao is-user-size my-qianbao-color"></i>我的钱包</h3>
+						<div class="box-flex t-goods1 text-right onelist-hidden jian-top">资金管理</div>
+						<span class="t-jiantou"><i class="iconfont icon-jiantou tf-180 jian-top"></i></span>
+					</div>
+				</a>
+				<ul class="user-money-list gwallet -s-i-title-1 dis-box text-center">
+					<div class="box-flex">
+						<li>
+							<h4 class="ellipsis-one" th:text="${user.ubalance}"> 0.00</h4>
+							<p class="t-remark3">余额</p>
+						</li>
+					</div>
+					<a href="/h5/bonus.html" class="box-flex">
+						<li>
+							<h4 class="ellipsis-one"> 0</h4>
+							<p class="t-remark3">红包</p>
+						</li>
+					</a>
+					<div class="box-flex">
+						<li>
+							<h4 class="ellipsis-one"> 0</h4>
+							<p class="t-remark3">积分</p>
+						</li>
+					</div>
+				</ul>
+			</section>
+			<footer class="b-color-f user-fu-box m-top10">
+				<div class="box text-c b-color-f dis-box">
+					<a href="/h5/service.html" class="box-flex">
+						<i class="iconfont icon-kefu"></i>
+						<p class="f-03 col-6">客服服务</p>
+					</a>
+					</a>
+					<a href="/h5/share/share" class="box-flex">
+						<i class="iconfont icon-fenxiang"></i>
+						<p class="f-03 col-6">我的分享</p>
+					</a>
+
+				</div>
+			</footer>
+
+			<section class="m-top10 my-nav-box">
+				<div class="dis-box padding-all b-color-f">
+					<h3 class="box-flex text-all-span my-u-title-size"><i class="iconfont icon-shijian is-user-size my-shijian-color"></i>浏览记录</h3>
+					<span class="jian-top n-shanchutupian del"><i class="iconfont icon-xiao10 is-xiao10 jian-top"></i><span class="q-title jian-top">清空</span>
+				</div>
+				<section class="goods-shop-pic m-top1px of-hidden padding-all b-color-f">
+					<div style="cursor: grab;" class="g-s-p-con product-one-list1 of-hidden scrollbar-none j-g-s-p-con swiper-container-horizontal">
+						<div class="swiper-wrapper ">
+							<li class="swiper-slide swiper-slide-active">
+								<div class="product-div">
+									<a class="product-div-link"  onclick="clickItem()"></a>
+									<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19923_thumb_G_1442265122424.jpg">
+									<div class="product-text m-top06">
+										<h4>蕴蓓 孕妇洗面奶控油纯天然 孕</h4>
+										<p style="display:none"><span class="p-price t-first ">价格：&#165;48.50</span></p>
+									</div>
+								</div>
+							</li>
+
+							<li class="swiper-slide swiper-slide-next">
+								<div class="product-div">
+									<a class="product-div-link" href="/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=7729&amp;u=35168"></a>
+									<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7729_thumb_G_1441849117738.jpg">
+									<div class="product-text m-top06">
+										<h4>Apple/苹果 配备 Ret</h4>
+										<p style="display:none"><span class="p-price t-first ">价格：¥8758.00</span></p>
+									</div>
+								</div>
+							</li>
+
+							<li class="swiper-slide">
+								<div class="product-div">
+									<a class="product-div-link" href="/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=10207&amp;u=35168"></a>
+									<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/10207_thumb_G_1442261587076.jpg">
+									<div class="product-text m-top06">
+										<h4>德国recaro Perfor</h4>
+										<p style="display:none"><span class="p-price t-first ">价格：¥2799.00</span></p>
+									</div>
+								</div>
+							</li>
+
+							<li class="swiper-slide">
+								<div class="product-div">
+									<a class="product-div-link" href="/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=14299&amp;u=35168"></a>
+									<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201512/thumb_img/14299_thumb_G_1449446511831.jpg">
+									<div class="product-text m-top06">
+										<h4>【2014春夏新品】ECCO </h4>
+										<p style="display:none"><span class="p-price t-first ">价格：¥1799.00</span></p>
+									</div>
+								</div>
+							</li>
+
+							<li class="swiper-slide">
+								<div class="product-div">
+									<a class="product-div-link" href="/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=19923&amp;u=35168"></a>
+									<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19923_thumb_G_1442265122424.jpg">
+									<div class="product-text m-top06">
+										<h4>蕴蓓 孕妇洗面奶控油纯天然 孕</h4>
+										<p style="display:none"><span class="p-price t-first ">价格：¥48.50</span></p>
+									</div>
+								</div>
+							</li>
+
+							<li class="swiper-slide">
+								<div class="product-div">
+									<a class="product-div-link" href="/ectouch/wsc/index.php?m=default&amp;c=goods&amp;a=index&amp;id=19937&amp;u=35168"></a>
+									<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201602/thumb_img/19937_thumb_G_1456248249112.jpg">
+									<div class="product-text m-top06">
+										<h4>妈妈美 孕妇护肤品纯天然套装 </h4>
+										<p style="display:none"><span class="p-price t-first ">价格：¥198.00</span></p>
+									</div>
+								</div>
+							</li>
+						</div>
+					</div>
+				</section>
+			</section>
+		</div>
+		<footer class="footer-nav dis-box">
+			<a href="/h5/index" class="box-flex nav-list">
+				<i class="nav-box i-home"></i><span>首页</span>
+			</a>
+			<a href="/h5/category/" class="box-flex nav-list">
+				<i class="nav-box i-cate"></i><span>分类</span>
+			</a>
+
+			<a href="/h5/cart/" class="box-flex position-rel nav-list">
+				<i class="nav-box i-flow"></i><span>购物车</span>
+			</a>
+			<a href="#" class="box-flex nav-list active">
+				<i class="nav-box i-user"></i><span>我的</span>
+			</a>
+		</footer>
+		<div class="search-div ts-3">
+			<section class="search">
+				<form action="/ectouch/wsc/index.php?m=default&c=category&a=index&u=35173" method="post">
+					<div class="text-all dis-box j-text-all">
+						<a class="a-icon-back j-close-search" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou is-left-font"></i></a>
+						<div class="box-flex input-text">
+							<input class="j-input-text" type="text" name="name" placeholder="请输入搜索关键词！" id="newinput" />
+							<i class="iconfont icon-guanbi2 is-null j-is-null"></i>
+						</div>
+						<button type="submit" class="btn-submit">搜索</button>
+					</div>
+				</form>
+			</section>
+			<section class="search-con">
+				<div class="swiper-scroll history-search">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<p>
+								<label class="fl">热门搜索</label>
+							</p>
+							<ul class="hot-search a-text-more">
+								<li class="w-3">
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E7%BE%8E%E5%9B%BD&u=35173"><span>美国</span></a>
+								</li>
+								<li class="w-3">
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E6%96%B0%E7%94%9F%E5%A9%B4%E5%84%BF&u=35173"><span>新生婴儿</span></a>
+								</li>
+							</ul>
+							<p class="hos-search">
+								<label class="fl">最近搜索</label>
+								<span class="fr" onclick="javascript:clearHistroy();"><i class="iconfont icon-xiao10 is-xiao10 jian-top fr"></i></span>
+							</p>
+
+							<ul class="hot-search a-text-more a-text-one" id="search_histroy">
+								<li>
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E7%BE%8E%E5%9B%BD&u=35173"><span>美国</span></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="swiper-scrollbar"></div>
+				</div>
+			</section>
+			<footer class="close-search j-close-search">
+				点击关闭
+			</footer>
+		</div>
+
+		<script type="text/javascript">
+			//设置cookie
+			function setCookie(cname, cvalue, exdays) {
+				var d = new Date();
+				d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+				var expires = "expires=" + d.toUTCString();
+				document.cookie = cname + "=" + cvalue + "; " + expires;
+			}
+
+			function clearHistroy() {
+				setCookie('ECS[keywords]', '', -1);
+				document.getElementById("search_histroy").style.visibility = "hidden";
+			}
+			
+			function clickItem(){
+				alert("haha");
+			}
+		</script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/swiper.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/ectouch.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.json.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery-ui-1.10.1.custom.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery.ui.touch-punch.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery.scrollUp.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery.lazyload.min.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/common.js"></script>
+		<script>
+			/*店铺信息商品滚动*/
+			var swiper = new Swiper('.j-g-s-p-con', {
+				scrollbarHide: true,
+				slidesPerView: 'auto',
+				centeredSlides: false,
+				grabCursor: true
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<title>发表评价</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+<link rel="stylesheet" href="/weui/lib/weui.min.css">
+  <link rel="stylesheet" href="/weui/css/main.css">
+
+  <link rel="stylesheet" href="/weui/css/jquery-weui.css">
+<link rel="stylesheet" href="/weui/css/style.css">
+</head>
+<body ontouchstart>
+<!--主体-->
+
+<header class="zyw-header">
+
+  <div class="zyw-container white-color">
+
+    <div class="wy-header-icon-back">
+      <a href="/h5/order/weuiOrderList?active=dpj" target="_self"><span></span></a>
+    </div>
+    <h1>发表评价</h1>
+  </div>
+  <!--<div class="wy-header-title">发表评价</div>-->
+</header>
+<footer class="zyw-footer">
+  <div class="com-button weui-tabbar"><a href="javascript:comment();">发表评价</a></div>
+</footer>
+<section class="zyw-container">
+<div class="weui-content clear">
+  <input hidden id="itemsize" name="itemsize" th:value="${itemlist.size()}">
+
+  <div class="weui-cells weui-cells_form" th:each="item:${itemlist}" th:id="'item'+${itemStat.index}">
+    <div class="wy-media-box weui-media-box_text">
+      <div class="weui-media-box__bd">
+        <div class="weui-media-box_appmsg ord-pro-list" >
+          <input name="uorderitemid" class="uorderitemid" th:value="${item.uorderitemid}" hidden>
+          <div class="weui-media-box__hd"><a th:href="|/h5/item/${item.ucomproductid}|" ><img class="weui-media-box__thumb" th:src="${item.uhomepic}" src="upload/pro3.jpg" alt=""></a></div>
+          <div class="weui-media-box__bd">
+            <h1 class="weui-media-box__desc"><a th:href="|/h5/item/${item.ucomproductid}|"  class="ord-pro-link"  th:text="${item.uproductname}">蓝之蓝蓝色瓶装经典Q7浓香型白酒500ml52度高端纯粮食酒2瓶装包邮</a></h1>
+            <p class="weui-media-box__desc"  th:text="${item.uobjnamevalue}">规格：<span>红色</span>，<span>23</span></p>
+            <div class="clear mg-t-10">
+              <div class="wy-pro-pri fl">¥<em class="num font-15" th:text="${item.uprice}" >296.00</em></div>
+              <div class="pro-amount fr"><span class="font-13" >数量×<em class="name" th:text="${item.uproductnum}" >1</em></span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  <div class="order-list-Below clear product-stars">
+    <h1>商品评价</h1>
+    <ul>
+      <li class="on"></li>
+      <li class="on"></li>
+      <li class="on"></li>
+      <li class="on"></li>
+      <li class="on"></li>
+    </ul>
+  </div>
+
+  <div class="weui-cells weui-cells_form com-txt-area">
+    <div class="weui-cell">
+      <div class="weui-cell__bd">
+        <textarea class="weui-textarea txt-area" placeholder="这个商品满足你的期待吗？说说你的使用心得，分享给想买的他们吧" rows="3"></textarea>
+        <div class="weui-textarea-counter font-12 num"><span>0</span>/200</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="weui-cell">
+    <div class="weui-cell__bd">
+      <div class="weui-uploader">
+        <div class="weui-uploader__hd">
+          <p class="weui-uploader__title font-14">图片上传</p>
+          <div class="weui-uploader__info font-12" id="imgnum" th:id="|imgnum${itemStat.index}|">0/5</div>
+        </div>
+        <div class="weui-uploader__bd">
+          <ul class="weui-uploader__files" id="uploaderFiles">
+          </ul>
+          <div class="weui-uploader__input-box">
+            <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="" onchange="previewImages(this)" th:onchange="|previewImages(this,${itemStat.index})|">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  </div>
+</div>
+<div style="height: 20px"></div>
+
+  <div class="order-list-Below clear express-stars">
+    <h1>物流速度</h1>
+    <ul>
+      <li class="on"></li>
+      <li class="on"></li>
+      <li class="on"></li>
+      <li class="on"></li>
+      <li class="on"></li>
+    </ul>
+  </div>
+  <div class="order-list-Below clear service-stars">
+    <h1>服务评价</h1>
+    <ul>
+      <li class="on"></li>
+      <li class="on"></li>
+      <li class="on"></li>
+      <li class="on"></li>
+      <li class="on"></li>
+    </ul>
+  </div>
+  <div class="weui-cells weui-cells_checkbox commg">
+    <label class="weui-cell weui-check__label" for="s11">
+      <div class="weui-cell__hd">
+        <input type="checkbox" class="weui-check" name="checkbox1" id="s11" checked="checked">
+        <i class="weui-icon-checked"></i>
+      </div>
+      <div class="weui-cell__bd"><p>匿名评价</p></div>
+    </label>
+  </div>
+  <div style="height: 100px"></div>
+</section>
+
+<script src="/weui/lib/jquery-2.1.4.js"></script>
+<script src="/weui/lib/fastclick.js"></script>
+<script type="text/javascript" src="/weui/js/jquery.Spinner.js"></script>
+<script>
+  $(function() {
+    FastClick.attach(document.body);
+  });
+</script>
+<script src="/weui/js/jquery-weui.js"></script>
+<script type="text/javascript">
+
+    function removeimg(obj){
+        $.confirm('您确定要删除吗?', '确认删除?', function() {
+            $(obj).remove();
+            $(".weui-uploader__input-box").show();
+            var len  = $(".weui-uploader__files").children().length;
+            $("#imgnum").html(len + "/5");
+        });
+        return false;
+    }
+
+
+
+    function previewImages(file,index) {
+        var item = $("#item" + index);
+        var MAXWIDTH = 1000;
+        var MAXHEIGHT = 1200;
+        for (var i = 0; i < file.files.length; i++) {
+            if (i > 4) {
+                return;
+            }
+            //超过五张图片返回
+            var oldlen  = item.find(".weui-uploader__files").children().length;
+            if (i + oldlen + 1 > 5) {
+                return;
+            }
+
+
+            if (file.files && file.files[i]) {
+                var reader = new FileReader();
+                reader.onload = function (evt) {
+                    $.post("/uploads/uploadImgBase64",{img: evt.target.result},
+                        function(rs){
+
+                            $(file).parent().prev().append('<li  onclick="removeimg(this)" class="weui-uploader__file" style="background-image:url('+evt.target.result+')"><input value="'+rs.data.filepath+'"  type="hidden"  name="imgpic" /></li>');
+                            var len  = item.find(".weui-uploader__files").children().length;
+                            $("#imgnum"+index).html(len + "/5");
+                            // alert(len);
+                            if (len == 5) {
+                                item.find(".weui-uploader__input-box").hide();
+                            }
+                        },'json');
+                };
+                reader.readAsDataURL(file.files[i]);
+                console.log(file.files[i]);
+            }
+
+        }
+    }
+
+
+
+
+$(".order-list-Below ul li").click(
+    function(){
+        var num = $(this).index()+1;
+        var len = $(this).index();
+        var thats = $(this).parent(".order-list-Below ul").find("li");
+        if($(thats).eq(len).attr("class")=="on"){
+            if($(thats).eq(num).attr("class")=="on"){
+                $(thats).removeClass();
+                for (var i=0 ; i<num; i++) {
+                    $(thats).eq(i).addClass("on");
+                }
+            }else{
+                $(thats).removeClass();
+                for (var k=0 ; k<len; k++) {
+                    $(thats).eq(k).addClass("on");
+                }
+            }
+        }else{
+            $(thats).removeClass();
+            for (var j=0 ; j<num; j++) {
+                $(thats).eq(j).addClass("on");
+            }
+        }
+    }
+);
+    
+    
+    
+    
+    
+    
+    function comment() {
+
+        var size = $("#itemsize").val();
+        var _list = [];
+        var formData = new FormData();
+        for (var i = 0; i < size; i++) {
+            var item = $("#item"+i);
+            var uorderitemid = item.find(".uorderitemid").val();
+            //获取商品评价
+            var star = item.find(".product-stars .on").length;
+            var express =$(".express-stars").find(".on").length;
+            var service = $(".service-stars").find(".on").length;
+            var content = item.find(".weui-cell__bd textarea").val();
+            var path = item.find(".weui-uploader__files").find("input");
+            var imgpic = "";
+            var isshowname = $("#s11").is(':checked') ? "1": "0";
+            path.each(function (index,element) {
+
+                if (index == 0) {
+                    imgpic = $(this).val()
+
+                }else{
+                    imgpic += "#" + $(this).val();
+                }
+
+                // alert($(this).val());
+            })
+         /*   alert(JSON.stringify(path))
+            console.log(path);*/
+            // var length  = $("#uploadInput" + i).files.length;
+            var fileArr = null;
+
+
+            // console.log(file[0]);
+            // alert(file[0][name]);
+
+            var a= {};
+            a.uorderitemid = uorderitemid;
+            a.contentgrade = star;
+            a.logisticsgrade = express;
+            a.servicegrade = service;
+            a.content = content;
+            a.imgpic = imgpic;
+            a.isshowname = isshowname;
+            _list.push(a);
+        }
+
+
+        // alert(JSON.stringify(_list));
+        // console.log(_list);
+
+
+        $.ajax({
+            url: "/h5/grade/comment",
+            data: "list="+JSON.stringify(_list),
+            type: "post",
+            dataType:"json",
+            success: function (req){
+
+                if (req.retcode == 1) {
+                    window.location.href = "/h5/home"
+
+                } else {
+                    alert("评论失败")
+                }
+            },
+            error:function (req) {
+                alert(JSON.stringify(req))
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

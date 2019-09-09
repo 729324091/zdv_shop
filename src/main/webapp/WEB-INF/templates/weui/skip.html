@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>港货灵</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/weui/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/weui/css/aui.css">
+    <link rel="stylesheet" href="/weui/css/main.css">
+    <link rel="stylesheet" href="/weui/css/cart.css">
+    <link rel="stylesheet" href="/weui/css/theme-color.css">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--<a href=""></a>-->
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="/weui/js/ionic.bundle.min.js"></script>
+<script type="text/javascript" src="/weui/js/runend.js"></script>
+<script src="/weui/js/bootstrap.min.js"></script>
+<script th:inline="javascript">
+
+    var url= [[${url}]];
+    // alert(url);
+    $.ajax({
+        type: 'POST',
+        url: url,
+        traditional: true,
+        dataType: "json",
+        data: {
+        },
+        success: function(res) {
+            if (res.retcode == 1) {
+                var data = res.data;
+                var url = "/h5/order/wecheckout";
+                url += "?uorderitemid=" + data.uorderitemid;
+                window.location.href = url;
+            }else{
+                alert(res.retmsg);
+            }
+        },
+        error: function(xhr, textStatus, errorMsg) { // 出错时默认的处理函数
+            var sessionStatus = xhr.getResponseHeader('sessionstatus');
+            // var url = xhr.getResponseHeader('url');
+
+            if (sessionStatus == 'timeout') {
+                window.location.href = "/h5/user/login";
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

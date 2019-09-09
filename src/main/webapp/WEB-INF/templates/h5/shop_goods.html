@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="description" content="港货灵是一套分销系统，港货灵VIP获得超低价购买，VIP推荐用户成为VIP获得100元奖励，推荐用户购买获得利润的40%分成，推荐厂家产品给产品的所有销售的利润的5%分成，成为区域公司获得该区域下所有消费的利润5%分成。是一个最好的系统" />
+		<meta name="keywords" content="港货灵分销，港货灵VIP获得超低价购买" />
+		<title>港货灵</title>
+		<link rel="stylesheet" href="/h5/themes/default/statics/css/ectouch.css" />
+		<script type="text/javascript">
+			var tpl = '/ectouch/wsc/themes/default';
+		</script>
+
+	</head>
+
+	<body style="max-width:640px;">
+		<div id="loading"><img src="/h5/themes/default/statics/img/loading.gif" /></div>
+		<style>
+			a.a-sequence {
+				width: 3.5rem;
+				height: 0rem;
+				line-height: 3rem;
+				margin-left: 0.5rem;
+			}
+			
+			a.s-filter {
+				line-height: 3rem;
+				padding-left: 0rem;
+			}
+			
+			#j-filter-div {
+				z-index: 100;
+			}
+			.tm-shop-header {
+				position: relative;
+			    width: 100%;
+			    height: 10rem;
+			    background: rgba(0,0,0,.25);
+			    overflow: hidden;
+			}
+			
+			.tm-shop-header .tm-shop-header-info {
+				z-index: 99;
+			    position: absolute;
+			    bottom: 0;
+			    left: 0;
+			    right: 0;
+			    padding: 0 0 1rem 1rem;
+			    display: flex;
+			}
+			.tm-shop-header .back {
+				position: absolute;
+			    height: 100%;
+			    width: 100%;
+			    top: 50%;
+			    left: 50%;
+			    -webkit-transform: translate3d(-50%,-50%,0);
+			    transform: translate3d(-50%,-50%,0);
+			    -webkit-filter: brightness(60%);
+    			filter: brightness(60%);
+			}
+			.tm-shop-header .tm-shop-header-info .logo img {
+			    height: 6rem;
+			}
+			.tm-shop-header .tm-shop-header-info .contact {
+				position: relative;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			    height: 6rem;
+    			line-height: 6rem;
+    			width: 100%;
+			}
+			.tm-shop-header .tm-shop-header-info .contact .ctn {
+				display: inline-block;
+			    font-size: 1.6rem;
+			    color: #fff;
+			    width: 100%;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			    height: 6rem;
+    			line-height: 6rem;
+    			padding-left: 0.5rem;
+			}
+		</style>
+		<div class="con">
+			<div class="category">
+				
+				<section class="tm-shop-header">
+        			<div class="shop-back-img">
+            			<img src="//img.alicdn.com/imgextra/i4/713367853/TB2scIkXf2H8KJjy1zkXXXr7pXa_!!713367853-0-shop_design.jpg_q90.jpg" class="back">
+        			</div>
+        			<div class="tm-shop-header-info">
+            			<a class="shop_logo logo" href="#">
+                			<img src="//img.alicdn.com/imgextra/i3/TB12WnnHXXXXXcLXpXXSutbFXXX.jpg" alt="logo" th:src="${ctComp?.ulogo}" onerror="this.src='//img.alicdn.com/imgextra/i3/TB12WnnHXXXXXcLXpXXSutbFXXX.jpg'" />
+            			</a>
+            			<div class="contact">
+                			<div class="ctn">
+                    			<span class="name" th:text="${ctComp?.ucompname}">柔软时光宁波专卖店</span>
+                			</div>
+            			</div>
+        			</div>
+    			</section>
+    			
+    			<section class="search">
+					<div class="text-all dis-box j-text-all text-all-back">
+						<a class="a-icon-back j-close-search" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou is-left-font"></i></a>
+						<div class="box-flex input-text n-input-text i-search-input">
+							<a class="a-search-input j-search-input" href="javascript:void(0)"></a>
+							<i class="iconfont icon-sousuo"></i>
+							<input class="j-input-text" type="text" placeholder="请输入您搜索的关键词!">
+							<i class="iconfont icon-guanbi1 is-null j-is-null"></i>
+						</div>
+						<a class="a-sequence j-a-sequence"><i class="iconfont icon-pailie" data="1"></i></a>
+					</div>
+				</section>
+				<section class="product-sequence dis-box">
+					<a class="box-flex a-change" href="/ectouch/wsc/index.php?m=default&c=category&a=index&id=0&display=list&brand=0&type=&price_min=0&price_max=0&filter_attr=0&sort=&order=&keywords=%E7%BE%8E%E5%9B%BD&u=0#goods_list">默认</a>
+					<a class="box-flex" href="/ectouch/wsc/index.php?m=default&c=category&a=index&id=0&display=list&brand=0&type=&price_min=0&price_max=0&filter_attr=0&sort=sales_volume&order=ASC&keywords=%E7%BE%8E%E5%9B%BD&u=0#goods_list">销量<i class="iconfont icon-xiajiantou"></i></a>
+					<a class="box-flex" href="/ectouch/wsc/index.php?m=default&c=category&a=index&id=0&display=list&brand=0&type=&price_min=0&price_max=0&filter_attr=0&sort=click_count&order=ASC&keywords=%E7%BE%8E%E5%9B%BD&u=0#goods_list">人气<i class="iconfont icon-xiajiantou"></i></a>
+					<a class="box-flex active" href="/ectouch/wsc/index.php?m=default&c=category&a=index&id=0&display=list&brand=0&type=&price_min=0&price_max=0&filter_attr=0&sort=shop_price&order=ASC&keywords=%E7%BE%8E%E5%9B%BD&u=0#goods_list">价格<i class="iconfont icon-xiajiantou"></i></a>
+					<a href="#j-filter-div" class="box-flex s-filter j-s-filter">筛选</a>
+					<!--
+	<a class="a-sequence j-a-sequence"><i class="iconfont icon-pailie" data="1"></i></a>-->
+				</section>
+				
+				<section class="product-list j-product-list product-list-medium" data="1">
+					<ul id="j-product-box">
+						<script id="j-product" type="text/html">
+							{{each list as vo i}}
+							<li>
+								<div class="product-div">
+									<a class="product-div-link" href="{{vo.url}}"></a>
+									<img class="product-list-img" src="{{vo.goods_thumb}}" />
+									<div class="product-text">
+										<h4>{{vo.goods_name}}</h4>
+										<p class="dis-box p-t-remark"><span class="box-flex">库存：{{vo.goods_number}}</span>
+											<!--<span class="box-flex">销量：{{vo.sales_count}}</span>--></p>
+										<p><span class="p-price t-first ">{{vo.shop_price}}<small><del>{{vo.market_price}}</del></small></span></p>
+										<a href="javascript:addCart({{vo.goods_id}})" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+									</div>
+								</div>
+							</li>
+							{{/each}}
+						</script>
+
+						<li th:each="goods:${goodsList}">
+							<div class="product-div">
+								<a class="product-div-link" th:href="'/h5/goods/' + ${goods.ucomproductid}"></a>
+								<img class="product-list-img" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19891_thumb_G_1442265110418.jpg" th:src="${goods.uhomepic}" onerror="this.src='/h5/themes/default/images/not_goods.png'" />
+								<div class="product-text">
+									<h4 th:text="${goods.ualias}">美国 帕玛氏雅儿孕妇专用修复按摩乳 产前预防产后淡化消除妊娠纹</h4>
+									<p class="dis-box p-t-remark"><span class="box-flex" th:text="'库存：' + ${goods.ustock}">库存：200</span>
+										<!--<span class="box-flex">销量：0</span>--></p>
+									<p><span class="p-price t-first " th:text="'￥' + ${goods.uprice} + '元'">￥158.00元<small><del th:text="'￥' + ${goods.umarketprice} + '元'">￥188.00元</del></small></span></p>
+									<a href="javascript:addCart(19891)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</div>
+
+		<div class="filter-top" id="scrollUp">
+			<i class="iconfont icon-dingbu"></i>
+		</div>
+
+		<div id="j-filter-div" class="j-filter-div filter-div ts-5 c-filter-div">
+			<div class="mask-filter-div"></div>
+			<section class="close-filter-div j-close-filter-div">
+				<div class="close-f-btn">
+					<i class="iconfont icon-fanhui"></i>
+					<span>关闭</span>
+				</div>
+			</section>
+			<section class="con-filter-div">
+				<form class="hold-height" method="post" id="form" action="/ectouch/wsc/index.php?m=default&c=category&a=index&u=0">
+					<input type="hidden" name="id" class="cat" value="0" />
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<div class="price-range padding-all m-top08">
+								<label>价格</label>
+								<div class="price-slider">
+									<div id="slider-range" class="slider"></div>
+									<div class="slider-info">
+										<span id="slider-range-amount"></span>
+									</div>
+								</div>
+								<input type="hidden" id="min" name="price_min" value="0" />
+								<input type="hidden" id="max" name="price_max" value="0" />
+							</div>
+							<div class="select-two">
+								<a class="select-title padding-all j-menu-select">
+									<label class="fl">品牌</label>
+									<span class="fr t-jiantou j-t-jiantou jian001" id="j-t-jiantou"><em class="fl">
+						全部						 
+												</em><i class="iconfont icon-jiantou tf-180 ts-2"></i></span>
+								</a>
+								<ul class="j-sub-menu padding-all j-get-one" data-istrue="true">
+									<li class="ect-select" data-attr="0">
+										<label class="ts-1">全部<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="12">
+										<label class="ts-1">nb<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="13">
+										<label class="ts-1">苹果<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="14">
+										<label class="ts-1">nike<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="16">
+										<label class="ts-1">Prada<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="17">
+										<label class="ts-1">华为荣耀<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="18">
+										<label class="ts-1">阿迪达斯<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="19">
+										<label class="ts-1">阿玛尼<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="20">
+										<label class="ts-1">Puma<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="21">
+										<label class="ts-1">小米<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="22">
+										<label class="ts-1">Jack w<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="23">
+										<label class="ts-1">哥伦比亚<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="25">
+										<label class="ts-1">三星<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="26">
+										<label class="ts-1">JacK<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="28">
+										<label class="ts-1">Dior<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="30">
+										<label class="ts-1">Gucci<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="31">
+										<label class="ts-1">魅族<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="32">
+										<label class="ts-1">Only<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="34">
+										<label class="ts-1">Bally<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="35">
+										<label class="ts-1">ECCO<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<li class="ect-select" data-attr="36">
+										<label class="ts-1">努比亚<i class="fr iconfont icon-gou ts-1"></i></label>
+									</li>
+									<input type="hidden" name="brand" value="0" />
+								</ul>
+								<input type="hidden" id="filter_attr" name="filter_attr" value="0" />
+							</div>
+							<div class="ect-button-more dis-box padding-all">
+								<a class="box-flex btn-reset j-filter-reset" onclick="javascript:clear_filter();">清空选项</a>
+								<button type="submit" class="box-flex btn-submit">确定</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</section>
+		</div>
+
+		<script type="text/javascript">
+			function clear_filter() {
+				$(".touchweb-com_listType .range").text("全部");
+				$(".touchweb-com_listType input").each(function() {
+					if($(this).attr('class') != 'cat') {
+						$(this).val("");
+					}
+				});
+				$(".ui-slider-handle").css("left", "0");
+				$(".ui-slider-range").css({
+					left: 0,
+					width: 0
+				});
+				$("#slider-range-amount").html(0);
+				$("#min ,#max").val(0);
+				$('input[name="brand"]').val(0);
+				$("#filter_attr").val(0);
+			}
+		</script>
+		<div class="search-div ts-3">
+			<section class="search">
+				<form action="/ectouch/wsc/index.php?m=default&c=category&a=index&u=0" method="post">
+					<div class="text-all dis-box j-text-all">
+						<a class="a-icon-back j-close-search" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou is-left-font"></i></a>
+						<div class="box-flex input-text">
+							<input class="j-input-text" type="text" name="name" placeholder="请输入搜索关键词！" id="newinput" />
+							<i class="iconfont icon-guanbi2 is-null j-is-null"></i>
+						</div>
+						<button type="submit" class="btn-submit">搜索</button>
+					</div>
+				</form>
+			</section>
+			<section class="search-con">
+				<div class="swiper-scroll history-search">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<p>
+								<label class="fl">热门搜索</label>
+							</p>
+							<ul class="hot-search a-text-more">
+								<li class="w-3">
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E7%BE%8E%E5%9B%BD&u=0"><span>美国</span></a>
+								</li>
+								<li class="w-3">
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E6%96%B0%E7%94%9F%E5%A9%B4%E5%84%BF&u=0"><span>新生婴儿</span></a>
+								</li>
+							</ul>
+							<p class="hos-search">
+								<label class="fl">最近搜索</label>
+								<span class="fr" onclick="javascript:clearHistroy();"><i class="iconfont icon-xiao10 is-xiao10 jian-top fr"></i></span>
+							</p>
+
+							<ul class="hot-search a-text-more a-text-one" id="search_histroy">
+								<li>
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E7%BE%8E%E5%9B%BD&u=0"><span>美国</span></a>
+								</li>
+								<li>
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E5%B0%8F%E6%98%8E&u=0"><span>小明</span></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="swiper-scrollbar"></div>
+				</div>
+			</section>
+			<footer class="close-search j-close-search">
+				点击关闭
+			</footer>
+		</div>
+
+		<script type="text/javascript">
+			//设置cookie
+			function setCookie(cname, cvalue, exdays) {
+				var d = new Date();
+				d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+				var expires = "expires=" + d.toUTCString();
+				document.cookie = cname + "=" + cvalue + "; " + expires;
+			}
+
+			function clearHistroy() {
+				setCookie('ECS[keywords]', '', -1);
+				document.getElementById("search_histroy").style.visibility = "hidden";
+			}
+		</script>
+		<div class="div-messages"></div>
+
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/swiper.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/ectouch.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.json.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery-ui-1.10.1.custom.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery.ui.touch-punch.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery.scrollUp.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery.lazyload.min.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/common.js"></script>
+
+		<script type="text/javascript" src="/h5/themes/default/statics/js/echo.min.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/template.js"></script>
+		<script type="text/javascript">
+			$('#hide-div').delay(1500).hide(0);
+			var sliders = function() {
+				// 筛选价格区间 js
+				$("#slider-range").slider({
+					range: true,
+					min: 0,
+					max: 10000,
+					step: 10,
+					values: [0, 10000],
+					slide: function(event, ui) {
+						$("#slider-range-amount").text(ui.values[0] + " ~ " + ui.values[1]);
+						$('input[name=price_min]').val(ui.values[0]);
+						$('input[name=price_max]').val(ui.values[1]);
+					}
+				});
+				$("#slider-range-amount").text($("#slider-range").slider("values", 0) + " ~ " + $("#slider-range").slider("values", 1));
+			}();
+
+			var url = '/ectouch/wsc/index.php?m=default&c=category&a=async_list&id=0&type=&brand=0&price_min=0&price_max=0&filter_attr=0&page=1&sort=shop_price&order=DESC&keywords=%E7%BE%8E%E5%9B%BD&u=0';
+			var total = 0;
+			var page = localData.get('cat_0_page');
+			page = (page === null) ? 1 : parseInt(page);
+			// first request
+			get_data(page);
+			localData.set('cat_0_page', page);
+			if(page == 1) {
+				localData.set('cat_0_page_min', 1);
+				localData.set('cat_0_page_max', 1);
+			}
+			if(page > 1) {
+				localData.set('cat_0_page_min', page);
+				localData.set('cat_0_page_max', page);
+			}
+			var minPage = localData.get('cat_0_page_max');
+			var maxPage = localData.get('cat_0_page_max');
+			minPage = (minPage === null) ? 1 : parseInt(minPage);
+			maxPage = (maxPage === null) ? 1 : parseInt(maxPage);
+
+			$(window).scroll(function() {
+				var scrollTop = $(this).scrollTop();
+				var scrollHeight = $(document).height();
+				var windowHeight = $(this).height();
+				// 下拉
+				if(scrollTop + windowHeight == scrollHeight) {
+					if(page >= maxPage) {
+						$.ajax({
+							type: "post",
+							url: url,
+							data: 'page=' + (page + 1),
+							dataType: 'json',
+							async: false,
+							success: function(data) {
+								var html = template('j-product', data);
+								$('#j-product-box').append(html);
+								//rug
+								if(!isEmpty(data.list)) {
+									page++;
+									localData.set('cat_0_page', page);
+									if(page > maxPage) {
+										localData.set('cat_0_page_max', page);
+									}
+								}
+							}
+						});
+					}
+				}
+				// 上拉
+				if(scrollTop == 0 && minPage > 1) {
+					$.ajax({
+						type: "post",
+						url: url,
+						data: 'page=' + (page - 1),
+						dataType: 'json',
+						async: false,
+						success: function(data) {
+							var html = template('j-product', data);
+							$('#j-product-box').prepend(html);
+							page--;
+							localData.set('cat_0_page', page);
+							if(page < minPage) {
+								localData.set('cat_0_page_min', page);
+							}
+						}
+					});
+				}
+			});
+
+			function get_data(page) {
+				$.ajax({
+					type: "post",
+					url: url,
+					data: 'page=' + page,
+					dataType: 'json',
+					async: false,
+					success: function(data) {
+						var html = template('j-product', data);
+						$('#j-product-box').append(html);
+					}
+				});
+			}
+
+			/*
+			 * 检测对象是否是空对象(不包含任何可读属性)。
+			 * 方法既检测对象本身的属性，也检测从原型继承的属性(因此没有使hasOwnProperty)。
+			 */
+			function isEmpty(obj) {
+				for(var name in obj) {
+					return false;
+				}
+				return true;
+			}
+			echo.init();
+			$(function() {
+				$('.ect-select').click(function() {
+					var data = $(this).attr('data-attr');
+					$(this).siblings('input[type="hidden"]').val(data);
+				})
+			})
+			//属性
+			$(function() {
+				$('.j-sub-menu-attr li').click(function() {
+					$(this).addClass('active').siblings('li').removeClass('active');
+					var i = 0;
+					var new_attr = new Array();
+					$(".j-sub-menu-attr li").each(function() {
+						if($(this).hasClass('active')) {
+							new_attr[i] = $(this).find('label').attr('value');
+							i = i + 1;
+						}
+					});
+					var new_attr_str = new_attr.join('.');
+					//属性参数具体值
+					$('input[name=filter_attr]').val(new_attr_str);
+				})
+			})
+		</script>
+
+	</body>
+
+</html>

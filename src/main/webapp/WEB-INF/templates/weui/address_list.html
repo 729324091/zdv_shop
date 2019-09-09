@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<title>地址管理</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+<link rel="stylesheet" href="/weui/lib/weui.min.css">
+<link rel="stylesheet" href="/weui/css/jquery-weui.css">
+<link rel="stylesheet" href="/weui/css/style.css">
+</head>
+<body ontouchstart>
+<!--主体-->
+<header class="wy-header">
+  <a href="javascript:window.history.back(-1)">
+  <div class="wy-header-icon-back" ><span></span></div>
+  </a>
+  <div class="wy-header-title">地址管理</div>
+</header>
+<div class="weui-content">
+  <div class="weui-panel address-box">
+    <div class="weui-panel__bd" th:each="address:${addressList}">
+      <div class="weui-media-box weui-media-box_text address-list-box">
+        <a href="/h5/takeAddress/weedit" th:if="${addresstype != '1'}" th:href="'/h5/takeAddress/weedit?utakeaddressid='+${address.utakeaddressid}" class="address-edit"></a>
+        <a href="/h5/takeAddress/weedit" th:if="${addresstype eq '1'}" th:href="'/h5/takeAddress/weedit?utakeaddressid='+${address.utakeaddressid}+'&type=1' " class="address-edit"></a>
+        <h4 class="weui-media-box__title"><span th:text="${address.uname}">陈大鹏</span><span th:text="${address.umobile}">189****3850</span></h4>
+        <p class="weui-media-box__desc address-txt"  th:text="${address?.uprovince}+${address?.ucity}+${address?.uarea}+' '+${address.udetailaddress}">宿迁市洋河新区电商产业园2楼宿迁市洋河新区电商产业园2楼宿迁市洋河新区电商产业园2楼</p>
+        <span class="default-add"  th:if="${address.udefault}" >默认地址</span>
+      </div>
+    </div>
+    <!--<div class="weui-panel__bd">
+      <div class="weui-media-box weui-media-box_text address-list-box">
+        <a href="address_edit.html" class="address-edit"></a>
+        <h4 class="weui-media-box__title"><span>陈大鹏</span><span>189****3850</span></h4>
+        <p class="weui-media-box__desc address-txt">宿迁市洋河新区电商产业园2楼宿迁市洋河新区电商产业园2楼宿迁市洋河新区电商产业园2楼</p>
+      </div>
+    </div>
+    <div class="weui-panel__bd">
+      <div class="weui-media-box weui-media-box_text address-list-box">
+        <a href="address_edit.html" class="address-edit"></a>
+        <h4 class="weui-media-box__title"><span>陈大鹏</span><span>189****3850</span></h4>
+        <p class="weui-media-box__desc address-txt">宿迁市洋河新区电商产业园2楼宿迁市洋河新区电商产业园2楼宿迁市洋河新区电商产业园2楼</p>
+      </div>
+    </div>
+    <div class="weui-panel__bd">
+      <div class="weui-media-box weui-media-box_text address-list-box">
+        <a href="address_edit.html" class="address-edit"></a>
+        <h4 class="weui-media-box__title"><span>陈大鹏</span><span>189****3850</span></h4>
+        <p class="weui-media-box__desc address-txt">宿迁市洋河新区电商产业园2楼宿迁市洋河新区电商产业园2楼宿迁市洋河新区电商产业园2楼</p>
+      </div>
+    </div>-->
+    
+  </div>
+  <div class="weui-btn-area">
+    <!--<a class="weui-btn weui-btn_primary"  href="/h5/takeAddress/weedit" id="showTooltips">添加收货地址</a>-->
+    <a class="weui-btn weui-btn_primary" th:href="${addresstype eq '1'} ? '/h5/takeAddress/weedit?type=1' :'/h5/takeAddress/weedit'"  href="/h5/takeAddress/weedit" id="showTooltips">添加收货地址</a>
+  </div>
+</div>
+
+<script src="/weui/lib/jquery-2.1.4.js"></script>
+<script src="/weui/lib/fastclick.js"></script>
+<script type="text/javascript" src="/weui/js/jquery.Spinner.js"></script>
+<script>
+  $(function() {
+    FastClick.attach(document.body);
+  });
+</script>
+<script src="/weui/js/jquery-weui.js"></script>
+</body>
+</html>

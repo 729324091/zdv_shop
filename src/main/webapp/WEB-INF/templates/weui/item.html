@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>详情页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/weui/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/weui/css/swiper.min.css">
+    <link rel="stylesheet" href="/weui/css/main.css">
+    <link rel="stylesheet" href="/weui/css/item.css">
+    <link rel="stylesheet" href="/weui/css/theme-color.css">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<header class="zyw-header">
+    <div class="zyw-container white-color">
+        <div class="head-l"><a href="javascript:window.history.back(-1)" target="_self"><img src="/weui/img/svg/head-return.svg" alt=""></a></div>
+        <h1><a href="#" class="active">商品</a><a href="#item-precent">详情</a><a href="">评价</a></h1>
+        <div class="head-r"><img src="/weui/img/svg/head-more.svg" alt=""></div>
+    </div>
+</header>
+<footer class="zyw-footer">
+    <div class="zyw-container white-bgcolor clearfix">
+        <div class="col-sm-2 col-xs-2">
+            <a href="/h5/weindex" class="weui-tabbar__item">
+                <div class="weui-tabbar__icon">
+                    <img src="/weui/img/svg/item-1.svg" alt="">
+                </div>
+                <p class="weui-tabbar__label">首页</p>
+            </a>
+        </div>
+        <div class="col-sm-2 col-xs-2">
+            <a href="/h5/cart/we" class="weui-tabbar__item">
+                <!--<span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;" th:text="${cartnum}">8</span>-->
+                <span th:classappend="${cartnum != null && cartnum != '0'} ? 'weui-badge':''" style="position: absolute;top: -.4em;right: 1em;" th:text="${cartnum != null && cartnum !=0}? ${cartnum}:''"></span>
+                <div class="weui-tabbar__icon">
+                    <img src="/weui/img/svg/item-2.svg" alt="">
+                </div>
+                <p class="weui-tabbar__label">购物车</p>
+            </a>
+        </div>
+        <div class="col-sm-2 col-xs-2">
+            <a href="javascript:;" th:href="|javascript:collect(&quot;${goods?.ucomproductid}&quot;);|" class="weui-tabbar__item">
+                <div class="weui-tabbar__icon" id="collect">
+                    <img th:if="${!collect}" src="/weui/img/svg/item-3.svg" alt="">
+                    <img th:if="${collect}" src="/weui/images/pic_heart02.png" alt="">
+                </div>
+                <p class="weui-tabbar__label">收藏</p>
+            </a>
+        </div>
+        <div class="col-sm-3 col-xs-3" th:class="${goods?.ucomproductid} != '95730749885657088'  ? 'col-sm-3 col-xs-3':'col-sm-6 col-xs-6'">
+            <a data-target="#item_spec" th:href="|javascript:openAdd(&quot;${goods?.ucomproductid}&quot;);|" class="footer-btn footer-warning open-popup">立即购买</a>
+        </div>
+        <div class="col-sm-3 col-xs-3" th:if="${goods?.ucomproductid} != '95730749885657088'">
+            <a data-target="#item_spec" th:href="|javascript:openAddToCart(&quot;${goods?.ucomproductid}&quot;);|" class="footer-btn footer-danger open-popup ">加入购物车</a>
+        </div>
+        <input id="ucomproductid"type="hidden" th:value="${goods?.ucomproductid}">
+
+    </div>
+</footer>
+<section class="zyw-container">
+    <!-- Swiper -->
+    <div class="item-img">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"  th:each="pic:${piclist}">
+                <img th:src="${pic}" th:alt="${goods?.ualias}" onerror="this.src='/h5/themes/default/images/not_goods.png'" src="https://m.360buyimg.com/n12/jfs/t12352/88/127708421/67468/90baaf73/5a04172aN29f845bf.jpg!q70.jpg" alt="">
+            </div>
+           <!-- <div class="swiper-slide"><img src="https://m.360buyimg.com/n12/jfs/t13438/360/124743365/49464/474ae43b/5a03ffaeNeb7db52b.jpg!q70.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="https://m.360buyimg.com/n12/jfs/t12814/353/139949949/27453/5a037076/5a03ff88N7bdff90d.jpg!q70.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="https://m.360buyimg.com/n12/jfs/t11485/251/1617504994/45865/1e52d881/5a03ff99Ne79b5ee9.jpg!q70.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="https://m.360buyimg.com/n12/jfs/t11140/344/1557119770/31087/d11c46ac/5a03ff9fNd553a907.jpg!q70.jpg" alt=""></div>-->
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+    <div class="item-details white-bgcolor clearfix">
+        <h3 class="details-title" th:text="${goods?.ualias}"></h3>
+        <del class="details-prince theme-color pull-left"  th:text="'市场价:￥' + ${goods?.umarketprice} + '元'" th:if="${ucustomerid != '10000032'}">￥7858.00</del><br><br>
+        <span class="details-volume pull-right" th:text="'库存:'+${goods?.ustock}">库存：1028件</span>
+        <strong class="details-prince theme-color pull-left"    th:text="${goods?.upromotesales == '0' }? '销售价:￥' + ${goods?.uprice} + '元':'销售价:￥' + ${goods?.uprice} + '元'">￥7858.00</strong><br><br>
+        <!--<strong class="details-prince theme-color pull-left"    th:text="'销售价:￥' + ${goods?.uprice} + '元'">￥7858.00</strong><br><br>-->
+        <!--<strong class="details-prince theme-color pull-left"  th:if="${goods?.upromotesales != '0'}"  th:text="'邮费:￥' + ${goods?.uprice} + '元'">￥7858.00</strong><br><br>-->
+        <strong class="details-prince pull-left" style="color: red;"   th:text="${goods.upromotesales != '0'} ?  '会员价:￥:0.00元':'会员价:￥:'+${goods?.uvipprice}+'元'" th:if="${ucustomerid != '10000032'}">￥7858.00</strong>
+        <span class="details-volume pull-right" th:text="'月销:'+${goods?.usalesnum}">月销：1028件</span>
+    </div>
+    <div class="item-choose weui-cells mt-625">
+        <a class="weui-cell weui-cell_access open-popup" href="javascript:;" data-target="#item_spec" th:onclick="|openSpec(&quot;${goods?.ucomproductid}&quot;)|" >
+            <div class="weui-cell__bd">
+                <p class="choose-text">选择 <span>属性</span></p>
+            </div>
+            <div class="weui-cell__ft choose-des">
+            </div>
+        </a>
+        <div id="item_spec" class="weui-popup__container popup-bottom">
+            <div class="weui-popup__overlay"></div>
+            <div class="weui-popup__modal">
+                <div class="item-spec-layer white-bgcolor">
+                    <div class="spec-head clearfix">
+                        <div class="spec-head-img">
+                            <img th:src="${piclist}? ${piclist[0]}:''" src="https://m.360buyimg.com/n1/jfs/t15787/353/109633918/16701/5a8390ef/5a27ae6dNc530b5bb.jpg!q70.jpg" alt="">
+                        </div>
+
+                        <strong class="spec-head-prince theme-color" id="uprice" th:text="'销售价:￥' + ${goods?.uprice} + '元'">￥7800.00</strong>
+                        <strong class="spec-head-prince red-color" id="uvipprice" th:if="${ucustomerid != '10000032'}"  th:text="${goods.upromotesales != '0'} ?  '会员价:￥:0.00元':'会员价￥:'+${goods?.uvipprice}+'元'">￥7800.00</strong>
+                        <!--<p class="spec-head-intro">商品编号：51867</p>-->
+                    </div>
+                    <div class="spec-info clearfix" th:each="obj:${objnames}">
+                        <div class="spec-info-hd" th:text="${obj.key}">>颜色</div>
+                        <div class="spec-info-bd">
+                            <ul class="gg" th:data-name="${obj.key}"  th:id="gg+${objStat.index}">
+                                <li  th:each="val,iterStat:${obj.value}" th:text="${val}" >银色</li>
+                                <!--<li>深空灰色</li>-->
+                            </ul>
+                        </div>
+                    </div>
+                    <!--<div class="spec-info clearfix">
+                        <div class="spec-info-hd">版本</div>
+                        <div class="spec-info-bd">
+                            <ul class="gg" data-name="版本">
+                                <li>64GB</li>
+                                <li>256GB</li>
+                                <li>64GB+一年碎屏险套餐</li>
+                                <li>256GB+一年碎屏险套餐</li>
+                            </ul>
+                        </div>
+                    </div>-->
+                    <!--<div class="spec-info clearfix">
+                        <div class="spec-info-hd">版本</div>
+                        <div class="spec-info-bd">
+                            <ul  class="gg" >
+                                <li>64GB</li>
+                                <li>256GB</li>
+                                <li>64GB+一年碎屏险套餐</li>
+                                <li>256GB+一年碎屏险套餐</li>
+                            </ul>
+                        </div>
+                    </div>-->
+                    <div class="spec-length mb-625">
+                    <!--<div class="spec-info clearfix">-->
+                        <div class="weui-cell__bd">
+                            <p class="length-hd">数量</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <div class="weui-count">
+                                <a class="weui-count__btn weui-count__decrease"></a>
+                                <input class="weui-count__number" type="number" value="1">
+                                <a class="weui-count__btn weui-count__increase"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix" style="  line-height: 40px;" id="submit">
+                        <!--<button class="item-layer-button theme-bgcolor white-color" type="submit">确定</button>-->
+                        <button onclick="addToCart()" th:onclick="|addToCart(&quot;${goods?.ucomproductid}&quot;)|"  class="weui-cell__bd theme-bgcolor white-color close-popup"  style="width: 49%" type="submit">加入购物车</button>
+                        <button class="weui-cell__bd theme-bgcolor white-color close-popup" style="width: 49%" type="submit">立即购买</button>
+                    </div >
+                    <a href="javascript:;" class="close-popup spec-close"><i class="fa fa-close"></i></a>
+                </div>
+            </div>
+        </div>
+        <!--<a class="weui-cell weui-cell_access open-popup" href="javascript:;" data-target="#item_parameter">
+            <div class="weui-cell__bd">
+                <p class="choose-text">产品参数</p>
+            </div>
+            <div class="weui-cell__ft choose-des">
+            </div>
+        </a>-->
+        <div id="item_parameter" class="weui-popup__container popup-bottom">
+            <div class="weui-popup__overlay"></div>
+            <div class="weui-popup__modal">
+                <div class="item-parameter-layer white-bgcolor">
+                    <h3 class="parameter-title">产品参数</h3>
+                    <table class="table table-condensed parameter-table">
+                        <tr>
+                            <th>品牌</th>
+                            <td>Apple/苹果</td>
+                        </tr>
+                        <tr>
+                            <th>Apple型号</th>
+                            <td>Apple X</td>
+                        </tr>
+                        <tr>
+                            <th>网络类型</th>
+                            <td>无需合约版</td>
+                        </tr>
+                        <tr>
+                            <th>机身颜色</th>
+                            <td>深空灰色 银色</td>
+                        </tr>
+                        <tr>
+                            <th>套餐类型</th>
+                            <td>官方标配</td>
+                        </tr>
+                        <tr>
+                            <th>售后服务</th>
+                            <td>全国联保</td>
+                        </tr>
+                        <tr>
+                            <th>存储容量</th>
+                            <td>256GB 64GB</td>
+                        </tr>
+                    </table>
+                    <button class="item-layer-button theme-bgcolor white-color close-popup" type="submit">完成</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="item-serve">
+        <span><i class="fa fa-check-circle-o theme-color"></i> 品质承诺</span>
+        <!--<span><i class="fa fa-check-circle-o theme-color"></i> 七天包退换</span>-->
+        <span><i class="fa fa-check-circle-o theme-color"></i> 如实描述</span>
+    </div>
+    <div class="item-assess weui-cells mb-625">
+        <a class="weui-cell weui-cell_access" href="javascript:;">
+            <div class="weui-cell__bd">
+                <p class="choose-text">用户评价（<em class="theme-color">0</em>条）</p>
+            </div>
+            <div class="weui-cell__ft choose-des">
+                100%好评
+            </div>
+        </a>
+    </div>
+    <!--<div class="item-precent white-bgcolor" id="item-precent">-->
+    <div class="white-bgcolor"  id="item-precent">
+        <h4>图文详情</h4>
+        <span>
+            <img src="https://img30.360buyimg.com/popWareDetail/jfs/t14719/85/1877166841/278152/3ae6ff0/5a5efcd6N154d1c5a.jpg" alt="">
+            <img src="https://img30.360buyimg.com/popWareDetail/jfs/t13027/52/352981969/231830/badc500e/5a095d00N15968051.jpg" alt="">
+            <img src="https://img10.360buyimg.com/imgzone/jfs/t9835/131/1905669916/3042823/cb300cef/59e9b116Nd9975bdc.jpg" alt="">
+            <br>
+        </span>
+    </div>
+</section>
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script src="/weui/js/bootstrap.min.js"></script>
+<script src="/weui/js/swiper.min.js"></script>
+<script src="/weui/js/my.js"></script>
+<script th:inline="javascript">
+    var swiper = new Swiper('.item-img', {
+        autoplay:true,
+        delay: 7000,
+        slidesPerView: 1,
+        spaceBetween: 0,
+        keyboard: {
+            enabled: true,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            type: 'fraction',
+        },
+    });
+    var MAX = 10, MIN = 1;
+    $('.weui-count__decrease').click(function (e) {
+        var $input = $(e.currentTarget).parent().find('.weui-count__number');
+        var number = parseInt($input.val() || "0") - 1
+        if (number < MIN) number = MIN;
+        $input.val(number)
+    });
+    $('.weui-count__increase').click(function (e) {
+        var $input = $(e.currentTarget).parent().find('.weui-count__number');
+        var number = parseInt($input.val() || "0") + 1
+        if (number > MAX) number = MAX;
+        $input.val(number)
+    });
+
+    $(document).ready(function () {
+        /*< ![CDATA[*/
+
+        var udesc = /*[[${goods?.udesc}]]*/ 'Sebastian';
+
+        $("#item-precent").html(udesc);
+        /*]]>*/
+    });
+
+    //选择规格
+    $(".gg").on("click","li",function () {
+        var p = $(this).parent().children();
+        p.each(function () {
+            $(this).removeClass("active")
+        });
+
+        $(this).addClass("active");
+        changePrice();
+    })
+
+    function openAdd(ucomproductid) {
+        var str = '<button onclick="buying(&quot;'+ucomproductid+'&quot;)" class="weui-cell__bd theme-bgcolor white-color close-popup"  style="width: 100%" type="submit">确定</button>';
+
+        $("#submit").html(str);
+    }
+
+    //加入购物车打开规格选择
+    function openAddToCart(ucomproductid) {
+      /*  $("#item_spec").addClass("weui-popup__container--visible");
+        $("#item_spec").css("display", "block");*/
+        var str = '<button onclick="addToCart(&quot;'+ucomproductid+'&quot;)" class="weui-cell__bd theme-bgcolor white-color close-popup"  style="width: 100%" type="submit">确定</button>';
+
+        $("#submit").html(str);
+    }
+    //直接打开规格选择页面
+    function openSpec(ucomproductid) {
+        var str = "";
+        if (ucomproductid == '95730749885657088') {
+            str += '<button onclick="buying(&quot;'+ucomproductid+'&quot;)" class="weui-cell__bd  footer-warning  white-color close-popup"  style="width: 99%;background: orange;" type="submit">立即购买</button>';
+
+        }else{
+            str += '<button onclick="addToCart(&quot;'+ucomproductid+'&quot;)" class="weui-cell__bd theme-bgcolor white-color close-popup"  style="width: 49%" type="submit">加入购物车</button>';
+            str += '<button onclick="buying(&quot;'+ucomproductid+'&quot;)" class="weui-cell__bd  footer-warning  white-color close-popup"  style="width: 49%;background: orange;" type="submit">立即购买</button>';
+        }
+
+        $("#submit").html(str);
+    }
+    
+    //加入购物车
+    function addToCart(ucomproductid) {
+
+        //获取选择的规格
+        var uobjnamevalue = selectedSpec();
+        var p = $(".gg");
+        //判断是否选择规格
+        var number = $(".weui-count__number").val();
+        if (uobjnamevalue.length != p.length) {
+
+            alert("请选择规格");
+        }else{
+            $.ajax({
+                type: 'POST',
+                url: '/h5/cart/add',
+                traditional: true,
+                dataType: "json",
+                data: {
+                    ucomproductid: ucomproductid,
+                    uproductnum: number,
+                    // quick: quick,
+                    // spec: spec_arr,
+                    uobjnamevalue:uobjnamevalue,
+                    tocart: "1"
+                    // parent: (typeof (parentId) == "undefined") ? 0 : parseInt(parentId)
+                },
+                success: function(res) {
+                    if (res.retcode == 1) {
+                        window.location.reload();
+
+                    }else{
+                        alert(res.retmsg);
+                    }
+                },
+                error: function(xhr, textStatus, errorMsg) { // 出错时默认的处理函数
+                    var sessionStatus = xhr.getResponseHeader('sessionstatus');
+                    // var url = xhr.getResponseHeader('url');
+
+                    if (sessionStatus == 'timeout') {
+                        window.location.href = "/h5/user/login";
+                    }
+                }
+            });
+        }
+
+
+
+
+    }
+    function buying(ucomproductid) {
+            var uobjnamevalue = selectedSpec();
+            var p = $(".gg");
+            var number = $(".weui-count__number").val();
+            if (uobjnamevalue.length != p.length) {
+                flag = false;
+                alert("请选择规格");
+            }else{
+                $.ajax({
+                    type: 'POST',
+                    url: '/h5/cart/add',
+                    traditional: true,
+                    dataType: "json",
+                    data: {
+                        ucomproductid: ucomproductid,
+                        uproductnum: number,
+                        // quick: quick,
+                        // spec: spec_arr,
+                        uobjnamevalue:uobjnamevalue,
+                        tocart: "0"
+                        // parent: (typeof (parentId) == "undefined") ? 0 : parseInt(parentId)
+                    },
+                    success: function(res) {
+                        if (res.retcode == 1) {
+                            var data = res.data;
+                            var url = "/h5/order/wecheckout";
+                            url += "?uorderitemid=" + data.uorderitemid;
+                            window.location.href = url;
+                        }else{
+                            alert(res.retmsg);
+                        }
+
+                    },
+                    error: function(xhr, textStatus, errorMsg) { // 出错时默认的处理函数
+                        var sessionStatus = xhr.getResponseHeader('sessionstatus');
+                        // var url = xhr.getResponseHeader('url');
+
+                        if (sessionStatus == 'timeout') {
+                            if (isWeiXin()) {
+                                window.location.href = "/h5/home/";
+                            }else{
+                                window.location.href = "/h5/user/login";
+                            }
+                        }
+                    }
+                });
+            }
+
+    }
+
+    function changePrice() {
+        var ucomproductid = $("#ucomproductid").val();
+
+        var attr = selectedSpec();
+        console.log(attr);
+        var qty = 1;
+        $.ajax({
+            type: 'POST',
+            url: '/h5/queryStockAndPrice',
+            traditional: true,
+            data: {
+                'id': ucomproductid,
+                'attr': attr,
+                'number': qty
+            },
+            success: function(res) {
+                changePriceResponse(res);
+            }
+        });
+    }
+
+
+    /**
+     * 接收返回的信息
+     */
+    function changePriceResponse(res) {
+        if(res.err_msg.length > 0) {
+            // alert(res.err_msg);
+        } else {
+            // alert(JSON.stringify(res));
+            if(document.getElementById('uprice'))
+                document.getElementById('uprice').innerHTML = res.uprice;
+            if (document.getElementById('uvipprice')) {
+                if (res.upromotesales != 0) {
+                    document.getElementById('uvipprice').innerHTML = "会员价￥:0.00元";
+
+                }else{
+
+                document.getElementById('uvipprice').innerHTML = res.uvipprice;
+                }
+            }
+            /*if(res.product_number != null) {
+                document.getElementById('ECS_PRODUCT_NUMBER').innerHTML = res.product_number;
+            }*/
+        }
+    }
+
+    function selectedSpec() {
+        var uobjnamevalue = new Array();
+        var p = $(".gg");
+        // alert($(".gg").length);
+        p.each(function (index) {
+            var c = $(this).find(".active");
+            var name = $(this).attr("data-name");
+            if ( $(c).html()) {
+                var value = $(c).html();
+                // alert(name + value);
+                // uobjnamevalue[index] = name + ":" + value;
+                uobjnamevalue.push(name + ":" + value);
+            }
+        });
+        // alert(JSON.stringify(uobjnamevalue));
+        return uobjnamevalue;
+    }
+    
+    
+    function collect(ucomproductid) {
+
+        $.ajax({
+            type: 'POST',
+            url: '/h5/history/changeMyproductstore',
+            traditional: true,
+            data: {
+                ucomproductid: ucomproductid
+            },
+            success: function(res) {
+                if (res.retcode == 1) {
+                    var str = '<img  src="/weui/images/pic_heart02.png" alt="">'
+                }else{
+                    var str = '<img src="/weui/img/svg/item-3.svg" alt="">'
+                }
+                $("#collect").html(str);
+
+
+            }
+        });
+    }
+</script>
+
+
+
+</body>
+</html>

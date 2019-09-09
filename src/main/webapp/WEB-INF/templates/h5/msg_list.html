@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="description" content="港货灵是一套分销系统，港货灵VIP获得超低价购买，VIP推荐用户成为VIP获得100元奖励，推荐用户购买获得利润的40%分成，推荐厂家产品给产品的所有销售的利润的5%分成，成为区域公司获得该区域下所有消费的利润5%分成。是一个最好的系统" />
+		<meta name="keywords" content="港货灵分销，港货灵VIP获得超低价购买" />
+		<title>港货灵</title>
+		<link rel="stylesheet" href="/h5/themes/default/statics/css/ectouch.css" />
+		<script type="text/javascript">
+			var tpl = '/ectouch/wsc/themes/default';
+		</script>
+		<style type="text/css">
+			.message{
+				border-bottom-style: solid; border-width: 2px;
+				height:80px;
+			}
+			.messagetop{
+				width:50px;
+				height:30px;
+				background-color: #FFFFFF;
+				border-style: solid; 
+				border-width: 1px;
+				border-color:#2E2E2E;
+				text-align: center;
+				float:left;
+			}
+					.messagetop0{
+				width:50px;
+				height:100%;
+				text-align: center;
+				float:left;
+				margin-right: 5px;
+			}
+			.date{
+				float:right;
+				
+			}
+			.messagecontext{
+				width:420px;
+				word-break: break-all;
+				float:left;
+			}
+			.messagebutton{
+				float:right;
+				margin-top:5px;
+			}
+		</style>
+	</head>
+
+	<body style="max-width:640px;">
+		<div id="loading"><img src="/h5/themes/default/statics/img/loading.gif" /></div>
+		<header class="dis-box header-menu b-color color-whie">
+			<a class="" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou"></i></a>
+			<h3 class="box-flex">消息中心</h3>
+			<p><i class="iconfont icon-pailie j-nav-box"></i></p>
+		</header>
+	<div class="j-nav-content">
+						<ul class="dis-box new-footer-box">
+							<li class="box-flex">
+								<a href="/h5/index" class="nav-cont"><i class="nav-box"><img src="/h5/themes/default/statics/img/home.png"></i><span>首页</span></a>
+							</li>
+							<li class="box-flex">
+								<a href="/h5/category/" class="nav-cont"><i class="nav-box"><img src="/h5/themes/default/statics/img/cate.png"></i><span>分类</span></a>
+								<li class="box-flex">
+									<a href="javascript:;" class="nav-cont j-search-input"><i class="nav-box"><img src="/h5/themes/default/statics/img/search.png"></i><span>搜索</span></a>
+								</li>
+								<li class="box-flex">
+									<a href="cart.html" class="nav-cont"><i class="nav-box"><img src="/h5/themes/default/statics/img/flow.png"></i><span>购物车</span></a>
+								</li>
+								<li class="box-flex">
+									<a href="personal_center.html" class="nav-cont"><i class="nav-box"><img src="/h5/themes/default/statics/img/user.png"></i><span>我的</span></a>
+								</li>
+						</ul>
+					</div>
+		<div class="user-account-detail" >
+			<div id="nullmessages" class="user-account-message"  th:text="${isnull eq ''?'暂时没有消息':''}"> 
+			暂时没有消息
+			<!-- 
+				<section class="menu-right padding-all j-content" th:each="item,iterStat:${typeList}" th:style="${iterStat.index != 0} ? 'display:none;':''">
+				<h5 th:text="${item.uname}"></h5>
+				<ul>
+					<li class="w-3" th:each="child:${item.uchildList}">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(48);' th:onclick="'redirect_list(&quot;'+${child.uproducttypeid}+'&quot;)'" ></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/15401_thumb_G_1441858511210.jpg" /><span th:text="${child.uname}">时尚女鞋</span></li>
+					</li>
+				</ul>
+			</section>
+			 -->
+			</div>
+			<ul class="ect-bg-colorf" id="J_ItemList" >
+				<li class="message" th:each="message:${messages}" th:id="${'ms'+message.messageid}">
+					<div class="messagetop0" ><div class="messagetop" style="margin:auto" >系统</div></div><div class="messagecontext" th:text="${message.content}">消息dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</div><div class="date" th:text="${message.createdate}">2019-03-28</div>
+					<div class="messagebutton"><button th:onclick="${'changemessage(&quot'+message.messageid+'&quot)'}">已读</button></div>
+				</li>
+			</ul>
+		</div>
+
+		</div>
+		<div class="search-div ts-3">
+			<section class="search">
+				<form action="/h5/category/goods/type" method="post">
+					<div class="text-all dis-box j-text-all">
+						<a class="a-icon-back j-close-search" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou is-left-font"></i></a>
+						<div class="box-flex input-text">
+							<input class="j-input-text" type="text" name="keywords" placeholder="请输入搜索关键词！" id="newinput" />
+							<i class="iconfont icon-guanbi2 is-null j-is-null"></i>
+						</div>
+						<button type="submit" class="btn-submit">搜索</button>
+					</div>
+				</form>
+			</section>
+			<section class="search-con">
+				<div class="swiper-scroll history-search">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<p>
+								<label class="fl">热门搜索</label>
+							</p>
+							<ul class="hot-search a-text-more">
+								<li class="w-3">
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E7%BE%8E%E5%9B%BD&u=35168&id=17704"><span>美国</span></a>
+								</li>
+								<li class="w-3">
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E6%96%B0%E7%94%9F%E5%A9%B4%E5%84%BF&u=35168&id=17704"><span>新生婴儿</span></a>
+								</li>
+							</ul>
+							<p class="hos-search">
+								<label class="fl">最近搜索</label>
+								<span class="fr" onclick="javascript:clearHistroy();"><i class="iconfont icon-xiao10 is-xiao10 jian-top fr"></i></span>
+							</p>
+
+							<ul class="hot-search a-text-more a-text-one" id="search_histroy">
+								<li>
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E7%BE%8E%E5%9B%BD&u=35168&id=17704"><span>美国</span></a>
+								</li>
+								<li>
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=.&u=35168&id=17704"><span>.</span></a>
+								</li>
+								<li>
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E5%B0%8F%E6%98%8E&u=35168&id=17704"><span>小明</span></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="swiper-scrollbar"></div>
+				</div>
+			</section>
+			<footer class="close-search j-close-search">
+				点击关闭
+			</footer>
+		</div>
+
+		<script type="text/javascript">
+			//设置cookie
+			function setCookie(cname, cvalue, exdays) {
+				var d = new Date();
+				d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+				var expires = "expires=" + d.toUTCString();
+				document.cookie = cname + "=" + cvalue + "; " + expires;
+			}
+
+			function clearHistroy() {
+				setCookie('ECS[keywords]', '', -1);
+				document.getElementById("search_histroy").style.visibility = "hidden";
+			}
+		</script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery-2.1.4.min.js"></script>
+		<script src="/h5/data/assets/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/swiper.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/ectouch.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.json.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery-ui-1.10.1.custom.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery.ui.touch-punch.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery.scrollUp.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery.lazyload.min.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/common.js"></script>
+			<script type="text/javascript" src="/h5/data/assets/js/validform.js"></script>
+			<script src="/h5/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
+			<script src="/h5/themes/default/js/simple-inheritance.min.js"></script>
+			<script src="/h5/data/assets/swiper/js/jquery.swiper.min.js"></script>
+			<script type="text/javascript" src="/h5/data/assets/js/utils.js"></script>
+			<script type="text/javascript" src="/h5/data/assets/js/jquery.more.js"></script>
+		<script language="javascript">
+			var handler = function(e) { //禁止浏览器默认行为
+				e.preventDefault();
+			};
+			/*banner滚动图片*/
+			var swiper = new Swiper('.swiper-container', {
+				pagination: '.swiper-pagination',
+				slidesPerView: 1,
+				loop: true,
+				autoplay: 2000
+			});
+			/*弹出评论层并隐藏其他层*/
+			function openSearch() {
+				document.addEventListener("touchmove", handler, false);
+				$("body").addClass("show-search-div");
+				$(".search-div").css("z-index", "4999");
+				$("input[name='keywords']").focus();
+			}
+			function changemessage(messageid){
+				  $.ajax({
+	                    url: "/h5/message/readmessage?messageid="+messageid,
+	                    success: function (req){
+	                       $("#ms"+messageid).remove();
+	                       var child = $("#J_ItemList").children();
+							if(!child.get(0)){
+								$("#nullmessages").html("暂时没有消息");
+							}	                       
+	                    },
+						error:function (req) {
+							alert(req)
+	                    }
+	                });
+			}
+		</script>
+
+		<script type="text/javascript">
+			//get_asynclist('/ectouch/wsc/index.php?m=default&c=user&a=msg_list&u=35172', '/ectouch/wsc/themes/default/images/loader.gif');
+		</script>
+	</body>
+
+</html>

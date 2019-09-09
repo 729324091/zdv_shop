@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="description" content="港货灵是一套分销系统，港货灵VIP获得超低价购买，VIP推荐用户成为VIP获得100元奖励，推荐用户购买获得利润的40%分成，推荐厂家产品给产品的所有销售的利润的5%分成，成为区域公司获得该区域下所有消费的利润5%分成。是一个最好的系统" />
+		<meta name="keywords" content="港货灵分销，港货灵VIP获得超低价购买" />
+		<title>港货灵</title>
+		<link rel="stylesheet" href="/h5/themes/default/css/member.css">
+		<link rel="stylesheet" href="/h5/data/assets/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/h5/data/assets/bootstrap/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/h5/themes/default/css/style.css">
+		<link rel="stylesheet" href="/h5/themes/default/css/user.css">
+		<link rel="stylesheet" href="/h5/themes/default/css/photoswipe.css">
+		<link rel="stylesheet" href="/h5/themes/default/statics/css/search.css" />
+		<link rel="stylesheet" href="/h5/grade/css/myevaluation.css" />
+		<script type="text/javascript">
+			var tpl = '/ectouch/wsc/themes/default';
+		</script>
+
+	</head>
+
+	<body>
+		<div class="con">
+			<div class="ect-bg">
+				<header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write">
+					<a href=" javascript:history.go(-1) " class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>评价</span>
+					<a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a>
+				</header>
+				<nav class="ect-nav ect-nav-list" style="display:none;">
+					<ul class="ect-diaplay-box text-center">
+						<li class="ect-box-flex">
+							<a href="/h5/index"><i class="ect-icon ect-icon-home"></i>首页</a>
+						</li>
+						<li class="ect-box-flex">
+							<a href="/h5/category/"><i class="ect-icon ect-icon-cate"></i>分类</a>
+						</li>
+						<li class="ect-box-flex">
+							<a href="javascript:;" class="j-search-input"><i class="ect-icon ect-icon-search"></i>搜索</a>
+						</li>
+						<li class="ect-box-flex">
+							<a href="/h5/cart/"><i class="ect-icon ect-icon-flow"></i>购物车</a>
+						</li>
+						<li class="ect-box-flex">
+							<a href="/h5/personal_center/"><i class="ect-icon ect-icon-user"></i>我的</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+			<input hidden id="itemsize" name="itemsize" th:value="${itemlist.size()}">
+			<section class="user-order-detail" style="border-top:none;margin-bottom: 0.5em" th:each="item:${itemlist}" th:id="'item'+${itemStat.index}">
+				<input hidden class="uorderitemid" name="uorderitemid"  th:value="${item.uorderitemid}" >
+				<div class="ect-pro-list" >
+					<ul>
+						<li>
+							<a href="/ectouch/wsc/index.php?m=default&c=goods&a=index&id=19937&u=35172" target="_blank"><img src="https://shop.ectouch.cn/ectouch/wsc/images/201602/thumb_img/19937_thumb_G_1456248249112.jpg"></a>
+							<dl>
+								<dt>
+									<h4 class="title">
+										<a href="/ectouch/wsc/index.php?m=default&c=goods&a=index&id=19937&u=35172" th:href="|/h5/goods/${item.uproductid}|" th:text="${item.uproductname}" >妈妈美 孕妇护肤品纯天然套装 孕期化妆品补水保湿专用旗舰店正品妈妈美容量:100ml[700]
+										</a>
+									</h4>
+								</dt>
+								<dd class="dd-price">
+									<b th:text="${item.uobjnamevalue}">容量:100ml[700]</b>
+								</dd>
+								<dd class="dd-price"><b>小计：<span class="ect-colory" th:text="|￥${item.uprice}元|">￥898.00元</span><span th:text=" |数量：${item.uproductnum}|"> 数量：1</span></b></dd>
+								<dd class="dd-price raise-order-box">
+
+								</dd>
+
+							</dl>
+						</li>
+					</ul>
+				</div>
+				<div class="evaluate-star product-stars">
+					<em>*</em><span>商品评价：</span>
+					<ul>
+						<li class="stars"></li>
+						<li class="stars"></li>
+						<li class="stars"></li>
+						<li class="stars"></li>
+						<li class="stars"></li>
+					</ul>
+					<span class="evaluation-tips hide"><strong></strong></span>
+				</div>
+					<div class="evaluate-star express-stars ">
+						<em>*</em><span>物流服务：</span>
+						<ul>
+							<li class="stars"></li>
+							<li class="stars"></li>
+							<li class="stars"></li>
+							<li class="stars"></li>
+							<li class="stars"></li>
+						</ul>
+						<span class="evaluation-tips hide"><strong></strong></span>
+					</div>
+					<div class="evaluate-star service-stars">
+						<em>*</em><span>服务态度：</span>
+						<ul>
+							<li class="stars"></li>
+							<li class="stars"></li>
+							<li class="stars"></li>
+							<li class="stars"></li>
+							<li class="stars"></li>
+						</ul>
+						<span class="evaluation-tips hide"><strong></strong></span>
+					</div>
+				<div class="other-starts">
+
+				</div>
+				<div class="eva-content">
+					<textarea placeholder="亲 写点什么吧~ 长度在250字以内"></textarea>
+				</div>
+				<div class="evaluate-img">
+					<ul class="upLoadImageList" th:id="'imageList'+${itemStat.index}">
+						<li th:id="'upLoadImage'+${itemStat.index}" class="img-item upLoadImage" style="float:left !important;width: 19%;height:82px !important;"><span class="">添加图片</span>
+							<div th:id="'img'+${itemStat.index}"></div>
+							<input th:id="'uploadInput'+${itemStat.index}"  type="file"  style="position: absolute;left:0px;top: 0px;width:100%;height:100% !important;opacity:0;" class="file " onchange="addFiles(this);" accept="image/*"  />
+						</li>
+					</ul>
+				</div>
+
+			</section>
+			<div class="toolbar">
+				<div class="toolbar-inner">
+					<label class="label-checkbox item-content">
+						<input type="checkbox" name="my-checkbox" class="anonymous-evalute">
+						<div class="item-media">
+							<i class="icon icon-form-checkbox"></i>
+							<span class="anonymous">匿名评价</span>
+						</div>
+					</label>
+					<a id="tijiao" class="button button-fill bg-red submit-evaluation disabled">
+						<span>发表评论</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="search-div ts-3">
+			<section class="search">
+				<form action="/ectouch/wsc/index.php?m=default&c=category&a=index&u=35172" method="post">
+					<div class="text-all dis-box j-text-all">
+						<a class="a-icon-back j-close-search" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou is-left-font"></i></a>
+						<div class="box-flex input-text">
+							<input class="j-input-text" type="text" name="name" placeholder="请输入搜索关键词！" id="newinput" />
+							<i class="iconfont icon-guanbi2 is-null j-is-null"></i>
+						</div>
+						<button type="submit" class="btn-submit">搜索</button>
+					</div>
+				</form>
+			</section>
+			<section class="search-con">
+				<div class="swiper-scroll history-search">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<p>
+								<label class="fl">热门搜索</label>
+							</p>
+							<ul class="hot-search a-text-more">
+								<li class="w-3">
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E7%BE%8E%E5%9B%BD&u=35172"><span>美国</span></a>
+								</li>
+								<li class="w-3">
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E6%96%B0%E7%94%9F%E5%A9%B4%E5%84%BF&u=35172"><span>新生婴儿</span></a>
+								</li>
+							</ul>
+							<p class="hos-search">
+								<label class="fl">最近搜索</label>
+								<span class="fr" onclick="javascript:clearHistroy();"><i class="iconfont icon-xiao10 is-xiao10 jian-top fr"></i></span>
+							</p>
+
+							<ul class="hot-search a-text-more a-text-one" id="search_histroy">
+								<li>
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E7%BE%8E%E5%9B%BD&u=35172"><span>美国</span></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="swiper-scrollbar"></div>
+				</div>
+			</section>
+			<footer class="close-search j-close-search">
+				点击关闭
+			</footer>
+		</div>
+
+		<script type="text/javascript">
+			//设置cookie
+			function setCookie(cname, cvalue, exdays) {
+				var d = new Date();
+				d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+				var expires = "expires=" + d.toUTCString();
+				document.cookie = cname + "=" + cvalue + "; " + expires;
+			}
+
+			function clearHistroy() {
+				setCookie('ECS[keywords]', '', -1);
+				document.getElementById("search_histroy").style.visibility = "hidden";
+			}
+		</script>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.min.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.json.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/common.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.more.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/utils.js"></script>
+		<script src="/h5/data/assets/swiper/js/jquery.swiper.min.js"></script>
+		<script src="/h5/themes/default/js/ectouch.js"></script>
+		<script src="/h5/themes/default/js/simple-inheritance.min.js"></script>
+		<script src="/h5/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
+		<script src="/h5/data/assets/bootstrap/js/bootstrap.min.js"></script>
+		<script src="/h5/themes/default/js/jquery.scrollUp.min.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/validform.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/ectouch.js"></script>
+		<script type="text/javascript" src="/h5/grade/js/myevaluation.js"></script>
+		<script language="javascript">
+			var handler = function(e) { //禁止浏览器默认行为
+				e.preventDefault();
+			};
+			/*banner滚动图片*/
+			var swiper = new Swiper('.swiper-container', {
+				pagination: '.swiper-pagination',
+				slidesPerView: 1,
+				loop: true,
+				autoplay: 2000
+			});
+			/*弹出评论层并隐藏其他层*/
+			function openSearch() {
+				document.addEventListener("touchmove", handler, false);
+				$("body").addClass("show-search-div");
+				$(".search-div").css("z-index", "4999");
+				$("input[name='keywords']").focus();
+			}
+
+			$(".stars").on("click", function(c) {
+						$(this).addClass("hasEvaluate");
+                        $(this).nextAll("li").removeClass("hasEvaluate");
+                        $(this).prevAll("li").addClass("hasEvaluate");
+                        // b.resetStatus(a);
+                    var d = $(this).parent("ul").find("li.hasEvaluate").length;
+					var e = "";
+                    switch (d) {
+                        case 1:
+                            e = "<strong>1分</strong>非常不满";
+                            break;
+                        case 2:
+                            e = "<strong>2分</strong>不满意";
+                            break;
+                        case 3:
+                            e = "<strong>3分</strong>一般";
+                            break;
+                        case 4:
+                            e = "<strong>4分</strong>挺满意";
+                            break;
+                        case 5:
+                            e = "<strong>5分</strong>非常满意"
+                    }
+                    $(this).parents(".evaluate-star").find(".evaluation-tips").html(e),
+                        $(this).parents(".evaluate-star").find(".evaluation-tips").removeClass("hide")
+                });
+
+			$("#tijiao").on("click",function () {
+                var size = $("#itemsize").val();
+                var _list = [];
+                var formData = new FormData();
+                for (var i = 0; i < size; i++) {
+                    var item = $("#item"+i);
+                    var uorderitemid = item.find(".uorderitemid").val();
+					//获取商品评价
+                    var star = item.find(".product-stars .hasEvaluate").length;
+					var express =item.find(".express-stars").find(".hasEvaluate").length;
+					var service = item.find(".service-stars").find(".hasEvaluate").length;
+                    var content = item.find(".eva-content textarea").val();
+                    // var length  = $("#uploadInput" + i).files.length;
+                    var fileArr = null;
+                    var file =  item.find("[id^='uploadInput']").prop('files');
+                    if (file.length==1) {
+                        /*alert(file[0][name]);
+                        file[0][name] = uorderitemid;
+                         console.log(file[0]);
+
+                        alert(file[0][name]);*/
+                        formData.append("files", file[0]);
+                        formData.append("uorderitemid", uorderitemid);
+                    }else{
+                        //file[0][name] = uorderitemid;
+
+                    }
+
+                    // console.log(file[0]);
+					// alert(file[0][name]);
+
+                    var a= {};
+                    a.uorderitemid = uorderitemid;
+                    a.contentgrade = star;
+                    a.logisticsgrade = express;
+                    a.servicegrade = service;
+                    a.content = content;
+
+                    _list.push(a);
+
+
+                }
+
+                $.ajax({
+                    url: "/h5/grade/addGrade",
+                    data: "list="+JSON.stringify(_list),
+                    type: "post",
+                    dataType:"json",
+                    success: function (req){
+                        // alert(JSON.stringify(req))
+                        formData.append("productgradeids",req.data.productgradeids);
+                        if (req.retcode == 1) {
+
+                            $.ajax({
+                                url: "/h5/grade/addGradeImg",
+                                data:formData ,
+                                type: "post",
+                                dataType:"json",
+                                processData: false,
+                                contentType: false,
+                                success: function (req){
+                                    // alert(JSON.stringify(req))
+
+                                    if (req.retcode == 1) {
+                                        alert("评论成功！")
+                                        window.location.href = "/h5/personal_center";
+                                    } else {
+                                        alert("图片上传失败！")
+                                    }
+                                },
+                                error:function (req) {
+                                    // alert(JSON.stringify(req))
+									alert("图片上传失败")
+                                }
+                            });
+                        } else {
+                            alert("评论失败")
+                        }
+                    },
+					error:function (req) {
+						alert(JSON.stringify(req))
+                    }
+                });
+            })
+			
+			
+
+			$("li.upLoadImage").on("click",
+                function() {
+
+
+                    var nowClickLi = $(this).parents(".evaluate-img").parents("li.orderItem");
+					var nowClickLiIndex = $(this).parents(".evaluate-img").parents("li.orderItem").index();
+                })
+
+            var fileArr = []; //存放图片内容的数组，提交数据到后台时用
+
+            $('[id^="upLoadImage"]').unbind().on('click',function () {
+                var index = this.id.substring(11);
+                //uploadFile是上面图片的Id
+				var newFileInput = "<input id='uploadInput' type='file' class='file' accept='image/*' multiple />";
+				//$('body').append($(newFileInput));
+				$("#uploadInput"+index).unbind().on('change',function(){//注：js里生成的dom事件需要用on
+					//$(this).removeAttr("id");
+					var length = this.files.length;
+					// var size = this.parent().children("li").size();
+                    // alert(size);
+
+                    // alert(length);
+					for(var i=0;i<length;i++){
+					    fileArr.push(this.files[i]);
+					    var objUrl = getObjectURL(this.files[i]);//调用函数调取图片地址
+						 if (objUrl) {
+						     $("#upLoadImage"+index).css("background-image","url("+objUrl+")");
+						     var imgHtml = '<img  style="position: absolute;left:0px;top: 0px;width:100%;height:100% !important;" src="' + objUrl + '">';
+						     // $("#upLoadImage"+index).before(imgHtml); //添加至预览
+						     // $("#upLoadImage"+index).before('<li class="img-item" style="width: 19%;float:left !important;height:82px !important;">'+imgHtml+'</li>');
+                             // $("#img"+index).html('<li class="img-item" style="width: 19%;float:left !important;height:82px !important;">'+imgHtml+'</li>')
+							 $("#img"+index).html(imgHtml);
+						 }
+					}
+				});
+					$(".uploadInput").click(); //伪触发type=file的click事件
+			});
+            function addFiles(_this) {
+                //alert(_this.id);
+                var fileList = _this.files;
+                var length = fileList.length;
+
+                for (var i = 0; i < length; i++) {
+                    fileArr.push(fileList[i]); //将图片放入数组中
+                    var objUrl = getObjectURL(fileList[i]);//调用函数调取图片地址
+                    if (objUrl) {
+
+                        var imgHtml = '<img  style="position: absolute;left:0px;top: 0px;width:100%;height:100% !important;" src="' + objUrl + '">';
+                        // $("#upLoadImage"+index).before(imgHtml); //添加至预览
+                        // $(this).parent.before('<li class="img-item" style="width: 19%;float:left !important;height:82px !important;">'+imgHtml+'</li>');
+
+                        // this.parent.before('<li class="policyImg">' + imgHtml + '</li>');
+                    }
+                }
+            }
+
+            function getObjectURL(file) {
+
+                var url = null;
+
+                if (window.createObjectURL != undefined) {//basic
+                    url = window.createObjectURL(file);
+                } else if (window.URL != undefined) {//mozilla(firefox)兼容火狐
+                    url = window.URL.createObjectURL(file);
+                } else if (window.webkitURL != undefined) {//webkit or chrome
+                    url = window.webkitURL.createObjectURL(file);
+                }
+                return url;
+            }
+
+            // fileArr.splice(index,1);  //index是当前要删除图片的下标，下同
+
+            // $('#imgList li').eq(index).remove(); //从dom中移除改图片
+	</script>

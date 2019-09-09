@@ -1,0 +1,1152 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<<<<<<< .mine
+    <title>港货灵首页</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/theme-color.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .ware-title {
+            word-break: break-all;
+        }
+    </style>
+    <!--[if lt IE 9]>
+=======
+    <title>港货灵首页</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/theme-color.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!--[if lt IE 9]>
+>>>>>>> .r102
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<<<<<<< .mine
+<body id="test">
+<header class="zyw-header">
+    <div class="zyw-container white-color">
+        <div class="head-l">
+            <i class="head-l-svg" aria-hidden="true"></i>
+        </div>
+        <div class="head-search">
+            <i class="fa fa-search" aria-hidden="true"></i> <input type="text" placeholder="输入您当前要搜索的商品"
+                                                                   class="white-color">
+        </div>
+        <div class="head-r">
+            <a href="cart.html">
+                <i class="head-r-svg" aria-hidden="true"></i><i class="head-length">8</i>
+            </a>
+        </div>
+    </div>
+</header>
+<footer class="zyw-footer">
+    <div class="zyw-container white-bgcolor clearfix">
+        <div class="weui-tabbar">
+            <a href="index.html" class="weui-tabbar__item weui-bar__item--on">
+                <div class="weui-tabbar__icon">
+                    <img src="./img/svg/foot-1-1.svg" alt="">
+                </div>
+                <p class="weui-tabbar__label">首页</p>
+            </a>
+            <a href="class.html" class="weui-tabbar__item">
+                <div class="weui-tabbar__icon">
+                    <img src="./img/svg/foot-2.svg" alt="">
+                </div>
+                <p class="weui-tabbar__label">分类</p>
+            </a>
+            <a href="find.html" class="weui-tabbar__item">
+                <div class="weui-tabbar__icon">
+                    <img src="./img/svg/foot-3.svg" alt="">
+                </div>
+                <p class="weui-tabbar__label">发现</p>
+            </a>
+            <a href="cart.html" class="weui-tabbar__item">
+                <span class="weui-badge" style="position: absolute; top: -.4em; right: 1em;">8</span>
+                <div class="weui-tabbar__icon">
+                    <img src="./img/svg/foot-4.svg" alt="">
+                </div>
+                <p class="weui-tabbar__label">购物车</p>
+            </a>
+            <a href="home.html" class="weui-tabbar__item">
+                <div class="weui-tabbar__icon">
+                    <img src="./img/svg/foot-5.svg" alt="">
+                </div>
+                <p class="weui-tabbar__label">我的</p>
+            </a>
+        </div>
+    </div>
+</footer>
+<section class="zyw-container">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" th:each="img : ${slideshowHome}">
+                <a th:if="${img.ustate eq '1'}" th:href="${'/h5/goods/'+img.uinfoid}">
+                    <img th:src="${img.uhomepic}" src='/h5/data/attached/afficheimg/1475869618740468734.png'
+                         border='0'/>
+                </a>
+                <a th:if="${img.ustate eq '2'}" th:href="${'/h5/category/goods/'+img.uinfoid}">
+                    <img th:src="${img.uhomepic}" border='0'
+                         src='/h5/data/attached/afficheimg/1475947014493634167.png'/>
+                </a>
+            </div>
+            <!--  <div class="swiper-slide">
+                  <img
+                          src="https://img.alicdn.com/imgextra/i4/2590951958/TB2Fz6XfgMPMeJjy1XbXXcwxVXa_!!2590951958.jpg"
+                          alt="">
+              </div>
+              <div class="swiper-slide">
+                  <img
+                          src="https://img.alicdn.com/imgextra/i4/2590951958/TB2z.NKbaagSKJjy0FgXXcRqFXa_!!2590951958.jpg"
+                          alt="">
+              </div>
+              <div class="swiper-slide">
+                  <img
+                          src="https://img.alicdn.com/imgextra/i4/2590951958/TB2ZxVCbjihSKJjy0FeXXbJtpXa_!!2590951958.jpg"
+                          alt="">
+              </div>-->
+        </div>
+        <!-- 如果需要分页器 -->
+        <div class="swiper-pagination"></div>
+    </div>
+    <div class="index-class white-bgcolor">
+        <div class="weui-flex">
+            <div class="weui-flex__item">
+                <a href="newproduct.html">
+                    <div class="index-class-img">
+                        <img src="./img/yqyl.png" alt="" style="width: 48.5%">
+                    </div>
+                    <p class="index-class-text">新品专区</p>
+                </a>
+            </div>
+            <div class="weui-flex__item">
+                <a href="free.html">
+                    <div class="index-class-img">
+                        <img src="./img/cjfl.png" alt="" style="width: 48.5%">
+                    </div>
+                    <p class="index-class-text">免费专区</p>
+                </a>
+            </div>
+            <div class="weui-flex__item">
+                <a href="seckill.html">
+                    <div class="index-class-img">
+                        <img src="./img/kbsc.png" alt="" style="width: 48.5%">
+                    </div>
+                    <p class="index-class-text">秒杀专区</p>
+                </a>
+            </div>
+            <div class="weui-flex__item">
+                <a href="seckill.html">
+                    <div class="index-class-img">
+                        <img src="./img/sjtx.png" alt="" style="width: 48.5%">
+                    </div>
+                    <p class="index-class-text">厂家入驻</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="index-news">
+        <div class="news-cont white-bgcolor">
+            <strong>最新<em>资讯</em>：
+            </strong>
+            <div class="infoBox">
+                <ul class="swiper-wrapper">
+                    <li class="swiper-slide">
+                        <a href="#">
+                            <span><i>热</i>港货灵商城微信版上线啦！</span>
+                        </a>
+                    </li>
+                    <li class="swiper-slide">
+                        <a href="#">
+                            <span>港货灵商城微信版上线啦2！</span>
+                        </a>
+                    </li>
+                    <li class="swiper-slide">
+                        <a href="#">
+                            <span>马上就要开学了，书包买买买！</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <ul>
+                <li>
+                    <a href=""></a>
+                </li>
+            </ul>
+            <a href="" class="news-more">更多</a>
+        </div>
+    </div>
+    <div class="index-seckill white-bgcolor">
+        <div class="seckill-hd">
+=======
+<body>
+<header class="zyw-header">
+    <div class="zyw-container white-color">
+        <div class="head-l">
+            <i class="head-l-svg" aria-hidden="true"></i>
+        </div>
+        <div class="head-search">
+            <i class="fa fa-search" aria-hidden="true"></i> <input type="text" placeholder="输入您当前要搜索的商品"
+                                                                   class="white-color">
+        </div>
+        <div class="head-r">
+            <a href="cart.html">
+                <i class="head-r-svg" aria-hidden="true"></i><i class="head-length">8</i>
+            </a>
+        </div>
+    </div>
+</header>
+<footer class="zyw-footer">
+    <div class="zyw-container white-bgcolor clearfix">
+        <div class="weui-tabbar">
+            <a href="index.html" class="weui-tabbar__item weui-bar__item--on">
+                <div class="weui-tabbar__icon">
+                    <img src="./img/svg/foot-1-1.svg" alt="">
+                </div>
+                <p class="weui-tabbar__label">首页</p>
+            </a>
+            <a href="class.html" class="weui-tabbar__item">
+                <div class="weui-tabbar__icon">
+                    <img src="./img/svg/foot-2.svg" alt="">
+                </div>
+                <p class="weui-tabbar__label">分类</p>
+            </a>
+            <a href="find.html" class="weui-tabbar__item">
+                <div class="weui-tabbar__icon">
+                    <img src="./img/svg/foot-3.svg" alt="">
+                </div>
+                <p class="weui-tabbar__label">发现</p>
+            </a>
+            <a href="cart.html" class="weui-tabbar__item">
+                <span class="weui-badge" style="position: absolute; top: -.4em; right: 1em;">8</span>
+                <div class="weui-tabbar__icon">
+                    <img src="./img/svg/foot-4.svg" alt="">
+                </div>
+                <p class="weui-tabbar__label">购物车</p>
+            </a>
+            <a href="home.html" class="weui-tabbar__item">
+                <div class="weui-tabbar__icon">
+                    <img src="./img/svg/foot-5.svg" alt="">
+                </div>
+                <p class="weui-tabbar__label">我的</p>
+            </a>
+        </div>
+    </div>
+</footer>
+<section class="zyw-container">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <a th:if="${img?.ustate eq '1'}" th:href="${'/h5/goods/'+img.uinfoid}">
+                <img th:src="${img.uhomepic}" src='/h5/data/attached/afficheimg/1475869618740468734.png' border='0'/>
+            </a>
+            <a th:if="${img?.ustate eq '2'}" th:href="${'/h5/category/goods/'+img.uinfoid}">
+                <img th:src="${img.uhomepic}" border='0' src='/h5/data/attached/afficheimg/1475947014493634167.png'/>
+            </a>
+            <div class="swiper-slide">
+                <img
+                        src="https://img.alicdn.com/imgextra/i4/2590951958/TB2Fz6XfgMPMeJjy1XbXXcwxVXa_!!2590951958.jpg"
+                        alt="">
+            </div>
+            <div class="swiper-slide">
+                <img
+                        src="https://img.alicdn.com/imgextra/i4/2590951958/TB2z.NKbaagSKJjy0FgXXcRqFXa_!!2590951958.jpg"
+                        alt="">
+            </div>
+            <div class="swiper-slide">
+                <img
+                        src="https://img.alicdn.com/imgextra/i4/2590951958/TB2ZxVCbjihSKJjy0FeXXbJtpXa_!!2590951958.jpg"
+                        alt="">
+            </div>
+        </div>
+        <!-- 如果需要分页器 -->
+        <div class="swiper-pagination"></div>
+    </div>
+    <div class="index-class white-bgcolor">
+        <div class="weui-flex">
+            <div class="weui-flex__item">
+                <a href="newproduct.html">
+                    <div class="index-class-img">
+                        <img src="./img/yqyl.png" alt="" style="width: 48.5%">
+                    </div>
+                    <p class="index-class-text">新品专区</p>
+                </a>
+            </div>
+            <div class="weui-flex__item">
+                <a href="free.html">
+                    <div class="index-class-img">
+                        <img src="./img/cjfl.png" alt="" style="width: 48.5%">
+                    </div>
+                    <p class="index-class-text">免费专区</p>
+                </a>
+            </div>
+            <div class="weui-flex__item">
+                <a href="seckill.html">
+                    <div class="index-class-img">
+                        <img src="./img/kbsc.png" alt="" style="width: 48.5%">
+                    </div>
+                    <p class="index-class-text">秒杀专区</p>
+                </a>
+            </div>
+            <div class="weui-flex__item">
+                <a href="seckill.html">
+                    <div class="index-class-img">
+                        <img src="./img/sjtx.png" alt="" style="width: 48.5%">
+                    </div>
+                    <p class="index-class-text">厂家入驻</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="index-news">
+        <div class="news-cont white-bgcolor">
+            <strong>最新<em>资讯</em>：
+            </strong>
+            <div class="infoBox">
+                <ul class="swiper-wrapper">
+                    <li class="swiper-slide">
+                        <a href="#">
+                            <span><i>热</i>港货灵商城微信版上线啦！</span>
+                        </a>
+                    </li>
+                    <li class="swiper-slide">
+                        <a href="#">
+                            <span>港货灵商城微信版上线啦2！</span>
+                        </a>
+                    </li>
+                    <li class="swiper-slide">
+                        <a href="#">
+                            <span>马上就要开学了，书包买买买！</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <ul>
+                <li>
+                    <a href=""></a>
+                </li>
+            </ul>
+            <a href="" class="news-more">更多</a>
+        </div>
+    </div>
+    <div class="index-seckill white-bgcolor">
+        <div class="seckill-hd">
+>>>>>>> .r102
+			<span class="seckill-hd-title red-color"><i class="fa fa-clock-o" aria-hidden="true"></i>
+				限时秒杀</span> <strong>10点场</strong>
+<<<<<<< .mine
+            <div id="time"></div>
+            <div class="seckill-hd-r">
+                秒抢好货 <i class="fa fa-angle-right theme-color" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="seckill-bd">
+            <div class="seckill-wares">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide seckill-ware">
+                        <a href="item.html">
+                            <img
+                                    src="https://m.360buyimg.com/n1/jfs/t15787/353/109633918/16701/5a8390ef/5a27ae6dNc530b5bb.jpg!q70.jpg"
+                                    alt="">
+                            <p class="red-color">
+                                ￥<strong>3800.00</strong>
+                            </p>
+                            <del>￥12000.00</del>
+                        </a>
+                    </div>
+                    <div class="swiper-slide seckill-ware">
+                        <a href="item.html">
+                            <img
+                                    src="https://m.360buyimg.com/mobilecms/s240x240_jfs/t14287/16/2071526173/41836/766c1953/5a6935d3N17ca68e7.jpg!q70.jpg"
+                                    alt="">
+                            <p class="red-color">
+                                ￥<strong>89.90</strong>
+                            </p>
+                            <del>￥128.89</del>
+                        </a>
+                    </div>
+                    <div class="swiper-slide seckill-ware">
+                        <a href="item.html">
+                            <img
+                                    src="https://m.360buyimg.com/mobilecms/s240x240_jfs/t15049/171/1967249015/25679/d554d9a9/5a61d929N027318e3.jpg!q70.jpg"
+                                    alt="">
+                            <p class="red-color">
+                                ￥<strong>1900.00</strong>
+                            </p>
+                            <del>￥2200.00</del>
+                        </a>
+                    </div>
+                    <div class="swiper-slide seckill-ware">
+                        <a href="item.html">
+                            <img
+                                    src="https://m.360buyimg.com//mobilecms/s276x276_jfs/t13030/75/2301251503/262030/ed6dc00d/5a3a09beN645f27a8.jpg!q70.jpg"
+                                    alt="">
+                            <p class="red-color">
+                                ￥<strong>35.00</strong>
+                            </p>
+                            <del>￥38.00</del>
+                        </a>
+                    </div>
+                    <div class="swiper-slide seckill-ware">
+                        <a href="item.html">
+                            <img
+                                    src="https://m.360buyimg.com//mobilecms/s276x276_jfs/t11401/34/504898878/183378/5a6a8a48/59f1c3a1N2174c8cc.jpg!q70.jpg"
+                                    alt="">
+                            <p class="red-color">
+                                ￥<strong>38.00</strong>
+                            </p>
+                            <del>￥50.00</del>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="index-show clearfix">
+        <div class="col-sm-12 col-xs-12">
+            <a class="sc-gPEVay jZmIRd" href="">
+                <img src="https://s2.juancdn.com/jas/180125/a/0/5a6991598150a12f8a70b929_1080x292.gif" alt="">
+            </a>
+        </div>
+        <div class="col-sm-6 col-xs-6">
+            <a class="sc-gPEVay jZmIRd" href="">
+                <img
+                        src="https://goods8.juancdn.com/jas/180125/f/d/5a6991fda9fcf8ad18749379_540x280.png?imageMogr2/quality/85!/format/png"
+                        alt="">
+            </a>
+        </div>
+        <div class="col-sm-6 col-xs-6">
+            <a class="sc-gPEVay jZmIRd" href="">
+                <img
+                        src="https://goods8.juancdn.com/jas/180125/f/7/5a6995588150a12cfc124a62_540x280.png?imageMogr2/quality/85!/format/png"
+                        alt="">
+            </a>
+        </div>
+        <div class="col-sm-4 col-xs-4">
+            <a class="sc-gPEVay jZmIRd" href="">
+                <img
+                        src="https://goods7.juancdn.com/jas/180125/c/d/5a6998f98150a12e8a36d67c_360x304.png?iopcmd=convert&Q=85&dst=png"
+                        alt="">
+            </a>
+        </div>
+        <div class="col-sm-4 col-xs-4">
+            <a class="sc-gPEVay jZmIRd" href="">
+                <img
+                        src="https://goods8.juancdn.com/jas/180125/e/c/5a699928a9fcf805074b5461_360x304.png?imageMogr2/quality/85!/format/png"
+                        alt="">
+            </a>
+        </div>
+        <div class="col-sm-4 col-xs-4">
+            <a class="sc-gPEVay jZmIRd" href="">
+                <img
+                        src="https://goods1.juancdn.com/jas/180125/1/a/5a699957a9fcf80b4d353e8b_360x304.png?iopcmd=convert&Q=85&dst=png"
+                        alt="">
+            </a>
+        </div>
+    </div>
+    <div class="index-wares">
+        <div class="wares-title">
+            <img src="http://gw.alicdn.com/tfs/TB1Aw9JSVXXXXXQXXXXXXXXXXXX-1500-68.png" alt="">
+        </div>
+        <div class="wares-cont">
+            <ul class="clearfix" id="J_ItemList">
+                <!--
+                    <li class="col-sm-6 col-xs-6 ware-box" style="width:99.2%">
+                        <a href="item.html">
+                            <div class="ware-img">
+                                <img
+                                    src="https://m.360buyimg.com/n1/jfs/t15787/353/109633918/16701/5a8390ef/5a27ae6dNc530b5bb.jpg!q70.jpg"
+                                    alt=""> <span class="ware-vip">vip专享</span>
+                            </div>
+                            <h3 class="ware-title" >Apple 苹果 iPhoneX 全新发布逢狼时刻快捷方式</h3>
+                            <p class="ware-des">全网通 64G 深空灰</p>
+                            <span class="ware-prince red-color">￥8088.00</span>
+                        </a>
+                    </li>
+                    <li class="col-sm-6 col-xs-6 ware-box" style="width:99.2%">
+                        <a href="item.html">
+                            <div class="ware-img">
+                                <img
+                                    src="https://m.360buyimg.com/mobilecms/s240x240_jfs/t14125/285/900232321/14466/12dfc3a3/5a163dd1Ne09fad4b.jpg!q70.jpg"
+                                    alt=""> <span class="ware-vip">vip专享</span>
+                            </div>
+                            <h3 class="ware-title">Apple 苹果 iPhoneX 全新发布</h3>
+                            <p class="ware-des">全网通 64G 深空灰</p>
+                            <span class="ware-prince red-color">￥8088.00</span>
+                        </a>
+                    </li>
+                    <li class="col-sm-6 col-xs-6 ware-box" style="width:99.2%">
+                        <a href="item.html">
+                            <div class="ware-img">
+                                <img
+                                    src="https://m.360buyimg.com/mobilecms/s240x240_jfs/t15811/137/1521616135/14255/a6150285/5a546fadN096d46b4.jpg!q70.jpg"
+                                    alt=""> <span class="ware-vip">vip专享</span>
+                            </div>
+                            <h3 class="ware-title">Apple 苹果 iPhoneX 全新发布</h3>
+                            <p class="ware-des">全网通 64G 深空灰</p>
+                            <span class="ware-prince red-color">￥8088.00</span>
+                        </a>
+                    </li>
+                    <li class="col-sm-6 col-xs-6 ware-box">
+                        <a href="item.html">
+                            <div class="ware-img">
+                                <img
+                                    src="https://m.360buyimg.com//mobilecms/s276x276_jfs/t5848/205/6830434960/124593/19e83624/596c8b4eN3c8ba6a7.jpg!q70.jpg"
+                                    alt=""> <span class="ware-vip">vip专享</span>
+                            </div>
+                            <h3 class="ware-title">Apple 苹果 iPhoneX 全新发布</h3>
+                            <p class="ware-des">全网通 64G 深空灰</p>
+                            <span class="ware-prince red-color">￥8088.00</span>
+                        </a>
+                    </li>
+                     -->
+                <!--<li class="col-sm-6 col-xs-6 ware-box" style="width: 99.2%">
+                    <a href=" ">
+                        <div class="ware-img" style="position: relative; padding: 0px; float: left">
+                            <img style="width: 50%;"
+                                src="https://m.360buyimg.com/n1/jfs/t15787/353/109633918/16701/5a8390ef/5a27ae6dNc530b5bb.jpg!q70.jpg"
+                                alt=""><span class="ware-vip">vip专享</span>
+                            <div class="ware-img" style="position: relative; padding: 0px; float: right; width: 50%">
+                                <div class="ware-title" style="white-space: normal;">Apple 苹果 iPhoneX 全新发布逢狼时刻快捷方式</div>
+                                <p class="ware-des">全网通 64G 深空灰</p>
+                                <span class="ware-prince red-color">￥8088.00</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="col-sm-6 col-xs-6 ware-box" style="width: 99.2%">
+                    <a href=" ">
+                        <div class="ware-img" style="position: relative; padding: 0px; float: left">
+                            <img style="width: 50%;"
+                                src="https://m.360buyimg.com/n1/jfs/t15787/353/109633918/16701/5a8390ef/5a27ae6dNc530b5bb.jpg!q70.jpg"
+                                alt=""><span class="ware-vip">vip专享</span>
+                            <div class="ware-img" style="position: relative; padding: 0px; float: right; width: 50%">
+                                <div class="ware-title" style="white-space: normal;">Apple 苹果 iPhoneX 全新发布逢狼时刻快捷方式</div>
+                                <p class="ware-des">全网通 64G 深空灰</p>
+                                <span class="ware-prince red-color">￥8088.00</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="col-sm-6 col-xs-6 ware-box" style="width: 99.2%">
+                    <a href=" ">
+                        <div class="ware-img" style="position: relative; padding: 0px; float: left">
+                            <img style="width: 50%;"
+                                src="https://m.360buyimg.com/n1/jfs/t15787/353/109633918/16701/5a8390ef/5a27ae6dNc530b5bb.jpg!q70.jpg"
+                                alt=""><span class="ware-vip">vip专享</span>
+                            <div class="ware-img" style="position: relative; padding: 0px; float: right; width: 50%">
+                                <div class="ware-title" style="white-space: normal;">Apple 苹果 iPhoneX 全新发布逢狼时刻快捷方式</div>
+                                <p class="ware-des">全网通 64G 深空灰</p>
+                                <span class="ware-prince red-color">￥8088.00</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>-->
+=======
+            <div id="time"></div>
+            <div class="seckill-hd-r">
+                秒抢好货 <i class="fa fa-angle-right theme-color" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="seckill-bd">
+            <div class="seckill-wares">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide seckill-ware">
+                        <a href="item.html">
+                            <img
+                                    src="https://m.360buyimg.com/n1/jfs/t15787/353/109633918/16701/5a8390ef/5a27ae6dNc530b5bb.jpg!q70.jpg"
+                                    alt="">
+                            <p class="red-color">
+                                ￥<strong>3800.00</strong>
+                            </p>
+                            <del>￥12000.00</del>
+                        </a>
+                    </div>
+                    <div class="swiper-slide seckill-ware">
+                        <a href="item.html">
+                            <img
+                                    src="https://m.360buyimg.com/mobilecms/s240x240_jfs/t14287/16/2071526173/41836/766c1953/5a6935d3N17ca68e7.jpg!q70.jpg"
+                                    alt="">
+                            <p class="red-color">
+                                ￥<strong>89.90</strong>
+                            </p>
+                            <del>￥128.89</del>
+                        </a>
+                    </div>
+                    <div class="swiper-slide seckill-ware">
+                        <a href="item.html">
+                            <img
+                                    src="https://m.360buyimg.com/mobilecms/s240x240_jfs/t15049/171/1967249015/25679/d554d9a9/5a61d929N027318e3.jpg!q70.jpg"
+                                    alt="">
+                            <p class="red-color">
+                                ￥<strong>1900.00</strong>
+                            </p>
+                            <del>￥2200.00</del>
+                        </a>
+                    </div>
+                    <div class="swiper-slide seckill-ware">
+                        <a href="item.html">
+                            <img
+                                    src="https://m.360buyimg.com//mobilecms/s276x276_jfs/t13030/75/2301251503/262030/ed6dc00d/5a3a09beN645f27a8.jpg!q70.jpg"
+                                    alt="">
+                            <p class="red-color">
+                                ￥<strong>35.00</strong>
+                            </p>
+                            <del>￥38.00</del>
+                        </a>
+                    </div>
+                    <div class="swiper-slide seckill-ware">
+                        <a href="item.html">
+                            <img
+                                    src="https://m.360buyimg.com//mobilecms/s276x276_jfs/t11401/34/504898878/183378/5a6a8a48/59f1c3a1N2174c8cc.jpg!q70.jpg"
+                                    alt="">
+                            <p class="red-color">
+                                ￥<strong>38.00</strong>
+                            </p>
+                            <del>￥50.00</del>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="index-show clearfix">
+        <div class="col-sm-12 col-xs-12">
+            <a class="sc-gPEVay jZmIRd" href="">
+                <img src="https://s2.juancdn.com/jas/180125/a/0/5a6991598150a12f8a70b929_1080x292.gif" alt="">
+            </a>
+        </div>
+        <div class="col-sm-6 col-xs-6">
+            <a class="sc-gPEVay jZmIRd" href="">
+                <img
+                        src="https://goods8.juancdn.com/jas/180125/f/d/5a6991fda9fcf8ad18749379_540x280.png?imageMogr2/quality/85!/format/png"
+                        alt="">
+            </a>
+        </div>
+        <div class="col-sm-6 col-xs-6">
+            <a class="sc-gPEVay jZmIRd" href="">
+                <img
+                        src="https://goods8.juancdn.com/jas/180125/f/7/5a6995588150a12cfc124a62_540x280.png?imageMogr2/quality/85!/format/png"
+                        alt="">
+            </a>
+        </div>
+        <div class="col-sm-4 col-xs-4">
+            <a class="sc-gPEVay jZmIRd" href="">
+                <img
+                        src="https://goods7.juancdn.com/jas/180125/c/d/5a6998f98150a12e8a36d67c_360x304.png?iopcmd=convert&Q=85&dst=png"
+                        alt="">
+            </a>
+        </div>
+        <div class="col-sm-4 col-xs-4">
+            <a class="sc-gPEVay jZmIRd" href="">
+                <img
+                        src="https://goods8.juancdn.com/jas/180125/e/c/5a699928a9fcf805074b5461_360x304.png?imageMogr2/quality/85!/format/png"
+                        alt="">
+            </a>
+        </div>
+        <div class="col-sm-4 col-xs-4">
+            <a class="sc-gPEVay jZmIRd" href="">
+                <img
+                        src="https://goods1.juancdn.com/jas/180125/1/a/5a699957a9fcf80b4d353e8b_360x304.png?iopcmd=convert&Q=85&dst=png"
+                        alt="">
+            </a>
+        </div>
+    </div>
+    <div class="index-wares">
+        <div class="wares-title">
+            <img src="http://gw.alicdn.com/tfs/TB1Aw9JSVXXXXXQXXXXXXXXXXXX-1500-68.png" alt="">
+        </div>
+        <div class="wares-cont">
+            <!--
+                <div class="find-group1-item mb-625 white-bgcolor">
+                    <div class="group1-bd clearfix mystyles">
+                        <div class="pull-left bd-l">
+                            <div class="bd-img">
+                                <img
+                                    src="https://img11.360buyimg.com/mobilecms/s100x100_jfs/t18607/245/416101886/491398/5ed65605/5a73c80bNc4fab2ca.jpg!q90!cc_100x100.webp"
+                                    alt="">
+                            </div>
+                        </div>
+                        <div class="pull-right bd-r">
+                            <h3 class="bd-title">农家散养土鸡蛋葫芦谭新鲜山林草鸡蛋材质</h3>
+                        </div>
+                        <p class="pricess">
+                            <span class="price-icon">￥</span><span class="font-num">25.8</span>
+                        </p>
+                        <div class="d-main">
+                            <p>免运费</p>
+                            <p>
+                                <span>1513</span>人付款
+                            </p>
+                            <p>潮州</p>
+                        </div>
+                    </div>
+                    <div class="group1-bd clearfix">
+                        <div class="pull-left bd-l">
+                            <div class="bd-img">
+                                <img
+                                    src="https://img11.360buyimg.com/mobilecms/s100x100_jfs/t18607/245/416101886/491398/5ed65605/5a73c80bNc4fab2ca.jpg!q90!cc_100x100.webp"
+                                    alt="">
+                            </div>
+                        </div>
+                        <div class="pull-right bd-r">
+                            <h3 class="bd-title">时尚女神节 抢5折优惠券转身变女神 你想要的这里都有时尚女</h3>
+                        </div>
+                        <span class="pull-right pull-buttom bd-intro bd-bottom">1.1万人浏览 2390件宝贝</span>
+                    </div>
+                </div>
+                 -->
+            <!-- 	<ul>
+                    <li>
+                        <div class="list-item">
+                            <div class="p">
+                                <a href="#" title="">
+                                    <img class="p-pic"
+                                        src="//img.alicdn.com/img/i4/59388406/O1CN01tKxpHN2Bxzqk1mnXt_!!0-saturn_solar.jpg_100x100.jpg"
+                                        style="visibility: visible;"><span class="flag c-icon-p4p"></span>
+                                </a>
+                            </div>
+                            <div class="d">
+                                <a href="#">
+                                    <h3 class="d-title">家用电脑椅学生学习写字椅简约书房书桌椅子</h3>
+                                </a>
+                                <p class="d-price">
+                                    <em class="h"> <span class="price-icon">￥</span> <span class="font-num">299</span>
+                                    </em>
+                                    <del>
+                                        <span class="price-icon">¥</span><span class="font-num2">758</span>
+                                    </del>
+                                </p>
+                                <div class="d-main">
+                                    <p class="d-freight">免运费</p>
+                                    <p class="d-num">
+                                        <span class="font-num">1544</span>人付款
+                                    </p>
+                                    <p class="d-area">湖州</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="list-item">
+                            <div class="p">
+                                <a href="#" title="">
+                                    <img class="p-pic"
+                                        src="//img.alicdn.com/img/i4/59388406/O1CN01tKxpHN2Bxzqk1mnXt_!!0-saturn_solar.jpg_100x100.jpg"
+                                        style="visibility: visible;"><span class="flag c-icon-p4p"></span>
+                                </a>
+                            </div>
+                            <div class="d">
+                                <a href="#">
+                                    <h3 class="d-title">家用电脑椅学生学习写字椅简约书房书桌椅子</h3>
+                                </a>
+                                <p class="d-price">
+                                    <em class="h"> <span class="price-icon">￥</span> <span class="font-num">299</span>
+                                    </em>
+                                    <del>
+                                        <span class="price-icon">¥</span><span class="font-num2">758</span>
+                                    </del>
+                                </p>
+                                <div class="d-main">
+                                    <p class="d-freight">免运费</p>
+                                    <p class="d-num">
+                                        <span class="font-num">1544</span>人付款
+                                    </p>
+                                    <p class="d-area">湖州</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="list-item">
+                            <div class="p">
+                                <a href="#" title="">
+                                    <img class="p-pic"
+                                        src="//img.alicdn.com/img/i4/59388406/O1CN01tKxpHN2Bxzqk1mnXt_!!0-saturn_solar.jpg_100x100.jpg"
+                                        style="visibility: visible;"><span class="flag c-icon-p4p"></span>
+                                </a>
+                            </div>
+                            <div class="d">
+                                <a href="#">
+                                    <h3 class="d-title">家用电脑椅学生学习写字椅简约书房书桌椅子</h3>
+                                </a>
+                                <p class="d-price">
+                                    <em class="h"> <span class="price-icon">￥</span> <span class="font-num">299</span>
+                                    </em>
+                                    <del>
+                                        <span class="price-icon">¥</span><span class="font-num2">758</span>
+                                    </del>
+                                </p>
+                                <div class="d-main">
+                                    <p class="d-freight">免运费</p>
+                                    <p class="d-num">
+                                        <span class="font-num">1544</span>人付款
+                                    </p>
+                                    <p class="d-area">湖州</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>  -->
+            <ul class="clearfix" id="J_ItemList">
+                <!--
+                    <li class="col-sm-6 col-xs-6 ware-box" style="width:99.2%">
+                        <a href="item.html">
+                            <div class="ware-img">
+                                <img
+                                    src="https://m.360buyimg.com/n1/jfs/t15787/353/109633918/16701/5a8390ef/5a27ae6dNc530b5bb.jpg!q70.jpg"
+                                    alt=""> <span class="ware-vip">vip专享</span>
+                            </div>
+                            <h3 class="ware-title" >Apple 苹果 iPhoneX 全新发布逢狼时刻快捷方式</h3>
+                            <p class="ware-des">全网通 64G 深空灰</p>
+                            <span class="ware-prince red-color">￥8088.00</span>
+                        </a>
+                    </li>
+                    <li class="col-sm-6 col-xs-6 ware-box" style="width:99.2%">
+                        <a href="item.html">
+                            <div class="ware-img">
+                                <img
+                                    src="https://m.360buyimg.com/mobilecms/s240x240_jfs/t14125/285/900232321/14466/12dfc3a3/5a163dd1Ne09fad4b.jpg!q70.jpg"
+                                    alt=""> <span class="ware-vip">vip专享</span>
+                            </div>
+                            <h3 class="ware-title">Apple 苹果 iPhoneX 全新发布</h3>
+                            <p class="ware-des">全网通 64G 深空灰</p>
+                            <span class="ware-prince red-color">￥8088.00</span>
+                        </a>
+                    </li>
+                    <li class="col-sm-6 col-xs-6 ware-box" style="width:99.2%">
+                        <a href="item.html">
+                            <div class="ware-img">
+                                <img
+                                    src="https://m.360buyimg.com/mobilecms/s240x240_jfs/t15811/137/1521616135/14255/a6150285/5a546fadN096d46b4.jpg!q70.jpg"
+                                    alt=""> <span class="ware-vip">vip专享</span>
+                            </div>
+                            <h3 class="ware-title">Apple 苹果 iPhoneX 全新发布</h3>
+                            <p class="ware-des">全网通 64G 深空灰</p>
+                            <span class="ware-prince red-color">￥8088.00</span>
+                        </a>
+                    </li>
+                    <li class="col-sm-6 col-xs-6 ware-box">
+                        <a href="item.html">
+                            <div class="ware-img">
+                                <img
+                                    src="https://m.360buyimg.com//mobilecms/s276x276_jfs/t5848/205/6830434960/124593/19e83624/596c8b4eN3c8ba6a7.jpg!q70.jpg"
+                                    alt=""> <span class="ware-vip">vip专享</span>
+                            </div>
+                            <h3 class="ware-title">Apple 苹果 iPhoneX 全新发布</h3>
+                            <p class="ware-des">全网通 64G 深空灰</p>
+                            <span class="ware-prince red-color">￥8088.00</span>
+                        </a>
+                    </li>
+                     -->
+                <!--<li class="col-sm-6 col-xs-6 ware-box" style="width: 99.2%">
+                    <a href=" ">
+                        <div class="ware-img" style="position: relative; padding: 0px; float: left">
+                            <img style="width: 50%;"
+                                src="https://m.360buyimg.com/n1/jfs/t15787/353/109633918/16701/5a8390ef/5a27ae6dNc530b5bb.jpg!q70.jpg"
+                                alt=""><span class="ware-vip">vip专享</span>
+                            <div class="ware-img" style="position: relative; padding: 0px; float: right; width: 50%">
+                                <div class="ware-title" style="white-space: normal;">Apple 苹果 iPhoneX 全新发布逢狼时刻快捷方式</div>
+                                <p class="ware-des">全网通 64G 深空灰</p>
+                                <span class="ware-prince red-color">￥8088.00</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="col-sm-6 col-xs-6 ware-box" style="width: 99.2%">
+                    <a href=" ">
+                        <div class="ware-img" style="position: relative; padding: 0px; float: left">
+                            <img style="width: 50%;"
+                                src="https://m.360buyimg.com/n1/jfs/t15787/353/109633918/16701/5a8390ef/5a27ae6dNc530b5bb.jpg!q70.jpg"
+                                alt=""><span class="ware-vip">vip专享</span>
+                            <div class="ware-img" style="position: relative; padding: 0px; float: right; width: 50%">
+                                <div class="ware-title" style="white-space: normal;">Apple 苹果 iPhoneX 全新发布逢狼时刻快捷方式</div>
+                                <p class="ware-des">全网通 64G 深空灰</p>
+                                <span class="ware-prince red-color">￥8088.00</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="col-sm-6 col-xs-6 ware-box" style="width: 99.2%">
+                    <a href=" ">
+                        <div class="ware-img" style="position: relative; padding: 0px; float: left">
+                            <img style="width: 50%;"
+                                src="https://m.360buyimg.com/n1/jfs/t15787/353/109633918/16701/5a8390ef/5a27ae6dNc530b5bb.jpg!q70.jpg"
+                                alt=""><span class="ware-vip">vip专享</span>
+                            <div class="ware-img" style="position: relative; padding: 0px; float: right; width: 50%">
+                                <div class="ware-title" style="white-space: normal;">Apple 苹果 iPhoneX 全新发布逢狼时刻快捷方式</div>
+                                <p class="ware-des">全网通 64G 深空灰</p>
+                                <span class="ware-prince red-color">￥8088.00</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>-->
+>>>>>>> .r102
+
+<<<<<<< .mine
+            </ul>
+        </div>
+    </div>
+</section>
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script src="js/swiper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    var pageNo = 1;		// 当前页码
+    var pageSize = 5;	// 每页显示条数
+    var load = true;	// 是否继续加载
+    var lock = false;	// 加载锁
+    // 轮播
+    $(document).ready(function () {
+        // 顶部轮播图
+        var mySwiper = new Swiper('.swiper-container', {
+            // 如果需要分页器
+            autoplay: true,
+            pagination: {
+                el: '.swiper-pagination'
+            }
+        });
+        // 秒杀商品滑动
+        var swiper = new Swiper('.seckill-wares', {
+            slidesPerView: 3.5,
+            spaceBetween: 5,
+            freeMode: true
+        });
+        // 新闻资讯
+        var swiper2 = new Swiper('.infoBox', {
+            autoplay: true,
+            delay: 5000,
+            direction: 'vertical'
+        });
+        // $(window).scroll(function () {
+        //     if ($(document.body).height() - $(window).height() - $(window).scrollTop()<2) {	// 是否滚动至底部
+        //         loadGoods();
+        //     }
+        // });
+        $(window).scroll(function(){
+            var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+            var scrollHeight = $(document).height();
+            var windowHeight = $(this).height();
+            if(scrollTop + windowHeight +100 >= scrollHeight){//手机端浏览器非全屏模式
+                loadGoods();
+            }
+        });
+
+        //第一次加载
+        $.ajax({
+            type: "post",
+            url: "/h5/queryRecommendGoodsPage",
+            data: {
+                pageNo: pageNo,
+                pageSize: pageSize
+            },
+            success: function (res) {
+                if (res.retcode) {
+                    pageNo++;
+                    if (res.data.length < pageSize) {
+                        load = false;
+                    }
+                    var content = '';
+
+                    console.log(JSON.stringify(res.data));
+                    // alert(JSON.stringify(res.data));
+                    $(res.data).each(function (i, item) {
+                        var ucomproductid = String(item.ucomproductid);
+                        content += '<li class="col-sm-6 col-xs-6 ware-box"  style="width: 99.2%">';
+                        content += '<a href="item.html">';
+                        content += '<div class="ware-img" style="position: relative; padding: 0px;float: left" >';
+
+                        content += '<img style="width: 50%;"src="https://m.360buyimg.com/n1/jfs/t15787/353/109633918/16701/5a8390ef/5a27ae6dNc530b5bb.jpg!q70.jpg"alt="">';
+                        content += '<span class="ware-vip">vip专享</span>';
+
+                        content += '<div  class="ware-img" style="position: relative; padding: 0px;float: right;width: 50%">'
+                        content += '<span class="ware-title" style="white-space: normal;" >Apple 苹果 iPhoneX 全新发布逢狼时刻快捷方式</span>'
+                        content += '<p class="ware-des">库存：'+item.ustock+'<span style="margin-left:3px;">销量:'+item.usalesnum+'</span></p>';
+                        content += '<span class="ware-prince red-color">￥'+item.umarketprice+'</span>';
+                        content += '</div>';
+                        content += '</div>';
+
+                        content += '</a>';
+                        content += '</li>';
+
+
+                    })
+                    $('#J_ItemList').append(content);
+=======
+            </ul>
+        </div>
+    </div>
+</section>
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script src="js/swiper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    var pageNo = 1;		// 当前页码
+    var pageSize = 5;	// 每页显示条数
+    var load = true;	// 是否继续加载
+    var lock = false;	// 加载锁
+    // 轮播
+    $(document).ready(function () {
+        // 顶部轮播图
+        var mySwiper = new Swiper('.swiper-container', {
+            // 如果需要分页器
+            autoplay: true,
+            pagination: {
+                el: '.swiper-pagination'
+            }
+        });
+        // 秒杀商品滑动
+        var swiper = new Swiper('.seckill-wares', {
+            slidesPerView: 3.5,
+            spaceBetween: 5,
+            freeMode: true
+        });
+        // 新闻资讯
+        var swiper2 = new Swiper('.infoBox', {
+            autoplay: true,
+            delay: 5000,
+            direction: 'vertical'
+        });
+        $(window).scroll(function () {
+            if ($(window).scrollTop() == $(document).height() - $(window).height()) {	// 是否滚动至底部
+                loadGoods();
+            }
+        });
+
+
+        //第一次加载
+        $.ajax({
+            type: "post",
+            url: "/h5/queryRecommendGoodsPage",
+            data: {
+                pageNo: pageNo,
+                pageSize: pageSize
+            },
+            success: function (res) {
+                if (res.retcode) {
+                    pageNo++;
+                    if (res.data.length < pageSize) {
+                        load = false;
+
+                    }
+                    var content = '';
+
+                    console.log(JSON.stringify(res.data));
+                    // alert(JSON.stringify(res.data));
+                    $(res.data).each(function (i, item) {
+                        var ucomproductid = String(item.ucomproductid);
+                        content += '<li class="col-sm-6 col-xs-6 ware-box"  style="width: 99.2%">';
+                        content += '<a href="item.html">';
+                        content += '<div class="ware-img" style="position: relative; padding: 0px;float: left" >';
+
+                        content += '<img style="width: 50%;"src="https://m.360buyimg.com/n1/jfs/t15787/353/109633918/16701/5a8390ef/5a27ae6dNc530b5bb.jpg!q70.jpg"alt="">';
+                        content += '<span class="ware-vip">vip专享</span>';
+
+                        content += '<div  class="ware-img" style="position: relative; padding: 0px;float: right;width: 50%">'
+                        content += '<span class="ware-title" style="white-space: normal;" >Apple 苹果 iPhoneX 全新发布逢狼时刻快捷方式</span>'
+                        content += '<p class="ware-des">全网通 64G 深空灰</p>';
+                        content += '<span class="ware-prince red-color">￥8088.00</span>';
+                        content += '</div>';
+                        content += '</div>';
+
+                        content += '</a>';
+                        content += '</li>';
+
+
+                    })
+                    $('#J_ItemList').append(content);
+>>>>>>> .r102
+                }
+            },
+            complete: function () {
+                lock = false;
+            }
+        });
+
+    })
+
+
+    function loadGoods() {
+        if (load && !lock) {
+            // debugger;
+            lock = true;
+            $.ajax({
+                type: "post",
+                url: "/h5/queryRecommendGoodsPage",
+                data: {
+                    pageNo: pageNo,
+                    pageSize: pageSize
+                },
+                success: function (res) {
+                    if (res.retcode) {
+                        pageNo++;
+                        if (res.data.length < pageSize)
+                            load = false;
+                        var content = '';
+
+                        console.log(JSON.stringify(res.data));
+                        // alert(JSON.stringify(res.data));
+                        $(res.data).each(function (i, item) {
+
+                            var ucomproductid = String(item.ucomproductid);
+                            content += '<li class="col-sm-6 col-xs-6 ware-box"  style="width: 99.2%">';
+                            content += '<a href="item.html">';
+                            content += '<div class="ware-img" style="position: relative; padding: 0px;float: left" >';
+
+                            content += '<img style="width: 50%;"src="https://m.360buyimg.com/n1/jfs/t15787/353/109633918/16701/5a8390ef/5a27ae6dNc530b5bb.jpg!q70.jpg"alt="">';
+                            content += '<span class="ware-vip">vip专享</span>';
+
+<<<<<<< .mine
+                            content += '<div  class="ware-img" style="position: relative; padding: 0px;float: right;width: 50%">'
+                            content += '<span class="ware-title" style="white-space: normal;" >Apple 苹果 iPhoneX 全新发布逢狼时刻快捷方式</span>'
+                            content += '<p class="ware-des">库存：'+item.ustock+'<span style="margin-left:3px;">销量:'+item.usalesnum+'</span></p>';
+                            content += '<span class="ware-prince red-color">￥'+item.umarketprice+'</span>';
+                            content += '</div>';
+                            content += '</div>';
+=======
+                            content += '<div  class="ware-img" style="position: relative; padding: 0px;float: right;width: 50%">'
+                            content += '<span class="ware-title" style="white-space: normal;" >Apple 苹果 iPhoneX 全新发布逢狼时刻快捷方式</span>'
+                            content += '<p class="ware-des">全网通 64G 深空灰</p>';
+                            content += '<span class="ware-prince red-color">￥8088.00</span>';
+                            content += '</div>';
+                            content += '</div>';
+>>>>>>> .r102
+
+                            content += '</a>';
+                            content += '</li>';
+
+                        })
+                        $('#J_ItemList').append(content);
+                    }
+                },
+                complete: function () {
+                    lock = false;
+                }
+            })
+        }
+    }
+</script>
+</body>
+</html>

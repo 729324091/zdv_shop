@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="description" content="港货灵是一套分销系统，港货灵VIP获得超低价购买，VIP推荐用户成为VIP获得100元奖励，推荐用户购买获得利润的40%分成，推荐厂家产品给产品的所有销售的利润的5%分成，成为区域公司获得该区域下所有消费的利润5%分成。是一个最好的系统" />
+		<meta name="keywords" content="港货灵分销，港货灵VIP获得超低价购买" />
+		<title>港货灵</title>
+		<link rel="stylesheet" href="/h5/themes/default/statics/css/ectouch.css" />
+		<script type="text/javascript">
+			var tpl = '/ectouch/wsc/themes/default';
+		</script>
+
+	</head>
+
+	<body style="max-width:640px;">
+		<div id="loading"><img src="/h5/themes/default/statics/img/loading.gif" /></div>
+
+		<div class="con">
+
+			<header class="dis-box header-menu b-color color-whie">
+				<a class="" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou"></i></a>
+				<h3 class="box-flex">用户充值</h3>
+				<p><i class="iconfont icon-pailie j-nav-box"></i></p>
+			</header>
+			<div class="j-nav-content">
+				<ul class="dis-box new-footer-box">
+					<li class="box-flex">
+						<a href="index.html" class="nav-cont"><i class="nav-box"><img src="themes/default/statics/img/home.png"></i><span>首页</span></a>
+					</li>
+					<li class="box-flex">
+						<a href="category.html" class="nav-cont"><i class="nav-box"><img src="themes/default/statics/img/cate.png"></i><span>分类</span></a>
+						<li class="box-flex">
+							<a href="javascript:;" class="nav-cont j-search-input"><i class="nav-box"><img src="themes/default/statics/img/search.png"></i><span>搜索</span></a>
+						</li>
+						<li class="box-flex">
+							<a href="cart.html" class="nav-cont"><i class="nav-box"><img src="themes/default/statics/img/flow.png"></i><span>购物车</span></a>
+						</li>
+						<li class="box-flex">
+							<a href="personal_center.html" class="nav-cont"><i class="nav-box"><img src="themes/default/statics/img/user.png"></i><span>我的</span></a>
+						</li>
+				</ul>
+			</div>
+			<section>
+				<form action="/h5/wallet/act_account" method="post">
+				<div class="user-recharge b-color-f m-top10">
+					<div class="m-top1px margin-lr">
+						<div class="text-all dis-box j-text-all">
+							<label class="t-remark">充值金额 </label>
+							<div class="box-flex input-text">
+								<input name="utrademoney" placeholder="充值金额" type="text" class="j-input-text" value="" />
+							</div>
+						</div>
+					</div>
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<div class="select-two">
+								<a class="select-title padding-all j-menu-select">
+									<label class="fl col-7">支付方式 </label>
+									<span class="fr t-jiantou j-t-jiantou"><em class="fl t-first">请选择</em><i class="iconfont icon-jiantou tf-180 ts-2"></i></span>
+								</a>
+								<ul class="j-sub-menu padding-all j-get-one" data-istrue="true">
+									<!--<li class="ect-select j-checkbox-all">
+										<input name="payment_id" type="radio" id="zf4" value="4" class="n-accc-input-box">
+										<label class="ts-1" for="zf4"><i class="fr iconfont icon-gou ts-1"></i>支付宝(0手续费)</label>
+									</li>-->
+									<li class="ect-select j-checkbox-all">
+										<input name="payment_id" type="radio" id="zf7" value="1" class="n-accc-input-box">
+										<label class="ts-1" for="zf7"><i class="fr iconfont icon-gou ts-1"></i>微信支付(0手续费)</label>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="padding-all">
+					<input type="hidden" name="surplus_type" value="0" />
+					<input type="hidden" name="utradetype" value="0" />
+					<input type="hidden" name="rec_id" value="" />
+					<input type="hidden" name="act" value="act_account" />
+					<button type="submit" name="submit" class="btn-submit" value="" />提交申请</button>
+				</div>
+				</form>
+			</section>
+		</div>
+
+		<div class="search-div ts-3">
+			<section class="search">
+				<form action="/ectouch/wsc/index.php?m=default&c=category&a=index&u=35172" method="post">
+					<div class="text-all dis-box j-text-all">
+						<a class="a-icon-back j-close-search" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou is-left-font"></i></a>
+						<div class="box-flex input-text">
+							<input class="j-input-text" type="text" name="name" placeholder="请输入搜索关键词！" id="newinput" />
+							<i class="iconfont icon-guanbi2 is-null j-is-null"></i>
+						</div>
+						<button type="submit" class="btn-submit">搜索</button>
+					</div>
+				</form>
+			</section>
+			<section class="search-con">
+				<div class="swiper-scroll history-search">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<p>
+								<label class="fl">热门搜索</label>
+							</p>
+							<ul class="hot-search a-text-more">
+								<li class="w-3">
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E7%BE%8E%E5%9B%BD&u=35172"><span>美国</span></a>
+								</li>
+								<li class="w-3">
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E6%96%B0%E7%94%9F%E5%A9%B4%E5%84%BF&u=35172"><span>新生婴儿</span></a>
+								</li>
+							</ul>
+							<p class="hos-search">
+								<label class="fl">最近搜索</label>
+								<span class="fr" onclick="javascript:clearHistroy();"><i class="iconfont icon-xiao10 is-xiao10 jian-top fr"></i></span>
+							</p>
+
+							<ul class="hot-search a-text-more a-text-one" id="search_histroy">
+								<li>
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E7%BE%8E%E5%9B%BD&u=35172"><span>美国</span></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="swiper-scrollbar"></div>
+				</div>
+			</section>
+			<footer class="close-search j-close-search">
+				点击关闭
+			</footer>
+		</div>
+
+		<script type="text/javascript">
+			//设置cookie
+			function setCookie(cname, cvalue, exdays) {
+				var d = new Date();
+				d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+				var expires = "expires=" + d.toUTCString();
+				document.cookie = cname + "=" + cvalue + "; " + expires;
+			}
+
+			function clearHistroy() {
+				setCookie('ECS[keywords]', '', -1);
+				document.getElementById("search_histroy").style.visibility = "hidden";
+			}
+		</script>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.min.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.json.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/common.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.more.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/utils.js"></script>
+		<script src="/h5/data/assets/swiper/js/jquery.swiper.min.js"></script>
+		<script src="/h5/themes/default/js/ectouch.js"></script>
+		<script src="/h5/themes/default/js/simple-inheritance.min.js"></script>
+		<script src="/h5/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
+		<script src="/h5/data/assets/bootstrap/js/bootstrap.min.js"></script>
+		<script src="/h5/themes/default/js/jquery.scrollUp.min.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/validform.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/ectouch.js"></script>
+		<script language="javascript">
+			var handler = function(e) { //禁止浏览器默认行为
+				e.preventDefault();
+			};
+			/*banner滚动图片*/
+			var swiper = new Swiper('.swiper-container', {
+				pagination: '.swiper-pagination',
+				slidesPerView: 1,
+				loop: true,
+				autoplay: 2000
+			});
+			/*弹出评论层并隐藏其他层*/
+			function openSearch() {
+				document.addEventListener("touchmove", handler, false);
+				$("body").addClass("show-search-div");
+				$(".search-div").css("z-index", "4999");
+				$("input[name='keywords']").focus();
+			}
+		</script>
+		<script type="text/javascript" src="/h5/data/assets/script/region.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/shopping_flow.js"></script>
+		<script type="text/javascript">
+			region.isAdmin = false; {
+				foreach from = $lang.flow_js item = item key = key
+			}
+			var {
+				$key
+			} = ""; {
+				/foreach} {
+				literal
+			}
+			onload = function() {
+					if(!document.all) {
+						document.forms['theForm'].reset();
+					}
+				} {
+					/literal}
+		</script>
+		<script type="text/javascript">
+			$(function($) {});
+		</script>
+	</body>
+
+</html>

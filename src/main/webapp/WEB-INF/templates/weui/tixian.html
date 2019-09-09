@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<title>我的零钱</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="description"
+	content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<link rel="stylesheet" href="/weui/lib/weui.min.css">
+<link rel="stylesheet" href="/weui/css/jquery-weui.css">
+<link rel="stylesheet" href="/weui/css/style.css">
+<link rel="stylesheet" href="/weui/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/weui/css/tixian.css">
+</head>
+<body ontouchstart>
+	<header class="wy-header">
+	<div class="wy-header-icon-back">
+		<a href="/h5/wallet/weuiaccount_detail" target="_self">
+			<span></span>
+		</a>
+	</div>
+	<div class="wy-header-title">提现</div>
+	</div>
+	</header>
+	<div class="weui-content">
+		<div class="weui-cells weui-cells_form">
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">提现到</label>
+				</div>
+				<div class="weui-cell__bd">
+					<select class="weui-select" id="uwithdrawtype" name="uwithdrawtype">
+						<option value="1">银行卡</option>
+						<option value="0">微信</option>
+					</select>
+				</div>
+			</div>
+			<div class="weui-cell" id="cardlist" >
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">银行卡号</label>
+				</div>
+				<div class="weui-cell__bd">
+					<select class="weui-select" name="ubankid" id="ubankid">
+						<option value="1" th:value="${item.ubankId}" th:each="item:${banklist}" th:text="${item.ubankCardno}">622848048562255</option>
+					<!--	<option value="2">622848048562256</option>
+						<option value="3">622848048562257</option>-->
+					</select>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label class="weui-label">提现金额</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" id="cash" type="number" placeholder="请输入金额">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label class="weui-label">手续费</label>
+				</div>
+				<div class="weui-cell__bd">
+					<p th:text="${uservicefee}? ${uservicefee *100}+'%' :'0%'">0%</p>
+					<!--<input class="weui-input" id="cash" type="number" placeholder="请输入金额">-->
+				</div>
+				<input type="hidden" id="fee" value="0.00" th:value="${uservicefee}? ${uservicefee} :'0.00'">
+			</div>
+		</div>
+
+		<div class="weui-btn-area">
+			<a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips">提现</a>
+		</div>
+	</div>
+
+
+	<script src="/weui/lib/jquery-2.1.4.js"></script>
+	<script src="/weui/lib/fastclick.js"></script>
+	<script src="/weui/js/jquery-weui.js"></script>
+</body>
+<script>
+	$("#uwithdrawtype").click(function () {
+        if ($("#uwithdrawtype").val() == 1) {
+            $("#cardlist").css("display", "block");
+        }else{
+            $("#cardlist").css("display", "none");
+		}
+    })
+
+	$("#showTooltips").click(function () {
+        var cash = $("#cash").val().trim()
+        if (cash % 100 != 0) {
+            alert("提现金额必须为整百");
+            return;
+        }
+
+        var uwithdrawtype = $("#uwithdrawtype").val().trim();
+        if (uwithdrawtype == 0) {
+            alert("微信提现暂未开通!请使用银行卡提现");
+            return;
+        }
+        var fee = $("#fee").val().trim();
+        var servicefee = fee * cash;
+
+        if (confirm("您的提现金额为"+cash+",将支付手续费"+servicefee+"。实际到账金额:"+(cash-servicefee))) {
+
+            $.ajax({
+                type: 'POST',
+                url: '/h5/cashout/applyCashout',
+                data: {
+                    cash: $("#cash").val().trim(),
+                    // type: $("#type").val().trim(),
+                    uwithdrawtype: $("#uwithdrawtype").val().trim(),
+                    ubankid: $("#ubankid").val().trim()
+                },
+                success: function(res) {
+                    alert(res.retmsg);
+                    if (res.retcode == 1) {
+                        window.location.href = "/h5/cashout/cashoutRecordPage";
+                    }
+                }
+            });
+        }
+
+
+
+
+    })
+
+
+
+</script>
+</html>

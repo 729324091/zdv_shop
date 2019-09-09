@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>港货灵</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/weui/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/weui/css/aui.css">
+    <link rel="stylesheet" href="/weui/css/main.css">
+    <link rel="stylesheet" href="/weui/css/cart.css">
+    <link rel="stylesheet" href="/weui/css/theme-color.css">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<form method="post" name="cart_form" target="_self" id="cart_form" action="/h5/order/wecheckout">
+    <input hidden name="uorderitemid" id="uorderitemid">
+<header class="zyw-header">
+    <div class="zyw-container white-color">
+        <div class="head-l"><a href="javascript:window.history.back(-1)" target="_self"><img src="/weui/img/svg/head-return.svg" alt=""></a></div>
+        <h1>最新资讯</h1>
+        <!--<div class="head-r" id="rem_s"><a href="#">编辑</a></div>-->
+    </div>
+</header>
+
+<section class="zyw-container">
+        <!--list-->
+        <div class="commodity_list_box">
+            <!--<div class="cart_top">
+                <span>最新资讯</span>
+                &lt;!&ndash;<p id="weights">总重量约25kg</p>&ndash;&gt;
+                <div class="clear"></div>
+            </div>-->
+            <!--商品列表-->
+            <!--<div class="commodity_box" th:each="news:${newsList}">
+                <a th:href="${'/h5/news/newsDetail/'+news?.newsid}">
+                <div class="commodity_list" >
+                    &lt;!&ndash;店名信息&ndash;&gt;
+                    <div class="tite_tim">
+                        <div><span th:text="${'标题:'+news.title}" style="text-align: center" ></span></div>
+                        <div><span th:text="${news.ucreatedate}" class="pull-right" style="text-align: center" ></span></div>
+                        <div class="clear"></div>
+                    </div>
+                    &lt;!&ndash;商品&ndash;&gt;
+                    <div style="margin-top: 3%;margin-bottom: 3%"><ul class="commodity_list_term" th:text="${'简介:'+news.summary}">
+                    </ul></div>
+                    &lt;!&ndash;优惠信息&ndash;&gt;
+                    <div class="shop_ul_bottom account_info_box">
+                        <ul class="account_info">
+                            <li class="i_text">
+                                &lt;!&ndash;<span class="info_name xi_cu">包邮</span>
+                                <span class="info_name">商家包邮</span>&ndash;&gt;
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                </a>
+            </div>-->
+
+
+            <div class="commodity_box" id="newsList">
+            </div>
+            <!-- 商品列表 end -->
+        </div>
+        <!-- end -->
+</section>
+</form>
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="/weui/js/ionic.bundle.min.js"></script>
+<script type="text/javascript" src="/weui/js/runend.js"></script>
+<script src="/weui/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+    //定义全局变量
+    var i=0;
+
+    //金额总和
+    var money=0;
+
+    //计算合计价格
+    var cart_money=new Object();
+
+    //全部商品ID
+    var cart_id=new Object();
+    //备份商品ID，用于全选后去掉全选又再次全选
+    var cart_id_copy=new Object();
+
+</script>
+<script>
+
+    var pageNo = 1;		// 当前页码
+    var pageSize = 10;	// 每页显示条数
+    var load = true;	// 是否继续加载
+    var lock = false;	// 加载锁
+
+
+    $(document).ready(function() {
+
+        var flag = false;
+        //第一次加载
+        $.ajax({
+            type: "post",
+            url: "/h5/news/queryNewsPage",
+            data: {
+                pageNo: pageNo,
+                pageSize: pageSize
+            },
+            success: function(res){
+                if (res.retcode) {
+                    pageNo++;
+                    if (res.data.length < pageSize) {
+                        load = false;
+
+                    }
+                    var content = '';
+                    var ucustomerid = $("#ucustomerid").val();
+                    console.log(JSON.stringify(res.data));
+                    // alert(JSON.stringify(res.data));
+                    $(res.data).each(function(i, item) {
+                        var ucomproductid = String(item.ucomproductid);
+
+                        content +="<a href='/h5/news/newsDetail/"+item.newsid+"'>"
+                        content +="<div class='commodity_list' >"
+                        content +="<div class='tite_tim'>"
+                        content += "<h4>"+item.title+"</h4>";
+                        // content +="<div><span  style='text-align: center' >"+item.title+"</span></div>"
+                        content +="<div><span class='pull-right' style='text-align: center' >"+item.ucreatedate+"</span></div>"
+                        content +="<div class='clear'></div>"
+                        content +="</div>"
+                        content +="<div style='margin-top: 3%;margin-bottom: 3%'><ul class='commodity_list_term' >"
+                        content += "简介:"+item.summary;
+                        content +="</ul></div>"
+                        content +="<div class='shop_ul_bottom account_info_box'>"
+                        content +="<ul class='account_info'>"
+                        content +="<li class='i_text'>"
+                        content +="</li>"
+                        content +="</ul>"
+                        content +="</div>"
+                        content +="</div>"
+                        content +="</a>"
+
+
+
+
+
+                    })
+                    $('#newsList').append(content);
+
+                    flag = true;
+                }
+            },
+            complete: function(){
+                lock = false;
+            }
+        });
+
+
+        $(window).scroll(function() {
+            if ($(window).scrollTop() == $(document).height() - $(window).height()) {	// 是否滚动至底部
+                if (flag) {
+                    loadGoods();
+                }
+            }
+        });
+
+    })
+    function loadGoods() {
+        if (load && !lock) {
+            // debugger;
+            lock = true;
+            $.ajax({
+                type: "post",
+                url: "/h5/news/queryNewsPage",
+                data: {
+                    pageNo: pageNo,
+                    pageSize: pageSize
+                },
+                success: function(res){
+                    if (res.retcode) {
+                        pageNo++;
+                        if (res.data.length < pageSize)
+                            load = false;
+                        var content = '';
+                        var ucustomerid = $("#ucustomerid").val();
+
+                        console.log(JSON.stringify(res.data));
+                        // alert(JSON.stringify(res.data));
+                        $(res.data).each(function(i, item) {
+
+                            var ucomproductid = String(item.ucomproductid);
+                            content +="<a href='/h5/news/newsDetail/"+item.newsid+"'>"
+                            content +="<div class='commodity_list' >"
+                            content +="<div class='tite_tim'>"
+                            content +="<div><span  style='text-align: center' >"+item.title+"</span></div>"
+                            content +="<div><span class='pull-right' style='text-align: center' >"+item.ucreatedate+"</span></div>"
+                            content +="<div class='clear'></div>"
+                            content +="</div>"
+                            content +="<div style='margin-top: 3%;margin-bottom: 3%'><ul class='commodity_list_term' >"
+                            content += "简介:"+item.summary;
+                            content +="</ul></div>"
+                            content +="<div class='shop_ul_bottom account_info_box'>"
+                            content +="<ul class='account_info'>"
+                            content +="<li class='i_text'>"
+                            content +="</li>"
+                            content +="</ul>"
+                            content +="</div>"
+                            content +="</div>"
+                            content +="</a>"
+
+
+
+                        })
+                        $('#newsList').append(content);
+                    }
+                },
+                complete: function(){
+                    lock = false;
+                }
+            })
+        }
+    }
+</script>
+</body>
+</html>

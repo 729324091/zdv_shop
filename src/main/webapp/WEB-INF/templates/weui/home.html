@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>个人中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/weui/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/weui/css/main.css">
+    <link rel="stylesheet" href="/weui/css/home.css">
+    <link rel="stylesheet" href="/weui/css/theme-color.css">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body >
+<footer class="zyw-footer">
+    <div class="zyw-container white-bgcolor">
+        <div class="weui-tabbar">
+            <a href="/h5/weindex" class="weui-tabbar__item">
+                <div class="weui-tabbar__icon">
+                    <img src="/weui/img/svg/foot-1.svg" alt="">
+                </div>
+                <p class="weui-tabbar__label">首页</p>
+            </a>
+            <a href="/h5/category/weui" class="weui-tabbar__item">
+                <div class="weui-tabbar__icon">
+                    <img src="/weui/img/svg/foot-2.svg" alt="">
+                </div>
+                <p class="weui-tabbar__label">分类</p>
+            </a>
+            <!--<a href="find.html" class="weui-tabbar__item">
+                <div class="weui-tabbar__icon">
+                    <img src="/weui/img/svg/foot-3.svg" alt="">
+                </div>
+                <p class="weui-tabbar__label">发现</p>
+            </a>-->
+            <a href="/h5/cart/we" class="weui-tabbar__item">
+                <!--<span class="weui-badge" style="position: absolute; top: -.4em; right: 1em;" th:text="${cartCount}">8</span>-->
+                <span th:classappend="${cartCount != null && cartCount !=0} ? 'weui-badge':''" style="position: absolute;top: -.4em;right: 1em;" th:text="${cartCount != null && cartCount !=0}? ${cartCount}:''"></span>
+                <div class="weui-tabbar__icon">
+                    <img src="/weui/img/svg/foot-4.svg" alt="">
+                </div>
+                <p class="weui-tabbar__label">购物车</p>
+            </a>
+            <a href="/h5/home" class="weui-tabbar__item weui-bar__item--on">
+                <div class="weui-tabbar__icon">
+                    <img src="/weui/img/svg/foot-5-1.svg" alt="">
+                </div>
+                <p class="weui-tabbar__label">我的</p>
+            </a>
+        </div>
+    </div>
+</footer>
+<section class="zyw-container">
+    <div class="home-head white-bgcolor clearfix">
+        <div class="head-img">
+            <!--<span style="position: absolute;top: -.4em;right: 1em;" class="weui-badge">1</span>-->
+            <div class="head-logo" style="top: 3rem;margin: 0 auto;left: 0;right: 0;bottom: 0;">
+                <img src="/weui/img/mylogo.png" id="logo" th:src="${user.ulogo}" alt="">
+                <!--<div  class="head-name " onclick="SHOWQrcord()" th:text="${user?.uname}">抓耗子的猫</div>-->
+            </div>
+            <div  class="head-name " onclick="SHOWQrcord()" th:text="${user?.uvip}+':'+${user?.uusercode}" style="text-align:center;top: 55%;margin: 0 auto;left: 0; right: 0;bottom: 0;">
+
+                抓耗子的猫
+            </div>
+            <div  class="head-name "  th:text="'积分:'+${user?.uintegral}" style="text-align:center;top: 70%;margin: 0 auto;left: 0; right: 0;bottom: 0;">
+
+                抓耗子的猫
+            </div>
+            <div class="head-icon">
+                <!--<img src="/weui/img/home-bg2.jpg"/>-->
+
+                <a href="/h5/userinfo/weuipersonalInfo">
+                    <img src="/weui/img/svg/home-cog.svg" alt="">
+                </a>
+                <a href="">
+                    <img src="/weui/img/svg/home-message.svg" alt="">
+                </a>
+            </div>
+        </div>
+        <div class="head-cont" style="width: 100%;">
+            <div class="weui-flex" >
+                <!--<div class="weui-flex__item">
+                        <p style="align-content: center" th:if="${user.uvip == '0'}">普通用户</p>
+                        <p style="align-content: center" th:if="${user.uvip == '1'}">VIP</p>
+                        <p style="align-content: center" th:if="${user.uvip == '2'}">区域经理</p>
+                        <p style="align-content: center" th:if="${user.uvip == '3'}">分公司</p>
+                </div>-->
+                <div class="weui-flex__item">
+                    <a href="/h5/history/history?active=star">
+                        <p th:text="${starsize}">0</p>
+                        <span>我的收藏</span>
+                    </a>
+                </div>
+                <div class="weui-flex__item">
+                    <a href="/h5/history/history?active=history">
+                        <p th:text="${historysize}">0</p>
+                        <span>我的足迹</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="home-cont weui-cells mt-625">
+        <a class="weui-cell weui-cell_access" href="/h5/order/weuiOrderList?active=all">
+            <div class="weui-cell__bd">
+                <p class="choose-text">
+                    <img src="/weui/img/svg/home-1.svg" alt=""> 全部订单
+                </p>
+            </div>
+            <div class="weui-cell__ft choose-des">查看所有已购宝贝</div>
+        </a>
+    </div>
+    <div class="weui-flex home-order white-bgcolor mb-625">
+        <a href="/h5/order/weuiOrderList?active=dfk" class="weui-flex__item rightandtoptip">
+            <span class="weui-badge" style="position: absolute; top: -.4em; right: 1em;" th:text="${nopay}">8</span>
+            <div class="weui-flex__icon">
+                <img src="/weui/img/svg/home-dfk.svg" alt="">
+            </div>
+            <p class="weui-flex__label">待付款</p>
+        </a>
+        <a href="/h5/order/weuiOrderList?active=dfh" class="weui-flex__item rightandtoptip">
+            <span class="weui-badge" style="position: absolute; top: -.4em; right: 1em;" th:text="${nosend}">8</span>
+            <div class="weui-flex__icon">
+                <img src="/weui/img/svg/home-dfh.svg" alt="">
+            </div>
+            <p class="weui-flex__label">待发货</p>
+        </a>
+        <a href="/h5/order/weuiOrderList?active=dsh" class="weui-flex__item rightandtoptip">
+            <span class="weui-badge" style="position: absolute; top: -.4em; right: 1em;" th:text="${wait}">8</span>
+            <div class="weui-flex__icon">
+                <img src="/weui/img/svg/home-dsh.svg" alt="">
+            </div>
+            <p class="weui-flex__label">待收货</p>
+        </a>
+        <a href="/h5/order/weuiOrderList?active=dpj" class="weui-flex__item rightandtoptip">
+            <span class="weui-badge" style="position: absolute; top: -.4em; right: 1em;" th:text="${evaluate}">8</span>
+            <div class="weui-flex__icon">
+                <img src="/weui/img/svg/home-dpj.svg" alt="">
+            </div>
+            <p class="weui-flex__label">待评价</p>
+        </a>
+        <!--<a href="javascript:;" class="weui-flex__item rightandtoptip">
+            <span class="weui-badge" style="position: absolute; top: -.4em; right: 1em;">8</span>
+            <div class="weui-flex__icon">
+                <img src="/weui/img/svg/home-tk.svg" alt="">
+            </div>
+            <p class="weui-flex__label">退款/售后</p>
+        </a>-->
+    </div>
+    <div class="home-cont weui-cells mb-625">
+
+        <a class="weui-cell weui-cell_access"  href="/h5/user/vipPage" th:if="${vipcash !=null &amp;&amp;user?.uvip eq '普通会员' &amp;&amp; vipcash !=0  }">
+            <div class="weui-cell__bd">
+                <p class="choose-text">
+                    <!--<img src="/weui/img/svg/home-2.svg" alt="" th:text="'VIP('+${vipcash}+')元/年'">VIP(131元/年)-->
+                    <img src="/weui/img/svg/home-2.svg" alt="" th:text="${vipcash} ? 'VIP('+${vipcash}+')元/年' : 'VIP(131元/年)'">
+                    <!--<img src="/weui/img/svg/home-2.svg" alt="" th:if="!${vipcash}" th:text="${vipcash} ? 'VIP('+${vipcash}+')元/年' : 'VIP(131元/年)'">-->
+                </p>
+            </div>
+            <div class="weui-cell__ft choose-des">成为VIP</div>
+        </a>
+
+        <a class="weui-cell weui-cell_access" href="/h5/wallet/weuiaccount_detail">
+
+            <div class="weui-cell__bd">
+                <p class="choose-text">
+                    <img src="/weui/img/svg/home-2.svg" alt="">零钱
+                </p>
+            </div>
+            <div class="weui-cell__ft choose-des">我的零钱</div>
+        </a>
+        <!--<a class="weui-cell weui-cell_access" href="javascript:SHOWQrcord()">-->
+        <a class="weui-cell weui-cell_access" href="javascript:showQrcode()">
+            <div class="weui-cell__bd">
+                <p class="choose-text">
+                    <img src="/weui/img/svg/foot-2-1.svg" alt="">推广
+                </p>
+            </div>
+            <div class="weui-cell__ft choose-des">我的二维码</div>
+        </a>
+        <a class="weui-cell weui-cell_access" href="/h5/team/info">
+            <div class="weui-cell__bd">
+                <p class="choose-text">
+                    <img src="/weui/img/svg/home-1.svg" alt="">团队
+                </p>
+            </div>
+            <div class="weui-cell__ft choose-des">我的团队</div>
+        </a>
+        <a class="weui-cell weui-cell_access" href="/h5/takeAddress/address_list">
+            <div class="weui-cell__bd">
+                <p class="choose-text">
+                    <img src="/weui/img/svg/home-5.svg" alt="">地址
+                </p>
+            </div>
+            <div class="weui-cell__ft choose-des">管理收货地址</div>
+        </a>
+        <a class="weui-cell weui-cell_access" href="/h5/userinfo/card">
+            <div class="weui-cell__bd">
+                <p class="choose-text">
+                    <img src="/weui/img/svg/home-2.svg" alt="">银行卡
+                </p>
+            </div>
+            <div class="weui-cell__ft choose-des">管理银行卡</div>
+        </a>
+        <!--<a class="weui-cell weui-cell_access" href="coupon.html">
+            <div class="weui-cell__bd">
+                <p class="choose-text">
+                    <img src="/weui/img/svg/home-3.svg" alt=""> 优惠券
+                </p>
+            </div>
+            <div class="weui-cell__ft choose-des">2张</div>
+        </a>-->
+    </div>
+    <div class="home-cont weui-cells mb-625">
+        <a class="weui-cell weui-cell_access" href="javascript:;">
+            <div class="weui-cell__bd">
+                <p class="choose-text">
+                    <img src="/weui/img/svg/home-5.svg" alt=""> 意见反馈
+                </p>
+            </div>
+            <div class="weui-cell__ft choose-des"></div>
+        </a>
+    </div>
+</section>
+<div id="ssss" class="weui-popup__container" onclick="closeQrcord()">
+    <div class="weui-popup__overlay"></div>
+    <div class="weui-popup__modal">
+        <!--<img th:src="${user.qrcode}" style="max-width: 444px;position: fixed;left: 0px;
+right: 0px;
+bottom: 0px;
+top: 0px;
+margin: auto;">-->
+        <div  style="width:100%; height:auto;vertical-align:middle;" align="center" id="qrcode">
+            <!--<img th:src="${qrcode}"/>-->
+        </div>
+    </div>
+
+</div>
+
+
+<div id="ffff" class="weui-popup__container" onclick="closeQrcord()">
+    <div class="weui-popup__overlay"></div>
+    <div class="weui-popup__modal" >
+        <img th:src="${qrcodepath}" style="max-width: 100%;position: fixed;left: 0px;
+right: 0px;
+bottom: 0px;
+top: 0px;
+margin: auto;">
+    </div>
+
+</div>
+
+<input id="text" type="hidden" th:value="${path}" value="https://shop.ectouch.cn/ectouch/wsc/?u=35172" style="width:80%" /><br />
+
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="/weui/js/qrcode.js"></script>
+<script src="/weui/js/bootstrap.min.js"></script>
+<script src="/weui/js/my.js"></script>
+<script>
+
+
+    var flag = false;
+    function SHOWQrcord() {
+        $("#ssss").popup();
+        flag = true;
+    }
+
+    var qrflag = false;
+    function showQrcode() {
+        $("#ffff").popup();
+        flag = true
+    }
+    function closeQrcord() {
+        if(flag){
+            $.closePopup();
+        }
+        if(qrflag){
+            $.closePopup();
+        }
+    }
+
+
+
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+
+        /*width: 100,
+        height: 100*/
+        mode: 4,
+        mSize: 0.3,
+        mPosX: 0.5,
+        mPosY: 0.5,
+        label: 'jQuery.qrcode',
+        fontname: 'sans',
+        fontcolor: '#000',
+        image: $("#logo").attr("src")
+
+    });
+
+    function makeCode() {
+        var elText = document.getElementById("text");
+
+        if(!elText.value) {
+            alert("Input a text");
+            elText.focus();
+            return;
+        }
+        qrcode.makeCode(elText.value);
+    }
+
+    makeCode();
+
+    $("#text").
+    on("blur", function() {
+        makeCode();
+    }).
+    on("keydown", function(e) {
+        if(e.keyCode == 13) {
+            makeCode();
+        }
+    });
+
+
+
+</script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var uloginname = /*[[${user?.uloginname}]]*/ 'Sebastian';
+    var umobile = /*[[${user?.umobile}]]*/ 'Sebastian';
+    /*]]>*/
+    if (uloginname.length > 20 && umobile== null) {
+        bindLoginname();
+    }
+
+</script>
+</body>
+</html>

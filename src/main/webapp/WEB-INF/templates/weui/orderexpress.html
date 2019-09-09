@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<title>订单详情</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+<link rel="stylesheet" href="/weui/lib/weui.min.css">
+<link rel="stylesheet" href="/weui/css/weuix.min.css">
+<link rel="stylesheet" href="/weui/css/style.css">
+</head>
+<body ontouchstart>
+<!--主体-->
+<header class="wy-header">
+  <a href="/h5/order/weuiOrderList?active=dsh">
+  <div class="wy-header-icon-back" ><span></span></div>
+  </a>
+
+  <div class="wy-header-title">快递信息</div>
+</header>
+<div class="weui-content">
+  <div class="wy-media-box weui-media-box_text" th:if="${orderexpress}">
+    <div class="weui-media-box__bd">
+      <div class="weui-media-box_appmsg ord-pro-list" >
+        <div class="" th:text="|${orderexpress?.uexpresscompname}:${orderexpress?.uexpressnum}|"></div>
+      </div>
+
+    </div>
+  </div>
+  <div class="wy-media-box weui-media-box_text" th:if="${orderexpress == null}">
+    <div class="weui-media-box__bd">
+      <div class="weui-media-box_appmsg ord-pro-list" >
+        <div >暂无物流信息</div>
+      </div>
+
+    </div>
+  </div>
+  <div class="timeline">
+    <ul>
+      <li class="timeline-item" th:each="info:${expressinfo?.data}">
+        <div class="timeline-item-color timeline-item-head-first" th:if="${infoStat.index == 0}"><i
+                class="weui-icon-success-no-circle timeline-item-checked "></i>
+        </div>
+        <div class="timeline-item-color timeline-item-head" th:if="${infoStat.index != 0}"></div>
+
+        <div class="timeline-item-tail" ></div>
+        <div class="timeline-item-content"><h4 th:classappend="${infoStat.index == 0} ? 'recent':''"  th:text="${info.context}">【广东】 广州市 已发出</h4>
+          <p th:classappend="${infoStat.index == 0} ? 'recent':''" th:text="${info.time}">2016-04-17 12:00:00</p></div>
+      </li>
+      <!--<li class="timeline-item">
+        <div class="timeline-item-color timeline-item-head"></div>
+        <div class="timeline-item-tail" ></div>
+        <div class="timeline-item-content"><h4> 申通快递员 广东广州 收件员 xxx 已揽件</h4>
+          <p>2016-04-16 10:23:00</p></div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-item-color timeline-item-head"></div>
+        <div class="timeline-item-tail hide" ></div>
+        <div class="timeline-item-content"><h4> 商家正在通知快递公司揽件</h4>
+          <p>2016-04-15 9:00:00</p></div>
+      </li>-->
+    </ul>
+  </div>
+</div>
+<!--
+<script src="/weui/lib/jquery-2.1.4.js"></script>
+<script src="/weui/lib/fastclick.js"></script>
+<script type="text/javascript" src="/weui/js/jquery.Spinner.js"></script>
+<script>
+  $(function() {
+    FastClick.attach(document.body);
+  });
+</script>
+<script type="text/javascript">
+$(function(){
+	$(".Spinner").Spinner({value:1, len:3, max:999});
+});
+</script>
+<script src="/weui/js/jquery-weui.js"></script>
+<script src="/weui/js/my.js"></script>
+
+-->
+
+</body>
+</html>

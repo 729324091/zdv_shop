@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="description" content="港货灵是一套分销系统，港货灵VIP获得超低价购买，VIP推荐用户成为VIP获得100元奖励，推荐用户购买获得利润的40%分成，推荐厂家产品给产品的所有销售的利润的5%分成，成为区域公司获得该区域下所有消费的利润5%分成。是一个最好的系统" />
+		<meta name="keywords" content="港货灵分销，港货灵VIP获得超低价购买" />
+		<title>港货灵</title>
+		<link rel="stylesheet" href="/h5/themes/default/statics/css/ectouch.css" />
+		<script type="text/javascript">
+			var tpl = '/ectouch/wsc/themes/default';
+		</script>
+
+	</head>
+
+	<body style="max-width:640px;">
+		<div id="loading"><img src="/h5/themes/default/statics/img/loading.gif" /></div>
+		<div class="con">
+			<header class="dis-box header-menu b-color color-whie">
+				<a class="" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou"></i></a>
+				<h3 class="box-flex">收货人信息</h3>
+				<p><i class="iconfont icon-pailie j-nav-box"></i></p>
+			</header>
+			<div class="j-nav-content">
+				<ul class="dis-box new-footer-box">
+					<li class="box-flex">
+						<a href="/h5/index" class="nav-cont"><i class="nav-box"><img src="/h5/themes/default/statics/img/home.png"></i><span>首页</span></a>
+					</li>
+					<li class="box-flex">
+						<a href="/h5/category/" class="nav-cont"><i class="nav-box"><img src="/h5/themes/default/statics/img/cate.png"></i><span>分类</span></a>
+						<li class="box-flex">
+							<a href="javascript:;" class="nav-cont j-search-input"><i class="nav-box"><img src="/h5/themes/default/statics/img/search.png"></i><span>搜索</span></a>
+						</li>
+						<li class="box-flex">
+							<a href="/h5/cart/" class="nav-cont"><i class="nav-box"><img src="/h5/themes/default/statics/img/flow.png"></i><span>购物车</span></a>
+						</li>
+						<li class="box-flex">
+							<a href="/h5/personal_center/" class="nav-cont"><i class="nav-box"><img src="/h5/themes/default/statics/img/user.png"></i><span>我的</span></a>
+						</li>
+				</ul>
+			</div>
+			<section class="flow-consignee-list j-get-consignee-one select-three" id="J_ItemList">
+				<li class="flow-checkout-adr m-top08 single_item " th:each="address:${addressList}">
+					<div class="flow-set-adr of-hidden padding-all ">
+						<div class="ect-select fl">
+							<!-- <label class="dis-box  active" onclick="edit_address_info(4022)"> -->
+							<label class="dis-box  " th:if="${addresstype != '1'}"  th:class="'dis-box ' + (${address.udefault} ? 'active' : '')"  th:onclick="'setDefault(\'' + ${address.utakeaddressid} + '\')'">
+								<i class="select-btn"></i>
+								<span class="box-flex">设为默认</span>
+							</label>
+							<label class="dis-box  " th:if="${addresstype == '1'}"  th:class="'dis-box ' + (${address.udefault} ? 'active' : '')"  th:onclick="'setDefault(\'' + ${address.utakeaddressid} + '\',\'1\')'">
+								<i class="select-btn"></i>
+								<span class="box-flex">设为默认</span>
+							</label>
+						</div>
+						<div class="fr">
+							<a  th:if="${addresstype != '1'}" th:href="'/h5/takeAddress/edit?utakeaddressid='+${address.utakeaddressid}"><i class="iconfont icon-bianji"></i>编辑</a>
+							<a  th:if="${addresstype == '1'}" th:href="'/h5/takeAddress/edit?utakeaddressid='+${address.utakeaddressid}+'&type=1'">
+								<i class="iconfont icon-bianji"></i>编辑</a>
+							<a th:href="'/h5/takeAddress/del/'+${address.utakeaddressid}"><i class="iconfont icon-xiao10"></i>删除</a></div>
+
+					</div>
+					<div class="flow-have-adr padding-all">
+						<p class="f-h-adr-title">
+							<label th:text="${address.uname}">小明</label><span class="ect-colory" th:text="${address.umobile}">15914754900</span></p>
+						<p class="f-h-adr-con t-remark m-top04" th:text="${address.uprovince}+${address.ucity}+${address.uarea}+' '+${address.udetailaddress}">广东广州东山区 111</p>
+					</div>
+				</li>
+				<a href="javascript:;" style="text-align:center" class="get_more"></a>
+			</section>
+			<div class="filter-btn dis-box">
+
+				<a href="/h5/takeAddress/edit" th:if="${addresstype != '1'}" th:href="|/h5/takeAddress/edit|"   type="button" class="btn-submit box-flex n-iphone5-top1 j-goods-attr j-show-div">新增收货地址</a>
+				<a href="/h5/takeAddress/edit?type=1" th:if="${addresstype == '1'}" th:href="|/h5/takeAddress/edit?type=1|"   type="button" class="btn-submit box-flex n-iphone5-top1 j-goods-attr j-show-div">新增收货地址</a>
+			</div>
+		</div>
+		<div class="search-div ts-3">
+			<section class="search">
+				<form action="/ectouch/wsc/index.php?m=default&c=category&a=index&u=35173" method="post">
+					<div class="text-all dis-box j-text-all">
+						<a class="a-icon-back j-close-search" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou is-left-font"></i></a>
+						<div class="box-flex input-text">
+							<input class="j-input-text" type="text" name="name" placeholder="请输入搜索关键词！" id="newinput" />
+							<i class="iconfont icon-guanbi2 is-null j-is-null"></i>
+						</div>
+						<button type="submit" class="btn-submit">搜索</button>
+					</div>
+				</form>
+			</section>
+			<section class="search-con">
+				<div class="swiper-scroll history-search">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<p>
+								<label class="fl">热门搜索</label>
+							</p>
+							<ul class="hot-search a-text-more">
+								<li class="w-3">
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E7%BE%8E%E5%9B%BD&u=35173"><span>美国</span></a>
+								</li>
+								<li class="w-3">
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E6%96%B0%E7%94%9F%E5%A9%B4%E5%84%BF&u=35173"><span>新生婴儿</span></a>
+								</li>
+							</ul>
+							<p class="hos-search">
+								<label class="fl">最近搜索</label>
+								<span class="fr" onclick="javascript:clearHistroy();"><i class="iconfont icon-xiao10 is-xiao10 jian-top fr"></i></span>
+							</p>
+
+							<ul class="hot-search a-text-more a-text-one" id="search_histroy">
+								<li>
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E7%BE%8E%E5%9B%BD&u=35173"><span>美国</span></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="swiper-scrollbar"></div>
+				</div>
+			</section>
+			<footer class="close-search j-close-search">
+				点击关闭
+			</footer>
+		</div>
+
+		<script type="text/javascript">
+			//设置cookie
+			function setCookie(cname, cvalue, exdays) {
+				var d = new Date();
+				d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+				var expires = "expires=" + d.toUTCString();
+				document.cookie = cname + "=" + cvalue + "; " + expires;
+			}
+
+			function clearHistroy() {
+				setCookie('ECS[keywords]', '', -1);
+				document.getElementById("search_histroy").style.visibility = "hidden";
+			}
+		</script>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.min.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.json.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/common.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.more.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/utils.js"></script>
+		<script src="/h5/data/assets/swiper/js/jquery.swiper.min.js"></script>
+		<script src="/h5/themes/default/js/ectouch.js"></script>
+		<script src="/h5/themes/default/js/simple-inheritance.min.js"></script>
+		<script src="/h5/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
+		<script src="/h5/data/assets/bootstrap/js/bootstrap.min.js"></script>
+		<script src="/h5/themes/default/js/jquery.scrollUp.min.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/validform.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/ectouch.js"></script>
+		<script language="javascript">
+			var handler = function(e) { //禁止浏览器默认行为
+				e.preventDefault();
+			};
+			/*banner滚动图片*/
+			var swiper = new Swiper('.swiper-container', {
+				pagination: '.swiper-pagination',
+				slidesPerView: 1,
+				loop: true,
+				autoplay: 2000
+			});
+			/*弹出评论层并隐藏其他层*/
+			function openSearch() {
+				document.addEventListener("touchmove", handler, false);
+				$("body").addClass("show-search-div");
+				$(".search-div").css("z-index", "4999");
+				$("input[name='keywords']").focus();
+			}
+		</script>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.more.js"></script>
+		<script>
+			function getLocation() {
+				var options = {
+					enableHighAccuracy: true,
+					maximumAge: 1000
+				}
+				if(navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
+				} else {
+					onError();
+				}
+			}
+			//成功时
+			function onSuccess(position) {
+				//返回用户位置	   
+				var longitude = position.coords.longitude; //经度	    
+				var latitude = position.coords.latitude; //纬度
+				$.post('/ectouch/wsc/index.php?m=default&c=user&a=positions&u=35173', {
+					lng: longitude,
+					lat: latitude
+				}, function(data) {
+					if(data.error == 0) {
+						window.location.href = data.url;
+					} else {
+						alert(data.message);
+					}
+				}, 'json');
+			}
+			//失败时
+			function onError(error) {
+				switch(error.code) {
+					case 1:
+						alert("位置服务被拒绝");
+						break;
+
+					case 2:
+						alert("暂时获取不到位置信息");
+						break;
+
+					case 3:
+						alert("获取信息超时");
+						break;
+
+					case 4:
+						alert("未知错误");
+						break;
+				}
+
+			}
+
+			getLocation();
+			
+			function setDefault(utakeaddressid,type) {
+				$.ajax({
+					type: 'get',
+					url: '/h5/takeAddress/setDefault/' + utakeaddressid,
+					success: function(res) {
+                        if (type == 1) {
+                            window.location.href="/h5/order/checkout"
+                        }else{
+
+							if (!res.retcode) {
+								alert(res.retmsg);
+
+							}
+						}
+
+					}
+				})
+			}
+		</script>

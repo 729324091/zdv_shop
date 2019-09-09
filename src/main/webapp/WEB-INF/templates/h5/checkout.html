@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="description" content="港货灵是一套分销系统，港货灵VIP获得超低价购买，VIP推荐用户成为VIP获得100元奖励，推荐用户购买获得利润的40%分成，推荐厂家产品给产品的所有销售的利润的5%分成，成为区域公司获得该区域下所有消费的利润5%分成。是一个最好的系统" />
+		<meta name="keywords" content="港货灵分销，港货灵VIP获得超低价购买" />
+		<title>港货灵</title>
+		<link rel="stylesheet" href="/h5/data/assets/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/h5/data/assets/bootstrap/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/h5/data/assets/swiper/css/swiper.min.css" />
+		<link rel="stylesheet" href="/h5/themes/default/statics/css/ectouch.css" />
+		<link rel="stylesheet" href="/h5/themes/default/css/photoswipe.css">
+		<link rel="stylesheet" href="/h5/themes/default/css/style.css">
+		<script type="text/javascript" src="/h5/themes/default/js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/js/ectouch.js"></script>
+		<link rel="stylesheet" href="/h5/themes/default/statics/css/search.css" />
+		<script type="text/javascript">
+			var tpl = '/ectouch/wsc/themes/default';
+		</script>
+
+	</head>
+
+	<body>
+
+		<div class="con">
+			<div class="ect-bg">
+				<header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write">
+					<a href="javascript:history.go(-1)" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>订单确认</span>
+					<a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a>
+				</header>
+				<nav class="ect-nav ect-nav-list" style="display:none;">
+					<ul class="ect-diaplay-box text-center">
+
+						<li class="box-flex">
+							<a href="/h5/index" class="nav-cont"><i class="nav-box"><img src="/h5/themes/default/statics/img/home.png"></i><span>首页</span></a>
+						</li>
+						<li class="box-flex">
+							<a href="/h5/category/" class="nav-cont"><i class="nav-box"><img src="/h5/themes/default/statics/img/cate.png"></i><span>分类</span></a>
+						<li class="box-flex">
+							<a href="javascript:;" class="nav-cont j-search-input"><i class="nav-box"><img src="/h5/themes/default/statics/img/search.png"></i><span>搜索</span></a>
+						</li>
+						<li class="box-flex">
+							<a href="/h5/cart/" class="nav-cont"><i class="nav-box"><img src="/h5/themes/default/statics/img/flow.png"></i><span>购物车</span></a>
+						</li>
+						<li class="box-flex">
+							<a href="/h5/personal_center/" class="nav-cont"><i class="nav-box"><img src="/h5/themes/default/statics/img/user.png"></i><span>我的</span></a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+			<div class="flow-checkout">
+					<script type="text/javascript">
+						var flow_no_address = "必须选定一个地址"
+						var flow_no_payment = "您必须选定一个支付方式。";
+						var flow_no_shipping = "您必须选定一个配送方式。";
+					</script>
+				<form action="/h5/order/addOrder"  method="post" name="theForm" id="theForm" onsubmit="return checkOrderForm(this)">
+					<a href="/h5/takeAddress/list?addresstype=1">
+						<section class="ect-margin-tb ect-padding-lr ect-padding-tb checkout-add">
+							<label for="addressId">
+							  <p class="title" th:text="${utTakeAddress.uname}+ '  &nbsp;&nbsp;' + ${utTakeAddress.umobile}">测试 <span th:text="${utTakeAddress.umobile}">15914754903</span></p>
+								<input hidden name="ucontact" th:value="${utTakeAddress.uname}" >
+								<input hidden name="utel" th:value="${utTakeAddress.umobile}" >
+								<input hidden name="uaddress" th:value="${utTakeAddress.udetailaddress}" >
+
+
+							  <p th:text="${utTakeAddress.udetailaddress}">11</p>
+							  <i class="fa fa-angle-right"></i>
+							  </label>
+						</section>
+					</a>
+					<section class="ect-margin-tb ect-padding-lr checkout-select" id="accordion">
+
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+							<p><b>配送方式</b><span class="label ect-bg-colory">必填</span></p>
+							<i class="fa fa-angle-down"></i></a>
+						<div id="collapseOne" class="panel-collapse collapse in">
+							<ul class="ect-radio">
+								<li>
+									<input name="usend_type" type="radio" id="shipping_5" value="5" supportCod="0" insure="0" onclick="selectShipping(this)">
+									<label for="shipping_5">申通快递 [￥0.00元]<i></i></label>
+								</li>
+								<li>
+									<input name="usend_type" type="radio" id="shipping_2" value="2" checked="true" supportCod="1" insure="0" onclick="selectShipping(this)">
+									<label for="shipping_2">圆通速递 [￥5.00元]<i></i></label>
+								</li>
+							</ul>
+						</div>
+
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+							<p><b>支付方式</b><span class="label ect-bg-colory">必填</span></p>
+							<i class="fa fa-angle-down"></i></a>
+						<div id="collapseTwo" class="panel-collapse collapse in">
+							<ul class="ect-radio">
+								<li>
+									<input name="upaytype" type="radio" id="payment_1" value="1" checked isCod="0" onclick="selectPayment(this)" style="vertical-align:middle">
+									<label for="payment_1">支付宝 <i></i></label>
+								</li>
+								<li>
+									<input name="upaytype" type="radio" id="payment_2" value="2" isCod="0" onclick="selectPayment(this)" style="vertical-align:middle">
+									<label for="payment_2">微信 <i></i></label>
+								</li>
+								<li>
+									<input name="upaytype" type="radio" id="payment_3" value="3"  isCod="0" onclick="selectPayment(this)" style="vertical-align:middle">
+									<label for="payment_3">银联支付<i></i></label>
+								</li>
+								<li>
+									<input name="upaytype" type="radio" id="payment_4" value="4"  isCod="0" onclick="selectPayment(this)" style="vertical-align:middle">
+									<label for="payment_4">银联 <i></i></label>
+								</li>
+								<li>
+									<input name="upaytype" type="radio" id="payment_5" value="5"  isCod="0" onclick="selectPayment(this)" style="vertical-align:middle">
+									<label for="payment_5">百度钱包<i></i></label>
+								</li>
+								<li>
+									<input name="upaytype" type="radio" id="payment_6" value="6"  isCod="0" onclick="selectPayment(this)" style="vertical-align:middle">
+									<label for="payment_6">后结<i></i></label>
+								</li>
+								<li>
+									<input name="upaytype" type="radio" id="payment_8" value="8"  isCod="0" onclick="selectPayment(this)" style="vertical-align:middle">
+									<label for="payment_8">会员卡支付<i></i></label>
+								</li>
+							</ul>
+						</div>
+
+						<!--<a href="/ectouch/wsc/index.php?m=default&c=flow&a=select_inv&u=35172" class="add_inv">
+							<p><b>开发票</b><i class="fa fa-angle-right"></i></p><input id="invinput" type="hidden" name="invinput" value="0" />
+						</a>-->
+
+					</section>
+					<!--<section class="ect-margin-tb ect-padding-lr checkout-select">
+
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+							<p><b>商品包装</b></p>
+							<i class="fa fa-angle-down"></i></a>
+						<div id="collapseThree" class="panel-collapse collapse in">
+							<ul class="ect-radio">
+								<li>
+									<input type="radio" id="pack_" name="pack" value="0" checked="true" onclick="selectPack(this)">
+									<label for="pack_">不要包装<i></i></label>
+								</li>
+								<li>
+									<input type="radio" class="radio" name="pack" id="pack_1" value="1" onclick="selectPack(this)" />
+									<label for="pack_1">精品包装[￥5.00元][免费额度:￥800.00元]<i></i></label>
+								</li>
+							</ul>
+						</div>
+
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+							<p><b>祝福贺卡</b></p>
+							<i class="fa fa-angle-down"></i></a>
+						<div id="collapseFour" class="panel-collapse collapse in">
+							<ul class="ect-radio">
+								<li>
+									<input name="card" type="radio" value="0" checked="true" onclick="selectCard(this)" id="card_0" />
+									<label for="card_0">不要贺卡<i></i></label>
+								</li>
+								<li>
+									<input name="card" type="radio" id="card_1" value="1" onclick="selectCard(this)">
+									<label for="card_1">祝福贺卡[￥5.00元][免费额度:￥1000.00元]<i></i></label>
+								</li>
+							</ul>
+							<input name="card_message" maxlength="22" type="text" placeholder="祝福语">
+						</div>
+					</section>-->
+
+					<section class="ect-margin-tb ect-padding-lr checkout-select">
+
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+							<p><b> 订单附言 </b></p>
+							<i class="fa fa-angle-down"></i> </a>
+						<div id="collapseFive" class="panel-collapse collapse in">
+							<!--<input name="postscript" type="text" class="fuyan" maxlength="22" placeholder="请输入订单附言">-->
+							<input name="uremark" type="text" class="fuyan" maxlength="22" placeholder="请输入订单附言">
+						</div>
+					</section>
+					<section class="ect-margin-tb ect-margin-bottom0 ect-padding-lr checkout-select checkout-pro-list">
+						<p><b>商品列表</b><span class="label ect-bg-colory"><a href="/h5/cart/" class="ect-colorf">修改</a></span></p>
+						
+						<ul  th:each="item:${orderitem}">
+							<li>
+								<dl>
+									<input name="uorderitemid" th:value="${item.uorderitemid}" hidden>
+									<div class="flow-checkout-box">
+										<div class="flow-checkout-shopimg">
+											<a href="/ectouch/wsc/index.php?m=default&c=goods&a=index&id=7729&u=35172" target="_blank" th:href="'/h5/goods/' + ${item.uorderitemid}"> <img th:src="${item.uhomepic}" th:title="${item.uproductname}" src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7729_thumb_G_1441849117738.jpg"></a>
+										</div>
+										<div class="flow-checkout-cont">
+											<h4 class="twolist-hidden">
+											<a href="/ectouch/wsc/index.php?m=default&c=goods&a=index&id=7729&u=35172" th:href="'/h5/goods/' + ${item.uorderitemid}" target="_blank"  th:text="${item.uproductname}"  >Apple/苹果 配备 Retina 显示屏的 MacBook Pro ME864CH/A</a>
+											</h4>
+											<p class="n-check-title">数量：<span th:text="|x ${item.uproductnum}|" >x 1</span></p>
+											<p><span style="color: red" th:text=" ${item.udesc}" ></span></p>
+											<p>价格：<span class="color-red" th:text="|￥${item.upayprice}元|">￥8758.00元</span></p>
+											<p th:text="${item.uobjnamevalue}"></p>
+										</div>
+									</div>
+								</dl>
+							</li>
+						</ul>
+
+						<div class="ect-padding-tb text-right" id="ECS_ORDERTOTAL">
+
+							该订单完成后，您将获得
+							<b class="ect-colory" th:text="${order?.upayprice}" >8758</b> 积分 ，以及价值
+							<b class="ect-colory">￥0.00元</b> 的红包。
+							<br/> 商品总价:
+							<b class="ect-colory" th:text="|￥${order?.utotalprice}元|" >￥8758.00元</b>
+							<br /> - 折扣:
+							<b class="ect-colory">￥0.00元</b>
+							<br /> 应付款金额: <b class="ect-colory" th:text="|￥${order?.upayprice}元|">￥8753.00元</b><br />
+
+						</div>
+					</section>
+					<div class="ect-padding-lr ect-padding-tb ect-margin-tb">
+						<input type="hidden" name="inv_payee" value="" />
+						<input type="hidden" name="inv_type" value="" />
+						<input type="hidden" name="inv_text_id" value="" />
+						<input type="hidden" name="inv_content" value="" />
+
+						<input type="submit" th:if="${flag}"  name="submit" value="订单提交" class="btn btn-info ect-btn-info ect-colorf ect-bg" />
+						<input type="submit" th:if="${!flag}" disabled="disabled"  name="submit" value="库存不足请修改购买数量" class="btn btn-info ect-btn-info ect-colorf ect-bg" />
+						<input type="hidden" name="step" value="done" />
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="search-div ts-3">
+			<section class="search">
+				<form action="/ectouch/wsc/index.php?m=default&c=category&a=index&u=35172" method="post">
+					<div class="text-all dis-box j-text-all">
+						<a class="a-icon-back j-close-search" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou is-left-font"></i></a>
+						<div class="box-flex input-text">
+							<input class="j-input-text" type="text" name="name" placeholder="请输入搜索关键词！" id="newinput" />
+							<i class="iconfont icon-guanbi2 is-null j-is-null"></i>
+						</div>
+						<button type="submit" class="btn-submit">搜索</button>
+					</div>
+				</form>
+			</section>
+			<section class="search-con">
+				<div class="swiper-scroll history-search">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<p>
+								<label class="fl">热门搜索</label>
+							</p>
+							<ul class="hot-search a-text-more">
+								<li class="w-3">
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E7%BE%8E%E5%9B%BD&u=35172"><span>美国</span></a>
+								</li>
+								<li class="w-3">
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E6%96%B0%E7%94%9F%E5%A9%B4%E5%84%BF&u=35172"><span>新生婴儿</span></a>
+								</li>
+							</ul>
+							<p class="hos-search">
+								<label class="fl">最近搜索</label>
+								<span class="fr" onclick="javascript:clearHistroy();"><i class="iconfont icon-xiao10 is-xiao10 jian-top fr"></i></span>
+							</p>
+
+							<ul class="hot-search a-text-more a-text-one" id="search_histroy">
+								<li>
+									<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E7%BE%8E%E5%9B%BD&u=35172"><span>美国</span></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="swiper-scrollbar"></div>
+				</div>
+			</section>
+			<footer class="close-search j-close-search">
+				点击关闭
+			</footer>
+		</div>
+
+		<script type="text/javascript">
+			//设置cookie
+			function setCookie(cname, cvalue, exdays) {
+				var d = new Date();
+				d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+				var expires = "expires=" + d.toUTCString();
+				document.cookie = cname + "=" + cvalue + "; " + expires;
+			}
+
+			function clearHistroy() {
+				setCookie('ECS[keywords]', '', -1);
+				document.getElementById("search_histroy").style.visibility = "hidden";
+			}
+		</script>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.min.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.json.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/common.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.more.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/utils.js"></script>
+		<script src="/h5/data/assets/swiper/js/jquery.swiper.min.js"></script>
+		<script src="/h5/themes/default/js/ectouch.js"></script>
+		<script src="/h5/themes/default/js/simple-inheritance.min.js"></script>
+		<script src="/h5/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
+		<script src="/h5/data/assets/bootstrap/js/bootstrap.min.js"></script>
+		<script src="/h5/themes/default/js/jquery.scrollUp.min.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/validform.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/ectouch.js"></script>
+		<script language="javascript">
+			var handler = function(e) { //禁止浏览器默认行为
+				e.preventDefault();
+			};
+			/*banner滚动图片*/
+			var swiper = new Swiper('.swiper-container', {
+				pagination: '.swiper-pagination',
+				slidesPerView: 1,
+				loop: true,
+				autoplay: 2000
+			});
+			/*弹出评论层并隐藏其他层*/
+			function openSearch() {
+				document.addEventListener("touchmove", handler, false);
+				$("body").addClass("show-search-div");
+				$(".search-div").css("z-index", "4999");
+				$("input[name='keywords']").focus();
+			}
+		</script>
+		<script type="text/javascript" src="/h5/data/assets/js/shopping_flow.js"></script>
+
+		<script>
+			function back_goods_number(id) {
+				var goods_number = document.getElementById('goods_number' + id).value;
+				document.getElementById('back_number' + id).value = goods_number;
+			}
+
+			function change_goods_number(type, id) {
+				var goods_number = document.getElementById('goods_number' + id).value;
+				if(type != 2) {
+					back_goods_number(id)
+				}
+				if(type == 1) {
+					goods_number--;
+				}
+				if(type == 3) {
+					goods_number++;
+				}
+				if(goods_number <= 0) {
+					goods_number = 1;
+				}
+				if(!/^[0-9]*$/.test(goods_number)) {
+					goods_number = document.getElementById('back_number' + id).value;
+				}
+				document.getElementById('goods_number' + id).value = goods_number;
+				$.post('/ectouch/wsc/index.php?m=default&c=flow&a=ajax_update_cart&u=35172', {
+					rec_id: id,
+					goods_number: goods_number
+				}, function(data) {
+					change_goods_number_response(data, id);
+				}, 'json');
+			}
+			// 处理返回信息并显示
+			function change_goods_number_response(result, id) {
+				if(result.error == 0) {
+					var rec_id = result.rec_id;
+					$("#goods_number_" + rec_id).val(result.goods_number);
+					document.getElementById('total_number').innerHTML = result.total_number; //更新数量
+					document.getElementById('goods_subtotal').innerHTML = result.total_desc; //更新小计
+					if(document.getElementById('ECS_CARTINFO')) {
+						//更新购物车数量
+						document.getElementById('ECS_CARTINFO').innerHTML = result.cart_info;
+					}
+				} else if(result.message != '') {
+					alert(result.message);
+					var goods_number = document.getElementById('back_number' + id).value;
+					document.getElementById('goods_number' + id).value = goods_number;
+				}
+			}
+
+			/*点击下拉手风琴效果*/
+			$('.collapse').collapse()
+			$(".checkout-select a").click(function() {
+				if(!$(this).hasClass("select")) {
+					$(this).addClass("select");
+				} else {
+					$(this).removeClass("select");
+				}
+			});
+
+		</script>
+
+	</body>
+
+</html>

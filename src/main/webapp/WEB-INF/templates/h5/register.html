@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="description" content="港货灵是一套分销系统，港货灵VIP获得超低价购买，VIP推荐用户成为VIP获得100元奖励，推荐用户购买获得利润的40%分成，推荐厂家产品给产品的所有销售的利润的5%分成，成为区域公司获得该区域下所有消费的利润5%分成。是一个最好的系统" />
+		<meta name="keywords" content="港货灵分销，港货灵VIP获得超低价购买" />
+		<title>港货灵</title>
+		<link rel="stylesheet" href="/h5/themes/default/statics/css/ectouch.css" />
+		<script type="text/javascript">
+			var tpl = '/ectouch/wsc/themes/default';
+		</script>
+
+	</head>
+
+	<body style="max-width:640px;">
+		<div id="loading"><img src="/h5/themes/default/statics/img/loading.gif" /></div>
+
+		<body class="b-color-f">
+			<header class="dis-box header-menu b-color color-whie">
+				<a class="" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou"></i></a>
+				<h3 class="box-flex">注册</h3>
+				<p>
+					<a href="/h5/index/"><i class="iconfont icon-home"></i></a>
+				</p>
+			</header>
+			<div class="con padding-all">
+				<div class="user-register">
+					<div class="tab-content">
+						<div class="tab-pane active">
+							<input type="hidden" name="flag" id="flag" value="register" />
+							<div class="ect-bg-colorf">
+								<ul class="register-list-box">
+									<!--<li class="dis-box user-register-box">
+										<div class="box-flex reg-left-input"><input placeholder="请输入用户名" name="uloginname" type="text" id="uloginname" datatype="s3-15" nullmsg="请输入用户名"></div>
+									</li>-->
+									<li class="dis-box user-register-box">
+										<input class="box-flex reg-left-input" type="text" autocomplete="off"  name="umobile" id="umobile" placeholder="请输入手机号码(用户名)" datatype="e" nullmsg="请输入手机号码(用户名)" />
+									</li>
+
+
+									<li class="dis-box user-register-box input-text item-password">
+										<input class="reg-left-input" type="password" name="upassword" autocomplete="off" id="upassword" placeholder="请输入密码" datatype="*" nullmsg="请输入密码" />
+										<b class="tp-btn btn-off"></b>
+									</li>
+
+									<li class="dis-box user-register-box">
+										<input class="box-flex reg-left-input" autocomplete="off" type="text" name="codeno" id="codeno" placeholder="请输入验证码" />
+										<b class="tp-btn btn-submit" onclick="code()">发送验证码</b>
+									</li>
+									<input hidden id="upuserid" name="upuserid" th:value="${upuserid}" >
+									<li class="dis-box user-register-box" style="border-bottom: none;padding: 0rem;">
+										<p class="ect-checkbox ect-padding-tb ect-margin-tb ect-margin-bottom0">
+											<input id="agreement" name="uvip" type="checkbox" />
+											<label for="agreement">成为 VIP(120元/年)<i></i></label>
+										</p>
+									</li>
+								</ul>
+							</div>
+							<!-- <p class="ect-checkbox ect-padding-tb ect-margin-tb ect-margin-bottom0">
+								<input id="agreement" name="agreement" type="checkbox" value="1" checked="checked" />
+								<label for="agreement">我已看过并接受《<a href="/ectouch/wsc/index.php?m=default&c=article&a=info&aid=6" style="color:blue" target="_blank">用户协议</a>》<i></i></label>
+							</p> -->
+							<div class="ect-padding-tb">
+								<input name="act" type="hidden" value="act_register" />
+								<input name="enabled_sms" type="hidden" value="0" />
+								<input type="hidden" name="back_act" value="https://shop.ectouch.cn/ectouch/wsc/index.php?m=default&c=user&a=login&back_act=https%253A%252F%252Fshop.ectouch.cn%252Fectouch%252Fwsc%252Findex.php%253Fm%253Ddefault%2526c%253Dindex%2526a%253Dindex%2526u%253D0&u=0" />
+								<button name="Submit" id="btn-submit" class="btn-submit">注册</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<script type="text/javascript" src="/h5/data/assets/js/jquery.min.js"></script>
+			<script type="text/javascript" src="/h5/data/assets/js/jquery.json.js"></script>
+			<script type="text/javascript" src="/h5/data/assets/js/common.js"></script>
+			<script type="text/javascript" src="/h5/data/assets/js/jquery.more.js"></script>
+			<script type="text/javascript" src="/h5/data/assets/js/utils.js"></script>
+			<script src="/h5/data/assets/swiper/js/jquery.swiper.min.js"></script>
+			<script src="/h5/themes/default/js/ectouch.js"></script>
+			<script src="/h5/themes/default/js/simple-inheritance.min.js"></script>
+			<script src="/h5/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
+			<script src="/h5/data/assets/bootstrap/js/bootstrap.min.js"></script>
+			<script src="/h5/themes/default/js/jquery.scrollUp.min.js"></script>
+			<script type="text/javascript" src="/h5/data/assets/js/validform.js"></script>
+			<script type="text/javascript" src="/h5/themes/default/statics/js/ectouch.js"></script>
+			<script type="text/javascript" src="/assets/js/util/md5.js"></script>
+			<script language="javascript">
+				var handler = function(e) { //禁止浏览器默认行为
+					e.preventDefault();
+				};
+				/*banner滚动图片*/
+				var swiper = new Swiper('.swiper-container', {
+					pagination: '.swiper-pagination',
+					slidesPerView: 1,
+					loop: true,
+					autoplay: 2000
+				});
+				/*弹出评论层并隐藏其他层*/
+				function openSearch() {
+					document.addEventListener("touchmove", handler, false);
+					$("body").addClass("show-search-div");
+					$(".search-div").css("z-index", "4999");
+					$("input[name='keywords']").focus();
+				}
+			</script>
+			<div class="search-div ts-3">
+				<section class="search">
+					<form action="/ectouch/wsc/index.php?m=default&c=category&a=index&u=0" method="post">
+						<div class="text-all dis-box j-text-all">
+							<a class="a-icon-back j-close-search" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou is-left-font"></i></a>
+							<div class="box-flex input-text">
+								<input class="j-input-text" type="text" name="name" placeholder="请输入搜索关键词！" id="newinput" />
+								<i class="iconfont icon-guanbi2 is-null j-is-null"></i>
+							</div>
+							<button type="submit" class="btn-submit">搜索</button>
+						</div>
+					</form>
+				</section>
+				<section class="search-con">
+					<div class="swiper-scroll history-search">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<p>
+									<label class="fl">热门搜索</label>
+								</p>
+								<ul class="hot-search a-text-more">
+									<li class="w-3">
+										<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E7%BE%8E%E5%9B%BD&u=0"><span>美国</span></a>
+									</li>
+									<li class="w-3">
+										<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E6%96%B0%E7%94%9F%E5%A9%B4%E5%84%BF&u=0"><span>新生婴儿</span></a>
+									</li>
+								</ul>
+								<p class="hos-search">
+									<label class="fl">最近搜索</label>
+									<span class="fr" onclick="javascript:clearHistroy();"><i class="iconfont icon-xiao10 is-xiao10 jian-top fr"></i></span>
+								</p>
+
+								<ul class="hot-search a-text-more a-text-one" id="search_histroy">
+									<li>
+										<a href="/ectouch/wsc/index.php?m=default&c=category&a=index&keywords=%E7%BE%8E%E5%9B%BD&u=0"><span>美国</span></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="swiper-scrollbar"></div>
+					</div>
+				</section>
+				<footer class="close-search j-close-search">
+					点击关闭
+				</footer>
+			</div>
+
+			<script type="text/javascript">
+				//设置cookie
+				function setCookie(cname, cvalue, exdays) {
+					var d = new Date();
+					d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+					var expires = "expires=" + d.toUTCString();
+					document.cookie = cname + "=" + cvalue + "; " + expires;
+				}
+
+				function clearHistroy() {
+					setCookie('ECS[keywords]', '', -1);
+					document.getElementById("search_histroy").style.visibility = "hidden";
+				}
+			</script>
+			<script>
+				$('.btn-off').on('click', function() {
+					if($(this).hasClass('btn-on')) {
+						$(this).removeClass('btn-on');
+						$(this).prev().attr('type', 'password');
+					} else {
+						$(this).addClass('btn-on');
+						$(this).prev().attr('type', 'text');
+					}
+				});
+                code = function () {
+                    var umobile = $('#umobile').val().trim();
+
+                    if (umobile == '') {
+                        alert("请输入手机号");
+                    }else{
+                        $.ajax({
+                            type: 'POST',
+                            url: '/h5/user/code',
+                            data: {
+                                umobile: umobile
+                            },
+                            success: function(res) {
+								alert(res.retmsg);
+                            }
+                        });
+					}
+                };
+				
+				$('#btn-submit').click(function() {
+					// var uloginname = $('#uloginname').val().trim();
+					var umobile = $('#umobile').val().trim();
+					var upassword = $('#upassword').val().trim();
+                    var upuserid = $('#upuserid').val().trim();
+                    var codeno = $("#codeno").val().trim();
+					var uvip = $('#agreement').prop('checked');
+					 if (umobile == '') {
+						alert('请输入手机号');
+					} else if (upassword == '') {
+						alert('请输入密码');
+					} else {
+                            //如果要成为VIP则调用支付
+
+							$.ajax({
+								type: 'POST',
+								url: '/h5/user/register',
+								data: {
+									uloginname: umobile,
+									umobile: umobile,
+									upassword: hex_md5(upassword),
+									upuserid:upuserid,
+									uvip: uvip,
+                                    codeno:codeno
+
+								},
+								success: function(res) {
+
+									alert(res.retmsg);
+									if (res.retcode==3) {
+                                        if (isWeiXin()) {
+
+                                            window.location.href = "/h5/user/getCode?uuserid="+res.data.uuserid;
+                                        }else{
+											location.href = '/h5/user/registVIP?uuserid='+res.data.uuserid;
+										}
+
+
+									}else if (res.retcode == 1) {
+                                        location.href = '/h5/user/login';
+                                    }else{
+									}
+								}
+							});
+
+
+					 /*
+							$.ajax({
+								type: 'POST',
+								url: '/h5/user/register',
+								data: {
+									uloginname: uloginname,
+									umobile: umobile,
+									upassword: hex_md5(upassword),
+									upuserid:upuserid,
+									uvip: uvip
+								},
+								success: function(res) {
+
+
+									alert(res.retmsg);
+									if (res.retcode) {
+										location.href = '/h5/user/login';
+									}
+								}
+							});*/
+
+
+					}
+				})
+			</script>
+		</body>
+
+</html>

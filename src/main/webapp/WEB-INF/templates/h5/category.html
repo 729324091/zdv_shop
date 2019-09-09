@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="description" content="港货灵是一套分销系统，港货灵VIP获得超低价购买，VIP推荐用户成为VIP获得100元奖励，推荐用户购买获得利润的40%分成，推荐厂家产品给产品的所有销售的利润的5%分成，成为区域公司获得该区域下所有消费的利润5%分成。是一个最好的系统" />
+		<meta name="keywords" content="港货灵分销，港货灵VIP获得超低价购买" />
+		<title>所有分类</title>
+		<link rel="stylesheet" href="/h5/themes/default/statics/css/ectouch.css" />
+		<script type="text/javascript">
+			var tpl = '/ectouch/wsc/themes/default';
+		</script>
+
+	</head>
+
+	<body style="max-width:640px;">
+		<div id="loading"><img src="/h5/themes/default/statics/img/loading.gif" /></div>
+		<div class="con">
+			<div class="category-top">
+				<header>
+					<section class="search">
+						<div class="text-all  text-all-back j-text-all">
+							<div class="input-text n-input-text i-search-input">
+								<a class="a-search-input j-search-input" href="javascript:void(0)"></a>
+								<i class="iconfont icon-sousuo"></i>
+								<input type="text" placeholder="请输入您搜索的关键词!" />
+								<i class="iconfont icon-guanbi is-null j-is-null"></i>
+							</div>
+						</div>
+					</section>
+				</header>
+			</div>
+			<aside>
+				<div class="menu-left scrollbar-none" id="sidebar">
+					<ul>
+						<li th:each="item,iterStat:${typeList}" th:class="${iterStat.index == 0} ? 'active' : ''" class="active" th:text="${item.uname}">鞋/箱包</li>
+						<!--
+						<li class="active">美妆护肤</li> 
+						<li>珠宝首饰/手表眼镜</li>
+						<li>美妆护肤</li>
+						<li>家用电器</li>
+						<li>家具建材</li>
+						<li>手机/数码</li>
+						<li>居家生活</li>
+						<li>女装</li>
+						<li>男装</li>
+						<li>母婴用品</li> -->
+					</ul>
+				</div>
+			</aside>
+			
+			<section class="menu-right padding-all j-content" th:each="item,iterStat:${typeList}" th:style="${iterStat.index != 0} ? 'display:none;':''">
+				<h5 th:text="${item.uname}"></h5>
+				<ul>
+					<li class="w-3" th:each="child:${item.uchildList}">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(48);' th:onclick="'redirect_list(&quot;'+${child.uproducttypeid}+'&quot;)'" ></a>
+						<img  th:src="${child.uhomepic eq '' || child.uhomepic == null?'/upload/nopic.png':child.uhomepic}" /><span th:text="${child.uname}">时尚女鞋</span></li>
+					</li>
+				</ul>
+			</section>
+			
+			<!-- 
+			<section class="menu-right padding-all j-content">
+				<h5>鞋/箱包</h5>
+				<ul>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(48);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/15401_thumb_G_1441858511210.jpg" /><span>时尚女鞋</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(49);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/16564_thumb_G_1441858523971.jpg" /><span>坡跟凉鞋</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(50);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/15831_thumb_G_1441858533119.jpg" /><span>平底凉鞋</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(51);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/18441_thumb_G_1441858542711.jpg" /><span>高跟凉鞋</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(52);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/16766_thumb_G_1441858548344.jpg" /><span>坡跟凉拖</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(53);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/17062_thumb_G_1441858558472.jpg" /><span>平底单鞋</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(54);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/16893_thumb_G_1441858568061.jpg" /><span>人字拖</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(55);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/14929_thumb_G_1441858577052.jpg" /><span>国际潮牌</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(56);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/18163_thumb_G_1441858587570.jpg" /><span>商场同款</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(57);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/831_thumb_G_1441842549169.jpg" /><span>国内知名</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(58);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/13671_thumb_G_1441858600221.jpg" /><span>流行男鞋</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(59);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/15755_thumb_G_1441858610158.jpg" /><span>休闲鞋</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(60);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/15595_thumb_G_1441858619853.jpg" /><span>凉鞋</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(62);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/15725_thumb_G_1441858634503.jpg" /><span>拖鞋</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(63);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/14942_thumb_G_1441858642035.jpg" /><span>帆布鞋</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(64);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/4460_thumb_G_1441858646922.jpg" /><span>沙滩鞋</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(65);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/14415_thumb_G_1441858657538.jpg" /><span>板鞋</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(66);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/12132_thumb_G_1441858668531.jpg" /><span>夏季新品</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(67);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/1128_thumb_G_1441858673854.jpg" /><span>专柜同款</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(68);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/2877_thumb_G_1441858680003.jpg" /><span>潮流女包</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(69);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/13281_thumb_G_1441858691582.jpg" /><span>真皮女包</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(70);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/10675_thumb_G_1441858701617.jpg" /><span>女士钱包</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(71);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/17359_thumb_G_1441858712485.jpg" /><span>女双肩包</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(72);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/17633_thumb_G_1441858722910.jpg" /><span>真皮男包</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(73);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/10285_thumb_G_1441858730551.jpg" /><span>斜挎男包</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(74);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/10173_thumb_G_1441858741367.jpg" /><span>男双肩包</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(75);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9161_thumb_G_1441858752513.jpg" /><span>旅行箱</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(76);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/14803_thumb_G_1441858763809.jpg" /><span>限量奢品</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(77);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7373_thumb_G_1441858774998.jpg" /><span>真皮皮带</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(61);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201601/1453970661139274581.jpg" /><span>正装皮鞋88</span></li>
+				</ul>
+			</section>
+			<section class="menu-right padding-all j-content" style="display:none">
+				<h5>珠宝首饰/手表眼镜</h5>
+				<ul>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(79);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/10066_thumb_G_1441848785567.jpg" /><span>珠宝</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(80);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7154_thumb_G_1441848794257.jpg" /><span>饰品</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(81);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/16824_thumb_G_1441848803635.jpg" /><span>黄金</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(82);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/1232_thumb_G_1441848805256.jpg" /><span>手链</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(83);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/11703_thumb_G_1441848816255.jpg" /><span>钻石</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(84);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/12119_thumb_G_1441848824956.jpg" /><span>项链</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(85);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/6752_thumb_G_1441848832644.jpg" /><span>珍珠</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(86);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/12468_thumb_G_1441848840572.jpg" /><span>手镯</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(87);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/11642_thumb_G_1441848849946.jpg" /><span>翡翠</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(88);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7233_thumb_G_1441848857629.jpg" /><span>发饰</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(89);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/18934_thumb_G_1441848874618.jpg" /><span>彩宝</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(90);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8036_thumb_G_1441848881947.jpg" /><span>项坠</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(91);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/15627_thumb_G_1441848891288.jpg" /><span>玉石</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(92);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7170_thumb_G_1441848899677.jpg" /><span>戒指</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(93);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8855_thumb_G_1441848909748.jpg" /><span>铂金</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(94);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/18998_thumb_G_1441848925369.jpg" /><span>耳饰</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(95);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9633_thumb_G_1441848932522.jpg" /><span>男表</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(96);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7629_thumb_G_1441848943943.jpg" /><span>太阳镜</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(97);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19056_thumb_G_1441848961196.jpg" /><span>女表</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(98);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/14054_thumb_G_1441848969452.jpg" /><span>炫彩反光</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(99);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9986_thumb_G_1441848979546.jpg" /><span>情侣表</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(100);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/11047_thumb_G_1441848988300.jpg" /><span>近视墨镜</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(101);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/12026_thumb_G_1441848997082.jpg" /><span>防水表</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(102);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/585_thumb_G_1441842506939.jpg" /><span>蛤蟆镜</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(103);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/12829_thumb_G_1441849010808.jpg" /><span>机械表</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(104);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7234_thumb_G_1441849019636.jpg" /><span>框架眼镜</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(105);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/14670_thumb_G_1441849029895.jpg" /><span>运动表</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(106);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/4883_thumb_G_1441849037420.jpg" /><span>ZIPPO</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(107);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/2101_thumb_G_1441849042468.jpg" /><span>时装表</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(108);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/26_thumb_G_1441841401795.jpg" /><span>打火机</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(109);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/1360_thumb_G_1441849051942.jpg" /><span>陶瓷表</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(110);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/1460_thumb_G_1441849062071.jpg" /><span>瑞士军刀</span></li>
+				</ul>
+			</section>
+			<section class="menu-right padding-all j-content" style="display:none">
+				<h5>美妆护肤</h5>
+				<ul>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(112);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/5360_thumb_G_1441858799389.jpg" /><span>官方直售</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(113);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/14421_thumb_G_1441858811680.jpg" /><span>护肤套装</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(114);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9214_thumb_G_1441858816845.jpg" /><span>面膜</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(115);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/4475_thumb_G_1441858823309.jpg" /><span>乳液面霜</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(116);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9023_thumb_G_1441858832883.jpg" /><span>身体护理</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(117);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/3202_thumb_G_1441858840515.jpg" /><span>化妆水</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(118);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/6713_thumb_G_1441858849109.jpg" /><span>防晒</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(119);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/3502_thumb_G_1441858856537.jpg" /><span>洁面</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(120);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/6130_thumb_G_1441858865030.jpg" /><span>精油芳疗</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(121);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/4189_thumb_G_1441858875474.jpg" /><span>面部精华</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(122);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7920_thumb_G_1441858885010.jpg" /><span>眼霜</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(123);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/6259_thumb_G_1441858893701.jpg" /><span>男士护理</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(124);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/5316_thumb_G_1441858901188.jpg" /><span>卸妆</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(125);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/4553_thumb_G_1441858910704.jpg" /><span>时尚彩妆</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(126);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/17320_thumb_G_1441858921486.jpg" /><span>BB霜</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(127);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9855_thumb_G_1441858926886.jpg" /><span>香水</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(128);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/3738_thumb_G_1441858935845.jpg" /><span>隔离霜</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(129);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19116_thumb_G_1441858951061.jpg" /><span>睫毛膏</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(130);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/10845_thumb_G_1441858958848.jpg" /><span>唇膏口红</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(131);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/4197_thumb_G_1441858966556.jpg" /><span>粉饼</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(132);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7516_thumb_G_1441858976495.jpg" /><span>美容工具</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(133);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/6858_thumb_G_1441858986233.jpg" /><span>洗发护发</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(134);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/5909_thumb_G_1441858997078.jpg" /><span>沐浴露</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(135);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7374_thumb_G_1441859006196.jpg" /><span>假发</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(136);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19173_thumb_G_1441859027650.jpg" /><span>染发烫发</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(137);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8713_thumb_G_1441859036217.jpg" /><span>卫生巾</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(138);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7489_thumb_G_1441859049474.jpg" /><span>牙膏</span></li>
+				</ul>
+			</section>
+			<section class="menu-right padding-all j-content" style="display:none">
+				<h5>家用电器</h5>
+				<ul>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(170);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8731_thumb_G_1442261113334.jpg" /><span>天猫分期</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(171);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19241_thumb_G_1442264928178.jpg" /><span>冰箱</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(172);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/13980_thumb_G_1442262835569.jpg" /><span>空调</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(173);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9994_thumb_G_1442261523249.jpg" /><span>洗衣机</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(174);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/13310_thumb_G_1442262613686.jpg" /><span>平板电视</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(175);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/10401_thumb_G_1442261654983.jpg" /><span>热水器</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(176);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7737_thumb_G_1442260792481.jpg" /><span>家庭影院</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(177);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8085_thumb_G_1442260899670.jpg" /><span>消毒柜</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(178);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/11470_thumb_G_1442261999134.jpg" /><span>烟灶套装</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(179);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/13674_thumb_G_1442262732818.jpg" /><span>电风扇</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(180);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/13700_thumb_G_1442262740085.jpg" /><span>榨汁机</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(181);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/14048_thumb_G_1442262857909.jpg" /><span>空调扇</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(182);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/11796_thumb_G_1442262110866.jpg" /><span>料理机</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(183);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9896_thumb_G_1442261492056.jpg" /><span>豆浆机</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(184);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8788_thumb_G_1442261131006.jpg" /><span>电压力锅</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(185);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/11664_thumb_G_1442262062032.jpg" /><span>电烤箱</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(186);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/11239_thumb_G_1442261927478.jpg" /><span>电饭煲</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(187);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19292_thumb_G_1442264942055.jpg" /><span>挂烫机</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(188);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19352_thumb_G_1442264958667.jpg" /><span>电热水壶</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(189);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8841_thumb_G_1442261149323.jpg" /><span>净水器</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(190);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9071_thumb_G_1442261221877.jpg" /><span>剃须刀</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(191);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/12374_thumb_G_1442262298759.jpg" /><span>扫地机</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(192);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7166_thumb_G_1442260604230.jpg" /><span>电吹风</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(193);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9979_thumb_G_1442261518821.jpg" /><span>吸尘器</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(194);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9765_thumb_G_1442261450619.jpg" /><span>家用氧吧</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(195);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/12556_thumb_G_1442262358802.jpg" /><span>空气净化</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(196);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9832_thumb_G_1442261470450.jpg" /><span>按摩椅</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(197);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/12205_thumb_G_1442262242562.jpg" /><span>除湿器</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(198);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/6624_thumb_G_1442260428617.jpg" /><span>按摩靠垫</span></li>
+				</ul>
+			</section>
+			<section class="menu-right padding-all j-content" style="display:none">
+				<h5>家具建材</h5>
+				<ul>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(227);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7035_thumb_G_1441858178170.jpg" /><span>灯具</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(228);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8395_thumb_G_1441858187870.jpg" /><span>柜类</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(229);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/6705_thumb_G_1441858198853.jpg" /><span>卫浴</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(230);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9250_thumb_G_1441858209736.jpg" /><span>沙发</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(231);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19615_thumb_G_1441858228792.jpg" /><span>开关插座</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(232);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8681_thumb_G_1441858237143.jpg" /><span>床类</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(233);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/11768_thumb_G_1441858250629.jpg" /><span>壁纸</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(234);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7245_thumb_G_1441858262438.jpg" /><span>桌类</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(235);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9305_thumb_G_1441858273262.jpg" /><span>地板</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(236);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8376_thumb_G_1441858285480.jpg" /><span>坐具</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(237);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8054_thumb_G_1441858296450.jpg" /><span>厨房</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(238);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/202_thumb_G_1441841431032.jpg" /><span>0元分期</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(239);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7440_thumb_G_1441858311973.jpg" /><span>架类</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(240);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9764_thumb_G_1441858321922.jpg" /><span>门类</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(241);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/2238_thumb_G_1441858326350.jpg" /><span>书房</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(242);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19674_thumb_G_1441858346089.jpg" /><span>浴霸</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(243);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/10114_thumb_G_1441858355657.jpg" /><span>几类</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(244);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8230_thumb_G_1441858366086.jpg" /><span>安防监控</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(245);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/10334_thumb_G_1441858377651.jpg" /><span>案台</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(246);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/6152_thumb_G_1441858389536.jpg" /><span>五金工具</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(248);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/10482_thumb_G_1441858400560.jpg" /><span>瓷砖</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(249);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19757_thumb_G_1441858421046.jpg" /><span>办公家具</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(250);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19793_thumb_G_1441858431854.jpg" /><span>集成吊顶</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(251);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/10635_thumb_G_1441858441666.jpg" /><span>户外家具</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(252);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/6261_thumb_G_1441858456646.jpg" /><span>油漆</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(253);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/11088_thumb_G_1441858467562.jpg" /><span>成套家具</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(254);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/6809_thumb_G_1441858476574.jpg" /><span>镜子类</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(255);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/12130_thumb_G_1441858487457.jpg" /><span>装修</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(256);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/1621_thumb_G_1441858493722.jpg" /><span>设计</span></li>
+				</ul>
+			</section>
+			<section class="menu-right padding-all j-content" style="display:none">
+				<h5>手机/数码</h5>
+				<ul>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(140);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/13667_thumb_G_1441849081533.jpg" /><span>天猫分期</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(143);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/14815_thumb_G_1441849088691.jpg" /><span>三星盖世</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(145);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/3451_thumb_G_1441849091506.jpg" /><span>华为荣耀</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(147);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/13007_thumb_G_1441849094712.jpg" /><span>酷派大神</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(149);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8618_thumb_G_1441849100534.jpg" /><span>双卡双待</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(150);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/11011_thumb_G_1441849110397.jpg" /><span>DIY电脑</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(151);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8877_thumb_G_1441849118964.jpg" /><span>笔记本</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(152);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/11933_thumb_G_1441849127685.jpg" /><span>显示器</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(153);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/17288_thumb_G_1441849136369.jpg" /><span>平板电脑</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(154);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7384_thumb_G_1441849145756.jpg" /><span>电教文具</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(155);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/12144_thumb_G_1441849155203.jpg" /><span>路由器</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(156);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/12101_thumb_G_1441849163187.jpg" /><span>投影仪</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(157);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7781_thumb_G_1441849172824.jpg" /><span>打印机</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(158);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/11960_thumb_G_1441849181218.jpg" /><span>电脑硬件</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(159);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/16542_thumb_G_1441849186058.jpg" /><span>自拍神器</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(160);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/6341_thumb_G_1441849193234.jpg" /><span>U盘</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(161);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8071_thumb_G_1441849203247.jpg" /><span>单反</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(162);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/11883_thumb_G_1441849212567.jpg" /><span>高清盒子</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(163);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/11797_thumb_G_1441849221624.jpg" /><span>苹果配件</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(164);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/11348_thumb_G_1441849231279.jpg" /><span>tf卡</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(165);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/12834_thumb_G_1441849239342.jpg" /><span>移动电源</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(166);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/10338_thumb_G_1441849247019.jpg" /><span>耳机耳麦</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(167);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9327_thumb_G_1441849255041.jpg" /><span>移动硬盘</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(168);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9576_thumb_G_1441849265914.jpg" /><span>音箱音响</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(141);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201601/1453962760249962614.jpg" /><span>小米手机</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(142);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201601/1453962981727573713.jpg" /><span>iPhone</span></li>
+				</ul>
+			</section>
+			<section class="menu-right padding-all j-content" style="display:none">
+				<h5>居家生活</h5>
+				<ul>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(200);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7173_thumb_G_1442260606646.jpg" /><span>炒锅</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(201);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19412_thumb_G_1442264976512.jpg" /><span>置物架</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(202);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/6718_thumb_G_1442260461562.jpg" /><span>杯子</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(203);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9575_thumb_G_1442261385079.jpg" /><span>瓷器套装</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(204);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19472_thumb_G_1442264993240.jpg" /><span>紫砂壶</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(205);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9981_thumb_G_1442261519559.jpg" /><span>刀具</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(206);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201512/thumb_img/8895_thumb_G_1449026296092.jpg" /><span>保鲜盒</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(207);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/6804_thumb_G_1442260488231.jpg" /><span>收纳</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(208);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8910_thumb_G_1442261171642.jpg" /><span>拖把</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(209);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/10651_thumb_G_1442261737757.jpg" /><span>衣架</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(210);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/13783_thumb_G_1442262767589.jpg" /><span>晾衣架</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(211);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7947_thumb_G_1442260856442.jpg" /><span>垃圾桶</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(212);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/5096_thumb_G_1442259929347.jpg" /><span>梳子</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(213);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/12828_thumb_G_1442262449601.jpg" /><span>防蚊贴</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(214);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19505_thumb_G_1442265004970.jpg" /><span>降温神器</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(215);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/13412_thumb_G_1442262646267.jpg" /><span>晴雨伞</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(216);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/13285_thumb_G_1442262604677.jpg" /><span>灭蚊灯</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(217);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/5429_thumb_G_1442260035613.jpg" /><span>创意礼品</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(218);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9689_thumb_G_1442261426404.jpg" /><span>缝纫机</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(219);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9605_thumb_G_1442261396156.jpg" /><span>钟</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(220);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/6478_thumb_G_1442260379448.jpg" /><span>狗狗主粮</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(221);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/11309_thumb_G_1442261948996.jpg" /><span>纸巾</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(222);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19555_thumb_G_1442265019743.jpg" /><span>水族世界</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(223);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/10368_thumb_G_1442261642834.jpg" /><span>洗衣液</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(224);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/6980_thumb_G_1442260543374.jpg" /><span>宠物用品</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(225);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8897_thumb_G_1442261167985.jpg" /><span>清洁剂</span></li>
+				</ul>
+			</section>
+			<section class="menu-right padding-all j-content" style="display:none">
+				<h5>女装</h5>
+				<ul>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(3);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/17925_thumb_G_1441848608042.jpg" /><span>真丝裙</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(5);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/13923_thumb_G_1441848626877.jpg" /><span>休闲裤</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(6);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/16857_thumb_G_1441848637052.jpg" /><span>蕾丝衫</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(7);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/15082_thumb_G_1441848647890.jpg" /><span>热裤</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(8);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/15348_thumb_G_1441848657013.jpg" /><span>休闲套装</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(9);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/14398_thumb_G_1441848669449.jpg" /><span>衬衫</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(10);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/16414_thumb_G_1441848678323.jpg" /><span>半身裙</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(12);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/14020_thumb_G_1441848694655.jpg" /><span>牛仔裤</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(13);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/13197_thumb_G_1441848703754.jpg" /><span>雪纺裙裤</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(14);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/17958_thumb_G_1441848714145.jpg" /><span>商场同款</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(15);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/13429_thumb_G_1441848724643.jpg" /><span>文胸</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(16);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/14529_thumb_G_1441848734901.jpg" /><span>夏季睡衣</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(17);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/11692_thumb_G_1441848746105.jpg" /><span>内裤</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(2);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/15419_thumb_G_1441848598885.jpg" /><span>连衣裙</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(4);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/14944_thumb_G_1441848615164.jpg" /><span>T恤</span></li>
+				</ul>
+			</section>
+			<section class="menu-right padding-all j-content" style="display:none">
+				<h5>男装</h5>
+				<ul>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(19);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/12931_thumb_G_1441857911250.jpg" /><span>男装集结</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(20);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/14641_thumb_G_1441857921340.jpg" /><span>百搭T恤</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(21);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/13095_thumb_G_1441857931804.jpg" /><span>牛仔裤</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(22);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/13586_thumb_G_1441857939859.jpg" /><span>条纹T恤</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(23);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/17023_thumb_G_1441857949973.jpg" /><span>亚麻T恤</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(24);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/15077_thumb_G_1441857960982.jpg" /><span>印花T恤</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(25);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/15638_thumb_G_1441857968467.jpg" /><span>丝光棉T</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(26);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/733_thumb_G_1441842531957.jpg" /><span>休闲裤</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(27);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/14257_thumb_G_1441857982721.jpg" /><span>棉麻裤</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(29);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/15786_thumb_G_1441857992654.jpg" /><span>九分裤</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(30);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/816_thumb_G_1441842547596.jpg" /><span>新POLO</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(31);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/13576_thumb_G_1441858003920.jpg" /><span>短袖衬衫</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(32);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/18665_thumb_G_1441858015448.jpg" /><span>亚麻衬衫</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(33);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/14970_thumb_G_1441858028181.jpg" /><span>格纹衬衫</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(34);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/15415_thumb_G_1441858037911.jpg" /><span>牛仔衬衫</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(35);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/10606_thumb_G_1441858047166.jpg" /><span>背心</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(36);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8299_thumb_G_1441858057093.jpg" /><span>运动鞋</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(37);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/12686_thumb_G_1441858068402.jpg" /><span>运动服</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(38);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/12880_thumb_G_1441858078140.jpg" /><span>帆布鞋</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(39);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/17449_thumb_G_1441858090964.jpg" /><span>跑步鞋</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(40);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/13817_thumb_G_1441858096502.jpg" /><span>运动T恤</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(41);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/14105_thumb_G_1441858107882.jpg" /><span>运动短裤</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(42);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8685_thumb_G_1441858118587.jpg" /><span>垂钓用品</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(43);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9004_thumb_G_1441858128034.jpg" /><span>户外服装</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(44);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7237_thumb_G_1441858139872.jpg" /><span>健身用品</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(45);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/12004_thumb_G_1441858149805.jpg" /><span>骑行运动</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(46);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7861_thumb_G_1441858160998.jpg" /><span>登山包</span></li>
+				</ul>
+			</section>
+			<section class="menu-right padding-all j-content" style="display:none">
+				<h5>母婴用品</h5>
+				<ul>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(258);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19854_thumb_G_1442265101541.jpg" /><span>孕妇装</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(259);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/19914_thumb_G_1442265120005.jpg" /><span>孕妇洗护</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(260);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/4689_thumb_G_1442259796057.jpg" /><span>防辐射</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(261);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/5797_thumb_G_1442260155674.jpg" /><span>产后用品</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(262);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/6110_thumb_G_1442260257860.jpg" /><span>内衣裤</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(263);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8479_thumb_G_1442261025058.jpg" /><span>奶粉</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(264);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/10054_thumb_G_1442261541124.jpg" /><span>辅食</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(265);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9244_thumb_G_1442261276751.jpg" /><span>纸尿裤</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(266);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7017_thumb_G_1442260555102.jpg" /><span>凉席睡袋</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(267);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7175_thumb_G_1442260607662.jpg" /><span>奶瓶奶嘴</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(268);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7973_thumb_G_1442260865167.jpg" /><span>喂养小电</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(269);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8301_thumb_G_1442260968869.jpg" /><span>澡盆洗护</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(270);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8480_thumb_G_1442261025504.jpg" /><span>婴儿床</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(271);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/13788_thumb_G_1442262769777.jpg" /><span>安全座椅</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(272);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/5900_thumb_G_1442260188635.jpg" /><span>玩具</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(273);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9428_thumb_G_1442261336368.jpg" /><span>婴儿玩具</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(274);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9410_thumb_G_1442261331004.jpg" /><span>幼儿玩具</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(275);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/10665_thumb_G_1442261742806.jpg" /><span>早教益智</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(276);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/7745_thumb_G_1442260794182.jpg" /><span>男孩玩具</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(277);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/8942_thumb_G_1442261180146.jpg" /><span>女孩玩具</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(278);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9242_thumb_G_1442261275492.jpg" /><span>童车学步</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(279);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/6403_thumb_G_1442260355356.jpg" /><span>潮流动漫</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(280);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/9331_thumb_G_1442261304425.jpg" /><span>婴幼儿服</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(281);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/11193_thumb_G_1442261912122.jpg" /><span>儿童内衣</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(282);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/14563_thumb_G_1442263039410.jpg" /><span>童装</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(283);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/14540_thumb_G_1442263031607.jpg" /><span>童鞋</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(284);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/14735_thumb_G_1442263101306.jpg" /><span>T恤</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(285);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/15417_thumb_G_1442263349429.jpg" /><span>连衣裙</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(286);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/14600_thumb_G_1442263051085.jpg" /><span>亲子装</span></li>
+					<li class="w-3">
+						<a href="javascript:void(0);" onclick='javascript:redirect_list(287);'></a>
+						<img src="https://shop.ectouch.cn/ectouch/wsc/images/201509/thumb_img/1874_thumb_G_1442258888488.jpg" /><span>凉鞋</span></li>
+				</ul>
+			</section>
+		
+			-->
+		</div>
+		<footer class="footer-nav dis-box">
+			<a href="/h5/index" class="box-flex nav-list">
+				<i class="nav-box i-home"></i><span>首页</span>
+			</a>
+			<a href="#" class="box-flex nav-list active">
+				<i class="nav-box i-cate"></i><span>分类</span>
+			</a>
+
+			<a href="/h5/cart/" class="box-flex position-rel nav-list">
+				<i class="nav-box i-flow"></i><span>购物车</span>
+			</a>
+			<a href="/h5/personal_center" class="box-flex nav-list">
+				<i class="nav-box i-user"></i><span>我的</span>
+			</a>
+		</footer>
+		<div class="search-div ts-3">
+			<section class="search">
+				<form action="/h5/category/goods/type">
+					<div class="text-all dis-box j-text-all">
+						<a class="a-icon-back j-close-search" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou is-left-font"></i></a>
+						<div class="box-flex input-text">
+							<input class="j-input-text" type="text" name="keywords" placeholder="请输入搜索关键词！" id="newinput" />
+							<i class="iconfont icon-guanbi2 is-null j-is-null"></i>
+						</div>
+						<button type="submit" class="btn-submit">搜索</button>
+					</div>
+				</form>
+			</section>
+			<section class="search-con">
+				<div class="swiper-scroll history-search">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<p>
+								<label class="fl">热门搜索</label>
+							</p>
+							<ul class="hot-search a-text-more">
+								<li class="w-3">
+									<a href="category_goods.html"><span>美国</span></a>
+								</li>
+								<li class="w-3">
+									<a href="category_goods.html"><span>新生婴儿</span></a>
+								</li>
+							</ul>
+							<p class="hos-search">
+								<label class="fl">最近搜索</label>
+								<span class="fr" onclick="javascript:clearHistroy();"><i class="iconfont icon-xiao10 is-xiao10 jian-top fr"></i></span>
+							</p>
+
+							<ul class="hot-search a-text-more a-text-one" id="search_histroy">
+								<li>
+									<a href="category_goods.html"><span>美国</span></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="swiper-scrollbar"></div>
+				</div>
+			</section>
+			<footer class="close-search j-close-search">
+				点击关闭
+			</footer>
+		</div>
+		<script type="text/javascript">
+			//设置cookie
+			function setCookie(cname, cvalue, exdays) {
+				var d = new Date();
+				d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+				var expires = "expires=" + d.toUTCString();
+				document.cookie = cname + "=" + cvalue + "; " + expires;
+			}
+
+			function clearHistroy() {
+				setCookie('ECS[keywords]', '', -1);
+				document.getElementById("search_histroy").style.visibility = "hidden";
+			}
+		</script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/swiper.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/ectouch.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/jquery.json.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery-ui-1.10.1.custom.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery.ui.touch-punch.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery.scrollUp.min.js"></script>
+		<script type="text/javascript" src="/h5/themes/default/statics/js/jquery.lazyload.min.js"></script>
+		<script type="text/javascript" src="/h5/data/assets/js/common.js"></script>
+		<script type="text/javascript">
+			$(function($) {
+				$('#sidebar ul li').click(function() {
+					$(this).addClass('active').siblings('li').removeClass('active');
+					var index = $(this).index();
+					$('.j-content').eq(index).show().siblings('.j-content').hide();
+					$(window).scrollTop(0);
+				})
+			})
+
+			function redirect_list(id) {
+				localData.remove('cat_' + id + '_page');
+				localData.remove('cat_' + id + '_page_min');
+				localData.remove('cat_' + id + '_page_max');
+				// window.location.href = 'index.php?c=category&id=' + id + '&u=0';
+				window.location.href = '/h5/category/goods/'+id;
+			}
+
+
+
+
+
+
+
+
+		</script>
+	</body>
+</html>
